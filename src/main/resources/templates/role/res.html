@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            var hasReses = new Array();
+            $(".hasRes").each(function () {
+                hasReses.push($(this).val());
+            });
+            $(".setPermission").each(function () {
+                if ($.inArray($(this).val(), hasReses) >= 0) {
+                    $(this).attr("checked", "checked");
+                }
+            });
+            $(".setPermission").click(function () {
+                var c = 0;
+                if (this.checked) {
+                    c = 1;
+                }
+                var resId = $(this).val();
+                var roleId = $("#roleId").val();
+                // console.log("resId:"+resId + "roleId:"+roleId + "c:"+c);
+                $.post("/admin/role/setRes", {c: c, resId: resId, roleId: roleId}, function (data) {
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="content">
+    <div th:include="role/inc :: head"></div>
+    <h4 th:text=" ${role.name }+'----'+${role.sn}"></h4>
+    <input type="hidden" id="roleId" th:value="${role.id }"/>
+    <table width="800" cellspacing="0" cellPadding="0" id="listTable" border="1">
+        <thead>
+        <tr>
+            <td>资源名称</td>
+            <td>资源url</td>
+            <td>资源权限字符串</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <span th:each="rid:${rids}">
+                        <input type="hidden" class="hasRes" name="hasRole" th:value="${rid}"/></span>
+        <tr th:each="res:${reses}">
+            <td th:text="${res.name }"
+            ></td>
+            <td th:text="${res.url}"></td>
+            <td th:text="${res.permission }">&nbsp;</td>
+            <td>
+                <input type="checkbox" name="setPermission" class="setPermission" th:value="${res.id }"/>
+                &nbsp;
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>权限错误</title>
+</head>
+
+<body>
+<div th:include="common :: common"></div>
+<font color="blue">
+    Request method 'GET' not supported
+    <br/><br/>
+    The specified HTTP method is not allowed for the requested resource.
+    <h1>对不起，您没有权限请求此连接！</h1>
+</font>
+</body>
+</html>

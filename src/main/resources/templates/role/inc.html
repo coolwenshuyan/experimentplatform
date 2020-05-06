@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="head">
+<span>
+    <div th:include="common :: common"></div>
+<a href="/admin/role/add" class="admin_link">添加角色</a>
+<a href="/admin/role/list" class="admin_link">角色列表</a>
+</span></div>
+</body>
+</html>

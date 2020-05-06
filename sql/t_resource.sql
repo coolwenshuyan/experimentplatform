@@ -1,0 +1,10 @@
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (1, '系统管理', 'admin:*', '/admin/**');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (2, '用户管理', 'user:*', '/admin/user/*');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (3, '用户添加', NULL, '/admin/user/add');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (4, '用户删除', NULL, '/admin/user/delete');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (5, '角色管理', NULL, '/admin/role/*');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (6, '角色添加', NULL, '/admin/role/add');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (7, '角色修改', NULL, '/admin/role/update');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (8, 'Test', 'test', '/admin/admin/*');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (9, '资源管理', 'res:*', '/admin/res/*');
+INSERT INTO `t_resource` (`id`, `name`, `permission`, `url`) VALUES (10, 'test', 'test', '/admin/*');

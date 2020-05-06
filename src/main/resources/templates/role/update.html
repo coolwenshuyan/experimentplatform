@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!--<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>-->
+    <script type="text/javascript" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+            var hasRoles = new Array();
+            console.log(hasRoles);
+            $(".hasRole").each(function () {
+                hasRoles.push($(this).val());
+            });
+            $(".rids").each(function () {
+                if ($.inArray($(this).val(), hasRoles) >= 0) {
+                    $(this).attr("checked", "checked");
+                }
+            });
+        });
+    </script>
+    <title>Title</title>
+</head>
+<body>
+<div id="content">
+    <div th:include="role/inc :: head"></div>
+    <form role="form" th:method="post" th:object="${role}" id="updateForm">
+        <table width="800" cellspacing="0" cellPadding="0">
+            <thead>
+            <tr>
+                <td colspan="2">更新角色功能</td>
+            </tr>
+            </thead>
+            <tr>
+                <td class="rightTd" width="200px">角色名称:</td>
+                <td class="leftTd">
+                    <input path="name" size="30" th:field="${role.name}"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="rightTd">角色SN:</td>
+                <td class="leftTd">
+                    <input path="sn" size="30" th:field="${role.sn}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centerTd"><input type="submit" value="更新角色"/><input type="reset"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

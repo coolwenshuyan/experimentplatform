@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!--<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>-->
+    <title>Title</title>
+</head>
+<body>
+<div id="content">
+    <div th:include="role/inc :: head"></div>
+    <form role="form" th:method="post" th:object="${role}" id="addForm">
+        <table width="800" cellspacing="0" cellPadding="0">
+            <thead>
+            <tr>
+                <td colspan="2">添加角色功能</td>
+            </tr>
+            </thead>
+            <tr>
+                <td class="rightTd" width="200px">角色名称:</td>
+                <td class="leftTd"><input type="text" th:field="${role.name}" size="30"/></td>
+            </tr>
+            <tr>
+                <td class="rightTd">角色SN:</td>
+                <td class="leftTd">
+                    <input th:field="${role.sn}" size="30"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centerTd"><input type="submit" value="添加角色"/><input type="reset"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

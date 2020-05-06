@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!--<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>-->
+    <title>Title</title>
+</head>
+<body>
+<div id="content">
+    <div th:include="user/inc :: head"></div>
+    <form role="form" th:method="post" th:object="${user}" id="addForm">
+        <table width="800" cellspacing="0" cellPadding="0">
+            <thead>
+            <tr>
+                <td colspan="2">添加用户功能</td>
+            </tr>
+            </thead>
+            <tr>
+                <td class="rightTd" width="200px">用户名(必须是英文):</td>
+                <td class="leftTd"><input type="text" th:field="${user.username}" size="30"/></td>
+            </tr>
+            <tr>
+                <td class="rightTd">显示名称(可以是中文):</td>
+                <td class="leftTd">
+                    <input th:field="${user.nickname}" size="30"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="rightTd">用户密码:</td>
+                <td>
+                    <input type="password" th:field="${user.password}" size="30"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="rightTd">状态:</td>
+                <td>
+                    <select path="status" th:field="${user.status}">
+                        <option value=""> -- 请选择 --</option>
+                        <option th:value="0" th:text="启用"></option>
+                        <option th:value="1" th:text="停用"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="rightTd">角色:</td>
+                <td>
+                    <span th:each="role:${roles}" >
+                        <input type="checkbox" class="rids" name="rids" th:text="${role.name } "
+                               th:value="${role.id }"/>
+                        </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="centerTd"><input type="submit" value="添加用户"/><input type="reset"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

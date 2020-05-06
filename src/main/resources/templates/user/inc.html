@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="head"><span>
+    <div th:include="common :: common"></div>
+<a href="/admin/user/add" class="admin_link">添加用户</a>
+<a href="/admin/user/list" class="admin_link">用户列表</a>
+</span></div>
+
+</body>
+</html>

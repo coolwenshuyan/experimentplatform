@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="layout :: htmlhead" th:with="title='后台管理'">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:include="res/inc :: head"></div>
+<div id="content">
+    <table width="800" cellspacing="0" cellPadding="0" id="listTable" border="1">
+        <thead>
+        <tr>
+            <td>资源表示</td>
+            <td>名称</td>
+            <td>URL</td>
+            <td>权限字符串</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="res:${reses}">
+            <td th:text="${res.id}"></td>
+            <td th:text="${res.name }">
+            <td th:text="${res.url }"></td>
+            <td th:text="${res.permission }">&nbsp;</td>
+            <td>
+                <a th:href="@{|update/${res.id }|}" class="list_op">更新</a>&nbsp;
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="content">
+    <div th:include="user/inc :: head"></div>
+    <h4 th:text=" ${user.username }+'----'+${user.nickname}"></h4>
+    <!--<input type="hidden" id="roleId" th:text="${role.id }"/>-->
+    <table width="800" cellspacing="0" cellPadding="0" id="listTable" border="1">
+        <thead>
+        <tr>
+            <td>资源名称</td>
+            <td>资源url</td>
+            <td>资源权限字符串</td>
+        </tr>
+        </thead>
+        <!--<tbody th:each="rid ${rids}">-->
+        <!--<input type="hidden" class="hasRes" th:text="${rid }"/>-->
+        <tr th:each="res:${reses}">
+            <td th:text="${res.name }"
+            ></td>
+            <td th:text="${res.url}"></td>
+            <td th:text="${res.permission }">&nbsp;</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

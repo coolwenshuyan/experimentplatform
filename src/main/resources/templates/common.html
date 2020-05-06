@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="common">
+Hello Shiro!
+<shiro:authenticated>
+	<shiro:hasPermission name="/admin/res/list">
+	<a href="/admin/res/list" class="admin_link">资源管理</a>
+	</shiro:hasPermission>
+	<shiro:hasPermission name="/admin/role/list">
+	<a href="/admin/role/list" class="admin_link">角色管理</a>
+	</shiro:hasPermission>
+	<shiro:hasPermission name="/admin/user/list">
+	<a href="/admin/user/list" class="admin_link">用户管理</a>
+	</shiro:hasPermission>
+	<a href="/logout">退出系统</a>
+	欢迎 <shiro:principal property="nickname"/>&nbsp;使用我们的系统!
+</shiro:authenticated>
+<shiro:guest>
+	<a href="/login">登录系统</a>
+</shiro:guest>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8" />
+    <title>login</title>
+</head>
+<body>
+ <h1 th:text="|Hello ExperimentPlatform!${emsg}|"></h1>
+<form action="/login" method="post">
+    Username:<input type="text" name="username"/><br/>
+    Password:<input type="password" name="password"/><br/>
+    <input type="submit"/>
+</form>
+<a href="add">注册</a>
+</body>
+</html>
