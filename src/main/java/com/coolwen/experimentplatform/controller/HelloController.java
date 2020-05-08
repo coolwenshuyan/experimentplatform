@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class HelloController {
-
     @RequestMapping("/test")
 //    @RequiresRoles("Admin")
     public String hello() {
