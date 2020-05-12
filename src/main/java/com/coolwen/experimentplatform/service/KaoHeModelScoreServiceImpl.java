@@ -3,6 +3,7 @@ package com.coolwen.experimentplatform.service;
 import com.coolwen.experimentplatform.dao.KaoHeModelScoreRepository;
 import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author Artell
  * @date 2020/5/12 18:04
  */
+@Service
 public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
 
     @Autowired
@@ -28,6 +30,11 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
     @Override
     public void delete(int id) {
         kaoHeModelScoreRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByStuId(int sid) {
+        kaoHeModelScoreRepository.deleteById(sid);
     }
 
     @Override

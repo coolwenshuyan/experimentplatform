@@ -9,11 +9,14 @@ import java.util.List;
  * @date 2020/5/12 18:04
  */
 public interface KaoHeModelScoreService {
+
     public void add(KaoHeModelScore res);
 
     public void update(KaoHeModelScore res);
 
     public void delete(int id);
+
+    public void deleteByStuId(int sid);
 
     public KaoHeModelScore load(int id);
 
