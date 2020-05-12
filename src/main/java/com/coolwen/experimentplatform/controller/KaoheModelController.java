@@ -1,7 +1,6 @@
 package com.coolwen.experimentplatform.controller;
 
 
-import com.coolwen.experimentplatform.dao.KaoheModelRepository;
 import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.service.KaoheModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/add")
 public class KaoheModelController {
     @Autowired
     public KaoheModelService kaoheModelService;
@@ -20,7 +19,7 @@ public class KaoheModelController {
     //添加
     @RequestMapping(value = "/add",method = RequestMethod.GET)
     public String add(){
-        return "kaoheModel/add";
+        return "kaohemodel/addkaohe";
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
@@ -32,7 +31,7 @@ public class KaoheModelController {
         u.setM_test_baifenbi(m_test_baifenbi);
         u.setM_report_baifenbi(m_report_baifenbi);
         kaoheModelService.add(u);
-        return "  ";
+        return "kaohemodel/addkaohe";
     }
     //修改
     @RequestMapping(value = "/{id}/update",method = RequestMethod.GET)
@@ -43,7 +42,6 @@ public class KaoheModelController {
     }
     @RequestMapping(value = "/{id}/update",method = RequestMethod.POST)
     public String update(@PathVariable int id,KaoheModel kaoheModel){
-
         KaoheModel u = new KaoheModel();
         u=kaoheModelService.findById(id);
         u.setM_id(kaoheModel.getM_id());
