@@ -24,7 +24,6 @@ public class LearningeffectController {
     @Autowired
     EffectService effectService;
 
-
     @GetMapping(value = "/list")
     public String LearningeffectList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
         Pageable pageable = PageRequest.of(pageNum,3);

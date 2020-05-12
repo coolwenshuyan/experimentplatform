@@ -8,4 +8,5 @@ public interface EffectDao extends PagingAndSortingRepository<Effect,Integer> {
 
     @Query(value="select * from t_effect where id = ?",nativeQuery=true)
     Effect findeffectById(int id);
+
 }

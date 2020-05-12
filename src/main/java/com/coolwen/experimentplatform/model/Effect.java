@@ -7,7 +7,6 @@ import java.util.Date;
 @Entity
 @Table(name = "t_effect")
 public class Effect {
-
     @Id //自动获取id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
