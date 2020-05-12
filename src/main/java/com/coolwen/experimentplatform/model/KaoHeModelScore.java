@@ -16,8 +16,8 @@ public class KaoHeModelScore {
     private int stuId;
     private float mTestScore;
     private float mReportScore;
-    private byte mTeststate;
-    private byte mReportstate;
+    private boolean mTeststate;
+    private boolean mReportstate;
     private int mOrder;
     private float mScale;
     private float mScore;
@@ -25,7 +25,11 @@ public class KaoHeModelScore {
     public KaoHeModelScore() {
     }
 
-    public KaoHeModelScore(int stuId, float mTestScore, float mReportScore, byte mTeststate, byte mReportstate, int mOrder, float mScale, float mScore) {
+    public KaoHeModelScore(int stuId) {
+        this.stuId = stuId;
+    }
+
+    public KaoHeModelScore(int stuId, float mTestScore, float mReportScore, boolean mTeststate, boolean mReportstate, int mOrder, float mScale, float mScore) {
         this.stuId = stuId;
         this.mTestScore = mTestScore;
         this.mReportScore = mReportScore;
@@ -60,19 +64,19 @@ public class KaoHeModelScore {
         this.mReportScore = mReportScore;
     }
 
-    public byte getmTeststate() {
+    public boolean getmTeststate() {
         return mTeststate;
     }
 
-    public void setmTeststate(byte mTeststate) {
+    public void setmTeststate(boolean mTeststate) {
         this.mTeststate = mTeststate;
     }
 
-    public byte getmReportstate() {
+    public boolean getmReportstate() {
         return mReportstate;
     }
 
-    public void setmReportstate(byte mReportstate) {
+    public void setmReportstate(boolean mReportstate) {
         this.mReportstate = mReportstate;
     }
 

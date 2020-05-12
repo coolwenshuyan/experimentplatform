@@ -12,6 +12,7 @@ public interface KaoheModelService {
     public void update(KaoheModel kaoheModel);
 
     public List<KaoheModel> listKaoheModel();
+
     public KaoheModel findById(int id);
 
 }
