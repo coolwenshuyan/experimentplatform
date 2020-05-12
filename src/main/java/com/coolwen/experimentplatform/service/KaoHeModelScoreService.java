@@ -1,7 +1,6 @@
 package com.coolwen.experimentplatform.service;
 
-import com.coolwen.experimentplatform.model.KaoHeModleScore;
-import com.coolwen.experimentplatform.model.Resource;
+import com.coolwen.experimentplatform.model.KaoHeModelScore;
 
 import java.util.List;
 
@@ -11,14 +10,14 @@ import java.util.List;
  * @Description: TODO
  */
 public interface KaoHeModelScoreService {
-    public void add(KaoHeModleScore res);
+    public void add(KaoHeModelScore res);
 
-    public void update(KaoHeModleScore res);
+    public void update(KaoHeModelScore res);
 
     public void delete(int id);
 
-    public KaoHeModleScore load(int id);
+    public KaoHeModelScore load(int id);
 
-    public List<KaoHeModleScore> listKaoHeModleScore();
+    public List<KaoHeModelScore> listKaoHeModleScore();
 
 }

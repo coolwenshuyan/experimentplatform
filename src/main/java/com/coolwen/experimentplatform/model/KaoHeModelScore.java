@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_kaohemodel_score")
-public class KaoHeModleScore {
+public class KaoHeModelScore {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_kaohemodle_id")
     @TableGenerator(name = "t_kaohemodle_id", initialValue = 0, allocationSize = 1,table = "t_kaohemodel_score")
@@ -23,10 +23,10 @@ public class KaoHeModleScore {
     private float mScale;
     private float mScore;
 
-    public KaoHeModleScore() {
+    public KaoHeModelScore() {
     }
 
-    public KaoHeModleScore(int stuId, float mTestScore, float mReportScore, byte mTeststate, byte mReportstate, int mOrder, float mScale, float mScore) {
+    public KaoHeModelScore(int stuId, float mTestScore, float mReportScore, byte mTeststate, byte mReportstate, int mOrder, float mScale, float mScore) {
         this.stuId = stuId;
         this.mTestScore = mTestScore;
         this.mReportScore = mReportScore;

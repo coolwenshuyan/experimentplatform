@@ -1,7 +1,7 @@
 package com.coolwen.experimentplatform.service;
 
-import com.coolwen.experimentplatform.dao.KaoHeModleScoreRepository;
-import com.coolwen.experimentplatform.model.KaoHeModleScore;
+import com.coolwen.experimentplatform.dao.KaoHeModelScoreRepository;
+import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -14,30 +14,30 @@ import java.util.List;
 public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
 
     @Autowired
-    private KaoHeModleScoreRepository kaoHeModleScoreRepository;
+    private KaoHeModelScoreRepository kaoHeModelScoreRepository;
 
     @Override
-    public void add(KaoHeModleScore res) {
-        kaoHeModleScoreRepository.save(res);
+    public void add(KaoHeModelScore res) {
+        kaoHeModelScoreRepository.save(res);
     }
 
     @Override
-    public void update(KaoHeModleScore res) {
-        kaoHeModleScoreRepository.save(res);
+    public void update(KaoHeModelScore res) {
+        kaoHeModelScoreRepository.save(res);
     }
 
     @Override
     public void delete(int id) {
-        kaoHeModleScoreRepository.deleteById(id);
+        kaoHeModelScoreRepository.deleteById(id);
     }
 
     @Override
-    public KaoHeModleScore load(int id) {
-        return kaoHeModleScoreRepository.findById(id).get();
+    public KaoHeModelScore load(int id) {
+        return kaoHeModelScoreRepository.findById(id).get();
     }
 
     @Override
-    public List<KaoHeModleScore> listKaoHeModleScore() {
-        return kaoHeModleScoreRepository.findAll();
+    public List<KaoHeModelScore> listKaoHeModleScore() {
+        return kaoHeModelScoreRepository.findAll();
     }
 }
