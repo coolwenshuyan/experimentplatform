@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>师资队伍</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/notice.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/page.css"/>
+	</head>
+
+	<body>
+		<div id="app" class="layui-container" >
+			<img src="../../static/images/LOGO2.png"> <br><br>
+			<span class="layui-breadcrumb">
+  			<a href="/">首页</a>
+  			<!--<a href="/demo/">师资队伍</a>-->
+  			<a><cite>师资队伍</cite></a>
+			</span> <br><br><br>
+
+			<table class="layui-table" lay-size="lg" style="    text-align: center;">
+				<colgroup>
+					<col width="150">
+					<col width="200">
+					<col>
+				</colgroup>
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th style="float: right;"><button type="add" class="layui-btn">添加</button></th>
+					</tr>
+					<tr>
+						<th>姓名</th>
+						<th>图片</th>
+						<th>简介</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>许闲心</td>
+						<td>
+							<div class="layui-upload">
+  								<button type="button" class="layui-btn" id="test1">上传图片</button>
+  								<div class="layui-upload-list">
+    								<img class="layui-upload-img" id="demo1">
+    								<p id="demoText"></p>
+  								</div>
+							</div>   
+						</td>
+						<td>人生就像是一场修行</td>
+						<td>
+							<button type="add" class="layui-btn layui-btn-sm" >修改</button>
+							<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
+						</td>
+					</tr>
+					<tr>
+						<td>许闲心</td>
+						<td>
+							<div class="layui-upload">
+  								<button type="button" class="layui-btn" id="test1">上传图片</button>
+  								<div class="layui-upload-list">
+    								<img class="layui-upload-img" id="demo1">
+    								<p id="demoText"></p>
+  								</div>
+							</div>   
+						</td>
+						<td>人生就像是一场修行</td>
+						<td>
+							<button type="add" class="layui-btn layui-btn-sm" >修改</button>
+							<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
+						</td>
+					</tr>
+					<tr>
+						<td>许闲心</td>
+						<td>
+							<div class="layui-upload">
+  								<button type="button" class="layui-btn" id="test1">上传图片</button>
+  								<div class="layui-upload-list">
+    								<img class="layui-upload-img" id="demo1">
+    								<p id="demoText"></p>
+  								</div>
+							</div>   
+						</td>
+						<td>人生就像是一场修行</td>
+						<td>
+							<button type="add" class="layui-btn layui-btn-sm" >修改</button>
+							<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<div style="text-align: center;">
+			<div id="pager" class="pager clearfix">
+			</div>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/jquery.z-pager.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		$("#pager").zPager({
+			totalData: 50,
+			htmlBox: $('#wraper'),
+			btnShow: true,
+			ajaxSetData: false
+		});
+		
+		function currentPage(currentPage){
+			/*
+				触发页码数位置： Page/js/jquery.z-pager.js 64行
+			*/
+			console.log("当前页码数：" + currentPage);
+		}
+		
+	</script>
+		
+		
+		
+		<script>
+	var app = new Vue({
+		el:"#app",
+		
+		methods:{
+			isTrue:function(){
+				confirm("确认要删除吗？")
+			}
+		}
+	})
+
+
+	
+</script>
+		
+		
+		<script>
+
+
+
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+
+  //普通图片上传
+  var uploadInst = upload.render({
+    elem: '#test1'
+    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      obj.preview(function(index, file, result){
+        $('#demo1').attr('src', result); //图片链接（base64）
+      });
+    }
+    ,done: function(res){
+      //如果上传失败
+      if(res.code > 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+    }
+    ,error: function(){
+      //演示失败状态，并实现重传
+      var demoText = $('#demoText');
+      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+      demoText.find('.demo-reload').on('click', function(){
+        uploadInst.upload();
+      });
+    }
+  });
+
+
+
+  //多文件列表示例
+  var demoListView = $('#demoList')
+  ,uploadListIns = upload.render({
+    elem: '#testList'
+    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+    ,accept: 'file'
+    ,multiple: true
+    ,auto: false
+    ,bindAction: '#testListAction'
+    ,choose: function(obj){
+      var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+      //读取本地文件
+      obj.preview(function(index, file, result){
+        var tr = $(['<tr id="upload-'+ index +'">'
+          ,'<td>'+ file.name +'</td>'
+          ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+          ,'<td>等待上传</td>'
+          ,'<td>'
+            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+          ,'</td>'
+        ,'</tr>'].join(''));
+
+        //单个重传
+        tr.find('.demo-reload').on('click', function(){
+          obj.upload(index, file);
+        });
+
+        //删除
+        tr.find('.demo-delete').on('click', function(){
+          delete files[index]; //删除对应的文件
+          tr.remove();
+          uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+        });
+
+        demoListView.append(tr);
+      });
+    }
+    ,done: function(res, index, upload){
+      if(res.files.file){ //上传成功
+        var tr = demoListView.find('tr#upload-'+ index)
+        ,tds = tr.children();
+        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+        tds.eq(3).html(''); //清空操作
+        return delete this.files[index]; //删除文件队列已经上传成功的文件
+      }
+      this.error(index, upload);
+    }
+    ,error: function(index, upload){
+      var tr = demoListView.find('tr#upload-'+ index)
+      ,tds = tr.children();
+      tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+      tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+    }
+  });
+
+  //绑定原始文件域
+  upload.render({
+    elem: '#test20'
+    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+    ,done: function(res){
+      layer.msg('上传成功');
+      console.log(res)
+    }
+  });
+
+});
+
+
+
+layui.use(['laypage', 'layer'], function(){
+  var laypage = layui.laypage
+  ,layer = layui.layer;
+  //总页数大于页码总数
+  laypage.render({
+    elem: 'demo1'
+    ,count: 70 //数据总数
+    ,jump: function(obj){
+      console.log(obj)
+    }
+  });
+  //调用分页
+  laypage.render({
+    elem: 'demo20'
+    ,count: data.length
+    ,jump: function(obj){
+      //模拟渲染
+      document.getElementById('biuuu_city_list').innerHTML = function(){
+        var arr = []
+        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+        layui.each(thisData, function(index, item){
+          arr.push('<li>'+ item +'</li>');
+        });
+        return arr.join('');
+      }();
+    }
+  });
+
+});
+
+</script>
+
+
+
+	</body>
+
+</html>
