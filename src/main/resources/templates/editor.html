@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Summernote</title>
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <link th:href="@{css/summernote.min.css}" rel="stylesheet">
+    <script th:src="@{js/summernote.min.js}"></script>
+</head>
+<body>
+<form method="post">
+    <textarea id="summernote" name="editordata"></textarea>
+</form>
+<script>
+
+    //调用富文本编辑
+
+    $(function(){
+
+        $("#summernote").summernote({
+            lang : 'zh-CN',// 语言
+            height : 496, // 高度
+            minHeight : 300, // 最小高度
+            placeholder : '请输入文章内容', // 提示
+            // summernote自定义配置
+            toolbar: [
+                ['operate', ['undo','redo']],
+                ['magic',['style']],
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['height','fontsize','ul', 'ol', 'paragraph']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['color', ['color']],
+                ['insert',['picture','video','link','table','hr']],
+                ['layout',['fullscreen','codeview']],
+            ],
+            callbacks : { // 回调函数
+                // 上传图片时使用的回调函数   因为我们input选择的本地图片是二进制图片，需要把二进制图片上传服务器，服务器再返回图片url，就需要用到callback这个回调函数
+                onImageUpload : function(files) {
+                    var form=new FormData();
+                    form.append('myFileName',files[0])  //myFileName 是上传的参数名，一定不能写错
+                    $.ajax({
+                        type:"post",
+                        url:"${path}", //上传服务器地址
+                        dataType:'json',
+                        data:form,
+                        processData : false,
+                        contentType : false,
+                        cache : false,
+                        success:function(data){
+                            console.log(data.data)
+                            $('#summernote').summernote('editor.insertImage',data.data);
+                        }
+                    })
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
