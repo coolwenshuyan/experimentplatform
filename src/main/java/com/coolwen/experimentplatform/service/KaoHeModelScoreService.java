@@ -10,7 +10,7 @@ import java.util.List;
  * @DateTime: 2020/5/12 17:22
  * @Description: TODO
  */
-public interface KaoHeModleScoreSevice {
+public interface KaoHeModelScoreService {
     public void add(KaoHeModleScore res);
 
     public void update(KaoHeModleScore res);
