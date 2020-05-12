@@ -28,4 +28,9 @@ public class KaoheModelServiceImpl implements KaoheModelService {
     public List<KaoheModel> listKaoheModel() {
         return null;
     }
+
+    @Override
+    public KaoheModel findById(int id) {
+        return null;
+    }
 }
