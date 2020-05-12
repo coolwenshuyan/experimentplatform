@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
- * @Author: Artell
- * @DateTime: 2020/5/12 17:31
- * @Description: TODO
+ * @author Artell
+ * @date 2020/5/12 18:04
  */
 public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
 

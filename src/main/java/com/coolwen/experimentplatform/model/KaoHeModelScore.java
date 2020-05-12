@@ -3,16 +3,15 @@ package com.coolwen.experimentplatform.model;
 import javax.persistence.*;
 
 /**
- * @Author: Artell
- * @DateTime: 2020/5/12 15:34
- * @Description: TODO
+ * @author Artell
+ * @date 2020/5/12 18:04
  */
 @Entity
 @Table(name = "t_kaohemodel_score")
 public class KaoHeModelScore {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_kaohemodle_id")
-    @TableGenerator(name = "t_kaohemodle_id", initialValue = 0, allocationSize = 1,table = "t_kaohemodel_score")
+    @TableGenerator(name = "t_kaohemodle_id", initialValue = 0, allocationSize = 1,table = "seq_table")
 
     private int stuId;
     private float mTestScore;

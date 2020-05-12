@@ -5,9 +5,8 @@ import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import java.util.List;
 
 /**
- * @Author: Artell
- * @DateTime: 2020/5/12 17:22
- * @Description: TODO
+ * @author Artell
+ * @date 2020/5/12 18:04
  */
 public interface KaoHeModelScoreService {
     public void add(KaoHeModelScore res);
