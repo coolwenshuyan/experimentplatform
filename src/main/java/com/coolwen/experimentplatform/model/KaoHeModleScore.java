@@ -14,104 +14,104 @@ public class KaoHeModleScore {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_kaohemodle_id")
     @TableGenerator(name = "t_kaohemodle_id", initialValue = 0, allocationSize = 1,table = "t_kaohemodel_score")
 
-    private int stu_id;
-    private float m_test_score;
-    private float m_report_score;
-    private byte m_teststate;
-    private byte m_reportstate;
-    private int m_order;
-    private float m_scale;
-    private float m_score;
+    private int stuId;
+    private float mTestScore;
+    private float mReportScore;
+    private byte mTeststate;
+    private byte mReportstate;
+    private int mOrder;
+    private float mScale;
+    private float mScore;
 
     public KaoHeModleScore() {
     }
 
-    public KaoHeModleScore(int stu_id, float m_test_score, float m_report_score, byte m_teststate, byte m_reportstate, int m_order, float m_scale, float m_score) {
-        this.stu_id = stu_id;
-        this.m_test_score = m_test_score;
-        this.m_report_score = m_report_score;
-        this.m_teststate = m_teststate;
-        this.m_reportstate = m_reportstate;
-        this.m_order = m_order;
-        this.m_scale = m_scale;
-        this.m_score = m_score;
+    public KaoHeModleScore(int stuId, float mTestScore, float mReportScore, byte mTeststate, byte mReportstate, int mOrder, float mScale, float mScore) {
+        this.stuId = stuId;
+        this.mTestScore = mTestScore;
+        this.mReportScore = mReportScore;
+        this.mTeststate = mTeststate;
+        this.mReportstate = mReportstate;
+        this.mOrder = mOrder;
+        this.mScale = mScale;
+        this.mScore = mScore;
     }
 
-    public int getStu_id() {
-        return stu_id;
+    public int getStuId() {
+        return stuId;
     }
 
-    public void setStu_id(int stu_id) {
-        this.stu_id = stu_id;
+    public void setStuId(int stuId) {
+        this.stuId = stuId;
     }
 
-    public float getM_test_score() {
-        return m_test_score;
+    public float getmTestScore() {
+        return mTestScore;
     }
 
-    public void setM_test_score(float m_test_score) {
-        this.m_test_score = m_test_score;
+    public void setmTestScore(float mTestScore) {
+        this.mTestScore = mTestScore;
     }
 
-    public float getM_report_score() {
-        return m_report_score;
+    public float getmReportScore() {
+        return mReportScore;
     }
 
-    public void setM_report_score(float m_report_score) {
-        this.m_report_score = m_report_score;
+    public void setmReportScore(float mReportScore) {
+        this.mReportScore = mReportScore;
     }
 
-    public byte getM_teststate() {
-        return m_teststate;
+    public byte getmTeststate() {
+        return mTeststate;
     }
 
-    public void setM_teststate(byte m_teststate) {
-        this.m_teststate = m_teststate;
+    public void setmTeststate(byte mTeststate) {
+        this.mTeststate = mTeststate;
     }
 
-    public byte getM_reportstate() {
-        return m_reportstate;
+    public byte getmReportstate() {
+        return mReportstate;
     }
 
-    public void setM_reportstate(byte m_reportstate) {
-        this.m_reportstate = m_reportstate;
+    public void setmReportstate(byte mReportstate) {
+        this.mReportstate = mReportstate;
     }
 
-    public int getM_order() {
-        return m_order;
+    public int getmOrder() {
+        return mOrder;
     }
 
-    public void setM_order(int m_order) {
-        this.m_order = m_order;
+    public void setmOrder(int mOrder) {
+        this.mOrder = mOrder;
     }
 
-    public float getM_scale() {
-        return m_scale;
+    public float getmScale() {
+        return mScale;
     }
 
-    public void setM_scale(float m_scale) {
-        this.m_scale = m_scale;
+    public void setmScale(float mScale) {
+        this.mScale = mScale;
     }
 
-    public float getM_score() {
-        return m_score;
+    public float getmScore() {
+        return mScore;
     }
 
-    public void setM_score(float m_score) {
-        this.m_score = m_score;
+    public void setmScore(float mScore) {
+        this.mScore = mScore;
     }
 
     @Override
     public String toString() {
         return "KaoHeModleScore{" +
-                "stu_id=" + stu_id +
-                ", m_test_score=" + m_test_score +
-                ", m_report_score=" + m_report_score +
-                ", m_teststate=" + m_teststate +
-                ", m_reportstate=" + m_reportstate +
-                ", m_order=" + m_order +
-                ", m_scale=" + m_scale +
-                ", m_score=" + m_score +
+                "stuId=" + stuId +
+                ", mTestScore=" + mTestScore +
+                ", mReportScore=" + mReportScore +
+                ", mTeststate=" + mTeststate +
+                ", mReportstate=" + mReportstate +
+                ", mOrder=" + mOrder +
+                ", mScale=" + mScale +
+                ", mScore=" + mScore +
                 '}';
     }
 }
