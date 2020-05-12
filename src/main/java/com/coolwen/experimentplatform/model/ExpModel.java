@@ -8,7 +8,8 @@ import javax.persistence.*;
 public class ExpModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "exp_model_id")
+    @TableGenerator(name = "exp_model_id", initialValue = 0, allocationSize = 1,table = "seq_table")
     private int m_id;
 
     @Column(length = 80,nullable = false)
