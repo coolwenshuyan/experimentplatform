@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>轮播导航</title>		
+		<link rel="stylesheet" href="../../static/css/layui.css">
+	</head>
+	<style type="text/css">
+		#head{
+			margin-top: 30px;
+		}
+		#main{
+			margin-top: 30px;
+			border: 1px black solid;
+		}
+		#d1,#d2,#d3,#d4{
+			margin: 10px;
+			padding: 10px;
+			border: 1px dimgrey solid;
+		}
+		#d5{
+			margin: 10px;
+		}
+	</style>
+	<body>
+		<div id="head" class="layui-col-md10 layui-col-md-offset2">
+			<span class="layui-col-md3">
+  				<a class="layui-btn layui-btn-primary" href="#">首页设置</a>
+  				<a class="layui-btn" href="#">轮播导航</a>
+			</span>			
+		</div>
+
+		<div id="main" class="layui-col-md8 layui-col-md-offset2">				
+            <div id="d1" class="layui-form-item">
+                <label class="layui-form-label">Model1</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入M1" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            
+		    <div id="d2" class="layui-form-item">
+                <label class="layui-form-label">Model2</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入M2" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            
+            <div id="d3" class="layui-form-item">
+                <label class="layui-form-label">Model3</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入M3" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            
+            <div id="d4" class="layui-form-item">
+                <label class="layui-form-label">Model4</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入M4" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+                      
+            <div id="d5" class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+                    <i class="layui-icon">&#xe654;</i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+                    <i class="layui-icon">&#xe642;</i>
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+                    <i class="layui-icon">&#xe640;</i>
+                </button>
+            </div>
+	    </div>
+
+		
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
+
