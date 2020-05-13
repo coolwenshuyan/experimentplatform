@@ -10,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.transform.Result;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,18 @@ public class TeacherController {
     TeacherRepository teacherRepository;
     @Autowired
     TeacherService teacherService;
+    /**
+     * 图片上传
+     */
+//    @PostMapping(value = "/")
+//    public Result upload(@PathVariable String id, @RequestParam(name = "file")MultipartFile file){
+//        //1.调用service保存图片
+//        String ImageUrl =  teacherService.upload(id,file);
+//        //2.返回数据
+//        return new Result(ResultCode.SUCESS)
+
+//    }
+
 
     /**
      * 列表查询
@@ -34,7 +48,7 @@ public class TeacherController {
         Pageable pageable = PageRequest.of(pageNum,3);
         Page<Teacher> page = teacherRepository.findAll(pageable);
         model.addAttribute("teacherPageInfo",page);
-        return "teacher/list";
+        return "shouye/teacher_change";
     }
     /**
      * 删除
