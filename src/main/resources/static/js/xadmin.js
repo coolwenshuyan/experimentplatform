@@ -13,6 +13,8 @@
 		}
 		element.tabChange('xbs_tab', i);
 	};
+
+	
   /**
    * [end 执行结束要做的]
    * @return {[type]} [description]
