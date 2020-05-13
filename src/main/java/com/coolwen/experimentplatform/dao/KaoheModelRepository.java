@@ -16,7 +16,7 @@ public interface KaoheModelRepository extends BaseRepository<KaoheModel,Integer>
 
     //自己写的查询语句
     @Query("select u from KaoheModel u where u.id = ?1") //这里的User对应Model层
-    public KaoheModel finduserbyid(int id);
+    public KaoheModel findbyid(int id);
 
 //
 //

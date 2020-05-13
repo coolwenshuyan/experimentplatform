@@ -6,7 +6,8 @@ import javax.persistence.*;
     @Table(name = "t_teacher")
     public class Teacher {
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.TABLE, generator = "teacher_id")
+        @TableGenerator(name = "teacher_id", initialValue = 0, allocationSize = 1,table = "seq_table")
         private int id;
         private String person_name;
         private String image_url;

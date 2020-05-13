@@ -24,65 +24,69 @@
 		<div class="layui-container">
 			<img src="../../static/images/LOGO2.png"> <br><br>
 			<span class="layui-breadcrumb">
-  			<a href="/">首页</a>
+  			<a href="/kaohe/check_Module">首页</a>
   			<!--<a href="/demo/">轮播公告</a>-->
   			<a><cite>考核实验</cite></a>
-			</span> <br><br><br>
-
-			<form class="layui-form" action="">
+			</span><br><br><br>
+			<form class="layui-form" action="/kaohemodel/add" method="post">
 				<div class="layui-form-item">
 					<label class="layui-form-label">实验名</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验名称" class="layui-input">
+						<input type="text" name="Experiment_name" lay-verify="title" autocomplete="off" placeholder="请输入实验名称" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">实验类型</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验类型" class="layui-input">
+						<input type="text" name="shiyan_Types" lay-verify="title" autocomplete="off" placeholder="请输入实验类型" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">课时</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验课时" class="layui-input">
+						<input type="text" name="m_id" lay-verify="title" autocomplete="off" placeholder="请输入实验课时" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item layui-form-text">
 					<label class="layui-form-label">实验目的</label>
 					<div class="layui-input-block">
-						<textarea placeholder="请输入实验目的" class="layui-textarea" name="desc"></textarea>
+						<textarea placeholder="请输入实验目的" class="layui-textarea" name="shiyan_Purpose"></textarea>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">测试成绩占比</label>
 					<div class="layui-input-block">
-						<input type="number" name="title" lay-verify="title" autocomplete="off" placeholder="请输入测试成绩占比" class="layui-input">
+						<input type="number" name="m_test_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入测试成绩占比" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">报告成绩占比</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入报告成绩占比" class="layui-input">
+						<input type="text" name="m_report_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入报告成绩占比" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">权重</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入权重" class="layui-input">
+						<input type="text" name="m_scale" lay-verify="title" autocomplete="off" placeholder="请输入权重" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">序号</label>
 					<div class="layui-input-block">
-						<input type="number" name="number" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+						<input type="number" name="m_order" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">序号</label>
+					<div class="layui-input-block">
+						<input type="number" name="class_hour" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
 					</div>
 				</div>
 
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button type="add" class="layui-btn" lay-submit="" lay-filter="demo1">添加</button>
-						<button type="update" class="layui-btn" lay-submit="" lay-filter="demo1">修改</button>
+						<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">添加</button>
 						<button type="return" class="layui-btn layui-btn-primary">取消</button>
 					</div>
 				</div>
