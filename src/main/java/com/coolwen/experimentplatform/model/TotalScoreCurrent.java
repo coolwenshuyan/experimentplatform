@@ -10,22 +10,30 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_totalscore_current")
 public class TotalScoreCurrent {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_totalscore_current")
-    @TableGenerator(name = "t_totalscore_current", initialValue = 0, allocationSize = 1, table = "seq_table")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(length = 11,nullable = false)
     private int stuId;
-    private int kaoHeNum;
+
+    @Column(length = 11,nullable = false)
+    private int kaoheNum;
+
+    @Column(nullable = false,columnDefinition = "float default 0")
     private float testScore;
+
+    @Column(nullable = false,columnDefinition = "float default 0")
     private float totalScore;
 
     public TotalScoreCurrent() {
     }
 
-    public TotalScoreCurrent(int id, int stuId, int kaoHeNum, float testScore, float totalScore) {
-        this.id = id;
+
+    public TotalScoreCurrent(int stuId, int kaoheNum, float testScore, float totalScore) {
         this.stuId = stuId;
-        this.kaoHeNum = kaoHeNum;
+        this.kaoheNum = kaoheNum;
         this.testScore = testScore;
         this.totalScore = totalScore;
     }
@@ -46,12 +54,12 @@ public class TotalScoreCurrent {
         this.stuId = stuId;
     }
 
-    public int getKaoHeNum() {
-        return kaoHeNum;
+    public int getKaoheNum() {
+        return kaoheNum;
     }
 
-    public void setKaoHeNum(int kaoHeNum) {
-        this.kaoHeNum = kaoHeNum;
+    public void setKaoheNum(int kaoheNum) {
+        this.kaoheNum = kaoheNum;
     }
 
     public float getTestScore() {
@@ -72,10 +80,10 @@ public class TotalScoreCurrent {
 
     @Override
     public String toString() {
-        return "TotalscoreCurrent{" +
+        return "TotalScoreCurrent{" +
                 "id=" + id +
                 ", stuId=" + stuId +
-                ", kaoHeNum=" + kaoHeNum +
+                ", kaoheNum=" + kaoheNum +
                 ", testScore=" + testScore +
                 ", totalScore=" + totalScore +
                 '}';
