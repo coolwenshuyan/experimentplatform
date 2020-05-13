@@ -17,6 +17,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("ExperimentPlatform/ExpModelImage/**").addResourceLocations("file:///"+expModelImage);
         registry.addResourceHandler("ExperimentPlatform/ExpData/**").addResourceLocations("file:///"+expData);
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+
 
 //        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 
