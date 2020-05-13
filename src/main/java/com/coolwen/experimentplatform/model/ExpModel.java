@@ -19,7 +19,7 @@ public class ExpModel {
     private String m_manager;
 
     @Column(length = 16,nullable = false)
-    private String m_typr;
+    private String m_type;
 
     private int classhour;
 
@@ -76,12 +76,12 @@ public class ExpModel {
         this.m_manager = m_manager;
     }
 
-    public String getM_typr() {
-        return m_typr;
+    public String getM_type() {
+        return m_type;
     }
 
-    public void setM_typr(String m_typr) {
-        this.m_typr = m_typr;
+    public void setM_type(String m_type) {
+        this.m_type = m_type;
     }
 
     public int getClasshour() {
