@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+		<title>填写报告—----整篇</title>
+	</head>
+	<style type="text/css">
+		#content{
+			padding: 2%;
+		}
+	</style>
+	<body>
+	<div style="text-align: center;margin-top:30px;font-size: 20px;">填写报告—----整篇</div>
+
+		<div id="content">
+			<form class="layui-form" action="">		
+			
+			  <div class="layui-form-item layui-form-text">
+			    <label class="layui-form-label">描述：</label>
+			    <div class="layui-input-block">
+			      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			    	 <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+			      <button class="layui-btn" lay-submit lay-filter="formDemo">完成</button>
+			     
+			    </div>
+			  </div>
+			</form>
+		</div>
+		
+		 
+		<script>
+		//Demo
+		layui.use('form', function(){
+		  var form = layui.form;
+		  
+		  //监听提交
+		  form.on('submit(formDemo)', function(data){
+		    layer.msg(JSON.stringify(data.field));
+		    return false;
+		  });
+		});
+		</script>
+	</body>
+</html>

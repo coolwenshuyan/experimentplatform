@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @author Artell
  * @date 2020/5/12 18:04
  */
-public interface KaoHeModelScoreRepository extends BaseRepository<KaoHeModelScore, Integer>, JpaSpecificationExecutor<KaoHeModelScore> {
+public interface KaoHeModelScoreRepository extends BaseRepository<KaoHeModelScore, Integer> {
 }

@@ -10,42 +10,66 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "t_totalscore_current")
+@Table(name = "t_totalscore_pass")
 public class TotalScorePass {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_totalscore_current")
-    @TableGenerator(name = "t_totalscore_current", initialValue = 0, allocationSize = 1, table = "seq_table")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(length = 11,nullable = false)
     private int stuId;
-    private int kaoHeNum;
-    private String KaoHeName;
-    private String KaoHeMtestScore;
-    private String KaoHeMreportScore;
-    private String KaoHeMtestScoreBaifengbi;
-    private String KaoHeMreportScoreBaifengbi;
-    private String KaoHeMscale;
+
+    @Column(nullable = false)
+    private int kaoheNum;
+
+    @Column(columnDefinition = "text")
+    private String kaoheName;
+
+    @Column(columnDefinition = "text")
+    private String kaoheMtestscore;
+
+    @Column(columnDefinition = "text")
+    private String kaoheMreportscore;
+
+    @Column(columnDefinition = "text")
+    private String kaoheMtestscoreBaifengbi;
+
+    @Column(columnDefinition = "text")
+    private String kaoheMreportscoreBaifengbi;
+
+    @Column(columnDefinition = "text")
+    private String kaoheMscale;
+
+    @Column(nullable = false,columnDefinition = "float default 0")
     private float testScore;
-    private float testBaiFenBi;
-    private float kaoHeBaiFenBi;
+
+    @Column(nullable = false)
+    private float testBaifenbi;
+
+    @Column(nullable = false)
+    private float kaoheBaifenbi;
+
+    @Column(nullable = false,columnDefinition = "float default 0")
     private float totalScore;
+
+    @Column(nullable = false)
     private Date finalDatetime;
 
     public TotalScorePass() {
     }
 
-    public TotalScorePass(int id, int stuId, int kaoHeNum, String kaoHeName, String kaoHeMtestScore, String kaoHeMreportScore, String kaoHeMtestScoreBaifengbi, String kaoHeMreportScoreBaifengbi, String kaoHeMscale, float testScore, float testBaiFenBi, float kaoHeBaiFenBi, float totalScore, Date finalDatetime) {
-        this.id = id;
+    public TotalScorePass(int stuId, int kaoheNum, String kaoheName, String kaoheMtestscore, String kaoheMreportscore, String kaoheMtestscoreBaifengbi, String kaoheMreportscoreBaifengbi, String kaoheMscale, float testScore, float testBaifenbi, float kaoheBaifenbi, float totalScore, Date finalDatetime) {
         this.stuId = stuId;
-        this.kaoHeNum = kaoHeNum;
-        KaoHeName = kaoHeName;
-        KaoHeMtestScore = kaoHeMtestScore;
-        KaoHeMreportScore = kaoHeMreportScore;
-        KaoHeMtestScoreBaifengbi = kaoHeMtestScoreBaifengbi;
-        KaoHeMreportScoreBaifengbi = kaoHeMreportScoreBaifengbi;
-        KaoHeMscale = kaoHeMscale;
+        this.kaoheNum = kaoheNum;
+        this.kaoheName = kaoheName;
+        this.kaoheMtestscore = kaoheMtestscore;
+        this.kaoheMreportscore = kaoheMreportscore;
+        this.kaoheMtestscoreBaifengbi = kaoheMtestscoreBaifengbi;
+        this.kaoheMreportscoreBaifengbi = kaoheMreportscoreBaifengbi;
+        this.kaoheMscale = kaoheMscale;
         this.testScore = testScore;
-        this.testBaiFenBi = testBaiFenBi;
-        this.kaoHeBaiFenBi = kaoHeBaiFenBi;
+        this.testBaifenbi = testBaifenbi;
+        this.kaoheBaifenbi = kaoheBaifenbi;
         this.totalScore = totalScore;
         this.finalDatetime = finalDatetime;
     }
@@ -66,60 +90,60 @@ public class TotalScorePass {
         this.stuId = stuId;
     }
 
-    public int getKaoHeNum() {
-        return kaoHeNum;
+    public int getKaoheNum() {
+        return kaoheNum;
     }
 
-    public void setKaoHeNum(int kaoHeNum) {
-        this.kaoHeNum = kaoHeNum;
+    public void setKaoheNum(int kaoheNum) {
+        this.kaoheNum = kaoheNum;
     }
 
-    public String getKaoHeName() {
-        return KaoHeName;
+    public String getKaoheName() {
+        return kaoheName;
     }
 
-    public void setKaoHeName(String kaoHeName) {
-        KaoHeName = kaoHeName;
+    public void setKaoheName(String kaoheName) {
+        this.kaoheName = kaoheName;
     }
 
-    public String getKaoHeMtestScore() {
-        return KaoHeMtestScore;
+    public String getKaoheMtestscore() {
+        return kaoheMtestscore;
     }
 
-    public void setKaoHeMtestScore(String kaoHeMtestScore) {
-        KaoHeMtestScore = kaoHeMtestScore;
+    public void setKaoheMtestscore(String kaoheMtestscore) {
+        this.kaoheMtestscore = kaoheMtestscore;
     }
 
-    public String getKaoHeMreportScore() {
-        return KaoHeMreportScore;
+    public String getKaoheMreportscore() {
+        return kaoheMreportscore;
     }
 
-    public void setKaoHeMreportScore(String kaoHeMreportScore) {
-        KaoHeMreportScore = kaoHeMreportScore;
+    public void setKaoheMreportscore(String kaoheMreportscore) {
+        this.kaoheMreportscore = kaoheMreportscore;
     }
 
-    public String getKaoHeMtestScoreBaifengbi() {
-        return KaoHeMtestScoreBaifengbi;
+    public String getKaoheMtestscoreBaifengbi() {
+        return kaoheMtestscoreBaifengbi;
     }
 
-    public void setKaoHeMtestScoreBaifengbi(String kaoHeMtestScoreBaifengbi) {
-        KaoHeMtestScoreBaifengbi = kaoHeMtestScoreBaifengbi;
+    public void setKaoheMtestscoreBaifengbi(String kaoheMtestscoreBaifengbi) {
+        this.kaoheMtestscoreBaifengbi = kaoheMtestscoreBaifengbi;
     }
 
-    public String getKaoHeMreportScoreBaifengbi() {
-        return KaoHeMreportScoreBaifengbi;
+    public String getKaoheMreportscoreBaifengbi() {
+        return kaoheMreportscoreBaifengbi;
     }
 
-    public void setKaoHeMreportScoreBaifengbi(String kaoHeMreportScoreBaifengbi) {
-        KaoHeMreportScoreBaifengbi = kaoHeMreportScoreBaifengbi;
+    public void setKaoheMreportscoreBaifengbi(String kaoheMreportscoreBaifengbi) {
+        this.kaoheMreportscoreBaifengbi = kaoheMreportscoreBaifengbi;
     }
 
-    public String getKaoHeMscale() {
-        return KaoHeMscale;
+    public String getKaoheMscale() {
+        return kaoheMscale;
     }
 
-    public void setKaoHeMscale(String kaoHeMscale) {
-        KaoHeMscale = kaoHeMscale;
+    public void setKaoheMscale(String kaoheMscale) {
+        this.kaoheMscale = kaoheMscale;
     }
 
     public float getTestScore() {
@@ -130,20 +154,20 @@ public class TotalScorePass {
         this.testScore = testScore;
     }
 
-    public float getTestBaiFenBi() {
-        return testBaiFenBi;
+    public float getTestBaifenbi() {
+        return testBaifenbi;
     }
 
-    public void setTestBaiFenBi(float testBaiFenBi) {
-        this.testBaiFenBi = testBaiFenBi;
+    public void setTestBaifenbi(float testBaifenbi) {
+        this.testBaifenbi = testBaifenbi;
     }
 
-    public float getKaoHeBaiFenBi() {
-        return kaoHeBaiFenBi;
+    public float getKaoheBaifenbi() {
+        return kaoheBaifenbi;
     }
 
-    public void setKaoHeBaiFenBi(float kaoHeBaiFenBi) {
-        this.kaoHeBaiFenBi = kaoHeBaiFenBi;
+    public void setKaoheBaifenbi(float kaoheBaifenbi) {
+        this.kaoheBaifenbi = kaoheBaifenbi;
     }
 
     public float getTotalScore() {
@@ -167,16 +191,16 @@ public class TotalScorePass {
         return "TotalScorePass{" +
                 "id=" + id +
                 ", stuId=" + stuId +
-                ", kaoHeNum=" + kaoHeNum +
-                ", KaoHeName='" + KaoHeName + '\'' +
-                ", KaoHeMtestScore='" + KaoHeMtestScore + '\'' +
-                ", KaoHeMreportScore='" + KaoHeMreportScore + '\'' +
-                ", KaoHeMtestScoreBaifengbi='" + KaoHeMtestScoreBaifengbi + '\'' +
-                ", KaoHeMreportScoreBaifengbi='" + KaoHeMreportScoreBaifengbi + '\'' +
-                ", KaoHeMscale='" + KaoHeMscale + '\'' +
+                ", kaoheNum=" + kaoheNum +
+                ", kaoheName='" + kaoheName + '\'' +
+                ", kaoheMtestscore='" + kaoheMtestscore + '\'' +
+                ", kaoheMreportscore='" + kaoheMreportscore + '\'' +
+                ", kaoheMtestscoreBaifengbi='" + kaoheMtestscoreBaifengbi + '\'' +
+                ", kaoheMreportscoreBaifengbi='" + kaoheMreportscoreBaifengbi + '\'' +
+                ", kaoheMscale='" + kaoheMscale + '\'' +
                 ", testScore=" + testScore +
-                ", testBaiFenBi=" + testBaiFenBi +
-                ", kaoHeBaiFenBi=" + kaoHeBaiFenBi +
+                ", testBaifenbi=" + testBaifenbi +
+                ", kaoheBaifenbi=" + kaoheBaifenbi +
                 ", totalScore=" + totalScore +
                 ", finalDatetime=" + finalDatetime +
                 '}';

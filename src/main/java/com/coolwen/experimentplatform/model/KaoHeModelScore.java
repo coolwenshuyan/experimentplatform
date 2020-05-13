@@ -9,35 +9,61 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_kaohemodel_score")
 public class KaoHeModelScore {
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_kaohemodle_id")
-    @TableGenerator(name = "t_kaohemodle_id", initialValue = 0, allocationSize = 1,table = "seq_table")
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(length = 11,nullable = false)
+    private int tKaohemodleId;
+
+    @Column(length = 11,nullable = false)
     private int stuId;
+
+    @Column(nullable = false)
     private float mTestScore;
+
+    @Column(nullable = false)
     private float mReportScore;
+
+    @Column(nullable = false,columnDefinition="bit default 0")
     private boolean mTeststate;
+
+    @Column(nullable = false,columnDefinition="bit default 0")
     private boolean mReportstate;
+
+    @Column(nullable = false)
     private int mOrder;
+
+    @Column(nullable = false)
     private float mScale;
+
+    @Column(nullable = false,columnDefinition = "float default 0")
     private float mScore;
 
-    public KaoHeModelScore() {
-    }
-
-    public KaoHeModelScore(int stuId) {
-        this.stuId = stuId;
-    }
-
-    public KaoHeModelScore(int stuId, float mTestScore, float mReportScore, boolean mTeststate, boolean mReportstate, int mOrder, float mScale, float mScore) {
+    public KaoHeModelScore(int tKaohemodleId, int stuId, float mTestScore, float mReportScore, int mOrder, float mScale) {
+        this.tKaohemodleId = tKaohemodleId;
         this.stuId = stuId;
         this.mTestScore = mTestScore;
         this.mReportScore = mReportScore;
-        this.mTeststate = mTeststate;
-        this.mReportstate = mReportstate;
         this.mOrder = mOrder;
         this.mScale = mScale;
-        this.mScore = mScore;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int gettKaohemodleId() {
+        return tKaohemodleId;
+    }
+
+    public void settKaohemodleId(int tKaohemodleId) {
+        this.tKaohemodleId = tKaohemodleId;
     }
 
     public int getStuId() {
@@ -64,7 +90,7 @@ public class KaoHeModelScore {
         this.mReportScore = mReportScore;
     }
 
-    public boolean getmTeststate() {
+    public boolean ismTeststate() {
         return mTeststate;
     }
 
@@ -72,7 +98,7 @@ public class KaoHeModelScore {
         this.mTeststate = mTeststate;
     }
 
-    public boolean getmReportstate() {
+    public boolean ismReportstate() {
         return mReportstate;
     }
 
@@ -106,8 +132,10 @@ public class KaoHeModelScore {
 
     @Override
     public String toString() {
-        return "KaoHeModleScore{" +
-                "stuId=" + stuId +
+        return "KaoHeModelScore{" +
+                "id=" + id +
+                ", tKaohemodleId=" + tKaohemodleId +
+                ", stuId=" + stuId +
                 ", mTestScore=" + mTestScore +
                 ", mReportScore=" + mReportScore +
                 ", mTeststate=" + mTeststate +
