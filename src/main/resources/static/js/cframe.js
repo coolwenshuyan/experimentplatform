@@ -8,7 +8,7 @@ $(function(){
 		});
 	});
 
-	
+
 	//公共form表单验证
     layui.use('form', function() {
         var form = layui.form;
