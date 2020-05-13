@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -7,7 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="../../static/css/page.css"/>
 	</head>
-
 	<body>
 		<div id="app" class="layui-container">
 	<img src="../../static/images/LOGO2.png"> <br><br>
@@ -18,7 +17,6 @@
 			</span> <br><br><br>
 	<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">考核模块</button>
 	<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">全部模块</button>
-
 			<div class="layui-form">
 				<table class="layui-table">
 					<colgroup>
@@ -41,85 +39,97 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>模块1</td>
-							<td>拓展创新</td>
-							<td>拓展创新</td>
-							<td>32</td>
-							<td>50%</td>
-							<td>50%</td>
-							<td>1</td>
-							
+						<tr align="center" th:each="kaoheModel:${kaoheModelPageInfo.content}">
+							<td th:text="${kaoheModel.id}" >1</td>
+							<td th:text="${kaoheModel.Experiment_name}">期望</td>
+							<td	th:text="${kaoheModel.shiyan_Purpose}">模块1</td>
+							<td th:text="${kaoheModel.m_id}">1</td>
+							<td th:text="${kaoheModel.m_test_baifenbi}">拓展创新</td>
+							<td	th:text="${kaoheModel.m_report_baifenbi}">拓展创新</td>
+							<td th:text="${kaoheModel.m_scale}">32</td>
+							<td th:text="${kaoheModel.m_order}">50%</td>
+
+
 							<td>
-								<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
+<!--								<button @click="isTrue" th:href="@{|kaoheModel/${kaoheModel.id}/update|}" type="update" class="layui-btn layui-btn-sm" >修改</button>-->
+<!--								<button th:href="@{|kaoheModel/${kaoheModel.id}/delete|}" type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>-->
+								<a  type="update" class="layui-btn layui-btn-sm" th:href="@{|/kaohemodel/${kaoheModel.id}/update|}">修改</a>
+								<a  type="delete"  class="layui-btn layui-btn-sm" style="background-color: red;"  th:href="@{|/kaohemodel/${kaoheModel.id}/delete|}">删除</a>
+
 							</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>模块1</td>
-							<td>拓展创新</td>
-							<td>拓展创新</td>
-							<td>32</td>
-							<td>50%</td>
-							<td>50%</td>
-							<td>2</td>
-							
-							<td>
-								<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>模块1</td>
-							<td>拓展创新</td>
-							<td>拓展创新</td>
-							<td>32</td>
-							<td>50%</td>
-							<td>50%</td>
-							<td>3</td>
-							
-							<td>
-								<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >移除</button>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>模块1</td>
-							<td>拓展创新</td>
-							<td>拓展创新</td>
-							<td>32</td>
-							<td>50%</td>
-							<td>50%</td>
-							<td>4</td>
-							
-							<td>
-								<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >移除</button>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>模块1</td>
-							<td>拓展创新</td>
-							<td>拓展创新</td>
-							<td>32</td>
-							<td>50%</td>
-							<td>50%</td>
-							<td>5</td>
-							
-							<td>
-								<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >移除</button>
-							</td>
-						</tr>
+<!--						<tr>-->
+<!--							<td>1</td>-->
+<!--							<td>模块1</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>32</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>2</td>-->
+<!--							-->
+<!--							<td>-->
+<!--								<button type="add" class="layui-btn layui-btn-sm" >修改</button>-->
+<!--								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						<tr>-->
+<!--							<td>1</td>-->
+<!--							<td>模块1</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>32</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>3</td>-->
+<!--							-->
+<!--							<td>-->
+<!--								<button type="add" class="layui-btn layui-btn-sm" >修改</button>-->
+<!--								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >移除</button>-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						<tr>-->
+<!--							<td>1</td>-->
+<!--							<td>模块1</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>32</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>4</td>-->
+<!--							-->
+<!--							<td>-->
+<!--								<button type="add" class="layui-btn layui-btn-sm" >修改</button>-->
+<!--								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >移除</button>-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						<tr>-->
+<!--							<td>1</td>-->
+<!--							<td>模块1</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>拓展创新</td>-->
+<!--							<td>32</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>50%</td>-->
+<!--							<td>5</td>-->
+<!--							-->
+<!--							<td>-->
+<!--								<button type="add" class="layui-btn layui-btn-sm" >修改</button>-->
+<!--								<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >移除</button>-->
+<!--							</td>-->
+<!--						</tr>-->
 					</tbody>
 				</table>
+				<div style="margin:0 auto; width: 80%; text-align: center;">
+					<p>当前 <span th:text="${kaoheModelPageInfo.number}+1"></span> 页,
+						总 <span th:text="${kaoheModelPageInfo.totalPages}"></span> 页,
+						共 <span th:text="${kaoheModelPageInfo.totalElements}"></span> 条记录</p>
+					<a th:href="@{/kaohemodel/list}">首页</a>
+					<a th:href="@{/kaohemodel/list(pageNum=${kaoheModelPageInfo.hasPrevious()}?${kaoheModelPageInfo.number}-1:0)}">上一页</a>
+					<a th:href="@{/kaohemodel/list(pageNum=${kaoheModelPageInfo.hasNext()}?${kaoheModelPageInfo.number}+1:${kaoheModelPageInfo.number})}">下一页</a>
+					<a th:href="@{/kaohemodel/list(pageNum=${kaoheModelPageInfo.totalPages}-1)}">尾页</a>
+				</div>
 			</div>
-
 		</div>
 
 
