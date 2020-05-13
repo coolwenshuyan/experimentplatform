@@ -27,7 +27,7 @@ public class FIleServiceImpl implements FIleService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
         format = sdf.format(new Date());
         String fileType = file.getContentType();
-        if(request.getRequestURI().contains("/expmodel/addExpModel")){
+        if(request.getRequestURI().contains("/expmodel/addExpModel")||request.getRequestURI().contains("/expmodel/updateExpModel")){
             String realPath = expModelImage;
             dir = new File(realPath + format);
 //        }else if(request.getRequestURI().contains("/orgBack/uploadPolicy")){

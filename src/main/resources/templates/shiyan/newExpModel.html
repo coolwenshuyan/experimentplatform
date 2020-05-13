@@ -1,11 +1,11 @@
-<!DOCTYPE html >
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<title>修改---实验模块</title>
+		<title>新建---实验模块</title>
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
 		
@@ -38,20 +38,20 @@
 		</style>
 	<body>
 
-	<div style="text-align: center;margin-top:30px;font-size: 20px;">修改---实验模块</div>
+	<div style="text-align: center;margin-top:30px;font-size: 20px;">新建---实验模块</div>
 		<div class="layui-container" id="content">
 			<div class="layui-row">
-				<form class="layui-form layui-col-md7" th:action="@{|/expmodel/updateExpModel/${preExpModel.m_id}|}" method="post"  th:object="${preExpModel}" enctype="multipart/form-data">
+				<form class="layui-form layui-col-md7" th:action="@{/expmodel/addExpModel}"  method="post" enctype="multipart/form-data">
 				<div class="layui-form-item">
 				    <label class="layui-form-label">实验名称：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="m_name" lay-verify="title" autocomplete="off" placeholder="请输入实验名称" class="layui-input" th:value="${preExpModel.m_name}">
+				      <input type="text" name="m_name" lay-verify="title" required="required" autocomplete="off" placeholder="请输入实验名称" class="layui-input">
 				    </div>
 				</div>
 				<div class="layui-form-item">
 				    <label class="layui-form-label">实验简介图片:</label>
 				    <div class="layui-upload">
-						<input type="file" id="test1" name="m_image" value="上传图片"/>
+						<input type="file"  id="test1" name="m_image" required="required" value="上传图片"/>
 						  <div class="layui-upload-list">
 						    <img class="layui-upload-img" id="demo1">
 						    <p id="demoText"></p>
@@ -61,38 +61,36 @@
 				<div class="layui-form-item">
 				    <label class="layui-form-label">实验负责人:</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="m_manager" lay-verify="title" autocomplete="off" placeholder="请输入实验负责人" class="layui-input" th:value="${preExpModel.m_manager}">
+				      <input type="text" name="m_manager"  required="required" lay-verify="title" autocomplete="off" placeholder="请输入实验负责人" class="layui-input">
 				    </div>
 				</div>
 				<div class="layui-form-item">
 				    <label class="layui-form-label">实验类型：</label>
 				    <div class="layui-input-block">
-				      <select name="m_type" lay-filter="aihao" th:value="${preExpModel.m_type}">
-						  <option value="理论验证">理论验证</option>
-						  <option value="综合实操" selected="">综合实操</option>
-						  <option value="拓展创新">拓展创新</option>
+				      <select name="m_type" lay-filter="aihao" required="required">
+				        <option value="理论验证">理论验证</option>
+				        <option value="综合实操" selected="">综合实操</option>
+				        <option value="拓展创新">拓展创新</option>
 				      </select>
 				    </div>
 				 </div>
 				<div class="layui-form-item">
 				    <label class="layui-form-label">课时：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="m_classhour" lay-verify="title" autocomplete="off" placeholder="请输入课时" class="layui-input" th:value="${preExpModel.classhour}">
+				      <input type="text" name="m_classhour" required="required" lay-verify="title" autocomplete="off" placeholder="请输入课时" class="layui-input">
 				    </div>
 				</div>
 				<div class="layui-form-item">
 				    <label class="layui-form-label">实验平台链接：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="m_inurl" lay-verify="title" autocomplete="off" placeholder="请输入实验平台链接" class="layui-input" th:value="${preExpModel.m_inurl}">
+				      <input type="text" name="m_inurl" required="required" lay-verify="title" autocomplete="off" placeholder="请输入实验平台链接" class="layui-input">
 				    </div>
 				</div>
 				 
 				<div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <input class="layui-btn" lay-submit lay-filter="formDemo" value="修改" type="submit">
+				      <input type="submit" class="layui-btn layui-btn-primary" value="添加理论学习"/>
 				      <button type="reset" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">取消</button>
-				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
-				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteTheory/${preExpModel.m_id}|}">删除理论学习</a>
 				    </div>
 				</div>
 			</form>
@@ -103,7 +101,7 @@
 		layui.use('upload', function(){
 		  var $ = layui.jquery
 		  ,upload = layui.upload;
-		  
+
 		  //普通图片上传
 		  var uploadInst = upload.render({
 		    elem: '#test1'

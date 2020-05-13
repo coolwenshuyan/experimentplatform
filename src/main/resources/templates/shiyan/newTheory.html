@@ -3,68 +3,98 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>理论学习—新建 </title>
-		<!--<link rel="stylesheet" type="text/css" href="css/layui.css" />-->
-		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+		<title>wangEditor 一个页面多个编辑器</title>
+	
+		<link rel="stylesheet" type="text/css" href="../css/layui.css" />
+		<!--<script src="../js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
 		<style type="text/css">
-			p{
+			p {
 				margin: 2%;
 			}
 		</style>
 	</head>
 
 	<body>
-	<div style="text-align: center;margin-top:30px;font-size: 20px;">理论学习—新建</div>
-		<p>实验介绍：</p>
-		<div id="div1">
-			<p>实验介绍</p>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验目的:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验目的" class="layui-input">
+		<form class="layui-form " action="">
+			<div class="layui-form-item">
+				<label class="layui-form-label">实验介绍:</label>
+				<div class="layui-input-block">
+					<div id="div1">
+						<p>实验介绍</p>
+					</div>
+				</div>
 			</div>
-		</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">实验目的:</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验目的" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">实验原理:</label>
+				<div class="layui-input-block">
+					<div id="div4">
+						<p>实验原理</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">实验内容:</label>
+				<div class="layui-input-block">
+					<div id="div3">
+						<p>实验内容</p>
+					</div>
+				</div>
+			</div>
 
-		<p>实验原理：</p>
-		<div id="div4">
-			<p>实验原理</p>
-		</div>
-		<p>实验内容：</p>
-		<div id="div3">
-			<p>实验内容</p>
-		</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">实验资料说明:</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入资料说明" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">实验资料:</label>
+				<div class="layui-input-block">
+					<div class="layui-upload">
+			  <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button> 
+			  <div class="layui-upload-list">
+			    <table class="layui-table">
+			      <thead>
+			        <tr><th>文件名</th>
+			        <th>大小</th>
+			        <th>状态</th>
+			        <th>操作</th>
+			      </tr></thead>
+			      <tbody id="demoList"></tbody>
+			    </table>
+			  </div>
+			 
+			</div> 
+				</div>
+			</div>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">实验步骤:</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验步骤" class="layui-input">
+				</div>
+			</div>
 
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验资料说明:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入资料说明" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验资料:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验目的" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验步骤:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验步骤" class="layui-input">
-			</div>
-		</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button type="layui-btn" class="layui-btn layui-btn-primary">取消</button>
+					<button  type="button"  class="layui-btn" lay-submit lay-filter="formDemo" id="testListAction">确定</button>
+		
 
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button type="layui-btn" class="layui-btn layui-btn-primary">取消</button>
-				<button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
-
+				</div>
 			</div>
-		</div>
+		</form>
 		<!-- 引用js -->
-		<!--<script type="text/javascript" src="/wangEditor.min.js"></script>-->
-		<!--<script src="js/wangEditor.js" type="text/javascript" charset="utf-8"></script>-->
-		<script src="../../static/js/wangEditor.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="../js/wangEditor.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var E = window.wangEditor
 
@@ -72,15 +102,72 @@
 			//      editor1.create()
 			var editor1 = new E('#div1')
 			editor1.create()
-			var editor2 = new E('#div2')
-			editor2.create()
 
 			var editor3 = new E('#div3')
 			editor3.create()
 			var editor4 = new E('#div4')
 			editor4.create()
-			var editor5 = new E('#div5')
-			editor5.create()
+			
+			//多文件列表示例
+		layui.use('upload', function(){
+		  var $ = layui.jquery
+		  ,upload = layui.upload;
+		  //多文件上传
+		  var demoListView = $('#demoList')
+		  ,uploadListIns = upload.render({
+		    elem: '#testList'
+		    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+		    ,accept: 'file'
+		    ,multiple: true
+		    ,auto: false
+		    ,bindAction: '#testListAction'
+		    ,choose: function(obj){   
+		      var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+		      //读取本地文件
+		      obj.preview(function(index, file, result){
+		        var tr = $(['<tr id="upload-'+ index +'">'
+		          ,'<td>'+ file.name +'</td>'
+		          ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+		          ,'<td>等待上传</td>'
+		          ,'<td>'
+		            ,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+		            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+		          ,'</td>'
+		        ,'</tr>'].join(''));
+		        
+		        //单个重传
+		        tr.find('.demo-reload').on('click', function(){
+		          obj.upload(index, file);
+		        });
+		        
+		        //删除
+		        tr.find('.demo-delete').on('click', function(){
+		          delete files[index]; //删除对应的文件
+		          tr.remove();
+		          uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+		        });
+		        
+		        demoListView.append(tr);
+		      });
+		    }
+		    ,done: function(res, index, upload){
+		      if(res.files.file){ //上传成功
+		        var tr = demoListView.find('tr#upload-'+ index)
+		        ,tds = tr.children();
+		        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+		        tds.eq(3).html(''); //清空操作
+		        return delete this.files[index]; //删除文件队列已经上传成功的文件
+		      }
+		      this.error(index, upload);
+		    }
+		    ,error: function(index, upload){
+		      var tr = demoListView.find('tr#upload-'+ index)
+		      ,tds = tr.children();
+		      tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+		      tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+		    }
+		  });
+		});
 		</script>
 	</body>
 
