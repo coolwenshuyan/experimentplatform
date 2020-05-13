@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>新建/修改---实验模块</title>
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+		
+	</head>
+		<style type="text/css">
+			#content{
+				padding: 2%;
+			}
+			.layui-input-block{
+				margin-left: 150px;
+			}
+			.layui-form-label{
+				width:inherit;
+			}
+			.layui-upload{
+				margin-left: 150px;
+			}
+			.layui-upload-list{
+				width: 200px;
+				height: 200px;
+				border: #B2B2B2 solid 1px;
+			}
+			.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
+				display: block;
+				width: 100%;
+				height: 38px;
+				background-color: #fff;
+				/*border:1px solid #e6e6e6 ;*/
+			}
+		</style>
+	<body>
+
+	<div style="text-align: center;margin-top:30px;font-size: 20px;">新建/修改---实验模块</div>
+		<div class="layui-container" id="content">
+			<div class="layui-row">
+				<form class="layui-form layui-col-md7" action="">
+				<div class="layui-form-item">
+				    <label class="layui-form-label">实验名称：</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验名称" class="layui-input">
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">实验简介图片:</label>
+				    <div class="layui-upload">
+						<button type="button" class="layui-btn" id="test1">上传图片</button>
+						  <div class="layui-upload-list">
+						    <img class="layui-upload-img" id="demo1">
+						    <p id="demoText"></p>
+						  </div>
+					</div>  
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">实验负责人:</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验负责人" class="layui-input">
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">实验类型：</label>
+				    <div class="layui-input-block">
+				      <select name="interest" lay-filter="aihao">
+				        <option value=""></option>
+				        <option value="0">写作</option>
+				        <option value="1" selected="">阅读</option>
+				        <option value="2">游戏</option>
+				        <option value="3">音乐</option>
+				        <option value="4">旅行</option>
+				      </select>
+				    </div>
+				 </div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">课时：</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入课时" class="layui-input">
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">实验平台链接：</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验平台链接" class="layui-input">
+				    </div>
+				</div>
+				 
+				<div class="layui-form-item">
+				    <div class="layui-input-block">
+				      <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+				      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				      <a href="">
+				      	<button type="layui-btn" class="layui-btn layui-btn-primary">添加理论学习</button>
+				      </a>
+				    </div>
+				</div>
+			</form>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		layui.use('upload', function(){
+		  var $ = layui.jquery
+		  ,upload = layui.upload;
+		  
+		  //普通图片上传
+		  var uploadInst = upload.render({
+		    elem: '#test1'
+		    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+		    ,before: function(obj){
+		      //预读本地文件示例，不支持ie8
+		      obj.preview(function(index, file, result){
+		        $('#demo1').attr('src', result); //图片链接（base64）
+		      });
+		    }
+		    ,done: function(res){
+		      //如果上传失败
+		      if(res.code > 0){
+		        return layer.msg('上传失败');
+		      }
+		      //上传成功
+		    }
+		    ,error: function(){
+		      //演示失败状态，并实现重传
+		      var demoText = $('#demoText');
+		      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+		      demoText.find('.demo-reload').on('click', function(){
+		        uploadInst.upload();
+		      });
+		    }
+		  });
+		});
+	</script>
+</html>
