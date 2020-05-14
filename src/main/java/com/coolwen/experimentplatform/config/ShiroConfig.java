@@ -21,8 +21,11 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+//import com.coolwen.experimentplatform.realm.MyShiroRealm;
 
 /**
  * @author CoolWen
@@ -92,7 +95,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/405");
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-//        Map<String, String> chains = new HashMap();
+        Map<String, String> chains = new HashMap();
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/js/*/*/*", "anon");
@@ -101,7 +104,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/405", "anon");
-//        chains.put("/admin/*","roles[Admin]");
+        chains.put("/admin/*","roles[Admin]");
         filterChainDefinitionMap.put("/logout", "logout");
         logger.debug("filterChainDefinitionMap" + filterChainDefinitionMap);
         logger.debug("Shiro拦截器工厂类注入成功");

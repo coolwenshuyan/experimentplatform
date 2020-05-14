@@ -14,6 +14,6 @@ public class HelloController {
     @RequestMapping("/test")
 //    @RequiresRoles("Admin")
     public String hello() {
-        return "redirect:/login";
+        return "editor";
     }
 }
