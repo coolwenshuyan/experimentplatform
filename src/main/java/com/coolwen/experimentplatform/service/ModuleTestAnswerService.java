@@ -4,6 +4,7 @@ import com.coolwen.experimentplatform.model.ModuleTestAnswer;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 淮南
@@ -11,12 +12,15 @@ import java.util.List;
  */
 public interface ModuleTestAnswerService {
 
-    public void addAnswerDescribe(ModuleTestAnswer moduleTestAnswer);
+    public void addAnswers(ModuleTestAnswer moduleTestAnswer);
 
     public void deleteAnswer(int answerId);
 
-    public void updateAnswerDescribe(int answerId);
+    public ModuleTestAnswer updateAnswer(int answerId);
 
-    public List<ModuleTestAnswer> loadAnswerDescribe(int questId);
+    public List<ModuleTestAnswer> loadAnswer();
 
+    ModuleTestAnswer findByAnswerId(int answerId);
+
+    ModuleTestAnswer findByQuestId(int questId);
 }
