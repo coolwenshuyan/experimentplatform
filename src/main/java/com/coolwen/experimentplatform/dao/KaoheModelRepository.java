@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
+//import com.coolwen.experimentplatform.model.ExpKaohe;
 import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.model.Resource;
 import org.springframework.data.jpa.repository.JpaRepository;
