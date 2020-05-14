@@ -1,88 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>理论学习—修改</title>
-		<!--<link rel="stylesheet" type="text/css" href="css/layui.css" />-->
-		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
-		<style type="text/css">
-			p{
-				margin: 2%;
+<head>
+	<meta charset="UTF-8">
+	<title>修改理论</title>
+
+<!--	<link rel="stylesheet" type="text/css" href="../static/css/layui.css" />-->
+	<!--<script src="../js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+	<style type="text/css">
+		p {
+			margin: 2%;
+		}
+	</style>
+</head>
+
+<body>
+<form class="layui-form " th:action="@{|/expmodel/updateExpTheory/${id}|}" method="post" th:object="${preExpModel}">
+	<div class="layui-form-item">
+		<label class="layui-form-label">实验介绍:</label>
+		<div class="layui-input-block">
+			<script id="editor1" name = "m_introduce" type="text/plain" th:utext="${preExpModel.introduce}">
+			</script>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">实验目的:</label>
+		<div class="layui-input-block">
+			<input type="text" name="m_purpose" lay-verify="title" autocomplete="off" placeholder="请输入实验目的" class="layui-input" th:value="${preExpModel.purpose}">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">实验原理:</label>
+		<div class="layui-input-block">
+			<script id="editor2" name = "m_principle" type="text/plain" th:utext="${preExpModel.principle}">
+
+			</script>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">实验内容:</label>
+		<div class="layui-input-block">
+			<script id="editor3" name = "m_content" type="text/plain" th:utext="${preExpModel.m_content}">
+			</script>
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<label class="layui-form-label">实验资料说明:</label>
+		<div class="layui-input-block">
+			<input type="text" name="m_edata_intro" lay-verify="title" autocomplete="off" placeholder="请输入资料说明" class="layui-input" th:value="${preExpModel.m_edata_intro}">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">实验资料:</label>
+		<div class="layui-input-block">
+			<div class="layui-upload">
+				<button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+				<div class="layui-upload-list">
+					<table class="layui-table">
+						<thead>
+						<tr><th>文件名</th>
+							<th>大小</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr></thead>
+						<tbody id="demoList"></tbody>
+					</table>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button  type="button"  class="layui-btn" lay-submit lay-filter="formDemo" id="testListAction">上传文件</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<label class="layui-form-label">实验步骤:</label>
+		<div class="layui-input-block">
+			<input type="text" name="m_step" lay-verify="title" autocomplete="off" placeholder="请输入实验步骤" class="layui-input" th:value="${preExpModel.m_step}">
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<input  type="submit"  class="layui-btn" lay-submit value="提交修改"/>
+		</div>
+	</div>
+
+
+</form>
+<!-- 引用js -->
+
+
+<script src="../../static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+
+<script th:src="@{/ueditor/ueditor.config.js}"></script>
+<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	UE.getEditor('editor1');
+	UE.getEditor('editor2');
+	UE.getEditor('editor3');
+	var files = [];
+	//多文件列表示例
+	layui.use(['upload','element','jquery'], function(){
+		var $ = layui.jquery;
+		var upload = layui.upload;
+		var modelId =[[${session.modelId}]];
+		//多文件上传
+
+		var demoListView = $('#demoList')
+				,uploadListIns = upload.render({
+			elem: '#testList'
+			,url: '/expmodel/addTheoryFile/'+modelId //改成您自己的上传接口
+			,accept:'file'
+			,filed:"files"
+			,multiple: true
+			,auto: false
+			,bindAction: '#testListAction'
+			,choose: function(obj){
+				var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+				//读取本地文件
+				obj.preview(function(index, file, result){
+					var tr = $(['<tr id="upload-'+ index +'">'
+						,'<td>'+ file.name +'</td>'
+						,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+						,'<td>等待上传</td>'
+						,'<td>'
+						,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+						,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+						,'</td>'
+						,'</tr>'].join(''));
+
+					//单个重传
+					tr.find('.demo-reload').on('click', function(){
+						obj.upload(index, file);
+					});
+
+					//删除
+					tr.find('.demo-delete').on('click', function(){
+						delete files[index]; //删除对应的文件
+						tr.remove();
+						uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+					});
+
+					demoListView.append(tr);
+				});
 			}
-		</style>
-	</head>
+			,done: function(res, index, upload){
+				if (res.code == 0){
+					files.push({"fileName":res.filename,"fileUrl":res.fileUrl,"fileSize":res.fileSize});//,"fileUrl":res.fileUrl
+					var json = JSON.stringify(files);
+					//将上传的文件信息加入到集合中并转换成json字符串
+					$("#fileJson").attr("value",json);
 
-	<body>
-
-	<div style="text-align: center;margin-top:30px;font-size: 20px;">理论学习—修改</div>
-		<p>实验介绍：</p>
-		<div id="div1">
-			<p>实验介绍</p>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验目的:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验目的" class="layui-input">
-			</div>
-		</div>
-
-		<p>实验原理：</p>
-		<div id="div4">
-			<p>实验原理</p>
-		</div>
-		<p>实验内容：</p>
-		<div id="div3">
-			<p>实验内容</p>
-		</div>
-
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验资料说明:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入资料说明" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验资料:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验目的" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">实验步骤:</label>
-			<div class="layui-input-block">
-				<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验步骤" class="layui-input">
-			</div>
-		</div>
-
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button type="layui-btn" class="layui-btn layui-btn-primary">取消</button>
-				<button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
-
-			</div>
-		</div>
-		<!-- 引用js -->
-		<!--<script type="text/javascript" src="/wangEditor.min.js"></script>-->
-		<!--<script src="js/wangEditor.js" type="text/javascript" charset="utf-8"></script>-->
-		<script src="../../static/js/wangEditor.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			var E = window.wangEditor
-
-			//      var editor1 = new E('#div1', '#div2','#div4','#div4')
-			//      editor1.create()
-			var editor1 = new E('#div1')
-			editor1.create()
-			var editor2 = new E('#div2')
-			editor2.create()
-
-			var editor3 = new E('#div3')
-			editor3.create()
-			var editor4 = new E('#div4')
-			editor4.create()
-			var editor5 = new E('#div5')
-			editor5.create()
-		</script>
-	</body>
+					var fileUrl = res.fileUrl;
+					var tr = demoListView.find('tr#upload-'+ index)
+							,tds = tr.children();
+					tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+					tds.eq(3).html('<span>'+fileUrl+'</span>');
+					tds.eq(4).html(''); //清空操作
+					return delete this.files[index]; //删除文件队列已经上传成功的文件
+				}
+				this.error(index, upload);
+			}
+			,error: function(index, upload){
+				var tr = demoListView.find('tr#upload-'+ index)
+						,tds = tr.children();
+				tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+				tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+			}
+		});
+	});
+</script>
+</body>
 
 </html>

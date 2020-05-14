@@ -15,6 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/expmodel")
@@ -70,9 +76,10 @@ public class ExpModelController {
     }
 //模块更新
     @GetMapping("/updateExpModel/{id}")
-    public String toUpdate(@PathVariable("id") int id,Model model){
+    public String toUpdate(@PathVariable("id") int id,Model model,HttpServletRequest request){
         ExpModel expModel = expModelService.findExpModelByID(id);
         model.addAttribute("preExpModel",expModel);
+        model.addAttribute("image",request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpModelImage/"+expModel.getImageurl());
         return "shiyan/changeExpModel";
     }
 
@@ -108,25 +115,16 @@ public class ExpModelController {
         return"shiyan/newTheory";
     }
 
-    @PostMapping("/addTheorryy/{id}")
+    @PostMapping("/addTheory/{id}")
     public String AddExpTheory(@PathVariable("id") int id,
                                String m_introduce,
                                String m_purpose,
                                String m_principle,
                                String m_content,
                                String m_edata_intro,
-                               String m_step,
-                               MultipartFile[] files,
-                               HttpServletRequest request
+                               String m_step
                                )
     {
-        StringBuffer stringBuffer = new StringBuffer();
-        if(files.length>0){
-            for (int i = 0; i < files.length; i++) {
-                MultipartFile file = files[i];
-                stringBuffer.append(fIleService.upload(request,file)+",");
-            }
-        }
         ExpModel expModel = expModelService.findExpModelByID(id);
         expModel.setIntroduce(m_introduce);
         expModel.setPurpose(m_purpose);
@@ -134,11 +132,42 @@ public class ExpModelController {
         expModel.setM_content(m_content);
         expModel.setM_edata_intro(m_edata_intro);
         expModel.setM_step(m_step);
-        expModel.setM_edataurl(stringBuffer.toString());
         expModelService.save(expModel);
         return "redirect:/expmodel/list";
     }
-//理论更新
+//理论资料上传接口
+    @PostMapping("/addTheoryFile/{id}")
+    @ResponseBody
+    public String AddExpTheory(@PathVariable("id") int id,
+                               MultipartFile file,
+                               HttpServletRequest request
+    )
+    {
+        System.out.println(file);
+        String pathString = null;
+        if(file!=null) {
+            //获取上传的文件名称
+            String filename = file.getOriginalFilename();
+            //文件上传时，chrome与IE/Edge对于originalFilename处理方式不同
+            //chrome会获取到该文件的直接文件名称，IE/Edge会获取到文件上传时完整路径/文件名
+            //Check for Unix-style path
+            int unixSep = filename.lastIndexOf('/');
+            //Check for Windows-style path
+            int winSep = filename.lastIndexOf('\\');
+            //cut off at latest possible point
+            int pos = (winSep > unixSep ? winSep:unixSep);
+            if (pos != -1)
+                filename = filename.substring(pos + 1);
+            pathString =  fIleService.upload(request,file)+",";
+        }
+        ExpModel expModel = expModelService.findExpModelByID(id);
+        expModel.setM_edataurl(pathString);
+        expModelService.save(expModel);
+        return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
+    }
+
+
+    //理论更新
     @GetMapping("/updateExpTheory/{id}")
     public String toUpdateExpTheory(@PathVariable("id") int id,Model model){
         ExpModel expModel = expModelService.findExpModelByID(id);
@@ -154,18 +183,10 @@ public class ExpModelController {
                                String m_principle,
                                String m_content,
                                String m_edata_intro,
-                               String m_step,
-                               MultipartFile[] files,
-                               HttpServletRequest request
+                               String m_step
     )
     {
-        StringBuffer stringBuffer = new StringBuffer();
-        if(files.length>0){
-            for (int i = 0; i < files.length; i++) {
-                MultipartFile file = files[i];
-                stringBuffer.append(fIleService.upload(request,file)+",");
-            }
-        }
+
         ExpModel expModel = expModelService.findExpModelByID(id);
         expModel.setIntroduce(m_introduce);
         expModel.setPurpose(m_purpose);
@@ -173,7 +194,6 @@ public class ExpModelController {
         expModel.setM_content(m_content);
         expModel.setM_edata_intro(m_edata_intro);
         expModel.setM_step(m_step);
-        expModel.setM_edataurl(stringBuffer.toString());
         expModelService.save(expModel);
         return "redirect:/expmodel/list";
     }
@@ -191,6 +211,13 @@ public class ExpModelController {
         expModel.setM_edataurl(null);
         expModelService.save(expModel);
         return "redirect:/expmodel/list";
+    }
+
+    @GetMapping("/viewExpModel")
+    public String viewModel(@RequestParam("m_name") String m_name,Model model){
+        List<ExpModel> list = expModelService.findExpModelsBym_name(m_name);
+        model.addAttribute("list",list);
+        return "shiyan/viewExpModel";
     }
 
 
