@@ -15,8 +15,8 @@
   			<!--<a href="/demo/">师资队伍</a>-->
   			<a><cite>考核模块</cite></a>
 			</span> <br><br><br>
-	<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">考核模块</button>
-	<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">全部模块</button>
+			<a href="/kaohemodel/checkModule"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">考核模块</button></a>
+			<a href="/kaohemodel/allModule"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">全部模块</button></a>
 			<div class="layui-form">
 				<table class="layui-table">
 					<colgroup>
@@ -54,7 +54,7 @@
 <!--								<button @click="isTrue" th:href="@{|kaoheModel/${kaoheModel.id}/update|}" type="update" class="layui-btn layui-btn-sm" >修改</button>-->
 <!--								<button th:href="@{|kaoheModel/${kaoheModel.id}/delete|}" type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>-->
 								<a  type="update" class="layui-btn layui-btn-sm" th:href="@{|/kaohemodel/${kaoheModel.id}/update|}">修改</a>
-								<a  type="delete"  class="layui-btn layui-btn-sm" style="background-color: red;"  th:href="@{|/kaohemodel/${kaoheModel.id}/delete|}">删除</a>
+								<a  type="delete"  class="layui-btn layui-btn-sm" style="background-color: red;"  th:href="@{|/kaohemodel/${kaoheModel.id}/delete|}">移出考核</a>
 
 							</td>
 						</tr>

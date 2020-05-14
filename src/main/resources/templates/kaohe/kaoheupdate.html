@@ -25,31 +25,14 @@
         <!--<a href="/demo/">轮播公告</a>-->
   			<a><cite>考核实验</cite></a>
 			</span><br><br><br>
-    <form th:object="${kaohemodel}"  class="layui-form" th:action="@{update}"   method="post">
+    <form th:object="${kaohemodel}" class="layui-form" th:action="@{update}" method="post">
         <div class="layui-form-item">
             <label class="layui-form-label">实验名</label>
-            <div class="layui-input-block">
-                <input type="text" name="Experiment_name" lay-verify="title" autocomplete="off"  class="layui-input">
-            </div>
+
+            <p th:text="${kaohemodel.experiment_name}">实验名</p>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">实验类型</label>
-            <div class="layui-input-block">
-                <input type="text" th:value="${kaohemodel.shiyan_Types}"name="shiyan_Types">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">课时</label>
-            <div class="layui-input-block">
-                <input type="text" th:value="${kaohemodel.m_id}" name="m_id" lay-verify="title" autocomplete="off"  class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">实验目的</label>
-            <div class="layui-input-block">
-                <textarea  th:value="${kaohemodel.shiyan_Purpose}" class="layui-textarea" name="shiyan_Purpose"></textarea>
-            </div>
-        </div>
+
+
         <div class="layui-form-item">
             <label class="layui-form-label">测试成绩占比</label>
             <div class="layui-input-block">

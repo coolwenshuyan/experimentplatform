@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>考核实验设置</title>
@@ -14,8 +14,8 @@
 		<!--<a href="/demo/">师资队伍</a>-->
   			<a><cite>考核实验</cite></a>
 			</span> <br><br><br>
-	<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">考核模块</button>
-	<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">全部模块</button>
+	<a href="/kaohemodel/checkModule"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">考核模块</button></a>
+	<a href="/kaohemodel/allModule"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">全部模块</button></a>
 
 	<div class="layui-form">
 		<table class="layui-table">
@@ -37,13 +37,13 @@
 			</thead>
 			<tbody>
 			<tr th:each="b:${allKaohe}">
-				<td th:text="${b.id}">1</tdth:text>
-				<td th:text="${b.experiment_name}">模块1</td>
-				<td th:text="${b.shiyan_Types}">拓展创新</td>
-				<td th:text="${b.shiyan_Purpose}">拓展创新</td>
-				<td th:text="${b.class_hour}">32</td>
+				<td th:text="${b.m_id}">1</tdth:text>
+				<td th:text="${b.m_name}">模块1</td>
+				<td th:text="${b.m_type}">拓展创新</td>
+				<td th:text="${b.purpose}">拓展创新</td>
+				<td th:text="${b.classhour}">32</td>
 				<td>
-					<button type="add"  @click="isTrue" class="layui-btn layui-btn-sm" th:href="@{/${b.id}/update|}">移入考核</button>
+					<a th:href="@{|/kaohemodel/${b.m_id}/moveIn|}"><button type="add"  @click="isTrue" class="layui-btn layui-btn-sm" >移入考核</button></a>
 				</td>
 			</tr>
 
