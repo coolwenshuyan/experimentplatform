@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>测试成绩管理</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../static/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../static/css/page.css"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/code.css"/>
+	</head>
+
+	<body>
+		<div class="layui-container">
+			<img src="../../static/images/LOGO2.png"> <br><br>
+			<span class="layui-breadcrumb">
+  			<a href="/">首页</a>
+  			<!--<a href="/demo/">轮播公告</a>-->
+  			<a><cite>测试成绩管理</cite></a>
+			</span> <br><br><br>
+
+			<table class="layui-table" lay-size="lg" style="    text-align: center;">
+				<colgroup>
+					<col width="150">
+					<col width="200">
+					<col>
+				</colgroup>
+				<thead>
+					<tr>
+						<th colspan="3">
+							<form class="layui-form" action="">
+								<div class="layui-form-item">
+									<label class="layui-form-label">班级筛选</label>
+									<div class="layui-input-block" style="width: 30%;">
+										<select name="interest" lay-filter="aihao">
+											<!--<option value=""></option>-->
+											<option value="0" selected="">18信管01</option>
+											<option value="1">18信管02</option>
+											<option value="2">18信管03</option>
+											<option value="3">18数媒01</option>
+											<option value="4">18数媒02</option>
+										</select>
+									</div>
+
+								</div>
+								
+							</form>
+						</th>
+
+						<th colspan="3">
+
+							<li>
+								<div class="layui-input-block" style="float: left; position: relative;">
+									<label class="layui-form-label">学号搜索</label>
+									<input style="width: auto;" type="text" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
+								</div>
+								<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="导出" class="layui-btn" lay-submit="" lay-filter="demo1">导出</button>
+							</li>
+
+						</th>
+					</tr>
+					<tr>
+						<th>学号</th>
+						<th>姓名</th>
+						<th>班级</th>
+						<th>模块1</th>
+						<th>测试成绩</th>
+						<th>状态</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>12345678</td>
+						<td>张三</td>
+						<td>18信管01</td>
+						<td>实验1</td>
+						<td>86</td>
+						<td>完成</td>
+					</tr>
+					<tr>
+						<td>12345678</td>
+						<td>张三</td>
+						<td>18信管01</td>
+						<td>实验1</td>
+						<td>86</td>
+						<td>完成</td>
+					</tr>
+					<tr>
+						<td>12345678</td>
+						<td>张三</td>
+						<td>18信管01</td>
+						<td>实验1</td>
+						<td>86</td>
+						<td>完成</td>
+					</tr>
+					<tr>
+						<td>12345678</td>
+						<td>张三</td>
+						<td>18信管01</td>
+						<td>实验1</td>
+						<td>86</td>
+						<td>完成</td>
+					</tr>
+					<tr>
+						<td>12345678</td>
+						<td>张三</td>
+						<td>18信管01</td>
+						<td>实验1</td>
+						<td>86</td>
+						<td>完成</td>
+					</tr>
+					<tr>
+						<td>12345678</td>
+						<td>张三</td>
+						<td>18信管01</td>
+						<td>实验1</td>
+						<td>86</td>
+						<td>完成</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div style="text-align: center;">
+			<div id="pager" class="pager clearfix">
+			</div>
+		</div>
+
+
+		<script type="text/javascript" src="../../static/js/layui.all.js" ></script>
+		<!--<script src="js/layui.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../../static/js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/jquery.z-pager.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			 
+			
+			$("#pager").zPager({
+				totalData: 50,
+				htmlBox: $('#wraper'),
+				btnShow: true,
+				ajaxSetData: false
+			});
+
+			function currentPage(currentPage) {
+				/*
+					触发页码数位置： Page/js/jquery.z-pager.js 64行
+				*/
+				console.log("当前页码数：" + currentPage);
+			}
+		</script>
+
+  <script>
+       
+    </script>
+	</body>
+
+</html>
