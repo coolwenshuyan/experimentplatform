@@ -33,7 +33,7 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Override
     public List<KaoheModel> listKaoheModel() {
-        return null;
+        return kaoheModelRepository.findAll();
     }
 
     @Override

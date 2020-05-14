@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import com.coolwen.experimentplatform.model.TotalScoreCurrent;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @author Artell
  * @date 2020/5/12 18:04
  */
+@Service
 public interface TotalScoreCurrentService {
     public void add(TotalScoreCurrent res);
 
