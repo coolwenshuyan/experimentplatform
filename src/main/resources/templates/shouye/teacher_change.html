@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -32,7 +31,7 @@
 			<th></th>
 			<th style="float: right;">
 				<a href="teacher_add.html">
-					<button type="add" class="layui-btn">添加</button>
+					<a type="add" class="layui-btn" href="/teachers/add">添加账号</a>
 				</a>
 			</th>
 		</tr>
@@ -44,57 +43,57 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr>
-			<td>许闲心</td>
+		<tr th:each="teacher:${teacherPageInfo.content}">
+			<td th:text="${teacher.person_name }">许闲心</td>
 			<td>
 				<div class="layui-upload">
-					<button type="button" class="layui-btn" id="test1">上传图片</button>
+<!--					<button type="button" class="layui-btn" id="test1">上传图片</button>-->
 					<div class="layui-upload-list">
-						<img class="layui-upload-img" id="demo1">
+						<img class="layui-upload-img" id="demo1" th:src="${teacher.image_url}">
 						<p id="demoText"></p>
 					</div>
 				</div>
 			</td>
-			<td>人生就像是一场修行</td>
+			<td th:text="${teacher.intro }">人生就像是一场修行</td>
 			<td>
-				<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-				<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
+				<a type="add" class="layui-btn layui-btn-sm" th:href="@{|${teacher.id }/update|}">修改</a>
+				<a type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" th:href="@{|${teacher.id}/delete|}">删除</a>
 			</td>
 		</tr>
-		<tr>
-			<td>许闲心</td>
-			<td>
-				<div class="layui-upload">
-					<button type="button" class="layui-btn" id="test1">上传图片</button>
-					<div class="layui-upload-list">
-						<img class="layui-upload-img" id="demo1">
-						<p id="demoText"></p>
-					</div>
-				</div>
-			</td>
-			<td>人生就像是一场修行</td>
-			<td>
-				<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-				<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
-			</td>
-		</tr>
-		<tr>
-			<td>许闲心</td>
-			<td>
-				<div class="layui-upload">
-					<button type="button" class="layui-btn" id="test1">上传图片</button>
-					<div class="layui-upload-list">
-						<img class="layui-upload-img" id="demo1">
-						<p id="demoText"></p>
-					</div>
-				</div>
-			</td>
-			<td>人生就像是一场修行</td>
-			<td>
-				<button type="add" class="layui-btn layui-btn-sm" >修改</button>
-				<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>
-			</td>
-		</tr>
+<!--		<tr>-->
+<!--			<td>许闲心</td>-->
+<!--			<td>-->
+<!--				<div class="layui-upload">-->
+<!--					<button type="button" class="layui-btn" id="test1">上传图片</button>-->
+<!--					<div class="layui-upload-list">-->
+<!--						<img class="layui-upload-img" id="demo1">-->
+<!--						<p id="demoText"></p>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</td>-->
+<!--			<td>人生就像是一场修行</td>-->
+<!--			<td>-->
+<!--				<button type="add" class="layui-btn layui-btn-sm" >修改</button>-->
+<!--				<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>-->
+<!--			</td>-->
+<!--		</tr>-->
+<!--		<tr>-->
+<!--			<td>许闲心</td>-->
+<!--			<td>-->
+<!--				<div class="layui-upload">-->
+<!--					<button type="button" class="layui-btn" id="test1">上传图片</button>-->
+<!--					<div class="layui-upload-list">-->
+<!--						<img class="layui-upload-img" id="demo1">-->
+<!--						<p id="demoText"></p>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</td>-->
+<!--			<td>人生就像是一场修行</td>-->
+<!--			<td>-->
+<!--				<button type="add" class="layui-btn layui-btn-sm" >修改</button>-->
+<!--				<button type="delete" @click="isTrue" class="layui-btn layui-btn-sm" style="background-color: red;" >删除</button>-->
+<!--			</td>-->
+<!--		</tr>-->
 		</tbody>
 	</table>
 

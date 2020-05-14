@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>师资添加</title>
@@ -26,12 +26,12 @@
   		<div class="layui-form-item">
     		<label class="layui-form-label">姓名</label>
     		<div class="layui-input-block">
-      		<input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+      		<input type="text" name="person_name" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
     		</div>
   		</div>
   		
   		<div class="layui-form-item">
-    		<label class="layui-form-label">图片</label>
+    		<label class="layui-form-label">图片</label><input type="image" name="image_url" class="form-control" id="img" />
     		<div class="layui-upload">
 		  		<button type="button" class="layui-btn" id="test1">上传图片</button>
 		  		<div class="layui-upload-list">
@@ -45,8 +45,8 @@
   		<div class="layui-form-item layui-form-text">
 		    <label class="layui-form-label">简介</label>
 		    <div class="layui-input-block">
-		      <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-		    </div>
+		      <textarea placeholder="请输入内容" class="layui-textarea" name="intro"></textarea>
+		</div>
 		  </div>
 		
   		
@@ -56,7 +56,7 @@
   		
   		<div class="layui-form-item">
     		<div class="layui-input-block">
-      		<button type="update" class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
+      		<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
 				<a href="teacher_change.html">
       				<button type="return" class="layui-btn layui-btn-primary">返回</button>
 				</a>

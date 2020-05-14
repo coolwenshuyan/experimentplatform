@@ -68,7 +68,7 @@ public class TeacherController {
     //跳转到add页面
     @GetMapping(value = "/add")
     public String TeacherAdd(){
-        return "teacher/add";
+        return "shouye/teacher_add";
     }
 
     @PostMapping(value = "/add")
@@ -83,7 +83,7 @@ public class TeacherController {
     public String update(@PathVariable int id, Model model){
         Teacher teacher = teacherService.findById(id);
         model.addAttribute("teacher",teacher);
-        return "teacher/update";
+        return "shouye/teacher_updata";
     }
 
     //完成修改操作
