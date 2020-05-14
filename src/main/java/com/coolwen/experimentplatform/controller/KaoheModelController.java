@@ -24,9 +24,6 @@ public class KaoheModelController {
     private KaoheModelService kaoheModelService;
     @Autowired
     private ExpModelService expModelService;
-    @Autowired
-    private KaoheModelRepository kaoheModelRepository;
-
 
 
     /**
@@ -48,7 +45,7 @@ public class KaoheModelController {
     @RequestMapping(value = "/checkModule",method = RequestMethod.GET)
     public String list(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
         Pageable pageable = PageRequest.of(pageNum,5);
-        Page<KaoheModel> page = kaoheModelRepository.findAll(pageable);
+        Page<KaoheModel> page = kaoheModelService.findAll(pageable);
         model.addAttribute("kaoheModelPageInfo",page);
         return "kaohe/checkModule";
     }
@@ -60,9 +57,6 @@ public class KaoheModelController {
     public String add(@PathVariable int mid,Model model){
         ExpModel expModel = expModelService.findExpModelByID(mid);
         model.addAttribute("expInfo",expModel);
-
-
-//        KaoheModel kaoheModel = kaoheModelService.findById(mid);
         model.addAttribute("moveIn",new KaoheModel());
         return "kaohe/moveIn";
     }
