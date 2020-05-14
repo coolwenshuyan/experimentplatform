@@ -1,3 +1,4 @@
+/*
 package com.coolwen.experimentplatform.realm;
 
 import com.coolwen.experimentplatform.model.Resource;
@@ -24,11 +25,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+*/
 /**
  * Created by user on 2016/6/4.
  * <p>
  * 权限登录与验证
- */
+ *//*
+
 public class MyShiroRealm extends AuthorizingRealm {
 
     protected static final Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
@@ -109,3 +112,4 @@ public class MyShiroRealm extends AuthorizingRealm {
     }
 
 }
+*/

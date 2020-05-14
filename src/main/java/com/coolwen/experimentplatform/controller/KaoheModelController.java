@@ -1,20 +1,21 @@
 package com.coolwen.experimentplatform.controller;
 
 
-import com.coolwen.experimentplatform.dao.KaoheModelRepository;
 import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.service.ExpModelService;
 import com.coolwen.experimentplatform.service.KaoheModelService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -43,10 +44,13 @@ public class KaoheModelController {
      *所有考核模块
      */
     @RequestMapping(value = "/checkModule",method = RequestMethod.GET)
-    public String list(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+    public String list(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) throws JsonProcessingException {
         Pageable pageable = PageRequest.of(pageNum,5);
         Page<KaoheModel> page = kaoheModelService.findAll(pageable);
         model.addAttribute("kaoheModelPageInfo",page);
+        /*System.out.println("page:"+page.getTotalElements());
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println("json:"+mapper.writeValueAsString(page));*/
         return "kaohe/checkModule";
     }
 
