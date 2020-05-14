@@ -6,6 +6,7 @@ import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.service.ExpModelService;
 import com.coolwen.experimentplatform.service.KaoheModelService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,9 +49,9 @@ public class KaoheModelController {
         Pageable pageable = PageRequest.of(pageNum,5);
         Page<KaoheModel> page = kaoheModelService.findAll(pageable);
         model.addAttribute("kaoheModelPageInfo",page);
-        /*System.out.println("page:"+page.getTotalElements());
+        System.out.println("page:"+page.getTotalElements());
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println("json:"+mapper.writeValueAsString(page));*/
+        System.out.println("json:"+mapper.writeValueAsString(page));
         return "kaohe/checkModule";
     }
 
