@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<title>考核实验设置</title>
@@ -16,9 +16,9 @@
 			</span> <br><br><br>
 			<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">考核模块</button>
 			<button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">全部模块</button>
-
+			
 			<div class="layui-form">
-				<table class="layui-table" action="/kaohemodel/add">
+				<table class="layui-table">
 					<colgroup>
 						<col width="150">
 						<col width="150">
@@ -36,12 +36,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr align="center" th:each="kaoheModel:${kaoheModelPageInfo.content}">
-							<td th:text="${kaoheModel.id}" >1</td>
-							<td th:text="${kaoheModel.Experiment_name}">模块1</td>
-							<td th:text="${kaoheModel.shiyan_Types}">拓展创新</td>
-							<td th:text="${kaoheModel.shiyan_Purpose}">拓展创新</td>
-							<td th:text="${kaoheModel.m_id}">32</td>
+						<tr>
+							<td>1</td>
+							<td>模块1</td>
+							<td>拓展创新</td>
+							<td>拓展创新</td>
+							<td>32</td>
 							<td>
 								<button type="add"  @click="isTrue" class="layui-btn layui-btn-sm" >移入考核</button>
 							</td>
@@ -98,13 +98,13 @@
 <!--						</tr>-->
 					</tbody>
 				</table>
-			</div>
-
-
-
+			</div>	
+		
+		
+		
 		</div>
-
-
+		
+		
 		<div style="text-align: center;">
 			<div id="pager" class="pager clearfix">
 			</div>
@@ -117,16 +117,16 @@
 		<script>
 	var app = new Vue({
 		el:"#app",
-
+		
 		methods:{
 			isTrue:function(){
 				confirm("确认移入考核？")
 			}
 		}
 	})
-
-
-
+	
+	
+	
 </script>
 <script type="text/javascript">
 		$("#pager").zPager({
@@ -135,14 +135,14 @@
 			btnShow: true,
 			ajaxSetData: false
 		});
-
+		
 		function currentPage(currentPage){
 			/*
 				触发页码数位置： Page/js/jquery.z-pager.js 64行
 			*/
 			console.log("当前页码数：" + currentPage);
 		}
-
+		
 	</script>
 	</body>
 </html>

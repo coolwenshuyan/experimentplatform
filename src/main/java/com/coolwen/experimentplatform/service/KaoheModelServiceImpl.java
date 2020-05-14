@@ -33,7 +33,7 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Override
     public List<KaoheModel> listKaoheModel() {
-        return null;
+        return kaoheModelRepository.findAll();
     }
 
     @Override
@@ -43,6 +43,16 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Override
     public Page<KaoheModel> findAll(Pageable pageable) {
-        return null;
+        return kaoheModelRepository.findAll(pageable);
     }
+
+//    @Override
+//    public boolean isItInKaohe(int mid) {
+//        int countIn=kaoheModelRepository.countAllByM_id(mid);
+//        if (countIn>0){
+//            return true;
+//        }else {
+//            return false;
+//        }
+//    }
 }

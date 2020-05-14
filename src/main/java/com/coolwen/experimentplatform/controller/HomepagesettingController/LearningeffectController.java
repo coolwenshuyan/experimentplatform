@@ -1,6 +1,6 @@
 package com.coolwen.experimentplatform.controller.HomepagesettingController;
 
-import com.coolwen.experimentplatform.dao.EffectDao;
+import com.coolwen.experimentplatform.dao.EffectRepository;
 import com.coolwen.experimentplatform.model.Effect;
 import com.coolwen.experimentplatform.service.EffectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +20,23 @@ import java.util.Date;
 public class LearningeffectController {
 
     @Autowired
-    EffectDao effectDao;
+    EffectRepository effectRepository;
     @Autowired
     EffectService effectService;
 
     @GetMapping(value = "/list")
     public String LearningeffectList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
         Pageable pageable = PageRequest.of(pageNum,3);
-        Page<Effect> page = effectDao.findAll(pageable);
+        Page<Effect> page = effectRepository.findAll(pageable);
         model.addAttribute("learningPageInfo",page);
-        return "learningeffect/effect";
+        return "shouye/student_level";
     }
 
 
     //点击首页添加按钮，来到添加页面
     @GetMapping(value = "/add")
     public String LearningeffectAdd(){
-        return "learningeffect/add";
+        return "shouye/study_add";
     }
 
     FileUploadController fileUploadController =new FileUploadController();
@@ -57,7 +57,7 @@ public class LearningeffectController {
     public String update(@PathVariable int id, Model model){
         Effect effect = effectService.findById(id);
         model.addAttribute("effect",effect);
-        return "learningeffect/update";
+        return "shouye/study_update";
     }
 
     //完成修改操作

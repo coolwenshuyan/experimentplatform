@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
-		<title>学习效果添加</title>
+		<title>学习效果修改</title>
 		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="../../static/css/notice.css" />
 		<style type="text/css">
@@ -21,16 +21,16 @@
 			<span class="layui-breadcrumb">
   			<a href="/">首页</a>
   			<a href="/demo/">学习效果</a>
-  			<a><cite>学习效果添加</cite></a>
+  			<a><cite>学习效果修改</cite></a>
 			</span>			<br><br><br>
 
 
 		<!--标题-->
-		<form class="layui-form" action="/learning/add" method="post" enctype="multipart/form-data">
+		<form class="layui-form" th:action="@{update}" th:object="${effect}" method="post" enctype="multipart/form-data">
   		<div class="layui-form-item">
     		<label class="layui-form-label">标题</label>
     		<div class="layui-input-block">
-      		<input type="text" name="effect_name" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+      		<input type="text" th:value="${effect.effect_name}" name="effect_name" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
     		</div>
   		</div>
   		
@@ -40,7 +40,7 @@
 <!--		  		<input type="file" name="file">上传图片</input>-->
 				<input type="file" name="file" value="请选择图片">
 		  		<div class="layui-upload-list">
-		    	<img class="layui-upload-img" id="demo1">
+		    	<img class="layui-upload-img" th:src="${effect.effect_imgurl}" id="demo1">
 		    	<p id="demoText"></p>
 		  	</div>
 		</div> 	
@@ -49,22 +49,17 @@
   		<div class="layui-form-item">
     		<label class="layui-form-label">制作者</label>
     		<div class="layui-input-block">
-      		<input type="text" name="effect_person" lay-verify="title" autocomplete="off" placeholder="请输入制作者" class="layui-input">
+      		<input type="text" th:value="${effect.effect_person}" name="effect_person" lay-verify="title" autocomplete="off" placeholder="请输入制作者" class="layui-input">
     		</div>
   		</div>
   		
   		<div class="layui-form-item layui-form-text">
 		    <label class="layui-form-label">发布内容</label>
 		    <div class="layui-input-block">
-		      <textarea placeholder="请输入内容" name="effect_content" class="layui-textarea"></textarea>
+		      <textarea placeholder="请输入内容" th:text="${effect.effect_content}" name="effect_content" class="layui-textarea"></textarea>
 		    </div>
 		 </div>
-		
-  		
 
-    	
-
-  		
   		<div class="layui-form-item">
     		<div class="layui-input-block">
       		<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>

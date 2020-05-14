@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>添加模块测试</title>
+
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+		
+	</head>
+	<style type="text/css">
+			.layui-row {
+			padding: 3% 0;
+			}
+			
+	</style>
+
+
+	<body>
+		<div class="layui-row layui-col-space10">
+			<div class="layui-col-md6">
+			  <form class="layui-form" action="">	
+				<div class="layui-form-item">
+					<label class="layui-form-label">题目</label>
+					<div class="layui-input-block">
+						<input type="text" name="title" required lay-verify="required" placeholder="请输入题目" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">选项</label>
+					<div class="layui-input-block content">
+						<div class="layui-card-body ">
+							<table class="layui-table layui-form">
+								<thead>
+									<tr>
+										<th>
+											<input type="checkbox" name="" lay-skin="primary">
+										</th>
+										<th>序号</th>
+										<th>内容</th>
+										<th>操作</th>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<input type="checkbox" name="" lay-skin="primary">
+										</td>
+										<td>A</td>
+										<td>怎么实现？？</td>
+
+										<td class="td-manage">
+											<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+												<button type="button" class="layui-btn">删除</button>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">分数</label>
+					<div class="layui-input-block">
+						<input type="text" name="title" required lay-verify="required" placeholder="100" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			  </form>
+
+			</div>
+
+			<div class="layui-col-md5">
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<label class="layui-form-label">序号</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" required lay-verify="required" placeholder="A" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">内容</label>
+						<div class="layui-input-block">
+							<textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea"></textarea>
+						</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button type="layui-btn" class="layui-btn layui-btn-primary">增加选项</button>							
+						</div>
+					</div>
+				</form>
+				<form class="layui-form" action="">	
+					
+					<div class="layui-form-item" >
+					    <label class="layui-form-label">类型</label>
+					    <div class="layui-input-block">
+					      <input type="radio" name="1" value="单选" title="单选">
+					      <input type="radio" name="1" value="多选" title="多选">
+					    </div>
+					  </div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">答案</label>
+						<div class="layui-input-block">
+							<input type="text" name="title" required lay-verify="required" placeholder="A" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+				</form>
+				
+
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button type="layui-btn" class="layui-btn layui-btn-primary">取消</button>
+					<button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+	
+				</div>
+			</div>
+			<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+
+			<script>
+			//Demo
+			layui.use('form', function(){
+			  var form = layui.form;
+			  
+			  //监听提交
+			  form.on('submit(formDemo)', function(data){
+			    layer.msg(JSON.stringify(data.field));
+			    return false;
+			  });
+			});
+			</script>
+	</body>
+
+</html>

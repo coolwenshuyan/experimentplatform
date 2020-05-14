@@ -11,7 +11,8 @@ import javax.persistence.*;
 public class ModuleTestQuest {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "mtest_quest_id")
+    @TableGenerator(name = "mtest_quest_id", initialValue = 0, allocationSize = 1,table = "seq_table")
     @Column(name = "quest_id")
     private int questId;
 

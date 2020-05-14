@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -28,59 +28,61 @@
   			<!--<a href="/demo/">轮播公告</a>-->
   			<a><cite>考核实验</cite></a>
 			</span><br><br><br>
-			<form class="layui-form" action="/kaohemodel/add" method="post">
-				<div class="layui-form-item">
+			<div th:object="${expInfo}">
+				<div class="layui-form-item" >
 					<label class="layui-form-label">实验名</label>
-					<div class="layui-input-block">
-						<input type="text" name="Experiment_name" lay-verify="title" autocomplete="off" placeholder="请输入实验名称" class="layui-input">
-					</div>
+					<!--					<div class="layui-input-block">-->
+					<!--						<input type="text" name="Experiment_name" lay-verify="title" autocomplete="off" placeholder="请输入实验名称" class="layui-input">-->
+					<!--					</div>-->
+					<p th:text="*{m_name}">这是一个实验名</p>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">实验类型</label>
-					<div class="layui-input-block">
-						<input type="text" name="shiyan_Types" lay-verify="title" autocomplete="off" placeholder="请输入实验类型" class="layui-input">
-					</div>
+					<!--					<div class="layui-input-block">-->
+					<!--						<input type="text" name="shiyan_Types" lay-verify="title" autocomplete="off" placeholder="请输入实验类型" class="layui-input">-->
+					<!--					</div>-->
+					<p th:text="*{m_type}">这是一个实验类型</p>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">课时</label>
-					<div class="layui-input-block">
-						<input type="text" name="m_id" lay-verify="title" autocomplete="off" placeholder="请输入实验课时" class="layui-input">
-					</div>
+					<!--					<div class="layui-input-block">-->
+					<!--						<input type="text" name="m_id" lay-verify="title" autocomplete="off" placeholder="请输入实验课时" class="layui-input">-->
+					<!--					</div>-->
+					<p th:text="*{classhour}">这是一个课时</p>
 				</div>
 				<div class="layui-form-item layui-form-text">
 					<label class="layui-form-label">实验目的</label>
-					<div class="layui-input-block">
-						<textarea placeholder="请输入实验目的" class="layui-textarea" name="shiyan_Purpose"></textarea>
-					</div>
+					<!--					<div class="layui-input-block">-->
+					<!--						<textarea placeholder="请输入实验目的" class="layui-textarea" name="shiyan_Purpose"></textarea>-->
+					<!--					</div>-->
+					<p th:text="*{purpose}">这是一个实验目的</p>
 				</div>
+			</div>
+
+			<form class="layui-form" th:object="${moveIn}" th:method="post" >
+
 				<div class="layui-form-item">
 					<label class="layui-form-label">测试成绩占比</label>
 					<div class="layui-input-block">
-						<input type="number" name="m_test_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入测试成绩占比" class="layui-input">
+						<input th:value="*{m_test_baifenbi}" type="number" name="m_test_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入测试成绩占比" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">报告成绩占比</label>
 					<div class="layui-input-block">
-						<input type="text" name="m_report_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入报告成绩占比" class="layui-input">
+						<input th:value="*{m_report_baifenbi}" type="text" name="m_report_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入报告成绩占比" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">权重</label>
 					<div class="layui-input-block">
-						<input type="text" name="m_scale" lay-verify="title" autocomplete="off" placeholder="请输入权重" class="layui-input">
+						<input th:value="*{m_scale}" type="text" name="m_scale" lay-verify="title" autocomplete="off" placeholder="请输入权重" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">序号</label>
 					<div class="layui-input-block">
-						<input type="number" name="m_order" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">序号</label>
-					<div class="layui-input-block">
-						<input type="number" name="class_hour" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+						<input th:value="*{m_order}" type="number" name="m_order" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
 					</div>
 				</div>
 

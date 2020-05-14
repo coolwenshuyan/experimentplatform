@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author 淮南
@@ -12,7 +13,8 @@ public class ModuleTestAnswer {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "mtest_answer_id")
+    @TableGenerator(name = "mtest_answer_id", initialValue = 0, allocationSize = 1,table = "seq_table")
     @Column(name = "answer_id")
     private int answerId;
 
@@ -29,7 +31,17 @@ public class ModuleTestAnswer {
     private int answerOrder;
 
     @Column(name = "quest_id")
-    private int questId;
+    private Integer questId;
+
+    public ModuleTestAnswer(String answerDescribe, int answerOrder) {
+        this.answerDescribe = answerDescribe;
+        this.answerOrder = answerOrder;
+    }
+
+    public ModuleTestAnswer() {
+
+    }
+
 
     public int getAnswerId() {
         return answerId;
@@ -62,6 +74,5 @@ public class ModuleTestAnswer {
     public void setQuestId(int questId) {
         this.questId = questId;
     }
-
 
 }
