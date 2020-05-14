@@ -98,10 +98,20 @@
 	</table>
 
 </div>
-<div style="text-align: center;">
-	<div id="pager" class="pager clearfix">
-	</div>
+
+<div style="margin:0 auto; width: 80%; text-align: center;">
+	<p>当前 <span th:text="${teacherPageInfo.number}+1"></span> 页,
+		总 <span th:text="${teacherPageInfo.totalPages}"></span> 页,
+		共 <span th:text="${teacherPageInfo.totalElements}"></span> 条记录</p>
+	<a th:href="@{/teachers/list}">首页</a>
+	<a th:href="@{/teachers/list(pageNum=${teacherPageInfo.hasPrevious()}?${teacherPageInfo.number}-1:0)}">上一页</a>
+	<a th:href="@{/teachers/list(pageNum=${teacherPageInfo.hasNext()}?${teacherPageInfo.number}+1:${teacherPageInfo.number})}">下一页</a>
+	<a th:href="@{/teachers/list(pageNum=${teacherPageInfo.totalPages}-1)}">尾页</a>
 </div>
+<!--<div style="text-align: center;">-->
+<!--	<div id="pager" class="pager clearfix">-->
+<!--	</div>-->
+<!--</div>-->
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>

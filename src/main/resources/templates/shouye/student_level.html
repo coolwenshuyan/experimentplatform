@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -47,59 +47,17 @@
                     </tr> 
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>贤心</td>
-                        <td><img src="../../static/images/logo.png"></td>
-                        <td>人生</td>
-                        <td>人生就像是一场修行</td>
-                        <td>2020-5-29</td>
-                        <td>10</td>
+                    <tr th:each="effect:${learningPageInfo.content}">
+                        <td th:text="${effect.effect_name}">贤心</td>
+                        <td ><img th:src="${effect.effect_imgurl}"></td>
+                        <td th:text="${effect.effect_person}">人生</td>
+                        <td th:text="${effect.effect_content}">人生就像是一场修行</td>
+                        <td th:text="${effect.dic_datetime}">2020-5-29</td>
+                        <td th:text="${effect.dic_num}">10</td>
                         <td>
                         	<div id="d" class="layui-btn-container">
-                                <button type="button" class="layui-btn">编辑</button> 
-                                <button type="button" class="layui-btn">删除</button>  
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>许闲心</td>
-                        <td><img src="../../static/images/logo.png"></td>
-                        <td>琴晚</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        <td>2016-11-28</td>
-                        <td>20</td>
-                        <td>
-                        	<div id="d" class="layui-btn-container">
-                                <button type="button" class="layui-btn">编辑</button> 
-                                <button type="button" class="layui-btn">删除</button>  
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>贤心</td>
-                        <td><img src="../../static/images/logo.png"></td>
-                        <td>人生</td>
-                        <td>人生就像是一场修行</td>
-                        <td>2020-5-29</td>
-                        <td>10</td>
-                        <td>
-                        	<div id="d" class="layui-btn-container">
-                                <button type="button" class="layui-btn">编辑</button> 
-                                <button type="button" class="layui-btn">删除</button>  
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>许闲心</td>
-                        <td><img src="../../static/images/logo.png"></td>
-                        <td>琴晚</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        <td>2016-11-28</td>
-                        <td>20</td>
-                        <td>
-                        	<div id="d" class="layui-btn-container">
-                                <button type="button" class="layui-btn">编辑</button> 
-                                <button type="button" class="layui-btn">删除</button>  
+                                <a type="button" th:href="@{|${effect.id}/update|}" class="layui-btn">编辑</a>
+                                <a type="button" th:href="@{|${effect.id}/delete|}" class="layui-btn">删除</a>
                             </div>
                         </td>
                     </tr>
@@ -108,19 +66,28 @@
                   
             <div id="d2" class="layui-row">
             	<div class="layui-col-md4">
-            		<a href="study_add.html">
+            		<a href="/learning/add">
                         <button type="button" class="layui-btn">
                         <i class="layui-icon">&#xe608;</i> 添加
                     </button></a>
             	</div>
-            	<div class="layui-col-md1  layui-col-md-offset7">
-            		<select name="page" lay-verify="" lay-search>
-                        <option value="010">第1页</option>
-                        <option value="021">第2页</option>
-                        <option value="0571" selected>第3页</option>
-                        ……
-                    </select>     
-            	</div>
+                <div style="margin:0 auto; width: 80%; text-align: center;">
+                    <p>当前 <span th:text="${learningPageInfo.number}+1"></span> 页,
+                        总 <span th:text="${learningPageInfo.totalPages}"></span> 页,
+                        共 <span th:text="${learningPageInfo.totalElements}"></span> 条记录</p>
+                    <a th:href="@{/learning/list}">首页</a>
+                    <a th:href="@{/learning/list(pageNum=${learningPageInfo.hasPrevious()}?${learningPageInfo.number}-1:0)}">上一页</a>
+                    <a th:href="@{/learning/list(pageNum=${learningPageInfo.hasNext()}?${learningPageInfo.number}+1:${learningPageInfo.number})}">下一页</a>
+                    <a th:href="@{/learning/list(pageNum=${learningPageInfo.totalPages}-1)}">尾页</a>
+                </div>
+<!--            	<div class="layui-col-md1  layui-col-md-offset7">-->
+<!--            		<select name="page" lay-verify="" lay-search>-->
+<!--                        <option value="010">第1页</option>-->
+<!--                        <option value="021">第2页</option>-->
+<!--                        <option value="0571" selected>第3页</option>-->
+<!--                        ……-->
+<!--                    </select>     -->
+<!--            	</div>-->
             </div>      
                 
 	    </div>

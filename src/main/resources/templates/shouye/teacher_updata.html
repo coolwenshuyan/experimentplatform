@@ -22,7 +22,7 @@
 
 
     <!--标题-->
-    <form class="layui-form" action="">
+    <form class="layui-form" th:action="@{update}" method="post" enctype="multipart/form-data">
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
@@ -31,9 +31,10 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">图片</label><input th:value="${teacher.image_url}" type="image" name="image_url" class="form-control" id="img" />
+            <label class="layui-form-label">图片</label>
+            <input type="image" name="image_url" th:src="${teacher.image_url}" class="form-control" id="img" />
             <div class="layui-upload">
-                <button type="button" class="layui-btn" id="test1">上传图片</button>
+                <input type="file" name="file" value="更换图片">
                 <div class="layui-upload-list">
                     <img class="layui-upload-img" id="demo1">
                     <p id="demoText"></p>
@@ -45,14 +46,9 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">简介</label>
             <div class="layui-input-block">
-                <textarea  placeholder="请输入内容" class="layui-textarea" th:value="${teacher.intro}" name="intro"></textarea>
+                <textarea  placeholder="请输入内容" class="layui-textarea" th:text="${teacher.intro}" name="intro"></textarea>
             </div>
         </div>
-
-
-
-
-
 
         <div class="layui-form-item">
             <div class="layui-input-block">
