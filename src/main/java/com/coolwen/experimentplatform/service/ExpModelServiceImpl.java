@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ExpModelServiceImpl implements ExpModelService {
     @Autowired
@@ -32,5 +34,10 @@ public class ExpModelServiceImpl implements ExpModelService {
     public Page<ExpModel> findModelList(int pageNum) {
         Pageable pageable  = PageRequest.of(pageNum,10);
         return expModelRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<ExpModel> findExpModelsBym_name(String m_name) {
+        return expModelRepository.findExpModelsByM_name(m_name);
     }
 }

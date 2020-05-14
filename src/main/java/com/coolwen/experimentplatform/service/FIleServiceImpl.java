@@ -29,10 +29,10 @@ public class FIleServiceImpl implements FIleService {
         String fileType = file.getContentType();
         if(request.getRequestURI().contains("/expmodel/addExpModel")||request.getRequestURI().contains("/expmodel/updateExpModel")){
             String realPath = expModelImage;
-            dir = new File(realPath + format);
-//        }else if(request.getRequestURI().contains("/orgBack/uploadPolicy")){
-//            String realPath = policyPath;
-//            dir = new File(realPath+format);
+            dir = new File(realPath + "/"+format);
+        }else if(request.getRequestURI().contains("/expmodel/addTheoryFile")){
+            String realPath = expData;
+            dir = new File(realPath+"/"+format);
         }
         if (!dir.isDirectory()) {
             dir.mkdirs();
