@@ -20,4 +20,6 @@ public interface KaoheModelService {
     public KaoheModel findById(int id);
 
     Page<KaoheModel> findAll(Pageable pageable);
+
+//    boolean isItInKaohe(int mid);
 }

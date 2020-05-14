@@ -7,8 +7,9 @@ import java.util.Date;
 @Entity
 @Table(name = "t_effect")
 public class Effect {
-    @Id //自动获取id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "effect_id")
+    @TableGenerator(name = "effect_id", initialValue = 0, allocationSize = 1,table = "seq_table")
     private int id;
     private String effect_name;
     private String effect_imgurl;

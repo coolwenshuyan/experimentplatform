@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.coolwen.experimentplatform.controller.HomepagesettingController.FileUploadController;
 import com.coolwen.experimentplatform.dao.TeacherRepository;
 import com.coolwen.experimentplatform.model.Teacher;
 import com.coolwen.experimentplatform.service.TeacherService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Result;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,8 @@ public class TeacherController {
     TeacherRepository teacherRepository;
     @Autowired
     TeacherService teacherService;
+
+    FileUploadController fileUploadController =new FileUploadController();
     /**
      * 图片上传
      */
@@ -64,39 +68,37 @@ public class TeacherController {
     //跳转到add页面
     @GetMapping(value = "/add")
     public String TeacherAdd(){
-        return "/teacher/add";
+        return "shouye/teacher_add";
     }
+
     @PostMapping(value = "/add")
-    public String add(Teacher teacher){
+    public String add(Teacher teacher, MultipartFile file, HttpServletRequest req){
+        String url = fileUploadController.upload(file,req);
+        teacher.setImage_url(url);
         teacherService.add(teacher);
         return "redirect:/teachers/list";
-
     }
     //进入修改界面
     @GetMapping(value = "/{id}/update")
     public String update(@PathVariable int id, Model model){
         Teacher teacher = teacherService.findById(id);
         model.addAttribute("teacher",teacher);
-        return "teacher/update";
+        return "shouye/teacher_updata";
     }
 
     //完成修改操作
     @PostMapping(value = "/{id}/update")
-    public String update(@PathVariable int id,Teacher teacher){
+    public String update(@PathVariable int id, Teacher teacher,MultipartFile file, HttpServletRequest req){
         teacher.setId(id);
+        String url = fileUploadController.upload(file,req);
+        if (url !=null){
+            teacher.setImage_url(url);
+        }else {
+            teacher.setImage_url(teacherService.findById(id).getImage_url());
+        }
         teacherService.add(teacher);
-
-
         System.out.println("修改成功");
         return "redirect:/teachers/list";
     }
-
-
-
-
-
-
-
-
 
 }

@@ -3,6 +3,7 @@ package com.coolwen.experimentplatform.service;
 import com.coolwen.experimentplatform.dao.TotalScoreCurrentRepository;
 import com.coolwen.experimentplatform.model.TotalScoreCurrent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author Artell
  * @version 2020/5/12 18:12
  */
+@Service
 public class TotalScoreCurrentServiceImpl implements TotalScoreCurrentService {
 
     @Autowired
