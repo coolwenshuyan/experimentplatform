@@ -16,7 +16,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
     Student findAllById(int id);
 
-    @Query("select new com.coolwen.experimentplatform.model.StudentTestScoreDTO(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTestScore) from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id")
+    @Query("select new com.coolwen.experimentplatform.model.StudentTestScoreDTO(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate) from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id")
     public List<StudentTestScoreDTO> listStudentMTestAnswerDTO();
 
 }

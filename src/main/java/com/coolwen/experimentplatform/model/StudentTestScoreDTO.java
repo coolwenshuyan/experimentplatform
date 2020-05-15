@@ -20,9 +20,9 @@ public class StudentTestScoreDTO {
 //    成绩
     private float mScore;
 //   完成状态
-    private float Done;
+    private boolean Done;
 
-    public StudentTestScoreDTO(int sid, String sName, int sClass, String mName, float mScore, float done) {
+    public StudentTestScoreDTO(int sid, String sName, int sClass, String mName, float mScore, boolean done) {
         this.sid = sid;
         this.sName = sName;
         this.sClass = sClass;
@@ -71,23 +71,23 @@ public class StudentTestScoreDTO {
         this.mScore = mScore;
     }
 
-    public float getDone() {
+    public boolean isDone() {
         return Done;
     }
 
-    public void setDone(float done) {
+    public void setDone(boolean done) {
         Done = done;
     }
 
     @Override
     public String toString() {
-        return "StudentMTestAnswerDTO{" +
+        return "StudentTestScoreDTO{" +
                 "sid=" + sid +
                 ", sName='" + sName + '\'' +
                 ", sClass=" + sClass +
                 ", mName='" + mName + '\'' +
                 ", mScore=" + mScore +
-                ", Done='" + Done + '\'' +
+                ", Done=" + Done +
                 '}';
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>模块测试成绩管理</title>
@@ -96,7 +96,7 @@
 				</colgroup>
 				<thead class="header">
 					
-					<tr>
+					<tr >
 						<th>学号</th>
 						<th>姓名</th>
 						<th>班级</th>
@@ -116,7 +116,7 @@
 					</tr>
 				</thead>
 				<tbody class="results">
-					<tr>
+					<tr th:each="stuInfo,stat:${allInfo}">
 						<td>12345678</td>
 						<td>张三</td>
 						<td>18信管01</td>
