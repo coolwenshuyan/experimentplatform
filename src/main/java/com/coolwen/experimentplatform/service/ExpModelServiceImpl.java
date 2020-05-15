@@ -40,4 +40,9 @@ public class ExpModelServiceImpl implements ExpModelService {
     public List<ExpModel> findExpModelsBym_name(String m_name) {
         return expModelRepository.findExpModelsByM_name(m_name);
     }
+
+    @Override
+    public List<ExpModel> findAll() {
+        return expModelRepository.findAll();
+    }
 }

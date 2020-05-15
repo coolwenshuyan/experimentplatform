@@ -1,5 +1,7 @@
 package com.coolwen.experimentplatform.model;
 
+import com.google.inject.internal.cglib.core.$Block;
+
 import javax.persistence.*;
 
 
@@ -50,6 +52,9 @@ public class ExpModel {
 
     @Column(length = 300,nullable = false)
     private String m_inurl;
+
+    @Column(columnDefinition = "false")
+    private boolean needKaohe;
 
 
     public int getM_id() {
@@ -164,5 +169,11 @@ public class ExpModel {
         this.m_inurl = m_inurl;
     }
 
+    public boolean isNeedKaohe() {
+        return needKaohe;
+    }
 
+    public void setNeedKaohe(boolean needKaohe) {
+        this.needKaohe = needKaohe;
+    }
 }
