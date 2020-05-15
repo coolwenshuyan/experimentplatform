@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 引入title和css -->
+    
+    <meta charset="utf-8" />
+    <title>四川旅游学院虚拟仿真实验教学管理平台</title>
+    <meta name="keywords" content="虚拟仿真实验" />
+    <meta name="description" content="虚拟仿真实验" />
+    
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+     <!-- CORE CSS -->
+<!--    <link href="css/qt/6618ea131d723a06b36ad1e5b668c379.css" rel="stylesheet" type="text/css" media="all" />-->
+    <script type="text/javascript" src='../../static/js/js_home/jquery-2.1.4.min.js'></script>
+    <link href="../../static/css/css_home/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- REVOLUTION SLIDER -->
+    <link href="../../static/css/css_home/extralayers.css" rel="stylesheet" type="text/css" />
+<!--    <link href="../../static/css/css_home/settings.css" rel="stylesheet" type="text/css" />-->
+
+    <!-- THEME CSS -->
+    <link href="../../static/css/css_home/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="../../static/css/css_home/layout.css" rel="stylesheet" type="text/css" />
+
+    <!-- PAGE LEVEL SCRIPTS -->
+    <link href="../../static/css/css_home/header-1.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/css/css_home/site.css" rel="stylesheet" type="text/css" />
+    
+    
+    <!-- STYLE -->    
+    <link href="../../static/css/css_home/jcedu.css" rel="stylesheet" type="text/css">
+    <link href="../../static/css/css_home/style.css" rel="stylesheet" type="text/css" id="color_scheme" />
+<!--    <link rel="shortcut icon" href="images/favicon.png">-->
+    <style>
+.top {
+    line-height: 35px;
+    color: #fff;
+    background-color:  #174f37;;
+}
+.top a {
+    color:#fff;
+}
+/*导航*/
+.navbar-default {
+    border-color: transparent;
+    background-color: transparent;  
+}
+.navbar {
+    margin: 0;   
+}
+.navbar-brand {
+    height:auto;
+}
+.navbar-static-top {
+    border-width: 0 0 0px; 
+}
+.navbar-nav {
+    padding: 20px 0;
+}
+.navbar-nav>li {
+    margin-left:2px;
+}
+.navbar-nav>li a{
+    padding: 15px;
+    font-size:16px;
+    color:#000;
+}
+.navbar-nav>li a:hover{
+    color: #f39300!important;
+}
+.navbar-nav>li a.active {
+    border-bottom: 2px solid #0e2f52;
+}
+.navbar-toggle.collapsed {
+    margin-top: 20px;
+}
+@media (min-width:768px) and (max-width:1200px){
+    .navbar-nav>li a{
+        padding: 15px 10px;
+    }
+}
+@media (min-width:992px) and (max-width:1200px){
+    .navbar-header{
+        width:35%;
+    }
+}
+@media (min-width:768px) and (max-width:991px){
+    .navbar-header{
+        width:36%;
+    }
+    .navbar-nav>li a {
+        padding:15px 5px;
+    }
+    .navbar-brand {
+        padding:15px 0!important;
+    }
+}
+@media (max-width:768px){
+    .navbar-brand{
+        width: 80%;
+    }
+    .navbar-nav>li a {
+        padding:10px;
+        font-size:14px;
+    }
+    .navbar-nav {
+      margin:0 -15px!important;
+      padding:0px;
+    }   
+}
+
+.jianju {
+    padding: 45px 0px;
+}
+@media (max-width:768px){
+    .jianju {
+        padding: 20px 15px;
+    }
+}
+.tit {
+    font-size: 24px;
+    padding: 0;
+    margin: 0 0 25px 0;
+    color: #000;
+}
+.tit em {
+    display:block;
+    width:2em;
+    height: 1px;
+    margin: 15px auto;   
+    background:#0e2f52;
+}
+.tit small {
+    font-size: 14px;
+    color: #eee;
+    display: block;
+    margin-top: 10px;
+}
+.org {
+    color:#f39300;
+}
+</style>
+<!-- 引入title和css -->
+</head>
+<body>
+    <!-- 引入head -->
+     <style>
+
+.dhbt:hover{
+    background:#ebebeb;
+}
+.container{
+    
+}
+.btn-primary {
+    color: #fff;
+    background-color: #174f37;
+    border-color: #174f37;
+}
+</style>
+<div class="top visible-lg">
+    <div class="container">     
+        <div class="container">
+    <!-- <span style="position:absolute;top:10px;float: left">访问量:</span> -->
+        
+             
+
+
+        <div style="float:right;color:#fff ; margin: 10px" class="top-fr">
+            Hi，
+
+            欢迎来到四川旅游学院虚拟仿真实验教学管理平台！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         
+
+            <!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                        <a style="color:#fff" href="login.html">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+                        <a style="color:#fff" href="vcode.html">用户注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a style="color:#fff" href="javascript:;">后台入口</a>
+        </div>    </div>
+    </div>
+</div>
+ <script type="text/javascript">
+                        $("#logout").click(function(){
+                            awdid=111;
+                            $.post("login.html",{awdid:"daw"},function(data){
+                                if(data==1){
+                                    location.href="login.html";
+                                }
+                            })
+                        })
+                        </script>
+<header id="header" style="background:#fff">
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">         
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-brand">
+                <img src="../../static/images/LOGO2.png" style="height:61px" alt="" width="" height="" class="img-responsive"/>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation">      
+            <ul class="nav navbar-nav navbar-right">
+                    <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="index.html" >首页</a></li>
+                    <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="javascript:;">实验大厅入口</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="situation.html">仿真平台概况</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="teachers.html">师资队伍</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="#">申报书</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="question.html">答疑室</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="study_situation.html">学习效果</a></li>
+                <!-- <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/index.php/Home/Erji/Index/type/13.html">上传规范</a></li> -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<hr />
+</header>
+    <!-- 引入head -->
+    <!-- 引入注册页html -->
+     <section>
+        <div class="container">
+            <section class="clearfix min-height" style="margin-top:40px;">
+    <div class="row centered">
+        <div class="col-lg-3 hidden-sm hidden-xs"></div>
+        <div class="col-lg-6 col-sm-12 col-xs-12" style="text-align: center;">                            
+            <div class="signin">
+                <div class="box-static box-border-top padding-30">
+                    <div class="margin-bottom-30">
+                        <h3 class="size-20" style="border-bottom: 1px solid #174f37; color:#174f37; padding-bottom: 8px; margin-bottom: 20px;">
+                            <!--<i class="fa fa-sign-in"></i>-->
+                            注册
+                        </h3>
+                    </div>                             
+                   
+                        <div class="clearfix">
+                            <div class="form-group">
+                                <input class="form-control" placeholder="用户名：登录用" id="username" name="username" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="姓名：" id="name" name="name" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="密码：" id="password" name="password" type="password">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="确认密码：" id="passwords" name="passwords" type="password">
+                            </div>
+                            <div class="form-group" >
+                                <label  style="margin-left:0px;">
+                                <input  name="gateway" value="0" type="radio" checked title="外校人员" id="outschool">外校人员</input>
+                                </label>
+                                <label  style="margin-left:0px;">
+                                <input name="gateway" value="1" type="radio" title="校内学生">校内学生</input>
+                                </label>
+                            </div>
+                            <div class="form-group" style="float: left;display:none" id="classbox" >
+                                院系：<select name="school" id="schoolch" >
+                                    <option value="">请选择院系</option>
+                                    <option value="92">信息与工程学院</option>
+                                    <option value="93">烹饪学院</option>
+                                    <option value="94">艺术学院</option>
+                                    <option value="95">食品学院</option>
+                                    <option value="96">经济管理学院</option>
+                                    <option value="97">希尔顿酒店管理学院</option>
+                                    <option value="98">旅游文化产业学院</option>
+                                    <option value="96">运动与休闲学院</option>
+                                    <option value="96">外国语学院</option>
+                                    <option value="96">继续教育学院</option>
+                                </select>
+                                 班级：<select name="class" id="classch">
+                                    <option value="">请选择班级</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" style="width: 50%;float: left;" placeholder="验证码" id="vcode" name="vcode" type="password"><img class="verifyCode" style="width: 50%;float: left;" src="../../static/images/img_home/vcode.png" alt="">
+                                                <script type="text/javascript">
+                                verifyImg =  $(".verifyCode");
+                                verifyPath = verifyImg.attr("src");
+                                verifyImg.click(function () {
+                                $(this).attr("src", verifyPath+'&random='+Math.random());
+                                if (verifyPath.indexOf("?")>0) {
+                                }else{
+                                $(this).attr("src", verifyPath.replace(/\?.*$/,' ')+'?'+Math.random());
+                                }
+                                })
+
+                                                </script>
+                            </div>
+                            <div class="forgot"></div>
+                        </div>
+                        <div class="row">                                                        
+                            <!-- <label class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">                               
+                                <input class="ace  margin-top-10" id="jizhu" name="jizhu[]" value="on" type="checkbox">
+                                <span style="color: #004579;" class="lbl no-text-decoration size-13 margin-top-10">自动登录</span>                                                             
+                            </label> -->
+                            <label class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+                                
+                                <button id='submit'  class="btn btn-primary -">注册</button>
+                            </label>                            
+                        </div>
+                                                                  
+                </div>                 
+                <script type="text/javascript">
+                    $("#outschool").prop("checked",true);
+                    $("#schoolch").val("");
+                    $("#classch").val("");
+                    $("input[name='gateway']").click(function(){
+                        if($("input[name='gateway']:checked").val()==1){
+                            $("#classbox").css('display',"block");
+                        }else{
+                            $("#classbox").css('display',"none");
+                        }
+
+                    })
+                    $("#schoolch").change(function(){
+                        // alert($(this).val());
+                        var id=$(this).val();
+                        if(id){
+                            $.post("/index.php/Home/Login/school_class.html",{'id':id},function(e){
+                                data=JSON.parse(e);
+                                if(data){
+
+                                tt="<option value=''>请选择班级</option>";
+                                data.forEach(function(v){  
+                                    tt+="<option value='"+v['id']+"'>"+v['name']+"</option>"
+                                });
+                                $('#classch').html(tt);
+                                }else{
+                                     tt="<option value=''>请选择班级</option>";
+                                     $('#classch').html(tt);
+                                }
+                            })
+                        }
+
+                    })
+                  $('#submit').click(function () {
+                    username=$("#username").val();
+                    name=$("#name").val();
+                    password=$("#password").val();
+                    passwords=$("#passwords").val();
+                    gateway=$("input[name='gateway']:checked").val();
+                    clid=$("#classch").val();
+                    vode=$("input[name='vcode']").val();
+                    sid=$("#schoolch").val();
+                    // alert(sid);
+                    if(!username){
+                        alert('请输入用户名');
+                        return false;
+                    }
+                    if(!name){
+                        alert('请输入姓名');
+                        return false;
+                    }
+                    if(!password){
+                        alert('请输入密码');
+                        return false;
+                    }
+
+                    if(password!=passwords){
+                        alert('两次密码不一样！');
+                        return false;
+                    }
+                    if(gateway==1){
+                        if(!clid){
+                            alert('请选择班级');
+                            return false;
+                        }
+                    }
+                    if(vode){
+                        $.post("/index.php/Home/Login/check.html",{'code':vode},function(data){
+                           if(data==1){
+                                $.post("/index.php/Home/Login/zhuce_do.html",{"username":username,"name":name,"password":password,"gateway":gateway,"clid":clid,"sid":sid},function(data){
+                                    if(data==2){
+                                        $(".verifyCode").attr("src", verifyPath+'&random='+Math.random());
+                                        if (verifyPath.indexOf("?")>0) {
+                                        }else{
+                                        $(".verifyCode").attr("src", verifyPath.replace(/\?.*$/,' ')+'?'+Math.random());
+                                        }
+                                        alert("用户名已存在");
+                                        $("input[name='vcode']").val('');
+                                    }else if(data==1){
+                                        alert('注册成功;校内账号需审核,校外账号不须审核');
+                                        location.href="/index.php/Home/Course/index.html";
+                                    }
+                                })
+                           }else{
+                                    $(".verifyCode").attr("src", verifyPath+'&random='+Math.random());
+                                    if (verifyPath.indexOf("?")>0) {
+                                    }else{
+                                    $(".verifyCode").attr("src", verifyPath.replace(/\?.*$/,' ')+'?'+Math.random());
+                                    }
+                                    alert("验证码错误");
+                                    $("input[name='vcode']").val('');
+                           }
+
+                 })
+                    }else{
+                        alert('请输入验证码');
+                    }
+                     })
+                     // $.post("/index.php/Home/Login/StudentLogin_do.html",{'stuid':username,"password":password},function(data){
+                     //    if(data==1){
+                     //        location.href="/index.php/Home/Course/index.html";
+                     //    }else{
+                     //        alert('学号不存在或密码错误！！');
+                     //    }
+                     // })
+                //  $(function(){
+                // document.onkeydown = function(e){
+                //     var ev = document.all ? window.event : e;
+                //         if(ev.keyCode==13) {
+                //              $('#submit').click();
+                //                              }
+                //                             }
+                //                         });
+                </script>
+            </div>                   
+            <div class="col-lg-3 hidden-sm hidden-xs"></div>
+            <br clear="all">
+        </div>
+    </div>
+</section>
+        
+        </div>
+    </section>
+    <!-- 引入注册页html -->
+    <!-- 引入foot -->
+     <footer class="footer" style="background-color: #174f37;position: fixed;bottom: 0px;width: 100%;background:#174f37">
+    <div class="copyright " style="width: 100%;">
+                <div class="container" style="width: 100%;;">
+                    <ul class="pull-right nomargin list-inline mobile-block col-sm-12 col-md-12" style="color: rgba(255,255,255,0.6);text-decoration: none;margin-bottom:0px!important;">
+                        <li class="col-sm-0 col-md-4"></li>     
+                        <li class="col-sm-12 col-md-4"><center>版权所有Copyright © 2018 四川旅游学院虚拟仿真实验教学管理平台</center></li>
+                        <!-- <li class="col-sm-12 col-md-4"><center><a style="color: #fff" href="http://www.syjctech.com/" target="_blank">技术支持：沈阳捷诚软件技术有限公司 &nbsp;&nbsp;</a> </center></li>              -->
+                    </ul>
+                    
+                </div>
+            </div>
+</footer>
+     <!-- 引入foot -->
+     <!-- 引入js -->
+     <script type="text/javascript">var plugin_path = '/Public/Home/js/qt/plugins/';</script>
+    <script type="text/javascript" src='../../static/js/js_home/jquery-2.1.4.min.js'></script>
+    <script type="text/javascript" src='../../static/js/js_home/bootstrap.min.js'></script>
+    <script type="text/javascript" src='../../static/js/js_home/scripts.js'></script>
+    
+    
+    <!-- REVOLUTION SLIDER -->
+<!--    <script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.tools.min.js'></script>-->
+<!--    <script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.revolution.min.js'></script>-->
+<!--    <script type="text/javascript" src='../../static/js/js_home/revolution_slider.js'></script>-->
+     <!-- 引入js -->
+</body>
+</html>
