@@ -17,9 +17,9 @@ public class SetInfoController {
 
     @Autowired
     SetInfoService setInfoService;
-    //进入设置页面
-    @GetMapping(value = "/add")
-    public String add(Model model){
+    //进入平台概况设置页面
+    @GetMapping(value = "/addus")
+    public String addus(Model model){
         SetInfo setInfo = setInfoService.findById(1);
         if (setInfo==null){
             SetInfo setInfo1 = new SetInfo();
@@ -35,8 +35,39 @@ public class SetInfoController {
         return "/shouye/aboutUs";
     }
 
+    //完成设置添加
     @ResponseBody
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/addus")
+    public String addus(SetInfo setInfo){
+        setInfo.setId(1);
+        SetInfo setInfo1 = setInfoService.findById(1);
+        setInfo.setSet_platstep(setInfo1.getSet_platstep());
+        setInfo.setSet_rotateimg(setInfo1.getSet_rotateimg());
+        setInfoService.add(setInfo);
+        return "添加成功";
+    }
+
+    //进入平台概况设置页面
+    @GetMapping(value = "/addplat")
+    public String add(Model model){
+        SetInfo setInfo = setInfoService.findById(1);
+        if (setInfo==null){
+            SetInfo setInfo1 = new SetInfo();
+            setInfo1.setSet_aboutus("无数据");
+            setInfo1.setSet_platintro("无数据");
+            setInfo1.setSet_platstep("无数据");
+            setInfo1.setSet_rotateimg("无数据");
+            setInfoService.add(setInfo1);
+            model.addAttribute("setInfo",setInfo1);
+            return "/shouye/aboutUs";
+        }
+        model.addAttribute("setInfo",setInfo);
+        return "/shouye/aboutPlatform";
+    }
+
+    //完成设置添加
+    @ResponseBody
+    @PostMapping(value = "/addplat")
     public String add(SetInfo setInfo){
         setInfo.setId(1);
         SetInfo setInfo1 = setInfoService.findById(1);
@@ -45,4 +76,13 @@ public class SetInfoController {
         setInfoService.add(setInfo);
         return "添加成功";
     }
+
+
+    //进入设置轮播页面
+    @GetMapping(value = "/lunbo")
+    public String addlunbo(){
+
+        return "shouye/lunbo";
+    }
+
 }

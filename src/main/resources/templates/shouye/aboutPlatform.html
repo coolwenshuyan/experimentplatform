@@ -34,14 +34,17 @@
 		<div id="head" class="layui-col-md10 layui-col-md-offset2">
 			<span class="layui-col-md3">
   				<a class="layui-btn layui-btn-primary" href="#">首页设置</a>
-  				<a class="layui-btn" href="#">关于我们</a>
+  				<a class="layui-btn" href="#">平台设置</a>
 			</span>			
 		</div>
 
 		<form method="post" action="" th:object="${setInfo}">
 			<div id="main" class="layui-col-md8 layui-col-md-offset2">
-				<div style="padding: 10px 0; text-align: center; color: black"><b>关于我们</b></div>
-				<script id="editor" name="set_aboutus" th:utext="${setInfo.set_aboutus}" type="text/plain">
+				<div style="padding: 10px 0;text-align: center; color: black"><b>平台概况</b></div>
+				<script id="editor1" name="set_platintro" th:utext="${setInfo.set_platintro}" type="text/plain">
+				</script>
+				<div style="padding: 10px 0;text-align: center; color: black"><b>平台使用介绍</b></div>
+				<script id="editor2" name="set_platintro" th:utext="${setInfo.set_platstep}" type="text/plain">
 				</script>
 				<div id="d" class="layui-btn-container">
 					<input type="submit" class="layui-btn" value="确认修改">
@@ -49,7 +52,6 @@
 				</div>
 			</div>
 		</form>
-
 		
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
@@ -57,7 +59,8 @@
 		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 		<script>
-			UE.getEditor('editor');
+			UE.getEditor('editor1');
+			UE.getEditor('editor2');
 		</script>
 	</body>
 </html>
