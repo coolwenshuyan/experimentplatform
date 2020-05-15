@@ -3,10 +3,15 @@ package com.coolwen.experimentplatform.config;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.coolwen.experimentplatform.filter.ResourceCheckFilter;
 import com.coolwen.experimentplatform.permission.UrlPermissionResovler;
+import com.coolwen.experimentplatform.realm.AdminRealm;
 import com.coolwen.experimentplatform.realm.MyShiroRealm;
+import com.coolwen.experimentplatform.realm.StudentRealm;
+import com.coolwen.experimentplatform.utils.UserModularRealmAuthenticator;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
-import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -21,11 +26,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-//import com.coolwen.experimentplatform.realm.MyShiroRealm;
+import java.util.*;
 
 /**
  * @author CoolWen
@@ -81,7 +82,7 @@ public class ShiroConfig {
      * 3、部分过滤器可指定参数，如perms，roles
      */
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shirFilter(DefaultWebSecurityManager securityManager) {
         logger.debug("Shiro拦截器工厂类注入开始");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
@@ -90,22 +91,22 @@ public class ShiroConfig {
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/user/list");
+        //shiroFilterFactoryBean.setSuccessUrl("/user/list");
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/405");
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        Map<String, String> chains = new HashMap();
-        filterChainDefinitionMap.put("/css/**", "anon");
-        filterChainDefinitionMap.put("/js/**", "anon");
-        filterChainDefinitionMap.put("/js/*/*/*", "anon");
-        filterChainDefinitionMap.put("/images/**", "anon");
-        filterChainDefinitionMap.put("/user/**", "authc,resourceCheckFilter");
-        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
-        filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/405", "anon");
-        chains.put("/admin/*","roles[Admin]");
-        filterChainDefinitionMap.put("/logout", "logout");
+//        Map<String, String> chains = new HashMap();
+//        filterChainDefinitionMap.put("/css/**", "anon");
+//        filterChainDefinitionMap.put("/js/**", "anon");
+//        filterChainDefinitionMap.put("/js/*/*/*", "anon");
+//        filterChainDefinitionMap.put("/images/**", "anon");
+//        filterChainDefinitionMap.put("/user/**", "authc,resourceCheckFilter");
+//        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
+//        filterChainDefinitionMap.put("/login", "anon");
+//        filterChainDefinitionMap.put("/405", "anon");
+//        chains.put("/admin/*", "roles[Admin]");
+//        filterChainDefinitionMap.put("/logout", "logout");
         logger.debug("filterChainDefinitionMap" + filterChainDefinitionMap);
         logger.debug("Shiro拦截器工厂类注入成功");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -114,10 +115,16 @@ public class ShiroConfig {
 
 
     @Bean
-    public SecurityManager securityManager() {
+    public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //设置realm.
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setAuthenticator(modularRealmAuthenticator());
+        List<Realm> realms = new ArrayList<>();
+        realms.add(myShiroRealm());
+        realms.add(studentRealm());
+        realms.add(adminRealm());
+        //securityManager.setRealm(myShiroRealm());
+        securityManager.setRealms(realms);
         // 自定义缓存实现
         securityManager.setCacheManager(ehCacheManager());
         // 自定义session管理 使用redis
@@ -148,6 +155,30 @@ public class ShiroConfig {
 	 	<property name="authorizationCacheName" value="shiro-authorizationCache"/>*/
         return myShiroRealm;
     }
+
+    @Bean
+    public StudentRealm studentRealm(){
+        StudentRealm studentRealm = new StudentRealm();
+        return studentRealm;
+    }
+
+    @Bean
+    public AdminRealm adminRealm(){
+        AdminRealm adminRealm = new AdminRealm();
+        return adminRealm;
+    }
+
+    /**
+     * Realm管理，主要针对多realm
+     * */
+    @Bean
+    public ModularRealmAuthenticator modularRealmAuthenticator(){
+        //自己重写的ModularRealmAuthenticator
+        UserModularRealmAuthenticator modularRealmAuthenticator = new UserModularRealmAuthenticator();
+        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        return modularRealmAuthenticator;
+    }
+
 
     /**
      * 凭证匹配器

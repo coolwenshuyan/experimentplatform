@@ -1,9 +1,8 @@
 package com.coolwen.experimentplatform.service;
 
-import com.coolwen.experimentplatform.model.KaoheModel;
+
 import com.coolwen.experimentplatform.model.Student;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * @author Artell
@@ -13,4 +12,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface StudentService {
     Page<Student> findAll(int pageNum);
+    public Student findByUname(String uName);
+    public Student addStudent(Student student);
 }

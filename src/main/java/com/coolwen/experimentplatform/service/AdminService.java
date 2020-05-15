@@ -2,13 +2,12 @@ package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.Admin;
 
-
-import java.util.List;
-
 public interface AdminService {
 
     //查找
     Admin findById(int id);
+
+    Admin findByUname(String uName);
 
     // 增加
     void add(Admin admin);

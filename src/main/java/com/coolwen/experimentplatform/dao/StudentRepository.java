@@ -25,4 +25,6 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
 
 
+
+    Student findAllByStuUname(String stuUname);
 }

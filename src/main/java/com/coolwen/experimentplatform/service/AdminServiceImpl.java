@@ -22,6 +22,11 @@ public class AdminServiceImpl implements AdminService {
         return admin;
     }
 
+    @Override
+    public Admin findByUname(String uName) {
+        return adminDao.findByUname(uName);
+    }
+
 
     @Override
     public void delete(int id) {

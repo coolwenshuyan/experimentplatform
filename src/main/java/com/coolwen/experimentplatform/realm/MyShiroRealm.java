@@ -30,6 +30,7 @@ import java.util.Set;
  * 权限登录与验证*/
 
 
+
 public class MyShiroRealm extends AuthorizingRealm {
 
     protected static final Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);

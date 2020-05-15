@@ -1,7 +1,6 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.dao.StudentRepository;
-import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,5 +25,15 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll(pageable);
     }
 
+
+    @Override
+    public Student findByUname(String uName) {
+        return studentRepository.findAllByStuUname(uName);
+    }
+
+    @Override
+    public Student addStudent(Student student) {
+        return studentRepository.save(student);
+    }
 
 }
