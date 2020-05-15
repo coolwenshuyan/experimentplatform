@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -23,14 +23,13 @@
         <div class="layui-tab-item layui-show">
             <div id="l2" class="layui-col-md8 layui-col-md-offset2">
                 <button id="b" class="layui-btn">
-                    <i class="layui-icon">&#xe608;</i> 添加
+                    <i class="layui-icon"><a href="/admin/add">添加</a></i>
                 </button>
 
                 <table class="layui-table" lay-even lay-skin="nob">
                     <colgroup>
                         <col width="150">
                         <col width="200">
-                        <col>
                     </colgroup>
                     <thead>
                     <tr>
@@ -41,49 +40,34 @@
                         <th>操作</th>
                     </tr>
                     </thead>
+
                     <tbody>
-                    <tr>
-                        <td>01</td>
-                        <td>010101</td>
-                        <td>vmsh</td>
-                        <td>1663875</td>
+                    <tr th:each="admin:${AdminPageInfo.content}">
+                        <td th:text="${admin.id}">01</td>
+                        <td th:text="${admin.uname}">010101</td>
+                        <td th:text="${admin.password}">vmsh</td>
+                        <td th:text="${admin.mobile}">1663875</td>
                         <td>
                             <div class="layui-btn-group">
                                 <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
+                                    <i class="layui-icon"><a th:href="@{|${admin.id}/update|}">&#xe642;</a></i>
                                 </button>
                                 <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>02</td>
-                        <td>020202</td>
-                        <td>vsuifbia</td>
-                        <td>012494387</td>
-                        <td>
-                            <div class="layui-btn-group">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </button>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
+                                    <i class="layui-icon"><a th:href="@{|${admin.id}/delete|}">&#xe640;</a></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-
-                <div id="b2" class="layui-btn-group" style="text-align: right;">
-                    <button type="button" class="layui-icon-prev">
-                        <i class="layui-icon">&#xe65a;</i>
-                    </button>
-                    <button type="button" class="layui-icon-next">
-                        <i class="layui-icon">&#xe65b;</i>
-                    </button>
+                <div style="margin:0 auto; width: 80%; text-align: center;">
+                    <p>当前 <span th:text="${AdminPageInfo.number}+1"></span> 页,
+                        总 <span th:text="${AdminPageInfo.totalPages}"></span> 页,
+                        共 <span th:text="${AdminPageInfo.totalElements}"></span> 条记录</p>
+                    <a th:href="@{/admin/list}">首页</a>
+                    <a th:href="@{/admin/list(pageNum=${AdminPageInfo.hasPrevious()}?${AdminPageInfo.number}-1:0)}">上一页</a>
+                    <a th:href="@{/admin/list(pageNum=${AdminPageInfo.hasNext()}?${AdminPageInfo.number}+1:${AdminPageInfo.number})}">下一页</a>
+                    <a th:href="@{/admin/list(pageNum=${AdminPageInfo.totalPages}-1)}">尾页</a>
                 </div>
             </div>
         </div>

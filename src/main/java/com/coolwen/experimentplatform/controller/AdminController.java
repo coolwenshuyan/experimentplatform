@@ -1,6 +1,4 @@
 package com.coolwen.experimentplatform.controller;
-
-
 import com.coolwen.experimentplatform.dao.AdminDao;
 import com.coolwen.experimentplatform.model.Admin;
 import com.coolwen.experimentplatform.service.AdminService;
@@ -23,17 +21,17 @@ public class AdminController {
 
     //查询所有数据
     @GetMapping(value = "/list")
-    public String AdminList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
+    public String AdminList(Model model, @RequestParam(defaultValue = "0", required=true, value = "pageNum")  Integer pageNum) {
         Pageable pageable = PageRequest.of(pageNum, 5);
         Page<Admin> page = adminDao.findAll(pageable);
         model.addAttribute("AdminPageInfo", page);
-
-        return "admin/list";
+        return "shouye/teacherID_list";
     }
+
     //点击添加账号，跳转到添加界面
     @GetMapping(value = "/add")
     public String AdminAdd(){
-        return "admin/add";
+        return "shouye/teacherID_add";
     }
 
     //完成添加操作
@@ -48,7 +46,7 @@ public class AdminController {
     public String update(@PathVariable int id,Model model){
         Admin admin = adminService.findById(id);
         model.addAttribute("admin",admin);
-        return "/admin/update";
+        return "shouye/teacherID_update";
     }
     //完成修改
     @PostMapping(value = "/{id}/update")

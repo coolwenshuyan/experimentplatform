@@ -1,56 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>教师账号添加</title>
+		<title>教师账号修改</title>
 		<link rel="stylesheet" href="../../static/css/layui.css">
 	</head>
-	<style type="text/css">	
-		#b{
+    <style type="text/css">
+        #b{
             float: right;
             margin: 10px 0;
         }
-	</style>
+    </style>
 	<body>
 		<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
             <ul class="layui-tab-title">
-                <li class="layui-this">教师账号添加</li>
-
+                <li class="layui-this">教师账号修改</li>
             </ul>
-            <form action="/admin/add" method="post">
+
+            <form th:action="@{update}" th:object="${admin}" method="post">
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show" >
                         <div id="l1" class="layui-col-md8 layui-col-md-offset2">
-
                             <div class="layui-form-item">
                                 <label class="layui-form-label">账号：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="uname" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                                    <input type="text" name="uname" th:value="${admin.uname}" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-
                             <div class="layui-form-item">
                                 <label class="layui-form-label">密码：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                    <input type="text" name="password" th:value="${admin.password}" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-
                             <div class="layui-form-item">
                                 <label class="layui-form-label">手机号：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="mobile" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                    <input type="text" name="mobile" th:value="${admin.mobile}" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
 
                             <div class="layui-btn-container" style="text-align: center;">
-                                <button type="submit" class="layui-btn">添加</button>
+                                <button type="submit" class="layui-btn">修改</button>
                                 <button type="button" class="layui-btn">返回</button>
                             </div>
-
-
                         </div>
                     </div>
 
