@@ -35,13 +35,36 @@ public class KaoheModelController {
      */
     @RequestMapping(value = "/allModule",method = RequestMethod.GET)
     public String loadAllModel(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
-//        Pageable pageable = PageRequest.of(pageNum, 5);
-//        ExpModel expModel = expModelService.findModelList(pageNum);
-//        Page<KaoheModel> page = kaoheModelService.findAll(pageable);
-//        model.addAttribute("allKaohe", page);
+//    public String loadAllModel(Model model) {
+
         List<Integer> check = kaoheModelService.inKaoheList();
-        model.addAttribute("allKaohe",expModelService.findModelList(pageNum));
         model.addAttribute("checkList",check);
+        Page<ExpModel> a = expModelService.findModelList(pageNum);
+//        List <ExpModels> b = null;
+//        for (ExpModel x:a){
+//            ExpModels c = new ExpModels(x.getM_id(),
+//                    x.getM_name(),
+//                    x.getM_manager(),
+//                    x.getM_type(),
+//                    x.getClasshour(),
+//                    x.getImageurl(),
+//                    x.getIntroduce(),
+//                    x.getPurpose(),
+//                    x.getPrinciple(),
+//                    x.getM_content(),
+//                    x.getM_edata_intro(),
+//                    x.getM_edataurl(),
+//                    x.getM_step(),
+//                    x.getM_inurl());
+//
+//            if (check.contains(x.getM_id())){
+//                c.setStatus(true);
+//            }else {
+//                c.setStatus(false);
+//            }
+//            b.add(c);
+//        }
+        model.addAttribute("allKaohe",a);
         return "kaohe/allModule";
     }
 
@@ -65,6 +88,7 @@ public class KaoheModelController {
     @RequestMapping(value = {"/{mid}/moveIn"},method = RequestMethod.GET)
     public String add(@PathVariable int mid,Model model){
         ExpModel expModel = expModelService.findExpModelByID(mid);
+        expModelService.findExpModelByID(mid);
         model.addAttribute("expInfo",expModel);
         model.addAttribute("moveIn",new KaoheModel());
         return "kaohe/moveIn";
@@ -89,6 +113,8 @@ public class KaoheModelController {
         u.setM_report_baifenbi(moveIn.getM_report_baifenbi());
         System.out.println(u);
         kaoheModelService.add(u);
+        expModel.setNeedKaohe(true);
+        expModelService.save(expModel);
         System.out.println(">>>>>>>>>>>>add");
         return "redirect:/kaohemodel/allModule";
     }
@@ -128,6 +154,11 @@ public class KaoheModelController {
      */
     @RequestMapping(value = "/{id}/delete",method = RequestMethod.GET)
     public String delete(@PathVariable int id){
+
+        int mid = kaoheModelService.findById(id).getM_id();
+        ExpModel expModel = expModelService.findExpModelByID(mid);
+        expModel.setNeedKaohe(false);
+        expModelService.save(expModel);
         kaoheModelService.delete(id);
         System.out.println("移出成功");
         return "redirect:/kaohemodel/checkModule";
