@@ -53,7 +53,7 @@ public class ExpModel {
     @Column(length = 300,nullable = false)
     private String m_inurl;
 
-    @Column(columnDefinition = "false")
+    @Column(nullable = false,columnDefinition = "false")
     private boolean needKaohe;
 
 
