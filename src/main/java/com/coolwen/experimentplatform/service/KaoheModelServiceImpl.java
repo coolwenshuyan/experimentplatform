@@ -60,4 +60,9 @@ public class KaoheModelServiceImpl implements KaoheModelService {
     public List<Integer> inKaoheList() {
         return kaoheModelRepository.findAllMid();
     }
+
+    @Override
+    public long countKaoheModel() {
+        return kaoheModelRepository.count();
+    }
 }

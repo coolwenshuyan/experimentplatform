@@ -24,4 +24,6 @@ public interface KaoheModelService {
 //    boolean isItInKaohe(int mid);
 
     public List<Integer> inKaoheList();
+
+    public long countKaoheModel();
 }

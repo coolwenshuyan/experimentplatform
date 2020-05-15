@@ -26,16 +26,16 @@ public class Student {
     private String stuName;
 
     @Column(name = "stu_xuehao")
-    private int stuXuehao;
+    private String stuXuehao;
 
     @Column(name = "stu_mobile")
-    private int stuMobile;
+    private String stuMobile;
 
     @Column(name = "stu_checkstate")
-    private int stuCheckstate;
+    private boolean stuCheckstate;
 
     @Column(name = "stu_isinschool")
-    private int stuIsinschool;
+    private boolean stuIsinschool;
 
     @Column(name = "class_id")
     private int classId;
@@ -72,35 +72,35 @@ public class Student {
         this.stuName = stuName;
     }
 
-    public int getStuXuehao() {
+    public String getStuXuehao() {
         return stuXuehao;
     }
 
-    public void setStuXuehao(int stuXuehao) {
+    public void setStuXuehao(String stuXuehao) {
         this.stuXuehao = stuXuehao;
     }
 
-    public int getStuMobile() {
+    public String getStuMobile() {
         return stuMobile;
     }
 
-    public void setStuMobile(int stuMobile) {
+    public void setStuMobile(String stuMobile) {
         this.stuMobile = stuMobile;
     }
 
-    public int getStuCheckstate() {
+    public boolean isStuCheckstate() {
         return stuCheckstate;
     }
 
-    public void setStuCheckstate(int stuCheckstate) {
+    public void setStuCheckstate(boolean stuCheckstate) {
         this.stuCheckstate = stuCheckstate;
     }
 
-    public int getStuIsinschool() {
+    public boolean isStuIsinschool() {
         return stuIsinschool;
     }
 
-    public void setStuIsinschool(int stuIsinschool) {
+    public void setStuIsinschool(boolean stuIsinschool) {
         this.stuIsinschool = stuIsinschool;
     }
 
@@ -110,5 +110,20 @@ public class Student {
 
     public void setClassId(int classId) {
         this.classId = classId;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", stuUname='" + stuUname + '\'' +
+                ", stuPassword='" + stuPassword + '\'' +
+                ", stuName='" + stuName + '\'' +
+                ", stuXuehao='" + stuXuehao + '\'' +
+                ", stuMobile='" + stuMobile + '\'' +
+                ", stuCheckstate=" + stuCheckstate +
+                ", stuIsinschool=" + stuIsinschool +
+                ", classId=" + classId +
+                '}';
     }
 }

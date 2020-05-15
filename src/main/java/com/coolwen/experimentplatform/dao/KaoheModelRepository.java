@@ -1,10 +1,7 @@
 package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
-//import com.coolwen.experimentplatform.model.ExpKaohe;
 import com.coolwen.experimentplatform.model.KaoheModel;
-import com.coolwen.experimentplatform.model.Resource;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
@@ -35,6 +32,5 @@ public interface KaoheModelRepository extends BaseRepository<KaoheModel,Integer>
 
     @Query("select k.m_id from KaoheModel as k")
     List<Integer> findAllMid();
-
 
 }

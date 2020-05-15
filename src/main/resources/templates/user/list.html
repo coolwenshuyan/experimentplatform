@@ -21,40 +21,45 @@
         <tbody>
         <tr th:each="user,stat:${users}">
             <td th:if="${stat.index eq 0}"><span th:text="${user.id}">1800998873</span></td>
-            <td th:if="${stat.index eq 0}"><span th:text="${user.username }"><a th:href="${user.id }" class="list_link">张三</a></span>
-            </td>
+            <td th:if="${stat.index eq 0}"><span th:text="${user.username }"><a th:href="${user.id }" class="list_link">张三</a></span></td>
             <td th:if="${stat.index eq 0}"><span th:text="${user.nickname }"></span></td>
             <td th:if="${stat.index eq 0}"><span th:if="${user.status} eq true">
                 <span class="emp">停用</span>
                 <a th:href="@{|updateStatus/${user.id }|}" class="list_op">启用</a>
-            </span></td>
-            <td th:if="${stat.index eq 0}"><span th:if="${user.status eq false}">
-                <span>启用</span>
-                <a th:href="@{|updateStatus/${user.id }|}" class="list_op">停用</a>
-                </th:if>
-            </span></td>
+                </span>
+            </td>
+            <td th:if="${stat.index eq 0}">
+                <span th:if="${user.status eq false}">
+                    <span>启用</span>
+                    <a th:href="@{|updateStatus/${user.id }|}" class="list_op">停用</a>
+                    </th:if>
+                </span>
+            </td>
             <td th:if="${stat.index eq 0}"><span>
                 <a th:href="@{|update/${user.id }|}" class="list_op">更新</a>
-                &nbsp;
                 <a th:href="@{|listRes/${user.id }|}" class="list_op">查询管理资源</a>
-            </span></td>
-            <td th:if="${stat.index > 0}"><span th:text="${user.id}">1800998873</span></td>
-            <td th:if="${stat.index > 0}"><span th:text="${user.username }"><a th:href="${user.id }" class="list_link">张三</a></span>
+                </span>
             </td>
+
+            <td th:if="${stat.index > 0}"><span th:text="${user.id}">1800998873</span></td>
+            <td th:if="${stat.index > 0}"><span th:text="${user.username }"><a th:href="${user.id }" class="list_link">张三</a></span></td>
             <td th:if="${stat.index > 0}"><span th:text="${user.nickname }"></span></td>
             <td th:if="${stat.index > 0}"><span th:if="${user.status} eq true">
                 <span class="emp">停用</span>
-                <a th:href="@{|updateStatus/${user.id }|}" class="list_op">启用</a>
-            </span></td>
+                    <a th:href="@{|updateStatus/${user.id }|}" class="list_op">启用</a>
+                </span>
+            </td>
             <td th:if="${stat.index > 0}"><span th:if="${user.status eq false}">
                 <span>启用</span>
                 <a th:href="@{|updateStatus/${user.id }|}" class="list_op">停用</a>
                 </th:if>
-            </span></td>
+                </span>
+            </td>
             <td th:if="${stat.index > 0}"><span>
-                <a th:href="@{|update/${user.id }|}" class="list_op">更新</a>
-                <a th:href="@{|listRes/${user.id }|}" class="list_op">查询管理资源</a>
-            </span></td>
+                    <a th:href="@{|update/${user.id }|}" class="list_op">更新</a>
+                    <a th:href="@{|listRes/${user.id }|}" class="list_op">查询管理资源</a>
+                </span>
+            </td>
         </tr>
         </tbody>
     </table>
