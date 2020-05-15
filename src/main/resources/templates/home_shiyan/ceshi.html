@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+		<link rel="stylesheet" type="text/css" href=""/>
+	</head>
+
+	<body>
+	<div id="left_nav">	
+		<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
+			<li class="layui-nav-item">
+				<a href="#">首页</a>
+			</li>
+			<li class="layui-nav-item ">
+				<a href="javascript:;">实验大厅</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="index.html">考核实验</a>
+					</dd>
+					<dd>
+						<a href="all-test.html">全部实验</a>
+					</dd>
+					
+				</dl>
+			</li>
+			<li class="layui-nav-item layui-nav-itemed">
+				<a href="javascript:;">理论测试</a>
+				<dl class="layui-nav-child">
+					<dd class="layui-this"> 
+						<a href="lilunceshi.html">理论测试</a>
+					</dd>
+					
+				</dl>
+				
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;">查看实验成绩</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="grade.html">实验成绩汇总</a>
+					</dd>
+					
+				</dl>
+			</li>
+			<li class="layui-nav-item ">
+				<a href="javascript:;">帮助中心</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="jieshao.html">仿真实验介绍</a>
+					</dd>
+					<dd>
+						<a href="team.html">关于我们</a>
+					</dd>
+					
+				</dl>
+			</li>
+		</ul>
+	</div>
+	<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">
+		<span class="layui-breadcrumb layui-col-xs3">
+			  <a href="/">首页</a>
+			  <!--<a href="/demo/">演示</a>-->
+			  <a>理论测试</a>
+			  <a><cite>测试界面</cite></a>
+		</span>
+		<span class="information layui-col-xs2  layui-col-xs-offset5">
+			<a href="lilunceshi.html">返回上一级</a>
+		</span>
+		<span class="information layui-col-xs2">
+			<p class="layui-col-xs7">test</p>
+			<a href="change.html">
+				<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">
+			</a>
+		</span>
+	</div>
+		<hr>
+		
+
+		<div class="test layui-col-xs8 layui-col-xs-offset2">
+			<h2 align="center"><strong>测试检验</strong></h2><br><br>
+			
+			<form class="layui-form layui-form-pane" action="">
+				<h3>单选题(共六十分)</h3><br>
+				
+				<div class="layui-form-item layui-form-text" >
+		          <label class="layui-form-label">1.下述概念中不属于面向对象方法的是(20分)</label>
+		          <div class="layui-input-block"   >
+		             	<input type="radio" name="1" value="对象、消息   " title="对象、消息   ">
+				      	<input type="radio" name="1" value="继承、多态" title="继承、多态" >
+				      	<input type="radio" name="1" value="类、封装  " title="类、封装  " >
+				      	<input type="radio" name="1" value="过程调用 " title="过程调用 " >
+		          </div>
+		        </div>
+		        <div class="layui-form-item layui-form-text" >
+		          <label class="layui-form-label">2.容器被重新设置大小后，哪种布局管理器的容器中的组件大小不随容器大小
+的变化而改变？ (20分)</label>
+		          <div class="layui-input-block"   >
+		             	<input type="radio" name="2" value="CardLayout" title="CardLayout">
+				      	<input type="radio" name="2" value="CardLayout" title="CardLayout">
+				      	<input type="radio" name="2" value="BorderLayout" title="BorderLayout">
+				      	<input type="radio" name="2" value="BorderLayout" title="BorderLayout">
+		          </div>
+		        </div>
+		        <div class="layui-form-item layui-form-text" >
+		          <label class="layui-form-label">3.Java中哪个类提供了随机访问文件的功能(20分)</label>
+		          <div class="layui-input-block"   >
+		             	<input type="radio" name="sex" value="RandomAccessFile类 " title="RandomAccessFile类 ">
+				      	<input type="radio" name="sex" value="RandomAccessFile类 " title="RandomAccessFile类 ">
+				      	<input type="radio" name="sex" value="File类 " title="File类">
+				      	<input type="radio" name="sex" value="AccessFile类" title="AccessFile类">
+		          </div>
+		        </div>
+		        
+		        <h3>多选题(共四十分)</h3><br>
+				
+				<div class="layui-form-item layui-form-text" >
+		          <label class="layui-form-label">1.在Java接口中，下列选项中有效的方法声明是？(20分)</label>
+		          <div class="layui-input-block"   >		          
+		             	<input type="checkbox" name="" title="public void aMethod()" lay-skin="primary"> 
+		             	<input type="checkbox" name="" title="void aMethod();" lay-skin="primary"> 
+						<input type="checkbox" name="" title="protected void aMethod();" lay-skin="primary"> 
+						<input type="checkbox" name="" title="private void aMethod();" lay-skin="primary"> 	
+		          </div>
+		        </div>
+		        <div class="layui-form-item layui-form-text" >
+		          <label class="layui-form-label">2.以下用于创建容器对象的类是(20分)</label>
+		          <div class="layui-input-block"   >		          
+		             	<input type="checkbox" name="" title=" Frame " lay-skin="primary"> 
+		             	<input type="checkbox" name="" title="Checkbox" lay-skin="primary"> 
+						<input type="checkbox" name="" title="Panel" lay-skin="primary"> 
+						<input type="checkbox" name="" title=" TextField" lay-skin="primary"> 	
+		          </div>
+		        </div>
+		        
+				
+		
+		
+				  <div class="layui-form-item">
+				    <div class="layui-input-block">
+				      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				    </div>
+				  </div>
+				</form>
+		</div>
+		
+		
+		
+		
+		
+		
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>
