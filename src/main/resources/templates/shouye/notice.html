@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -33,108 +33,31 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>发布者</th>
-                        <th>发布日期</th>
+                        <th>id</th>
                         <th>标题</th>
+                        <th>发布者</th>
+                        <th>内容</th>
+                        <th>发布日期</th>
+                        <th>点击次数</th>
                         <th>操作</th> 
                     </tr> 
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>贤心</td>
-                        <td>2016-11-29</td>
-                        <td>人生就像是一场修行</td>
+                    <tr th:each="news:${newsPageInfo.content}">
+                        <td th:text="${news.id}">1</td>
+                        <td th:text="${news.news_name}">2016-11-29</td>
+                        <td th:text="${news.news_person}">贤心</td>
+                        <td th:text="${news.content}">人生就像是一场修行</td>
+                        <td th:text="${news.dic_datetime}">时间</td>
+                        <td th:text="${news.dic_num}">点击</td>
                         <td>
                         	<div class="layui-btn-group">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+                                <a type="button" th:href="@{|${news.id}/update|}" class="layui-btn layui-btn-primary layui-btn-sm">
                                     <i class="layui-icon">&#xe642;</i>
-                                </button>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>许闲心</td>
-                        <td>2016-11-28</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        <td>
-                        	<div class="layui-btn-group">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </button>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>贤心</td>
-                        <td>2016-11-29</td>
-                        <td>人生就像是一场修行</td>
-                        <td>
-                        	<div class="layui-btn-group">
-                                <a href="notice_change.html">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </button>
                                 </a>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+                                <a type="button" th:href="@{|${news.id}/delete|}" class="layui-btn layui-btn-primary layui-btn-sm">
                                     <i class="layui-icon">&#xe640;</i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>许闲心</td>
-                        <td>2016-11-28</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        <td>
-                        	<div class="layui-btn-group">
-                                <a href="notice_change.html">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </button>
                                 </a>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>贤心</td>
-                        <td>2016-11-29</td>
-                        <td>人生就像是一场修行</td>
-                        <td>
-                        	<div class="layui-btn-group">
-                                <a href="notice_change.html">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </button>
-                                </a>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>许闲心</td>
-                        <td>2016-11-28</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        <td>
-                        	<div class="layui-btn-group">
-                                <a href="notice_change.html">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </button>
-                                </a>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </button>
                             </div>
                         </td>
                     </tr>
@@ -143,20 +66,21 @@
                   
             <div id="d2" class="layui-row">
             	<div class="layui-col-md4">
-                    <a href="notice_add.html">
+                    <a href="/newsinfo/add">
             		<button type="button" class="layui-btn">
                         <i class="layui-icon">&#xe608;</i> 添加
                     </button>
                     </a>
             	</div>
-            	<div class="layui-col-md1  layui-col-md-offset7">
-            		<select name="page" lay-verify="" lay-search>
-                        <option value="010">第1页</option>
-                        <option value="021">第2页</option>
-                        <option value="0571" selected>第3页</option>
-                        ……
-                    </select>     
-            	</div>
+                <div style="margin:0 auto; width: 80%; text-align: center;">
+                    <p>当前 <span th:text="${newsPageInfo.number}+1"></span> 页,
+                        总 <span th:text="${newsPageInfo.totalPages}"></span> 页,
+                        共 <span th:text="${newsPageInfo.totalElements}"></span> 条记录</p>
+                    <a th:href="@{/newsinfo/list}">首页</a>
+                    <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.hasPrevious()}?${newsPageInfo.number}-1:0)}">上一页</a>
+                    <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.hasNext()}?${newsPageInfo.number}+1:${newsPageInfo.number})}">下一页</a>
+                    <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.totalPages}-1)}">尾页</a>
+                </div>
             </div>      
                 
 	    </div>

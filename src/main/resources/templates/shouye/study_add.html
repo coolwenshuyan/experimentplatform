@@ -55,9 +55,8 @@
   		
   		<div class="layui-form-item layui-form-text">
 		    <label class="layui-form-label">发布内容</label>
-		    <div class="layui-input-block">
-		      <textarea placeholder="请输入内容" name="effect_content" class="layui-textarea"></textarea>
-		    </div>
+			<script id="editor" name="effect_content" type="text/plain">
+			</script>
 		 </div>
 		
   		
@@ -69,7 +68,7 @@
     		<div class="layui-input-block">
       		<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
 				<a href="">
-      				<input type="button" src="/shouye/student_level" class="layui-btn layui-btn-primary">返回</input>
+      				<input type="button" src="/shouye/student_level" class="layui-btn layui-btn-primary" value="返回">
 				</a>
     		</div>
   		</div>
@@ -85,6 +84,12 @@
 
 		<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script th:src="@{/ueditor/ueditor.config.js}"></script>
+		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+		<script>
+			UE.getEditor('editor');
+		</script>
 		<script>
 
 

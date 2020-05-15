@@ -55,9 +55,8 @@
   		
   		<div class="layui-form-item layui-form-text">
 		    <label class="layui-form-label">发布内容</label>
-		    <div class="layui-input-block">
-		      <textarea placeholder="请输入内容" th:text="${effect.effect_content}" name="effect_content" class="layui-textarea"></textarea>
-		    </div>
+			<script id="editor" name="effect_content" th:utext="${effect.effect_content}" type="text/plain">
+			</script>
 		 </div>
 
   		<div class="layui-form-item">
@@ -69,17 +68,18 @@
     		</div>
   		</div>
   	</form>
-
-
-			
 			
 		</div>
 
-		
-		
 
 		<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script th:src="@{/ueditor/ueditor.config.js}"></script>
+		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+		<script>
+			UE.getEditor('editor');
+		</script>
 		<script>
 
 
