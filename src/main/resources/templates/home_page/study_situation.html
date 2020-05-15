@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 引入title和css -->
+    <meta charset="UTF-8">
+	<title>四川旅游学院虚拟仿真实验教学管理平台</title>
+	<meta name="Keywords" content="四川旅游学院虚拟仿真实验教学管理平台</">
+	<meta name="Description" content="四川旅游学院虚拟仿真实验教学管理平台</">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/bootstrap.min.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/aos.css"/>
+	<script src="../../static/js/js_home/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="../../static/js/js_home/echart.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="../../static/js/js_home/jquery.raty.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 引入title和css -->
+	</head>
+	<body >
+	    <!-- 引入head -->
+	<style>
+	 body{
+	        min-height:1200px;
+	       
+	    }
+	.dhbt:hover{
+	    background:#ebebeb;
+	}
+	.container{
+	    
+	}
+	p{
+		line-height: 30px;
+	}
+	</style>
+	<div class="top visible-lg">
+	    <div class="container">     
+	        <div class="container">
+	    <!-- <span style="position:absolute;top:10px;float: left">访问量:</span> -->
+	        
+	             
+	
+	
+	        <div style="float:right;color:#fff ; margin: 10px" class="top-fr">
+	            Hi，
+	
+	            欢迎来到四川旅游学院虚拟仿真实验教学管理平台！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         
+	
+	            <!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+							<i class="fa fa-sign-out"></i><a style="color:#fff" href="login.html">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+							<a style="color:#fff" href="vcode.html">用户注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							<a style="color:#fff" href="javascript:;">后台入口</a>
+	        </div>    </div>
+	    </div>
+	</div>
+	 <script type="text/javascript">
+	                        $("#logout").click(function(){
+	                            awdid=111;
+	                            $.post("/index.php/Home/Login/Studentlogout.html",{awdid:"daw"},function(data){
+	                                if(data==1){
+	                                    location.href="/index.php/Home/Index/index.html";
+	                                }
+	                            })
+	                        })
+	                        </script>
+	<header id="header" style="background:#fff">
+	<nav class="navbar navbar-default navbar-static-top">
+	    <div class="container">
+	        <div class="navbar-header">         
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	            <span class="sr-only"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            </button>
+	
+	            <div class="navbar-brand">
+	                <img src="../../static/images/LOGO2.png" style="height:61px" alt="" width="" height="" class="img-responsive"/>
+	            </div>
+	        </div>
+	        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation">      
+	           <ul class="nav navbar-nav navbar-right">
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="index.html" >首页</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="javascript:;" >实验大厅</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="situation.html">仿真平台概况</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="teachers.html">师资队伍</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="#">申报书</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="question.html">答疑室</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="javascript:;">学习效果</a></li>
+	                <!-- <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/index.php/Home/Erji/Index/type/13.html">上传规范</a></li> -->
+	            </ul>
+
+	        </div>
+	    </div>
+	</nav>
+	</header>
+	    <!-- 引入head -->
+	    <!-- 引入二级页html -->
+	     <!-- 
+	<section class="n_banner">
+	    <img src="/Public/nHome/picture/banc.jpg" class="img-responsive"/>
+	</section> -->
+	<div class="container" style="padding-bottom: 50px ">
+	                    <div class="left_con col-md-3 col-sm-12 col-xs-12">
+	        
+	                        <div class="box">
+	                <h3 style='font-size:15px'>学习效果</h3>
+	                <ul class="sort">
+	                                            <li>                   <a style="font-size: 18px;color:#000;font-weight:900;font-family: '楷体'" href="http://abc.kynli.xyz/study/situation.html">
+	                           学习效果                         </a></li>
+	                                            
+	                </ul>
+	            </div>
+	                    </div>
+	                    <div class="right_con col-md-9 col-sm-12 col-xs-12" >
+	
+	        
+	                    <!-- <div class="right_con col-md-10 col-sm-12 col-xs-12" > -->
+	            <div class="row">
+	                <div class="crumb clearfix">
+	                    <!-- <h3 style='font-size:15px'>新闻详细</h3> -->
+	                    <div class="site hidden-xs">您的当前位置：<a href="/index.php/Home/Index/index.html">首 页</a>><a href="news.html">学习效果</a></div>
+	                </div>
+	                <!-- <div class="content" >            -->
+	                    <!-- <div class="news_detail">
+	                    <h1>平台概况</h1>
+	                    <div class="info_title clearfix">
+	                        <span>发布日期：2019-06-26 15:52</span>
+	                    </div>
+	                     -->
+	                     
+	             <!--考核通过情况-->
+				<div class="number">
+					<h1 style="font-size: 22px; margin: 1%;"><b>考核通过情况</b></h1>
+					<p style="font-size: 16px; ">高分占比：</p>
+					<div class="progress" style="width: 75%;">						
+  						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 35% ;background-color: rgb(223,240,216);">
+    						<span class="sr-only">35% Complete</span>
+    						<p style="color: black;text-align: center;line-height: 20px;">35%</p>
+  						</div>
+					</div>
+					<p style="font-size: 16px; ">中分占比：</p>
+					<div class="progress" style="width: 75%;">						
+  						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 50% ;background-color: rgb(217,237,247);">
+    						<span class="sr-only">50% Complete</span>
+    						<p style="color: black;text-align: center;line-height: 20px;">50%</p>
+  						</div>
+					</div>
+					<p style="font-size: 16px; ">低分占比：</p>
+					<div class="progress" style="width: 75%;">						
+  						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 25% ;background-color: rgb(252,248,227);">
+    						<span class="sr-only">15% Complete</span>
+    						<p style="color: black;text-align: center;line-height: 20px;">15%</p>
+  						</div>
+					</div>
+						
+				</div>
+				
+				<h1 style="font-size: 22px; margin: 1%;"><b>优秀实验报告展示</b></h1>
+				<div class="row">
+  					<div class="col-xs-6 col-md-3">
+    					<a href="#" class="thumbnail">
+      						<img src="../../static/images/img_home/show.png" alt="">
+    					</a>
+  					</div>
+  					<div class="col-xs-6 col-md-3">
+    					<a href="#" class="thumbnail">
+      						<img src="../../static/images/img_home/show.png" alt="">
+    					</a>
+  					</div>
+  					<div class="col-xs-6 col-md-3">
+    					<a href="#" class="thumbnail">
+      						<img src="../../static/images/img_home/show.png" alt="">
+    					</a>
+  					</div>
+  					
+				</div>
+	                    <!-- <div class="tag">相关标签：标签1，标签2，标签3</div> -->
+	                    <!-- <div class="art">上一篇：<a href="news_article.html">夏令营中的较量：不是所有的海外游学都叫“游学”</a>下一篇：<span>没有了</span></div> -->
+	                    <!-- </div>  -->
+	               <!--      
+	                    <div class="relate_list">
+	                        <div class="relatenew">
+	                            <h4>相关新闻：</h4>
+	                            <ul class="xg_news">                
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>                   
+	                            </ul>
+	                        </div>
+	                                                      
+	                    </div> -->
+	
+	                </div>
+	                
+	            </div>
+	        </div>      
+	    </div>
+	    
+	    
+	    
+	    
+	    
+
+
+
+
+	    
+	    
+	    
+	    
+	    
+	    <!-- 引入二级页html -->
+	    <!-- 引入foot -->
+	     <footer class="footer" style="background-color:#004579;position: fixed;bottom: 0px;width: 100%;background:#174f37">
+	    <div class="copyright " style="width: 100%;">
+	                <div class="container" style="width: 100%;;">
+	                    <ul class="pull-right nomargin list-inline mobile-block col-sm-12 col-md-12" style="color: rgba(255,255,255,0.6);text-decoration: none;margin-bottom:0px!important;">
+	                        <li class="col-sm-0 col-md-4"></li>     
+	                        <li class="col-sm-12 col-md-4"><center>版权所有Copyright © 2018 四川旅游学院虚拟仿真实验教学管理平台</center></li>
+	                        <!-- <li class="col-sm-12 col-md-4"><center><a style="color: #fff" href="http://www.syjctech.com/" target="_blank">技术支持：沈阳捷诚软件技术有限公司 &nbsp;&nbsp;</a> </center></li>              -->
+	                    </ul>
+	                    
+	                </div>
+	            </div>
+	</footer>
+	     <!-- 引入foot -->
+	     <!-- 引入js -->
+	     <script type="text/javascript">var plugin_path = '../../static/js/js_home/plugins/';</script>
+	    <script type="text/javascript" src='../../static/js/js_home/jquery/jquery-2.1.4.min.js'></script>
+	    <script type="text/javascript" src='../../static/js/js_home/bootstrap.min.js'></script>
+	    <script type="text/javascript" src='../../static/js/js_home/scripts.js'></script>
+	    
+	    
+	    <!-- REVOLUTION SLIDER -->
+	    <script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.tools.min.js'></script>
+	    <script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.revolution.min.js'></script>
+	    <script type="text/javascript" src='../../static/js/js_home/revolution_slider.js'></script>
+	     <!-- 引入js -->
+	</body>
+</html>
