@@ -17,6 +17,9 @@
 			.layui-form-label {
 				width: 100px;
 			}
+			.p0{
+				padding-top: 9px;
+			}
 		</style>
 	</head>
 
@@ -34,28 +37,28 @@
 					<!--					<div class="layui-input-block">-->
 					<!--						<input type="text" name="Experiment_name" lay-verify="title" autocomplete="off" placeholder="请输入实验名称" class="layui-input">-->
 					<!--					</div>-->
-					<p th:text="*{m_name}">这是一个实验名</p>
+					<p class="p0" th:text="*{m_name}">这是一个实验名</p>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">实验类型</label>
 					<!--					<div class="layui-input-block">-->
 					<!--						<input type="text" name="shiyan_Types" lay-verify="title" autocomplete="off" placeholder="请输入实验类型" class="layui-input">-->
 					<!--					</div>-->
-					<p th:text="*{m_type}">这是一个实验类型</p>
+					<p class="p0" th:text="*{m_type}">这是一个实验类型</p>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">课时</label>
 					<!--					<div class="layui-input-block">-->
 					<!--						<input type="text" name="m_id" lay-verify="title" autocomplete="off" placeholder="请输入实验课时" class="layui-input">-->
 					<!--					</div>-->
-					<p th:text="*{classhour}">这是一个课时</p>
+					<p class="p0" th:text="*{classhour}">这是一个课时</p>
 				</div>
 				<div class="layui-form-item layui-form-text">
 					<label class="layui-form-label">实验目的</label>
 					<!--					<div class="layui-input-block">-->
 					<!--						<textarea placeholder="请输入实验目的" class="layui-textarea" name="shiyan_Purpose"></textarea>-->
 					<!--					</div>-->
-					<p th:text="*{purpose}">这是一个实验目的</p>
+					<p class="p0" th:text="*{purpose}">这是一个实验目的</p>
 				</div>
 			</div>
 
