@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<!-- 引入title和css -->
@@ -146,47 +146,46 @@
 	  
 	  //师资展示                   -->
 					<div class="news_con" style="min-height: 300px;background:#FBFBFB">
-						<div class="row">
+						<div th:each="teacher:${teacherPageInfo.content}" class="row">
 							<div class="col-sm-6 col-md-3">
 								<div class="thumbnail">
-									<img src="../../static/images/img_home/wen.png" alt="...">
-									<div class="caption" align="center">
-										<h3><strong>温佐承</strong></h3>
-										<p>信息与工程学院老师，职称</p>
-										<p>荣获XXXXXXXXXXXX</p>
+									<img th:src="${teacher.image_url}" alt="..."/>
+									<div  class="caption" align="center">
+										<h3><strong th:text="${teacher.person_name }"><a th:href="${teacher.id }" class="list_link"></a></strong></h3>
+										<p th:text="${teacher.intro}"></p>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="thumbnail">
-									<img src="../../static/images/img_home/c.jpg" alt="...">
-									<div class="caption" align="center">
-										<h3><strong>陈功锁</strong></h3>
-										<p>信息与工程学院老师，职称</p>
-										<p>荣获XXXXXXXXXXXX</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="thumbnail">
-									<img src="../../static/images/img_home/logo3.png" alt="...">
-									<div class="caption" align="center">
-										<h3><strong>罗婉丽</strong></h3>
-										<p>信息与工程学院老师，职称</p>
-										<p>荣获XXXXXXXXXXXX</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="thumbnail">
-									<img src="../../static/images/img_home/logo3.png" alt="...">
-									<div class="caption" align="center">
-										<h3><strong>其他</strong></h3>
-										<p>信息与工程学院老师，职称</p>
-										<p>荣获XXXXXXXXXXXX</p>
-									</div>
-								</div>
-							</div>
+<!--							<div class="col-sm-6 col-md-3">-->
+<!--								<div class="thumbnail">-->
+<!--									<img src="../../static/images/img_home/c.jpg" alt="...">-->
+<!--									<div class="caption" align="center">-->
+<!--										<h3><strong>陈功锁</strong></h3>-->
+<!--										<p>信息与工程学院老师，职称</p>-->
+<!--										<p>荣获XXXXXXXXXXXX</p>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="col-sm-6 col-md-3">-->
+<!--								<div class="thumbnail">-->
+<!--									<img src="../../static/images/img_home/logo3.png" alt="...">-->
+<!--									<div class="caption" align="center">-->
+<!--										<h3><strong>罗婉丽</strong></h3>-->
+<!--										<p>信息与工程学院老师，职称</p>-->
+<!--										<p>荣获XXXXXXXXXXXX</p>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="col-sm-6 col-md-3">-->
+<!--								<div class="thumbnail">-->
+<!--									<img src="../../static/images/img_home/logo3.png" alt="...">-->
+<!--									<div class="caption" align="center">-->
+<!--										<h3><strong>其他</strong></h3>-->
+<!--										<p>信息与工程学院老师，职称</p>-->
+<!--										<p>荣获XXXXXXXXXXXX</p>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
 
 						</div>
 

@@ -38,6 +38,16 @@ public class TeacherController {
 //        return new Result(ResultCode.SUCESS)
 
 //    }
+    /**
+     * 前端跳转
+     */
+    @GetMapping(value = "/frontList")
+    public String TeacherFrontList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+        Pageable pageable = PageRequest.of(pageNum,3);
+        Page<Teacher> page = teacherRepository.findAll(pageable);
+        model.addAttribute("teacherPageInfo",page);
+        return "home_page/teachers";
+    }
 
 
     /**
