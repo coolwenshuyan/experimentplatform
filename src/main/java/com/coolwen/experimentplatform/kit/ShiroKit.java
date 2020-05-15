@@ -24,7 +24,10 @@ public class ShiroKit {
         if (obj instanceof Integer) {
             return (Integer) obj == 0;
         }
-        if (obj == null) return true;
-        else return false;
+        if (obj == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

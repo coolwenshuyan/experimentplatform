@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+>
 <head th:include="layout :: htmlhead" th:with="title='后台管理'">
     <meta charset="UTF-8"/>
     <title>Title</title>
@@ -19,24 +19,45 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user:${users}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username }"><a th:href="${user.id }" class="list_link"></a></td>
-            <td th:text="${user.nickname }"></td>
-            <td th:if="${user.status} eq true">
+        <tr th:each="user,stat:${users}">
+            <td th:if="${stat.index eq 0}"><span th:text="${user.id}">1800998873</span></td>
+            <td th:if="${stat.index eq 0}"><span th:text="${user.username }"><a th:href="${user.id }" class="list_link">张三</a></span>
+            </td>
+            <td th:if="${stat.index eq 0}"><span th:text="${user.nickname }"></span></td>
+            <td th:if="${stat.index eq 0}"><span th:if="${user.status} eq true">
                 <span class="emp">停用</span>
                 <a th:href="@{|updateStatus/${user.id }|}" class="list_op">启用</a>
-            <td th:if="${user.status eq false}">
+            </span></td>
+            <td th:if="${stat.index eq 0}"><span th:if="${user.status eq false}">
                 <span>启用</span>
                 <a th:href="@{|updateStatus/${user.id }|}" class="list_op">停用</a>
                 </th:if>
                 &nbsp;
-            </td>
-            <td>
+            </span></td>
+            <td th:if="${stat.index eq 0}"><span>
                 <a th:href="@{|update/${user.id }|}" class="list_op">更新</a>
                 &nbsp;
                 <a th:href="@{|listRes/${user.id }|}" class="list_op">查询管理资源</a>
+            </span></td>
+            <td th:if="${stat.index > 0}"><span th:text="${user.id}">1800998873</span></td>
+            <td th:if="${stat.index > 0}"><span th:text="${user.username }"><a th:href="${user.id }" class="list_link">张三</a></span>
             </td>
+            <td th:if="${stat.index > 0}"><span th:text="${user.nickname }"></span></td>
+            <td th:if="${stat.index > 0}"><span th:if="${user.status} eq true">
+                <span class="emp">停用</span>
+                <a th:href="@{|updateStatus/${user.id }|}" class="list_op">启用</a>
+            </span></td>
+            <td th:if="${stat.index > 0}"><span th:if="${user.status eq false}">
+                <span>启用</span>
+                <a th:href="@{|updateStatus/${user.id }|}" class="list_op">停用</a>
+                </th:if>
+                &nbsp;
+            </span></td>
+            <td th:if="${stat.index > 0}"><span>
+                <a th:href="@{|update/${user.id }|}" class="list_op">更新</a>
+                &nbsp;
+                <a th:href="@{|listRes/${user.id }|}" class="list_op">查询管理资源</a>
+            </span></td>
         </tr>
         </tbody>
     </table>
