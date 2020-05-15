@@ -43,7 +43,7 @@ public class TeacherController {
      */
     @GetMapping(value = "/frontList")
     public String TeacherFrontList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
-        Pageable pageable = PageRequest.of(pageNum,3);
+        Pageable pageable = PageRequest.of(pageNum,100);
         Page<Teacher> page = teacherRepository.findAll(pageable);
         model.addAttribute("teacherPageInfo",page);
         return "home_page/teachers";

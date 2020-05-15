@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <!-- 引入title和css -->
     <meta charset="UTF-8">
@@ -160,22 +160,22 @@
 				</div>
 				
 				<h1 style="font-size: 22px; margin: 1%;"><b>优秀实验报告展示</b></h1>
-				<div class="row">
-  					<div class="col-xs-6 col-md-3">
+				<div >
+  					<div style="float: left" th:each="effect:${learningPageInfo.content}" class="col-xs-6 col-md-3">
     					<a href="#" class="thumbnail">
-      						<img src="../../static/images/img_home/show.png" alt="">
+      						<img th:src="${effect.effect_imgurl}" alt="">
     					</a>
   					</div>
-  					<div class="col-xs-6 col-md-3">
-    					<a href="#" class="thumbnail">
-      						<img src="../../static/images/img_home/show.png" alt="">
-    					</a>
-  					</div>
-  					<div class="col-xs-6 col-md-3">
-    					<a href="#" class="thumbnail">
-      						<img src="../../static/images/img_home/show.png" alt="">
-    					</a>
-  					</div>
+<!--  					<div class="col-xs-6 col-md-3">-->
+<!--    					<a href="#" class="thumbnail">-->
+<!--      						<img th:src="${effect.effect_imgurl}" alt="">-->
+<!--    					</a>-->
+<!--  					</div>-->
+<!--  					<div class="col-xs-6 col-md-3">-->
+<!--    					<a href="#" class="thumbnail">-->
+<!--      						<img src="../../static/images/img_home/show.png" alt="">-->
+<!--    					</a>-->
+<!--  					</div>-->
   					
 				</div>
 	                    <!-- <div class="tag">相关标签：标签1，标签2，标签3</div> -->

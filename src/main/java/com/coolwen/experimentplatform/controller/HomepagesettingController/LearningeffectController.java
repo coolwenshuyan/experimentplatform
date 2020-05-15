@@ -24,6 +24,16 @@ public class LearningeffectController {
     @Autowired
     EffectService effectService;
 
+    //前端跳转
+    @GetMapping(value = "/learningList")
+    public String LearningList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+        Pageable pageable = PageRequest.of(pageNum,5);
+        Page<Effect> page = effectRepository.findAll(pageable);
+        model.addAttribute("learningPageInfo",page);
+        return "home_page/study_situation";
+    }
+
+
     @GetMapping(value = "/list")
     public String LearningeffectList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
         Pageable pageable = PageRequest.of(pageNum,3);

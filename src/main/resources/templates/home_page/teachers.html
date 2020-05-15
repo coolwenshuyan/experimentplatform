@@ -145,9 +145,9 @@
 	                    </div>
 	  
 	  //师资展示                   -->
-					<div class="news_con" style="min-height: 300px;background:#FBFBFB">
-						<div th:each="teacher:${teacherPageInfo.content}" class="row">
-							<div class="col-sm-6 col-md-3">
+					<div class="news_con" style="min-height: 300px;background:#FBFBFB ">
+						<div th:each="teacher:${teacherPageInfo.content}" >
+							<div class="col-sm-6 col-md-3" style="float: left">
 								<div class="thumbnail">
 									<img th:src="${teacher.image_url}" alt="..."/>
 									<div  class="caption" align="center">
@@ -185,7 +185,7 @@
 <!--										<p>荣获XXXXXXXXXXXX</p>-->
 <!--									</div>-->
 <!--								</div>-->
-<!--							</div>-->
+							</div>
 
 						</div>
 
