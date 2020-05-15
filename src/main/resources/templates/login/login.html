@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>账号登录</title>		
+		<link rel="stylesheet" href="../../static/css/layui.css">
+	</head>
+    <style type="text/css">
+        #b{
+            float: right;
+            margin: 10px 0;
+        }
+        .aa div{
+            float: left;
+        }
+    </style>
+	<body>
+		<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">账号登录</li>
+            </ul>
+            <div class="layui-tab-content">
+            	<div class="layui-tab-item layui-show">
+    	            <div id="l1" class="layui-col-md8 layui-col-md-offset2">
+    	            	<div class="layui-form-item">
+                            <label class="layui-form-label">账号：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">密码：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机号：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item ">
+                            <label class="layui-form-label aa">验证码：</label>
+                            <div class="layui-input-block">
+                                <input style="width: 40%;float: left;" type="text" name="title" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
+                                <div style="width: 49%;float: left;height: 38px;"><img style="width: 66%;height: 38px;float: left;" src="../../static/images/yan.jpg" alt=""></div>
+                            </div>
+                        </div>
+                        
+                        <div class="layui-btn-container" style="text-align: center;">
+                            <button type="button" class="layui-btn"><a href="javascript:;">登录</a></button>
+                            <button type="button" class="layui-btn"><a href="register.html">注册</a></button>
+                        </div>
+    	            </div>
+                </div>
+
+            </div>
+        </div>      
+			
+		
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>
