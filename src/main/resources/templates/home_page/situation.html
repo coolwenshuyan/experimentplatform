@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 引入title和css -->
+    <meta charset="UTF-8">
+	<title>四川旅游学院虚拟仿真实验教学管理平台</title>
+	<meta name="Keywords" content="四川旅游学院虚拟仿真实验教学管理平台</">
+	<meta name="Description" content="四川旅游学院虚拟仿真实验教学管理平台</">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/aos.css"/>
+	<script src="../../static/js/js_home/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="../../static/js/js_home/echart.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="../../static/js/js_home/jquery.taty.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 引入title和css -->
+	</head>
+	<body >
+	    <!-- 引入head -->
+	<style>
+	 body{
+	        min-height:1200px;
+	       
+	    }
+	.dhbt:hover{
+	    background:#ebebeb;
+	}
+	.container{
+	    
+	}
+	p{
+		line-height: 30px;
+	}
+	</style>
+	<div class="top visible-lg">
+	    <div class="container">     
+	        <div class="container">
+	    <!-- <span style="position:absolute;top:10px;float: left">访问量:</span> -->
+	        
+	             
+	
+	
+	        <div style="float:right;color:#fff ; margin: 10px" class="top-fr">
+	            Hi，
+	
+	            欢迎来到四川旅游学院虚拟仿真实验教学管理平台！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         
+	
+	            <!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+	                        <i class="fa fa-sign-out"></i><a style="color:#fff" href="login.html">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i><a style="color:#fff" href="vcode.html">用户注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a style="color:#fff" href="javascript:;">后台入口</a>
+	        </div>    </div>
+	    </div>
+	</div>
+	 <script type="text/javascript">
+	                        $("#logout").click(function(){
+	                            awdid=111;
+	                            $.post("/index.php/Home/Login/Studentlogout.html",{awdid:"daw"},function(data){
+	                                if(data==1){
+	                                    location.href="/index.php/Home/Index/index.html";
+	                                }
+	                            })
+	                        })
+	                        </script>
+	<header id="header" style="background:#fff">
+	<nav class="navbar navbar-default navbar-static-top">
+	    <div class="container">
+	        <div class="navbar-header">         
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	            <span class="sr-only"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            </button>
+	
+	            <div class="navbar-brand">
+	                <img src="../../static/images/LOGO2.png" style="height:61px" alt="" width="" height="" class="img-responsive"/>
+	            </div>
+	        </div>
+	        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" role="navigation">      
+	           <ul class="nav navbar-nav navbar-right">
+					<li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="../../templates/home_page/index.html" >首页</a></li>
+					<li>
+						<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="#">实验大厅入口</a>
+					</li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="../../templates/home_page/situation.html">仿真平台概况</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="../../templates/home_page/teachers.html">师资队伍</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="javascript:;">申报书</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="question.html">答疑室</a></li>
+	                <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="study_situation.html">学习效果</a></li>
+	                <!-- <li class="dhbt"><a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/index.php/Home/Erji/Index/type/13.html">上传规范</a></li> -->
+	            </ul>
+
+	        </div>
+	    </div>
+	</nav>
+	</header>
+	    <!-- 引入head -->
+	    <!-- 引入二级页html -->
+	     <!-- 
+	<section class="n_banner">
+	    <img src="/Public/nHome/picture/banc.jpg" class="img-responsive"/>
+	</section> -->
+	<div class="container" style="padding-bottom: 50px ">
+	                    <div class="left_con col-md-3 col-sm-12 col-xs-12">
+	        
+	                        <div class="box">
+	                <h3 style='font-size:15px'>仿真平台概况</h3>
+	                <ul class="sort">
+	                                            <li>                   <a style="font-size: 18px;color:#000;font-weight:900;font-family: '楷体'" href="/index.php/Home/Erji/Index/new/101.html">
+	                           仿真平台概况                          </a></li>
+	                                            
+	                </ul>
+	            </div>
+	                    </div>
+	                    <div class="right_con col-md-9 col-sm-12 col-xs-12" >
+	
+	        
+	                    <!-- <div class="right_con col-md-10 col-sm-12 col-xs-12" > -->
+	            <div class="row">
+	                <div class="crumb clearfix">
+	                    <!-- <h3 style='font-size:15px'>新闻详细</h3> -->
+	                    <div class="site hidden-xs">您的当前位置：<a href="/index.php/Home/Index/index.html">首 页</a>><a href="news.html">仿真平台概况</a></div>
+	                </div>
+	                <!-- <div class="content" >            -->
+	                    <!-- <div class="news_detail">
+	                    <h1>平台概况</h1>
+	                    <div class="info_title clearfix">
+	                        <span>发布日期：2019-06-26 15:52</span>
+	                    </div>
+	                     -->
+	<div class="news_con" style="min-height: 300px;background:#FBFBFB">
+		<div class="college">
+			<p style="font-size: 16px;"><strong>学校简介</strong></p>
+			<p>
+				<span>
+					&nbsp;&nbsp;&nbsp;&nbsp;四川旅游学院是中国第一所独立设置的旅游类普通本科高等学校，2018年，被国务院侨办批准为“海外惠侨工程----中餐繁荣计划”基地。作为四川省本科院校整体转型发展改革试点高校，学校坚持“地方性、应用型”办学定位，不断深化教育改革，传承中国优秀烹饪旅游文化，
+					培养适应社会经济发展和烹饪旅游现代化发展的应用型人才。
+				</span>
+			</p>
+			<p>
+				<span>
+					&nbsp;&nbsp;&nbsp;&nbsp;四川旅游学院是中国第一所独立设置的旅游类普通本科高等学校，2018年，被国务院侨办批准为“海外惠侨工程----中餐繁荣计划”基地。作为四川省本科院校整体转型发展改革试点高校，学校坚持“地方性、应用型”办学定位，不断深化教育改革，传承中国优秀烹饪旅游文化，
+					培养适应社会经济发展和烹饪旅游现代化发展的应用型人才。
+				</span>
+			</p>
+		</div>
+		<div class="int">
+			<p style="font-size: 16px;"><strong>功能介绍</strong></p>
+			<p>虚拟仿真实验教学管理平台主要功能有：查看师资力量，查看申报书，查看实验教学成果以见增加老师和学生之间的互动</p>
+		</div>
+		<div class="int">
+			<p style="font-size: 16px;"><strong>目的</strong></p>
+			<p>虚拟仿真实验教学管理平台可以促进学生之间的相互交流，也可以通过相关平台来提高自己</p>
+		</div>
+	                                           </div>
+	                    <!-- <div class="tag">相关标签：标签1，标签2，标签3</div> -->
+	                    <!-- <div class="art">上一篇：<a href="news_article.html">夏令营中的较量：不是所有的海外游学都叫“游学”</a>下一篇：<span>没有了</span></div> -->
+	                    <!-- </div>  -->
+	               <!--      
+	                    <div class="relate_list">
+	                        <div class="relatenew">
+	                            <h4>相关新闻：</h4>
+	                            <ul class="xg_news">                
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>
+	                                <li>
+	                                    <a href="news_article.html">培训机构正在不断发展，日益壮大</a><span>2018-03-26</span>
+	                                </li>                   
+	                            </ul>
+	                        </div>
+	                                                      
+	                    </div> -->
+	
+	                </div>
+	                
+	            </div>
+	        </div>      
+	    </div>
+	    <!-- 引入二级页html -->
+	    <!-- 引入foot -->
+	     <footer class="footer" style="background-color:#004579;position: fixed;bottom: 0px;width: 100%;background:#174f37">
+	    <div class="copyright " style="width: 100%;">
+	                <div class="container" style="width: 100%;;">
+	                    <ul class="pull-right nomargin list-inline mobile-block col-sm-12 col-md-12" style="color: rgba(255,255,255,0.6);text-decoration: none;margin-bottom:0px!important;">
+	                        <li class="col-sm-0 col-md-4"></li>     
+	                        <li class="col-sm-12 col-md-4"><center>版权所有Copyright © 2018 四川旅游学院虚拟仿真实验教学管理平台</center></li>
+	                        <!-- <li class="col-sm-12 col-md-4"><center><a style="color: #fff" href="http://www.syjctech.com/" target="_blank">技术支持：沈阳捷诚软件技术有限公司 &nbsp;&nbsp;</a> </center></li>              -->
+	                    </ul>
+	                    
+	                </div>
+	            </div>
+	</footer>
+	     <!-- 引入foot -->
+	     <!-- 引入js -->
+	     <script type="text/javascript">var plugin_path = '/Public/Home/js/qt/plugins/';</script>
+	    <script type="text/javascript" src='/Public/Home/js/qt/plugins/jquery/jquery-2.1.4.min.js'></script>
+	    <script type="text/javascript" src='/Public/Home/js/qt/bootstrap.min.js'></script>
+	    <script type="text/javascript" src='/Public/Home/js/qt/scripts.js'></script>  
+	    
+	    
+	    <!-- REVOLUTION SLIDER -->
+	    <script type="text/javascript" src='/Public/Home/js/qt/plugins/slider.revolution/js/jquery.themepunch.tools.min.js'></script>
+	    <script type="text/javascript" src='/Public/Home/js/qt/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js'></script>
+	    <script type="text/javascript" src='/Public/Home/js/qt/revolution_slider.js'></script>
+	     <!-- 引入js -->
+	</body>
+</html>
