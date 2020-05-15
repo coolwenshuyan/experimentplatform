@@ -24,6 +24,7 @@ public class ModleTestScoreController {
     @GetMapping(value = "/list")
     public String loadAllModel(Model model) {
         List<StudentTestScoreDTO> a = studentRepository.listStudentMTestAnswerDTO();
+        System.out.println(a);
         model.addAttribute("allInfo",a);
         return "kaohe/score_manage";
     }
