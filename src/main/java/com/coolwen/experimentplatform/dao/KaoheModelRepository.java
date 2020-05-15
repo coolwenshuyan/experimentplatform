@@ -33,5 +33,8 @@ public interface KaoheModelRepository extends BaseRepository<KaoheModel,Integer>
 //    @Query("select ExpKaohe from ExpModel em,KaoheModel km where em.m_id=km.id")
 //    List<ExpKaohe> loadallmodel(int mId);
 
-//    int countAllByM_id(int mid);
+    @Query("select k.m_id from KaoheModel as k")
+    List<Integer> findAllMid();
+
+
 }

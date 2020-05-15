@@ -55,4 +55,9 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 //            return false;
 //        }
 //    }
+
+    @Override
+    public List<Integer> inKaoheList() {
+        return kaoheModelRepository.findAllMid();
+    }
 }

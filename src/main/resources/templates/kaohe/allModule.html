@@ -43,8 +43,12 @@
 				<td th:text="${b.m_type}">拓展创新</td>
 				<td th:text="${b.purpose}">拓展创新</td>
 				<td th:text="${b.classhour}">32</td>
-				<td>
-					<a th:href="@{|/kaohemodel/${b.m_id}/moveIn|}"><button type="add"  @click="isTrue" class="layui-btn layui-btn-sm" >移入考核</button></a>
+				<td >
+<!--					<div th:each="c:${checkList}" >-->
+<!--					<p th:text="${c}">是否在内</p>-->
+<!--					</div>-->
+					<a th:each="c:${checkList}" th:href="@{|/kaohemodel/${b.m_id}/moveIn|}" th:if="${b.m_id != c}"><button type="add"  @click="isTrue" class="layui-btn layui-btn-sm" >移入考核</button></a>
+<!--					上面这里有问题-->
 				</td>
 			</tr>
 
@@ -106,6 +110,7 @@
 			}
 		}
 	})
+
 
 
 </script>

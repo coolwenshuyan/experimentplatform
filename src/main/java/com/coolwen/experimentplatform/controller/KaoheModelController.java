@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/kaohemodel")
@@ -37,7 +39,9 @@ public class KaoheModelController {
 //        ExpModel expModel = expModelService.findModelList(pageNum);
 //        Page<KaoheModel> page = kaoheModelService.findAll(pageable);
 //        model.addAttribute("allKaohe", page);
+        List<Integer> check = kaoheModelService.inKaoheList();
         model.addAttribute("allKaohe",expModelService.findModelList(pageNum));
+        model.addAttribute("checkList",check);
         return "kaohe/allModule";
     }
 

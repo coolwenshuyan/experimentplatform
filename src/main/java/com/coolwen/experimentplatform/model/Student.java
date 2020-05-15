@@ -23,7 +23,7 @@ public class Student {
     private String stuPassword;
 
     @Column(name = "stu_name")
-    private float stuName;
+    private String stuName;
 
     @Column(name = "stu_xuehao")
     private int stuXuehao;
@@ -64,11 +64,11 @@ public class Student {
         this.stuPassword = stuPassword;
     }
 
-    public float getStuName() {
+    public String getStuName() {
         return stuName;
     }
 
-    public void setStuName(float stuName) {
+    public void setStuName(String stuName) {
         this.stuName = stuName;
     }
 

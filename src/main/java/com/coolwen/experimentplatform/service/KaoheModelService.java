@@ -22,4 +22,6 @@ public interface KaoheModelService {
     Page<KaoheModel> findAll(Pageable pageable);
 
 //    boolean isItInKaohe(int mid);
+
+    public List<Integer> inKaoheList();
 }
