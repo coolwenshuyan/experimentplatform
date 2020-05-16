@@ -28,8 +28,8 @@ public class ClassModel {
     private String className;//班级名字
 
     private String classTeacher;//班级负责老师
-
-    private int classIscurrent;//是否往届
+    @Column(columnDefinition = "bit default 0")
+    private boolean classIscurrent;//是否往届
 
     public int getClassId() {
         return classId;
@@ -79,11 +79,11 @@ public class ClassModel {
         this.classTeacher = classTeacher;
     }
 
-    public int getClassIscurrent() {
+    public boolean getClassIscurrent() {
         return classIscurrent;
     }
 
-    public void setClassIscurrent(int classIscurrent) {
+    public void setClassIscurrent(boolean classIscurrent) {
         this.classIscurrent = classIscurrent;
     }
 }

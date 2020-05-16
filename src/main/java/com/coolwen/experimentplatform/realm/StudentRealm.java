@@ -49,7 +49,7 @@ public class StudentRealm extends AuthorizingRealm {
                 simpleAuthorizationInfo.addRole("role:class");
                 //判断班级是否往期
                 ClassModel classModel= classService.findClassById(student.getClassId());
-                if (classModel.getClassIscurrent()==0){
+                if (classModel.getClassIscurrent()==false){
                     simpleAuthorizationInfo.addRole("role:isCurrent");
                 }
             }

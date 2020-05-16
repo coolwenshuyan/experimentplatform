@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="x-admin-sm"  xmlns:th="http://www.thymeleaf.org">
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>实验模块设置</title>
@@ -10,6 +10,14 @@
         <link rel="stylesheet" href="../../static/css/xadmin.css">
         <script src="../../static/js/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="../../static/js/xadmin.js"></script>
+        <script type="text/javascript" src="../../static/js/layui.all.js" ></script>
+        <script>
+        	layui.define(['laytp1','layer','element','util'],function(exports){
+        		exports('setter',{
+        			pageTabs:true
+        		})
+        	})
+        </script>
 
     </head>
     <body>
@@ -18,7 +26,7 @@
             <a href="">首页</a>
             <a href="">学生账号管理</a>
             <a>
-              <cite>管理列表</cite></a>
+              <cite>审核</cite></a>
           </span>
           <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
             <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -27,69 +35,33 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <!--<div class="layui-card-body ">-->
-                            <form class="layui-form layui-col-space5" th:action="@{/studentManage/viewStudent}" method="get">
-                                <!--<div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
-                                </div>-->
-                                <div class="layui-inline layui-show-xs-block">
-                                	
-                                    <!--<input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">-->
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="stu_xuehao"  placeholder="请输入学号" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-btn" type="submit" lay-submit="" lay-filter="sreach" value="搜索"/>
-                                </div>
-                            </form>
-                        <!--</div>-->
-                        <!--<div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./member-add.html',600,400)"><i class="layui-icon"></i>添加</button>
-                        </div>-->
+                        <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{/studentManage/toBeReviewd}">返回列表</a>
                         <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
                                 <thead>
                                   <tr>
-                                    
-                                    <th>ID</th>
-                                    <th>登陆账号</th>
-                                    <th>真实姓名</th>
                                     <th>学号</th>
-                                    <th>手机号</th>
-                                    <th>是否本校</th>
-                                    <th>班级</th>
+                                    <th>姓名</th>
+                                    <th>是否校外</th>
+                                    <th>手机</th>
                                     <th>操作</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr th:each="person:${studentList}">
-                                   
-                                    <td th:text="${person.id}"></td>
-                                    <td th:text="${person.stuUname}"></td>
-                                    <td th:text="${person.stuName}"></td>
-                                    <td th:text="${person.stuXuehao}"></td>
-                                    <td th:text="${person.stuMobile}"></td>
-                                    <td th:text="${person.stuIsinschool == true?'是':'否'}"></td>
-                                    <td th:text="${person.className == null?'暂无班级':person.className}"></td>
-                                    
-                                    <td class="td-manage">
-                                            <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/editStudent/${person.id}|}">编辑</a>
-
-                                        <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/deleteStudent/${person.id}|}">删除</a>
-                                    </td>
-                                  </tr>
+                                  <tr th:object="${student}">
+                                    <td th:text="${student.stuXuehao}"></td>
+                                    <td th:text="${student.stuName}"></td>
+                                    <td th:text="${student.isStuIsinschool()==true?'是':'否'}"></td>
+                                    <td th:text="${student.stuMobile}"></td>
+                                      <td class="td-manage">
+                                          <a href="class_alter.html">
+                                              <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/passReviewd/${student.id}|}">通过</a>
+                                          </a>
+                                          <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/deleteReviewd/${student.id}|}">删除</a>
+                                      </td>
+                                </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                    <a class="prev" th:href="@{/studentManage/list(pageNum=${studentList.hasPrevious()}?${studentList.number}-1:0)}">&lt;&lt;</a>
-                                    <a class="next" th:href="@{/studentManage/list(pageNum=${studentList.hasNext()}?${studentList.number}+1:${studentList.number})}">&gt;&gt;</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,13 +94,7 @@
 <!--        laydate.render({-->
 <!--          elem: '#end' //指定元素-->
 <!--        });-->
-<!--		var is=document.getElementsByTagName("i");-->
-<!--		for(var i=0;i<is.length;i++){-->
-<!--			var oi=is[i];-->
-<!--			oi.addEventListener("click",function(){-->
-<!--				oi.parentNode.href="student_alter.html";-->
-<!--			})-->
-<!--		}-->
+
 
 <!--      });-->
 

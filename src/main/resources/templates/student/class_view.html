@@ -28,16 +28,9 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5" th:action="@{/studentManage/viewClass}">
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="class_name"  placeholder="请输入班级名称" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-btn" type="submit" lay-submit="" lay-filter="sreach" value="搜索"/>
-                                </div>
-                            </form>
-                            <div class="layui-inline" style="margin-top: 10px">
-                                <a class="layui-btn" th:href="@{/studentManage/toAddClass}">添加班级</a>
+
+                            <div class="layui-inline layui-show-xs-block">
+                                <a class="layui-btn" th:href="@{/studentManage/classManage}">返回列表</a>
                             </div>
                         </div>
                        
@@ -55,32 +48,24 @@
                                     <th>操作</th>
                                 </thead>
                                 <tbody>
-                                  <tr th:each="c:${classMsg}">
-                                    <td th:text="${c.classId}"></td>
-                                    <td th:text="${c.classCollage}"></td>
-                                    <td th:text="${c.classMajor}"></td>
-                                    <td th:text="${c.classGrade}"></td>
-                                    <td th:text="${c.className}"></td>
-                                    <td th:text="${c.classTeacher}"></td>
-                                    <td th:text="${c.classIscurrent == true?'是':'否'}"></td>
+                                  <tr th:object="${class}">
+                                    <td th:text="${class.classId}"></td>
+                                    <td th:text="${class.classCollage}"></td>
+                                    <td th:text="${class.classMajor}"></td>
+                                    <td th:text="${class.classGrade}"></td>
+                                    <td th:text="${class.className}"></td>
+                                    <td th:text="${class.classTeacher}"></td>
+                                    <td th:text="${class.classIscurrent == true?'是':'否'}"></td>
                                     <td class="td-manage">
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/toEditClass/${c.classId}|}">编辑</a>
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/addStudent/${c.classId}|}">管理学生</a>
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/deleteClass/${c.classId}|}">
+                                      <a title="" class="layui-btn" th:href="@{|/studentManage/toEditClass/${class.classId}|}">编辑</a>
+                                      <a title="" class="layui-btn" th:href="@{|/studentManage/addStudent/${class.classId}|}">管理学生</a>
+                                      <a title="" class="layui-btn" th:href="@{|/studentManage/deleteClass/${class.classId}|}">
                                           删除
                                       </a>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
-                        </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                    <a class="prev" th:href="@{/studentManage/classManage(pageNum=${classMsg.hasPrevious()}?${classMsg.number}-1:0)}">&lt;&lt;</a>
-                                    <a class="next" th:href="@{/studentManage/classManage(pageNum=${classMsg.hasNext()}?${classMsg.number}+1:${classMsg.number})}">&gt;&gt;</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

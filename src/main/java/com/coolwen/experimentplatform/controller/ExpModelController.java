@@ -216,8 +216,12 @@ public class ExpModelController {
     @GetMapping("/viewExpModel")
     public String viewModel(@RequestParam("m_name") String m_name,Model model){
         List<ExpModel> list = expModelService.findExpModelsBym_name(m_name);
-        model.addAttribute("list",list);
-        return "shiyan/viewExpModel";
+        if(!list.isEmpty() && list != null){
+            model.addAttribute("list",list);
+            return "shiyan/viewExpModel";
+        }
+
+        return "redirect:/expmodel/list";
     }
 
 

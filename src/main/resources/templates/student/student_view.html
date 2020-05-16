@@ -16,9 +16,9 @@
         <div class="x-nav">
           <span class="layui-breadcrumb">
             <a href="">首页</a>
-            <a href="">学生管理</a>
+            <a href="">学生账号管理</a>
             <a>
-              <cite>班级管理</cite></a>
+              <cite>管理列表</cite></a>
           </span>
           <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
             <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -27,60 +27,47 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5" th:action="@{/studentManage/viewClass}">
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="class_name"  placeholder="请输入班级名称" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input class="layui-btn" type="submit" lay-submit="" lay-filter="sreach" value="搜索"/>
-                                </div>
-                            </form>
-                            <div class="layui-inline" style="margin-top: 10px">
-                                <a class="layui-btn" th:href="@{/studentManage/toAddClass}">添加班级</a>
-                            </div>
-                        </div>
-                       
-                        <div class="layui-card-body ">
+                        <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{/studentManage/list}">返回列表</a>
+
+                        <!--</div>-->
+                        <!--<div class="layui-card-header">
+                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','./member-add.html',600,400)"><i class="layui-icon"></i>添加</button>
+                        </div>-->
+                        <div class="layui-card-body layui-table-body layui-table-main">
                             <table class="layui-table layui-form">
                                 <thead>
                                   <tr>
+                                    
                                     <th>ID</th>
-                                    <th>学院</th>
-                                    <th>专业</th>
-                                    <th>年级</th>
+                                    <th>登陆账号</th>
+                                    <th>真实姓名</th>
+                                    <th>学号</th>
+                                    <th>手机号</th>
+                                    <th>是否本校</th>
                                     <th>班级</th>
-                                    <th>负责老师</th>
-                                    <th>是否往期</th>
                                     <th>操作</th>
+                                  </tr>
                                 </thead>
                                 <tbody>
-                                  <tr th:each="c:${classMsg}">
-                                    <td th:text="${c.classId}"></td>
-                                    <td th:text="${c.classCollage}"></td>
-                                    <td th:text="${c.classMajor}"></td>
-                                    <td th:text="${c.classGrade}"></td>
-                                    <td th:text="${c.className}"></td>
-                                    <td th:text="${c.classTeacher}"></td>
-                                    <td th:text="${c.classIscurrent == true?'是':'否'}"></td>
+                                  <tr th:object="${stu}">
+                                   
+                                    <td th:text="${stu.id}"></td>
+                                    <td th:text="${stu.stuUname}"></td>
+                                    <td th:text="${stu.stuName}"></td>
+                                    <td th:text="${stu.stuXuehao}"></td>
+                                    <td th:text="${stu.stuMobile}"></td>
+                                    <td th:text="${stu.stuIsinschool == 1?'是':'否'}"></td>
+                                    <td th:text="${stu.className == null?'暂无班级':stu.className}"></td>
+                                    
                                     <td class="td-manage">
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/toEditClass/${c.classId}|}">编辑</a>
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/addStudent/${c.classId}|}">管理学生</a>
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/deleteClass/${c.classId}|}">
-                                          删除
-                                      </a>
+                                            <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/editStudent/${stu.id}|}">编辑</a>
+
+                                        <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/deleteStudent/${stu.id}|}">删除</a>
                                     </td>
                                   </tr>
                                 </tbody>
-                              </table>
-                        </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                    <a class="prev" th:href="@{/studentManage/classManage(pageNum=${classMsg.hasPrevious()}?${classMsg.number}-1:0)}">&lt;&lt;</a>
-                                    <a class="next" th:href="@{/studentManage/classManage(pageNum=${classMsg.hasNext()}?${classMsg.number}+1:${classMsg.number})}">&gt;&gt;</a>
-                                </div>
-                            </div>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -90,7 +77,19 @@
     <script>
       layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
-        var form = layui.form;
+        var  form = layui.form;
+
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+          if(data.elem.checked){
+            $('tbody input').prop('checked',true);
+          }else{
+            $('tbody input').prop('checked',false);
+          }
+          form.render('checkbox');
+        }); 
         
         //执行一个laydate实例
         laydate.render({
@@ -101,6 +100,14 @@
         laydate.render({
           elem: '#end' //指定元素
         });
+		var is=document.getElementsByTagName("i");
+		for(var i=0;i<is.length;i++){
+			var oi=is[i];
+			oi.addEventListener("click",function(){
+				oi.parentNode.href="student_alter.html";
+			})
+		}
+
       });
 
        /*用户-停用*/
@@ -139,20 +146,20 @@
 
 
       function delAll (argument) {
+        var ids = [];
 
-        var data = tableCheck.getData();
+        // 获取选中的id 
+        $('tbody input').each(function(index, el) {
+            if($(this).prop('checked')){
+               ids.push($(this).val())
+            }
+        });
   
-        layer.confirm('确认要删除吗？'+data,function(index){
+        layer.confirm('确认要删除吗？'+ids.toString(),function(index){
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
       }
     </script>
-    <script>var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();</script>
 </html>

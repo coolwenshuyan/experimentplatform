@@ -1,41 +1,36 @@
-package com.coolwen.experimentplatform.model;
-
-import javax.persistence.*;
+package com.coolwen.experimentplatform.model.vo;
 
 
-@Entity
-@Table(name = "t_student")
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "student_id")
-    @TableGenerator(name = "student_id", initialValue = 0, allocationSize = 1,table = "seq_table")
-    @Column(name = "id")
+public class StudentVo {
     private int id;
 
-    @Column(name = "stu_uname")
     private String stuUname;
 
-    @Column(name = "stu_password")
     private String stuPassword;
 
-    @Column(name = "stu_name")
     private String stuName;
 
-    @Column(name = "stu_xuehao")
     private String stuXuehao;
 
-    @Column(name = "stu_mobile")
     private String stuMobile;
 
-    @Column(name = "stu_checkstate")
     private boolean stuCheckstate;
 
-    @Column(name = "stu_isinschool")
     private boolean stuIsinschool;
 
-    @Column(name = "class_id")
-    private int classId;
+    private String className;
+
+    public StudentVo(int id, String stuUname, String stuPassword, String stuName, String stuXuehao, String stuMobile, boolean stuCheckstate, boolean stuIsinschool, String className) {
+        this.id = id;
+        this.stuUname = stuUname;
+        this.stuPassword = stuPassword;
+        this.stuName = stuName;
+        this.stuXuehao = stuXuehao;
+        this.stuMobile = stuMobile;
+        this.stuCheckstate = stuCheckstate;
+        this.stuIsinschool = stuIsinschool;
+        this.className = className;
+    }
 
     public int getId() {
         return id;
@@ -101,26 +96,11 @@ public class Student {
         this.stuIsinschool = stuIsinschool;
     }
 
-    public int getClassId() {
-        return classId;
+    public String getClassName() {
+        return className;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", stuUname='" + stuUname + '\'' +
-                ", stuPassword='" + stuPassword + '\'' +
-                ", stuName='" + stuName + '\'' +
-                ", stuXuehao='" + stuXuehao + '\'' +
-                ", stuMobile='" + stuMobile + '\'' +
-                ", stuCheckstate=" + stuCheckstate +
-                ", stuIsinschool=" + stuIsinschool +
-                ", classId=" + classId +
-                '}';
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

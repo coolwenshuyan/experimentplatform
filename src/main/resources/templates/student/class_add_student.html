@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="x-admin-sm">
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>欢迎页面-X-admin2.2</title>
@@ -19,13 +19,13 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5">
+                            <form class="layui-form layui-col-space5" th:action="@{|/studentManage/viewAddStudent/${classId}|}" method="post">
                                 
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="username"  placeholder="请输入学号" autocomplete="off" class="layui-input">
+                                    <input type="text" name="stu_xuehao"  placeholder="请输入学号" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加</button>
+                                    <input class="layui-btn" type="submit" value="添加"/>
                                 </div>
                             </form>
                         </div>
@@ -34,45 +34,31 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                   <tr>
-                                   
                                     <th>姓名</th>
                                     <th>学号</th>
                                     <th>操作</th>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    
-                                    <td>xx</td>
-                                    <td>123</td>
+                                  <tr th:each="s:${student}">
+                                    <td th:text="${s.stuName}"></td>
+                                    <td th:text="${s.stuXuehao}"></td>
                                     <td class="td-manage">
-                                      
-                                      <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                        <i class="layui-icon">&#xe640;</i>
+                                      <a class="layui-btn"th:href="@{|/studentManage/deleteStuClass/${s.id}|}">
+                                        删除
                                       </a>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
                         </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <a class="num" href="">1</a>
-                                  <span class="current">2</span>
-                                  <a class="num" href="">3</a>
-                                  <a class="num" href="">5</a>
-                                  <a class="next" href="">&gt;&gt;</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="layui-form-item" style="margin-top: 3%;margin-left: 37.5%;">
                         <label class="layui-form-label"></label>
-                        <a class="layui-btn" onclick="xadmin.close()" lay-submit="">取消</a><button class="layui-btn" lay-filter="add" lay-submit="" onclick="xadmin.close()">完成</button></div>
-        </div> 
+                        <a class="layui-btn" onclick="xadmin.close()" lay-submit="">取消</a>
+                        <a class="layui-btn" th:href="@{/studentManage/classManage}">完成</a></div>
+        </div>
     </body>
     <script>
       layui.use(['laydate','form'], function(){
