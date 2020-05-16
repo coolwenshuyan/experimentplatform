@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.controller.HomepagesettingController;
 
 import com.coolwen.experimentplatform.dao.EffectRepository;
 import com.coolwen.experimentplatform.model.Effect;
+import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.service.EffectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,12 @@ public class LearningeffectController {
     @Autowired
     EffectService effectService;
 
+    //进入框架页面
+    @GetMapping(value = "kuangjia")
+    public String kuangjia(){
+        return "kuangjia/frame";
+    }
+
     //前端跳转
     @GetMapping(value = "/learningList")
     public String LearningList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
@@ -31,6 +38,13 @@ public class LearningeffectController {
         Page<Effect> page = effectRepository.findAll(pageable);
         model.addAttribute("learningPageInfo",page);
         return "home_page/study_situation";
+    }
+    //前端进入详情展示
+    @GetMapping(value = "/{id}/effectDetails")
+    public String effectDetails(@PathVariable int id,Model model){
+        Effect effect = effectService.findById(id);
+        model.addAttribute("effect",effect);
+        return "home_page/effectDetails";
     }
 
 

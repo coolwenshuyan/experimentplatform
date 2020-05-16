@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0054)http://202.115.133.235/index.php/Home/Index/index.html -->
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -316,14 +316,18 @@
 						虚拟实验平台公告 <em></em>
 					</div>
 					<ul class="nesws_ul">
-						<li><a href="http://paper.people.com.cn/rmrb/html/2020-05/02/nw.D110000renmrb_20200502_1-01.htm" title="“五一”假期，广大劳动者保持干劲、贡献力量"><span>05-02</span>&nbsp;&nbsp;“五一”假期，广大劳动者保持干劲、贡献力量</a></li>
-						<li><a href="#" title="希尔顿酒店管理学院开展第一轮本科课程评估工作"><span>04-29</span>&nbsp;&nbsp;希尔顿酒店管理学院开展第一轮本科课程评估工作</a></li>
-												<li><a href="#" title="学校召开联合培养硕士研究生2019年度第二学期考评会"><span>04-28</span>&nbsp;&nbsp;学校召开联合培养硕士研究生2019年度第二学期考评会</a></li>
-						<li><a href="#" title="信息与工程学院召开2020年新学期全体教职工视频工作会议"><span>04-27</span>&nbsp;&nbsp;信息与工程学院召开2020年新学期全体教职工视频工作会议</a></li>
-						<li><a href="#" title="学校领导到经济管理学院调研指导工作"><span>04-23</span>&nbsp;&nbsp;学校领导到经济管理学院调研指导工作</a></li>
-						<li><a href="#" title="博识论坛：旅游文化产业学院开展 “文以修身-学中华文化”第一期讲座"><span>04-23</span>&nbsp;&nbsp;博识论坛：旅游文化产业学院开展 “文以修身-学中华文化”第一期讲座</a></li>
-						<li><a href="#" title="第二届川藏旅游发展论坛再续华章"><span>04-22</span>&nbsp;&nbsp;第二届川藏旅游发展论坛再续华章</a></li>
-						<li><a href="#" title="南京农业大学中华农业文明研究院院长王思明教授一行到川菜发展研究中心交流座谈"><span>04-22</span>&nbsp;&nbsp;南京农业大学中华农业文明研究院院长王思明教授一行到川菜发展研究中心交流座谈</a></li>
+						<li th:each="news:${newsPageInfo.content}">
+							<a th:href="@{|${news.id}/noticeDetails|}" th:title="${news.news_name}" title="“五一”假期，广大劳动者保持干劲、贡献力量">
+								<span th:text="${#dates.format(news.dic_datetime,'yyyy-MM-dd')}">05-02</span>&nbsp;&nbsp;<span th:text="${news.news_name}"></span>
+							</a>
+						</li>
+<!--						<li><a href="#" title="希尔顿酒店管理学院开展第一轮本科课程评估工作"><span>04-29</span>&nbsp;&nbsp;希尔顿酒店管理学院开展第一轮本科课程评估工作</a></li>-->
+<!--												<li><a href="#" title="学校召开联合培养硕士研究生2019年度第二学期考评会"><span>04-28</span>&nbsp;&nbsp;学校召开联合培养硕士研究生2019年度第二学期考评会</a></li>-->
+<!--						<li><a href="#" title="信息与工程学院召开2020年新学期全体教职工视频工作会议"><span>04-27</span>&nbsp;&nbsp;信息与工程学院召开2020年新学期全体教职工视频工作会议</a></li>-->
+<!--						<li><a href="#" title="学校领导到经济管理学院调研指导工作"><span>04-23</span>&nbsp;&nbsp;学校领导到经济管理学院调研指导工作</a></li>-->
+<!--						<li><a href="#" title="博识论坛：旅游文化产业学院开展 “文以修身-学中华文化”第一期讲座"><span>04-23</span>&nbsp;&nbsp;博识论坛：旅游文化产业学院开展 “文以修身-学中华文化”第一期讲座</a></li>-->
+<!--						<li><a href="#" title="第二届川藏旅游发展论坛再续华章"><span>04-22</span>&nbsp;&nbsp;第二届川藏旅游发展论坛再续华章</a></li>-->
+<!--						<li><a href="#" title="南京农业大学中华农业文明研究院院长王思明教授一行到川菜发展研究中心交流座谈"><span>04-22</span>&nbsp;&nbsp;南京农业大学中华农业文明研究院院长王思明教授一行到川菜发展研究中心交流座谈</a></li>-->
 					</ul>
 					<div class="more text-center">
 						<a href="#" title="">查看更多</a>

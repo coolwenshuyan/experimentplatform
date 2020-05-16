@@ -27,7 +27,25 @@ public class NewsInfoController {
     @Autowired
     NewsInfoService newsInfoService;
 
+    //进入前端展示页面
+    @GetMapping(value = "/newslist")
+    public String newslist(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+        Pageable pageable = PageRequest.of(pageNum,10);
+        Page<NewsInfo> page = newsInfoRepository.findAllorderby(pageable);
+        model.addAttribute("newsPageInfo",page);
+        return "home_page/index";
+    }
 
+    //点击公告，查看详情
+    @GetMapping(value = "/{id}/noticeDetails")
+    public String noticedetails(@PathVariable int id,Model model){
+        NewsInfo newsInfo = newsInfoService.findById(id);
+        model.addAttribute("newsInfo",newsInfo);
+        return "home_page/noticeDetails";
+    }
+
+
+    //公告列表
     @GetMapping(value = "/list")
     public String list(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
         Pageable pageable = PageRequest.of(pageNum,3);
@@ -36,11 +54,13 @@ public class NewsInfoController {
         return "shouye/notice";
     }
 
+    //进入公告添加
     @GetMapping(value = "/add")
     public String add(){
         return "shouye/notice_add";
     }
 
+    //完成公告添加
     @PostMapping(value = "/add")
     public String add(NewsInfo newsInfo){
         newsInfo.setDic_datetime(new Date());
@@ -49,6 +69,7 @@ public class NewsInfoController {
         return "redirect:/newsinfo/list";
     }
 
+    //进入公告修改
     @GetMapping(value = "/{id}/update")
     public String update(@PathVariable int id,Model model){
         NewsInfo newsInfo = newsInfoService.findById(id);
@@ -67,6 +88,7 @@ public class NewsInfoController {
         return "redirect:/newsinfo/list";
     }
 
+    //公告删除
     @GetMapping(value = "/{id}/delete")
     public String delete(@PathVariable int id){
         newsInfoService.delete(id);

@@ -1,93 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>平台公告</title>		
-		<link rel="stylesheet" href="../../static/css/layui.css">
-	</head>
-	<style type="text/css">
-		#head{
-			margin-top: 30px;
-			margin-bottom: 30px;
-		}
-		#main{
-			margin-top: 30px;
-		}		
-	</style>
-	<body>
-		<div id="head" class="layui-col-md10 layui-col-md-offset1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>平台公告</title>
+    <link rel="stylesheet" href="../../static/css/layui.css">
+</head>
+<style type="text/css">
+    #head{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    #main{
+        margin-top: 30px;
+    }
+</style>
+<body>
+<div id="head" class="layui-col-md10 layui-col-md-offset1">
 			<span class="layui-col-md3">
   				<a class="layui-btn layui-btn-primary" href="../kuangjia/frame.html">首页设置</a>
   				<a class="layui-btn" href="notice.html">平台公告</a>
-			</span>			
-		</div>
-        <hr>
-		<div id="main" class="layui-col-md10 layui-col-md-offset1">
-            <table id="d1" class="layui-table">
-                <colgroup>
-                    <col width="150">
-                    <col width="200">
-                    <col>
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>标题</th>
-                        <th>发布者</th>
-                        <th>内容</th>
-                        <th>发布日期</th>
-                        <th>点击次数</th>
-                        <th>操作</th> 
-                    </tr> 
-                </thead>
-                <tbody>
-                    <tr th:each="news:${newsPageInfo.content}">
-                        <td th:text="${news.id}">1</td>
-                        <td th:text="${news.news_name}">2016-11-29</td>
-                        <td th:text="${news.news_person}">贤心</td>
-                        <td th:text="${news.content}">人生就像是一场修行</td>
-                        <td th:text="${news.dic_datetime}">时间</td>
-                        <td th:text="${news.dic_num}">点击</td>
-                        <td>
-                        	<div class="layui-btn-group">
-                                <a type="button" th:href="@{|${news.id}/update|}" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </a>
-                                <a type="button" th:href="@{|${news.id}/delete|}" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-                  
-            <div id="d2" class="layui-row">
-            	<div class="layui-col-md4">
-                    <a href="/newsinfo/add">
-            		<button type="button" class="layui-btn">
-                        <i class="layui-icon">&#xe608;</i> 添加
-                    </button>
+			</span>
+</div>
+<hr>
+<div id="main" class="layui-col-md10 layui-col-md-offset1">
+    <table id="d1" class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>标题</th>
+            <th>发布者</th>
+            <th>内容</th>
+            <th>发布日期</th>
+            <th>点击次数</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="news:${newsPageInfo.content}">
+            <td th:text="${news.id}">1</td>
+            <td th:text="${news.news_name}">2016-11-29</td>
+            <td th:text="${news.news_person}">贤心</td>
+            <td th:text="${news.content}">人生就像是一场修行</td>
+            <td th:text="${news.dic_datetime}">时间</td>
+            <td th:text="${news.dic_num}">点击</td>
+            <td>
+                <div class="layui-btn-group">
+                    <a type="button" th:href="@{|${news.id}/update|}" class="layui-btn layui-btn-primary layui-btn-sm">
+                        <i class="layui-icon">&#xe642;</i>
                     </a>
-            	</div>
-                <div style="margin:0 auto; width: 80%; text-align: center;">
-                    <p>当前 <span th:text="${newsPageInfo.number}+1"></span> 页,
-                        总 <span th:text="${newsPageInfo.totalPages}"></span> 页,
-                        共 <span th:text="${newsPageInfo.totalElements}"></span> 条记录</p>
-                    <a th:href="@{/newsinfo/list}">首页</a>
-                    <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.hasPrevious()}?${newsPageInfo.number}-1:0)}">上一页</a>
-                    <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.hasNext()}?${newsPageInfo.number}+1:${newsPageInfo.number})}">下一页</a>
-                    <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.totalPages}-1)}">尾页</a>
+                    <a type="button" th:href="@{|${news.id}/delete|}" class="layui-btn layui-btn-primary layui-btn-sm">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a>
                 </div>
-            </div>      
-                
-	    </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-		
-		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-	</body>
+    <div id="d2" class="layui-row">
+        <div class="layui-col-md4">
+            <a href="/newsinfo/add">
+                <button type="button" class="layui-btn">
+                    <i class="layui-icon">&#xe608;</i> 添加
+                </button>
+            </a>
+        </div>
+        <div style="margin:0 auto; width: 80%; text-align: center;">
+            <p>当前 <span th:text="${newsPageInfo.number}+1"></span> 页,
+                总 <span th:text="${newsPageInfo.totalPages}"></span> 页,
+                共 <span th:text="${newsPageInfo.totalElements}"></span> 条记录</p>
+            <a th:href="@{/newsinfo/list}">首页</a>
+            <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.hasPrevious()}?${newsPageInfo.number}-1:0)}">上一页</a>
+            <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.hasNext()}?${newsPageInfo.number}+1:${newsPageInfo.number})}">下一页</a>
+            <a th:href="@{/newsinfo/list(pageNum=${newsPageInfo.totalPages}-1)}">尾页</a>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+</body>
 </html>
 
