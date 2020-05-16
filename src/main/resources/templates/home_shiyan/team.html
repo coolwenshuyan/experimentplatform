@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="utf-8" />
@@ -119,16 +119,18 @@
 			</span>
 		</div>
 		<hr>
-		
-		<div class="fir">
+
+
+		<div class="fir" th:utext="${setInfo.set_platintro}">
 			<div class="fir_tit">
 				<b>项目开发团队介绍</b>
 			</div>
 			<div class="fir_con">
 				该项目是由四川旅游学院信息与工程学院温佐承、陈功锁、朱春满、舒红梅等老师带队，携2018级部分同学共同完成的项目。其中陈老师为复旦大学的研究生毕业，曾在华为工作过一年，专业知识非常厉害，温老师是四川大学研究生毕业...
-				
+
 			</div>
 		</div>
+
 		
 		<div class="sec">
 			<div class="fir_tit" style="margin-top: 60px;">
@@ -136,99 +138,99 @@
 			</div>
 			<div class="fir_tit2">带队老师：</div>
 			<div class="layui-row  sec_con">
-				<div class="layui-col-xs3">
+				<div class="layui-col-xs3" th:each="teacher:${teacherPageInfo.content}">
 					<div class="thumbnail">
-					     <div class="t_img"><img src="../../static/images/img_shiyan/wen.png" alt="..."></div>
+					     <div class="t_img"><img th:src="${teacher.image_url}" alt="..."></div>
 					    <div class="caption" align="center">
-					    	<h3><strong>温佐承</strong></h3>
-					        <p>信息与工程学院老师，职称</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
+					    	<h3><strong th:text="${teacher.person_name }">温佐承</strong></h3>
+					        <p th:text="${teacher.intro}">信息与工程学院老师，职称</p>
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
 					    </div>
 					</div>
 				</div>
-				<div class="layui-col-xs3">
-					<div class="thumbnail">
-					     <div class="t_img"><img src="../../static/images/img_shiyan/c.jpg" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>陈功锁</strong></h3>
-					        <p>信息与工程学院老师，职称</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
-				<div class="layui-col-xs3">
-					<div class="thumbnail">
-					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>朱春满</strong></h3>
-					        <p>信息与工程学院老师，职称</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
-				<div class="layui-col-xs3">
-					<div class="thumbnail">
-					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>舒红梅</strong></h3>
-					        <p>信息与工程学院老师，职称</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
-			</div>
-			<div class="fir_tit2">学生：</div>
-			<div class="layui-row sec_con">
-				<div class="layui-col-xs3">
-					<div class="thumbnail">
-					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>李千</strong></h3>
-					        <p>信息与工程学院学生</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
-				<div class="layui-col-xs3">
-					<div class="thumbnail">
-					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>李娟</strong></h3>
-					        <p>信息与工程学院学生</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
-				<div class="layui-col-xs3">
-					<div class="thumbnail">
-					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>甘露露</strong></h3>
-					        <p>信息与工程学院学生</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
-				<div class="layui-col-xs3">
-					<div class="thumbnail">
-					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>温康爔</strong></h3>
-					        <p>信息与工程学院学生</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
-				<div class="layui-col-xs3" style="margin-top: 30px;">
-					<div class="thumbnail">
-					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>
-					    <div class="caption" align="center">
-					    	<h3><strong>何瑶</strong></h3>
-					        <p>信息与工程学院学生</p>
-					      	<p>荣获XXXXXXXXXXXX</p>
-					    </div>
-					</div>
-				</div>
+<!--				<div class="layui-col-xs3">-->
+<!--					<div class="thumbnail">-->
+<!--					     <div class="t_img"><img src="../../static/images/img_shiyan/c.jpg" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>陈功锁</strong></h3>-->
+<!--					        <p>信息与工程学院老师，职称</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-col-xs3">-->
+<!--					<div class="thumbnail">-->
+<!--					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>朱春满</strong></h3>-->
+<!--					        <p>信息与工程学院老师，职称</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-col-xs3">-->
+<!--					<div class="thumbnail">-->
+<!--					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>舒红梅</strong></h3>-->
+<!--					        <p>信息与工程学院老师，职称</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="fir_tit2">学生：</div>-->
+<!--			<div class="layui-row sec_con">-->
+<!--				<div class="layui-col-xs3">-->
+<!--					<div class="thumbnail">-->
+<!--					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>李千</strong></h3>-->
+<!--					        <p>信息与工程学院学生</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-col-xs3">-->
+<!--					<div class="thumbnail">-->
+<!--					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>李娟</strong></h3>-->
+<!--					        <p>信息与工程学院学生</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-col-xs3">-->
+<!--					<div class="thumbnail">-->
+<!--					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>甘露露</strong></h3>-->
+<!--					        <p>信息与工程学院学生</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-col-xs3">-->
+<!--					<div class="thumbnail">-->
+<!--					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>温康爔</strong></h3>-->
+<!--					        <p>信息与工程学院学生</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="layui-col-xs3" style="margin-top: 30px;">-->
+<!--					<div class="thumbnail">-->
+<!--					    <div class="t_img"><img src="../../static/images/img_shiyan/logo3.png" alt="..."></div>-->
+<!--					    <div class="caption" align="center">-->
+<!--					    	<h3><strong>何瑶</strong></h3>-->
+<!--					        <p>信息与工程学院学生</p>-->
+<!--					      	<p>荣获XXXXXXXXXXXX</p>-->
+<!--					    </div>-->
+<!--					</div>-->
+<!--				</div>-->
 			</div>
 		</div>
 		

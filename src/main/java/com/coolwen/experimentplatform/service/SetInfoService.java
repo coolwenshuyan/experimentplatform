@@ -8,4 +8,6 @@ public interface SetInfoService {
     void add(SetInfo setInfo);
 
     SetInfo findById(int i);
+
+    String findexpimg(int id);
 }

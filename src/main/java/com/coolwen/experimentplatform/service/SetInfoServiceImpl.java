@@ -20,4 +20,10 @@ public class SetInfoServiceImpl implements SetInfoService {
         SetInfo setInfo = setInfoRepository.findById(i);
         return setInfo;
     }
+
+    @Override
+    public String findexpimg(int id) {
+        return setInfoRepository.findexpimg(id);
+    }
+
 }

@@ -1,15 +1,20 @@
 package com.coolwen.experimentplatform.controller;
 
 
+import com.coolwen.experimentplatform.dao.TeacherRepository;
 import com.coolwen.experimentplatform.model.SetInfo;
+import com.coolwen.experimentplatform.model.Teacher;
 import com.coolwen.experimentplatform.service.SetInfoService;
+import com.google.inject.internal.util.$SourceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/setinfo")
@@ -17,6 +22,8 @@ public class SetInfoController {
 
     @Autowired
     SetInfoService setInfoService;
+    @Autowired
+    TeacherRepository teacherRepository;
 
     //前端页面
     @GetMapping(value = "/situation")
@@ -26,6 +33,41 @@ public class SetInfoController {
         return "home_page/situation";
     }
 
+    //前端轮播展示
+    @GetMapping(value = "/lunboimg")
+    public String lunbo(Model model){
+        SetInfo setInfo = setInfoService.findById(1);
+        String ids = setInfo.getSet_rotateimg();
+        String[] sid =ids.split(",");
+//        for (int i = 0; i < sid.length; i++) {
+//            System.out.println(">>>>>>>>>>>>>>>>>>>>>>.."+Integer.parseInt(sid[i]));
+//        }
+        for (int i = 0; i < sid.length ; i++) {
+            String imgurl = setInfoService.findexpimg(Integer.parseInt(sid[i]));
+            model.addAttribute("{i}",imgurl);
+            System.out.println(">>>>>>>>>>>>>>>>>>>."+imgurl);
+        }
+        return "";
+    }
+
+    //前端实验仿真介绍
+    @GetMapping(value = "/jiesao")
+    public String jiesao(Model model){
+        SetInfo setInfo = setInfoService.findById(1);
+        model.addAttribute("setInfo",setInfo);
+        return "home_shiyan/jieshao";
+    }
+
+    //前端实验关于我们
+    @GetMapping(value = "/aboutus")
+    public String aboutus(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+        Pageable pageable = PageRequest.of(pageNum,100);
+        Page<Teacher> page = teacherRepository.findAll(pageable);
+        SetInfo setInfo = setInfoService.findById(1);
+        model.addAttribute("setInfo",setInfo);
+        model.addAttribute("teacherPageInfo",page);
+        return "home_shiyan/team";
+    }
 
 
 
@@ -92,9 +134,32 @@ public class SetInfoController {
 
     //进入设置轮播页面
     @GetMapping(value = "/lunbo")
-    public String addlunbo(){
-
+    public String addlunbo(Model model) {
+        SetInfo setInfo = setInfoService.findById(1);
+        if (setInfo == null) {
+            SetInfo setInfo1 = new SetInfo();
+            setInfo1.setSet_aboutus("无数据");
+            setInfo1.setSet_platintro("无数据");
+            setInfo1.setSet_platstep("无数据");
+            setInfo1.setSet_rotateimg("无数据");
+            setInfoService.add(setInfo1);
+            model.addAttribute("setInfo", setInfo1);
+            return "shouye/lunbo";
+        }
+        model.addAttribute("setInfo",setInfo);
         return "shouye/lunbo";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/lunbo")
+    public String addlunbo(String id1,String id2,String id3,String id4){
+        SetInfo setInfo = new SetInfo();
+        setInfo.setId(1);
+        SetInfo setInfo1 = setInfoService.findById(1);
+        setInfo.setSet_aboutus(setInfo1.getSet_aboutus());
+        setInfo.setSet_rotateimg(id1+","+id2+","+id3+","+id4);
+        setInfoService.add(setInfo);
+        return "添加成功";
     }
 
 }
