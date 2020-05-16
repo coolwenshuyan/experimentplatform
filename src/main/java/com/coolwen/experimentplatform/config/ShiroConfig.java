@@ -96,7 +96,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/405");
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-//        Map<String, String> chains = new HashMap();
+        Map<String, String> chains = new HashMap();
 //        filterChainDefinitionMap.put("/css/**", "anon");
 //        filterChainDefinitionMap.put("/js/**", "anon");
 //        filterChainDefinitionMap.put("/js/*/*/*", "anon");
@@ -107,6 +107,7 @@ public class ShiroConfig {
 //        filterChainDefinitionMap.put("/405", "anon");
 //        chains.put("/admin/*", "roles[Admin]");
 //        filterChainDefinitionMap.put("/logout", "logout");
+        chains.put("/admin/*", "roles[Admin]");
         logger.debug("filterChainDefinitionMap" + filterChainDefinitionMap);
         logger.debug("Shiro拦截器工厂类注入成功");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

@@ -3,7 +3,6 @@ package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.Admin;
 import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.model.User;
 import com.coolwen.experimentplatform.service.AdminService;
 import com.coolwen.experimentplatform.service.StudentService;
 import com.coolwen.experimentplatform.utils.LoginToken;
@@ -30,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -96,10 +96,14 @@ public class LoginController {
             Message message = new Message();
             try {
                 subject.login(token);
-                User user = (User) subject.getPrincipal();
-                session.setAttribute("username",user.getUsername());
-                session.setAttribute("nickname",user.getNickname());
-                model.addObject("name", user.getUsername());
+                if (loginType.equals("student")){
+                    Student student = (Student) subject.getPrincipal();
+                    session.setAttribute("username",student.getStuUname());
+                    session.setAttribute("loginType",loginType);
+                }if (loginType.equals("teacher")){
+                    Admin admin = (Admin) subject.getPrincipal();
+                }
+
             } catch (UnknownAccountException e) {
                 //message.put("emsg","用户名/密码错误");
                 model.addObject("msg", "用户名/密码错误");
@@ -118,7 +122,7 @@ public class LoginController {
             model.addObject("msg", message);
             logger.debug("登陆错误信息:" + message.get("emsg"));
             if (ShiroKit.isEmpty(message.get("emsg"))) {
-                model.setViewName("user/list");
+                model.setViewName("user/list");//设置登陆成功之后默认跳转页面
             } else {
                 model.setViewName("login");;
             }
@@ -154,6 +158,22 @@ public class LoginController {
             admin.setPassword(password);
             adminService.add(admin);
             model.setViewName("login");
+        }
+        return model;
+    }
+
+
+    @RequestMapping(value = {"/change"}, method = RequestMethod.POST)//修改个人信息
+    public ModelAndView change(@RequestParam("account")String username,
+                               @RequestParam("password") String password,
+                               @RequestParam("type") String registType,
+                               @RequestParam("tel") String tel, HttpSession session) {
+        ModelAndView model = new ModelAndView();
+        String uName = (String) session.getAttribute("username");
+        if (((String) session.getAttribute("username")).equals("student")){
+            //studentService.updateByUnmae(uName);
+        }if (((String) session.getAttribute("username")).equals("teacher")){
+
         }
         return model;
     }
