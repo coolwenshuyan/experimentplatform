@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
 import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
+import com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
 import com.coolwen.experimentplatform.model.DTO.StudentVo;
@@ -20,12 +21,19 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
     Student findAllById(int id);
 
-    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO" +
-            "(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate)" +
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO " +
+            "(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate) " +
             "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMTestAnswerDTO();
     //    and st.id=?1
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
+            "left join ClassModel clas on clas.classId = st.classId")
+    public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTO(Pageable page);
+
 
 //    @Query("select new com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO " +
 //            "(st.stuXuehao,st.stuName,cla.className,tsc.mTotalScore,tsc.testScore,tsc.totalScore) " +
@@ -56,6 +64,8 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     Student findStudentByStuXuehao(String xuehao);
 
     List<Student> findStudentByClassId(int class_id);
+
+//    Page<Student> pageStudentByClassId(int class_id);
 
     Student findAllByStuUname(String stuUname);
 }

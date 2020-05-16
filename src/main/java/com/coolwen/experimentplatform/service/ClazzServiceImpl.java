@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClazzServiceImpl implements ClazzService {
     @Autowired
@@ -34,4 +36,11 @@ public class ClazzServiceImpl implements ClazzService {
         ClassModel clazz = findById(id);
         clazzRepository.delete(clazz);
     }
+
+    @Override
+    public List<ClassModel> findAllClass() {
+        return clazzRepository.findAll();
+    }
+
+
 }

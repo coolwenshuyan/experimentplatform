@@ -42,7 +42,8 @@ public class KaoheModelController {
      *所有模块
      */
     @RequestMapping(value = "/allModule",method = RequestMethod.GET)
-    public String loadAllModel(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
+    public String loadAllModel(Model model,
+                               @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
 //    public String loadAllModel(Model model) {
 
         List<Integer> check = kaoheModelService.inKaoheList();

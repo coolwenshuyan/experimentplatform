@@ -4,6 +4,8 @@ import com.coolwen.experimentplatform.dao.ClazzRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
 import com.coolwen.experimentplatform.model.ClassModel;
 import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
+import com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO;
+import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.model.DTO.StudentVo;
 import com.coolwen.experimentplatform.specification.SimpleSpecificationBuilder;
@@ -110,6 +112,22 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findStudentByClassId(class_id);
     }
 
+    @Override
+    public Page<Student> pageStudentByClassId(int page, int classId) {
+        Pageable pager = PageRequest.of(page, size);
+        Page<Student> studentsPage = studentRepository.findAll(new SimpleSpecificationBuilder<Student>(
+                "classId", "=", classId)
+                .generateSpecification(), pager);
+        return studentsPage;
+    }
+
+
+
+//    @Override
+//    public Page<Student> pageStudentByClassId(int class_id) {
+//        return studentRepository.pageStudentByClassId(class_id);
+//    }
+
 //    @Override
 //    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum) {
 //        Pageable pager = PageRequest.of(pageNum, size);
@@ -129,5 +147,33 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findAll() {
         return studentRepository.findAll();
     }
+
+//    @Override
+//    public Page<Student> findStudentPageAndXuehaoAndClass(int page, String select_orderId, int classId) {
+//        Pageable pager = PageRequest.of(page, size);
+//        Page<Student> studentsPage = studentRepository.findAll(new SimpleSpecificationBuilder<Student>(
+//                "stuXuehao", ":", select_orderId).add("classId",":",classId)
+////                .add(SpecificationOperator.Join.and, key, operator, value);
+//                .generateSpecification(), pager);
+//        return studentsPage;
+//    }
+
+    @Override
+    public Page<Student> findStudentPageAndXuehao(int page, String select_orderId) {
+        Pageable pager = PageRequest.of(page, size);
+        Page<Student> studentsPage = studentRepository.findAll(new SimpleSpecificationBuilder<Student>(
+                "stuXuehao", ":", select_orderId)
+                .generateSpecification(), pager);
+        return studentsPage;
+    }
+
+    @Override
+    public Page<StudentLastTestScoreDTO> listStudentLastTestAnswerDTO(int pageNum) {
+        Pageable pager = PageRequest.of(pageNum, size);
+        return studentRepository.listStudentLastTestScoreDTO(pager);
+    }
+
+
+
 
 }
