@@ -146,7 +146,13 @@ public class SetInfoController {
             model.addAttribute("setInfo", setInfo1);
             return "shouye/lunbo";
         }
+        String ids = setInfo.getSet_rotateimg();
+        String[] sid =ids.split(",");
         model.addAttribute("setInfo",setInfo);
+        model.addAttribute("id1",sid[0]);
+        model.addAttribute("id2",sid[1]);
+        model.addAttribute("id3",sid[2]);
+        model.addAttribute("id4",sid[3]);
         return "shouye/lunbo";
     }
 
