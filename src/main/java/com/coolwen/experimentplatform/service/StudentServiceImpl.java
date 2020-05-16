@@ -3,9 +3,12 @@ package com.coolwen.experimentplatform.service;
 import com.coolwen.experimentplatform.dao.ClazzRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
 import com.coolwen.experimentplatform.model.ClassModel;
+import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
 import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.model.vo.StudentVo;
+import com.coolwen.experimentplatform.model.DTO.StudentVo;
+import com.coolwen.experimentplatform.specification.SimpleSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +30,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     ClazzRepository clazzRepository;
+
+    @Value("${SimplePageBuilder.pageSize}")
+    int size;
 
     @Override
     public Page<Student> findAll(int pageNum) {
@@ -102,6 +108,26 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findStudentByClassId(int class_id) {
         return studentRepository.findStudentByClassId(class_id);
+    }
+
+//    @Override
+//    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum) {
+//        Pageable pager = PageRequest.of(pageNum, size);
+//        Page<StuTotalScoreCurrentDTO> stuTotalScoreCurrentDTOSPage = studentRepository.findAll(new SimpleSpecificationBuilder<StuTotalScoreCurrentDTO>()
+//                .generateSpecification(), pager);
+////        userPage.
+//        return stuTotalScoreCurrentDTOSPage;
+//    }
+
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum) {
+        Pageable pager = PageRequest.of(pageNum, size);
+        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        return studentRepository.findAll();
     }
 
 }

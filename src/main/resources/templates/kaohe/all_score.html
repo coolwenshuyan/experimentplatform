@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>总评成绩</title>
@@ -137,97 +137,26 @@
 						<th>学号</th>
 						<th>姓名</th>
 						<th>班级</th>
-						<th>模块1</th>
-						<th>测试成绩</th>
-						<th>测试占比</th>
-						<th>报告成绩</th>
-						<th>报告占比</th>
-						<th>模块权重</th>
-						<th>模块1</th>
-						<th>测试成绩</th>
-						<th>测试占比</th>
-						<th>报告成绩</th>
-						<th>报告占比</th>
-						<th>模块权重</th>
 						<th>模块考核总成绩</th>
 						<th>理论测试总成绩</th>
 						<th>模块考核占比</th>
 						<th>理论测试占比</th>
 						<th>总评成绩</th>
-						
-						
 					</tr>
 				</thead>
 				<tbody class="results">
-					<tr>
-						<td>12345678</td>
-						<td>张三</td>
-						<td>18信管01</td>
-						<td>实验1</td>
-						<td>86</td>
-						<td>0.3</td>
-						<td>87</td>
-						<td>0.7</td>
-						<td>0.1</td>
-						<td>实验1</td>
-						<td>86</td>
-						<td>0.3</td>
-						<td>87</td>
-						<td>0.7</td>
-						<td>0.1</td>
-						<td>87</td>
-						<td>87</td>
-						<td>0.3</td>
-						<td>0.7</td>
-						<td>78</td>
-						
+					<tr th:each="one:${pageTotalScore}">
+						<td><p th:text="${one.xuehao}">12345678</p></td>
+						<td><p th:text="${one.sName}">张三</p></td>
+						<td><p th:text="${one.className}">18信管01</p></td>
+						<td><p th:text="${one.mTotalScore}">87</p></td>
+						<td><p th:text="${one.testScore}">87</p></td>
+						<td><p>0.3</td>
+						<td><p>0.7</td>
+						<td><p th:text="${one.totalScore}">78</p></td>
+
 					</tr>
-					<tr>
-						<td>12345678</td>
-						<td>张三</td>
-						<td>18信管01</td>
-						<td>实验1</td>
-						<td>86</td>
-						<td>0.3</td>
-						<td>87</td>
-						<td>0.7</td>
-						<td>0.1</td>
-						<td>实验1</td>
-						<td>86</td>
-						<td>0.3</td>
-						<td>87</td>
-						<td>0.7</td>
-						<td>0.1</td>
-						<td>87</td>
-						<td>87</td>
-						<td>0.3</td>
-						<td>0.7</td>
-						<td>78</td>
-						
-					</tr>
-					<tr>
-						<td>12345678</td>
-						<td>张三</td>
-						<td>18信管01</td>
-						<td>实验1</td>
-						<td>86</td>
-						<td>0.3</td>
-						<td>87</td>
-						<td>0.7</td>
-						<td>0.1</td>
-						<td>实验1</td>
-						<td>86</td>
-						<td>0.3</td>
-						<td>87</td>
-						<td>0.7</td>
-						<td>0.1</td>
-						<td>87</td>
-						<td>87</td>
-						<td>0.3</td>
-						<td>0.7</td>
-						<td>78</td>
-						
-					</tr>
+
 					
 				</tbody>
 			</table>

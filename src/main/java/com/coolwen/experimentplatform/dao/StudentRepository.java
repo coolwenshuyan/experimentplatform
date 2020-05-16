@@ -1,9 +1,10 @@
 package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
+import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
 import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.model.StudentTestScoreDTO;
-import com.coolwen.experimentplatform.model.vo.StudentVo;
+import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
+import com.coolwen.experimentplatform.model.DTO.StudentVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -19,20 +20,33 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
     Student findAllById(int id);
 
-    @Query("select new com.coolwen.experimentplatform.model.StudentTestScoreDTO" +
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO" +
             "(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate)" +
             "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMTestAnswerDTO();
     //    and st.id=?1
 
-    @Query("select new com.coolwen.experimentplatform.model.vo.StudentVo(s.id,s.stuUname,s.stuPassword,s.stuName,s.stuXuehao,s.stuMobile,s.stuCheckstate,s.stuIsinschool,c.className) from Student s left join ClassModel c on s.classId = c.classId where s.stuCheckstate = true")
+//    @Query("select new com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO " +
+//            "(st.stuXuehao,st.stuName,cla.className,tsc.mTotalScore,tsc.testScore,tsc.totalScore) " +
+//            "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
+//            "left join ClassModel cla on st.classId=cla.classId")
+//    List<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO();
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO " +
+            "(st.stuXuehao,st.stuName,cla.className,tsc.mTotalScore,tsc.testScore,tsc.totalScore) " +
+            "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
+            "left join ClassModel cla on st.classId=cla.classId")
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(Pageable page);
+
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentVo(s.id,s.stuUname,s.stuPassword,s.stuName,s.stuXuehao,s.stuMobile,s.stuCheckstate,s.stuIsinschool,c.className) from Student s left join ClassModel c on s.classId = c.classId where s.stuCheckstate = true")
     Page<StudentVo> findStudentsByStuCheckstate(Pageable pageable);
 
-    @Query("select new com.coolwen.experimentplatform.model.vo.StudentVo(s.id,s.stuUname,s.stuPassword,s.stuName,s.stuXuehao,s.stuMobile,s.stuCheckstate,s.stuIsinschool,c.className) from Student s left join ClassModel c on s.classId = c.classId where s.stuCheckstate = true and s.stuXuehao = ?1")
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentVo(s.id,s.stuUname,s.stuPassword,s.stuName,s.stuXuehao,s.stuMobile,s.stuCheckstate,s.stuIsinschool,c.className) from Student s left join ClassModel c on s.classId = c.classId where s.stuCheckstate = true and s.stuXuehao = ?1")
     StudentVo findStudentsByStuXuehao(String xuehao);
 
-    @Query("select new com.coolwen.experimentplatform.model.vo.StudentVo(s.id,s.stuUname,s.stuPassword,s.stuName,s.stuXuehao,s.stuMobile,s.stuCheckstate,s.stuIsinschool,c.className) from Student s left join ClassModel c on s.classId = c.classId where s.stuCheckstate = true and s.id = ?1")
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentVo(s.id,s.stuUname,s.stuPassword,s.stuName,s.stuXuehao,s.stuMobile,s.stuCheckstate,s.stuIsinschool,c.className) from Student s left join ClassModel c on s.classId = c.classId where s.stuCheckstate = true and s.id = ?1")
     StudentVo findStudentsById(int id);
 
     @Query("select s from Student s where s.stuCheckstate = false ")

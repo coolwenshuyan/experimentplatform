@@ -33,6 +33,12 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
     }
 
     @Override
+    public void deleteAllByKaohemId(Integer kaohemid) {
+        kaoHeModelScoreRepository.deleteByTKaohemodleId(kaohemid);
+    }
+
+
+    @Override
     public void deleteByStuId(int sid) {
         kaoHeModelScoreRepository.deleteById(sid);
     }

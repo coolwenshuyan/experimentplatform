@@ -1,8 +1,9 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.ClassModel;
+import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
 import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.model.vo.StudentVo;
+import com.coolwen.experimentplatform.model.DTO.StudentVo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -40,5 +41,7 @@ public interface StudentService {
 
     List<Student> findStudentByClassId(int class_id);
 
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum);
 
+    List<Student> findAll();
 }

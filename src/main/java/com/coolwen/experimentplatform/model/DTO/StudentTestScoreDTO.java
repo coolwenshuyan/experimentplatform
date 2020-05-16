@@ -1,4 +1,4 @@
-package com.coolwen.experimentplatform.model;
+package com.coolwen.experimentplatform.model.DTO;
 
 import com.google.inject.internal.cglib.core.$ProcessArrayCallback;
 
