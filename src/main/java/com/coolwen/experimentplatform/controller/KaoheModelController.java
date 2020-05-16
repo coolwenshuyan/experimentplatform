@@ -2,9 +2,13 @@ package com.coolwen.experimentplatform.controller;
 
 
 import com.coolwen.experimentplatform.model.ExpModel;
+import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import com.coolwen.experimentplatform.model.KaoheModel;
+import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.ExpModelService;
+import com.coolwen.experimentplatform.service.KaoHeModelScoreService;
 import com.coolwen.experimentplatform.service.KaoheModelService;
+import com.coolwen.experimentplatform.service.StudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,10 @@ public class KaoheModelController {
     private KaoheModelService kaoheModelService;
     @Autowired
     private ExpModelService expModelService;
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private KaoHeModelScoreService kaoHeModelScoreService;
 
 
     /**
@@ -114,6 +122,9 @@ public class KaoheModelController {
         System.out.println(u);
         kaoheModelService.add(u);
         expModel.setNeedKaohe(true);
+        for (Student i:studentService.findAll()){
+            kaoHeModelScoreService.add(new KaoHeModelScore(u.getId(),i.getId(),0,0,u.getM_order(),u.getM_scale()));
+        }
         expModelService.save(expModel);
         System.out.println(">>>>>>>>>>>>add");
         return "redirect:/kaohemodel/allModule";
@@ -160,6 +171,7 @@ public class KaoheModelController {
         expModel.setNeedKaohe(false);
         expModelService.save(expModel);
         kaoheModelService.delete(id);
+//        kaoHeModelScoreService.deleteAllByKaohemId(id);
         System.out.println("移出成功");
         return "redirect:/kaohemodel/checkModule";
     }

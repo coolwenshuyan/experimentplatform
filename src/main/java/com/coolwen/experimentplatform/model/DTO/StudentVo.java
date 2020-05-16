@@ -1,4 +1,4 @@
-package com.coolwen.experimentplatform.model.vo;
+package com.coolwen.experimentplatform.model.DTO;
 
 
 public class StudentVo {

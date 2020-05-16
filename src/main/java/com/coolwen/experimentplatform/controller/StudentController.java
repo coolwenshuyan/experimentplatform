@@ -2,7 +2,7 @@ package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.model.ClassModel;
 import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.model.vo.StudentVo;
+import com.coolwen.experimentplatform.model.DTO.StudentVo;
 import com.coolwen.experimentplatform.service.ClazzService;
 import com.coolwen.experimentplatform.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;

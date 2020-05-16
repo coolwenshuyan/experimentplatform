@@ -22,6 +22,9 @@ public class TotalScoreCurrent {
     private int kaoheNum;
 
     @Column(nullable = false,columnDefinition = "float default 0")
+    private float mTotalScore;
+
+    @Column(nullable = false,columnDefinition = "float default 0")
     private float testScore;
 
     @Column(nullable = false,columnDefinition = "float default 0")
@@ -31,11 +34,9 @@ public class TotalScoreCurrent {
     }
 
 
-    public TotalScoreCurrent(int stuId, int kaoheNum, float testScore, float totalScore) {
+    public TotalScoreCurrent(int stuId, int kaoheNum) {
         this.stuId = stuId;
         this.kaoheNum = kaoheNum;
-        this.testScore = testScore;
-        this.totalScore = totalScore;
     }
 
     public int getId() {
@@ -62,6 +63,14 @@ public class TotalScoreCurrent {
         this.kaoheNum = kaoheNum;
     }
 
+    public float getmTotalScore() {
+        return mTotalScore;
+    }
+
+    public void setmTotalScore(float mTotalScore) {
+        this.mTotalScore = mTotalScore;
+    }
+
     public float getTestScore() {
         return testScore;
     }
@@ -84,6 +93,7 @@ public class TotalScoreCurrent {
                 "id=" + id +
                 ", stuId=" + stuId +
                 ", kaoheNum=" + kaoheNum +
+                ", mTotalScore=" + mTotalScore +
                 ", testScore=" + testScore +
                 ", totalScore=" + totalScore +
                 '}';

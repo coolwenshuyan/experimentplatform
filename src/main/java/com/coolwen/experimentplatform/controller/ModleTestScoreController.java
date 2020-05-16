@@ -2,10 +2,8 @@ package com.coolwen.experimentplatform.controller;
 
         import com.coolwen.experimentplatform.dao.KaoheModelRepository;
         import com.coolwen.experimentplatform.dao.StudentRepository;
-        import com.coolwen.experimentplatform.model.ExpModel;
-        import com.coolwen.experimentplatform.model.KaoheModel;
         import com.coolwen.experimentplatform.model.Student;
-        import com.coolwen.experimentplatform.model.StudentTestScoreDTO;
+        import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
         import com.coolwen.experimentplatform.service.StudentService;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.data.domain.Page;

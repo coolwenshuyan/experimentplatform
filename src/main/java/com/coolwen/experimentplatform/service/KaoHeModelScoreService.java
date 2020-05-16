@@ -16,6 +16,8 @@ public interface KaoHeModelScoreService {
 
     public void delete(int id);
 
+    public void deleteAllByKaohemId(Integer kaohemid);
+
     public void deleteByStuId(int sid);
 
     public KaoHeModelScore load(int id);
