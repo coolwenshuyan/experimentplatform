@@ -52,4 +52,6 @@ public interface StudentService {
     public Page<Student> findStudentPageAndXuehao(int page, String select_orderId);
 
     Page<StudentLastTestScoreDTO> listStudentLastTestAnswerDTO(int pageNum);
+
+    Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOBYClassID(int pageNum,int classId);
 }

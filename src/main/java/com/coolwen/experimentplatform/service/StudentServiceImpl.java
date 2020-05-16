@@ -173,7 +173,11 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.listStudentLastTestScoreDTO(pager);
     }
 
-
+    @Override
+    public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOBYClassID(int pageNum, int classId) {
+        Pageable pager = PageRequest.of(pageNum, size);
+        return studentRepository.listStudentLastTestScoreDTOByClassID(classId,pager);
+    }
 
 
 }

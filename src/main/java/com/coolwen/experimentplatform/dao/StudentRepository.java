@@ -20,19 +20,32 @@ import java.util.List;
 public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSpecificationExecutor<Student> {
 
     Student findAllById(int id);
-
+    //
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO " +
             "(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate) " +
             "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMTestAnswerDTO();
-    //    and st.id=?1
+
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO " +
+            "(st.id, st.stuName, st.classId, expm.m_name, khms.mReportScore, khms.mReportstate) " +
+            "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
+            "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
+    public List<StudentTestScoreDTO> listStudentMReportAnswerDTO();
 
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
             "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
             "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
             "left join ClassModel clas on clas.classId = st.classId")
     public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTO(Pageable page);
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
+            "left join ClassModel clas on clas.classId = st.classId " +
+            "where st.classId = ?1")
+    public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOByClassID(int classId,Pageable page);
 
 
 //    @Query("select new com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO " +
