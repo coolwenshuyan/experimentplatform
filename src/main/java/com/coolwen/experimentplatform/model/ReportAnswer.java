@@ -22,20 +22,10 @@ public class ReportAnswer {
     private int reportId;
 
     @Column(name = "stu_report_answer")
-    private Long stuReportAnswer;
+    private String stuReportAnswer;
 
     @Column(name = "score",columnDefinition = "int default 0")
     private int score;
-
-    public ReportAnswer(int stuId, int reportId, Long stuReportAnswer, int score) {
-        this.stuId = stuId;
-        this.reportId = reportId;
-        this.stuReportAnswer = stuReportAnswer;
-        this.score = score;
-    }
-
-    public ReportAnswer() {
-    }
 
     public int getId() {
         return id;
@@ -61,11 +51,11 @@ public class ReportAnswer {
         this.reportId = reportId;
     }
 
-    public Long getStuReportAnswer() {
+    public String getStuReportAnswer() {
         return stuReportAnswer;
     }
 
-    public void setStuReportAnswer(Long stuReportAnswer) {
+    public void setStuReportAnswer(String stuReportAnswer) {
         this.stuReportAnswer = stuReportAnswer;
     }
 

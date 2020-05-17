@@ -15,7 +15,11 @@ public interface ReportAnswerService {
 
     public void deleteReportAnswer(int id);
 
+    public ReportAnswer findByReportByreportid(int reportid);
+
     public ReportAnswer updateReportAnswer(int id);
+
+    public void updateOne(ReportAnswer reportAnswer);
 
     public List<ReportAnswer> loadReportAnswer();
 

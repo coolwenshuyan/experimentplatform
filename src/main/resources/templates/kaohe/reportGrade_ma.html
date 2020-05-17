@@ -27,7 +27,7 @@
   			<a><cite>教师评分</cite></a>
 			</span> <br><br><br>
 
-			<table class="layui-table" lay-size="lg" style="    text-align: center;">
+			<table class="layui-table" lay-size="lg" style="text-align: center;">
 				<!--<colgroup>
 					<col width="150">
 					<col width="200">
@@ -41,120 +41,43 @@
 						<th >模块名</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr th:each="one:${allStu}">
-						<td th:text="${one.getStuXuehao()}">18000000</td>
-						<td th:text="${one.getStuName()}">张三</td>
-						<td th:text="${one.getClassId()}">18信管01</td>
-						<td th:text="${one.getmName}">模块1</td>
-					</tr>
-				</tbody>
+<!--				<tbody>-->
+<!--					<tr th:each="one:${allStu}">-->
+<!--						<td th:text="${one.getStuXuehao()}">18000000</td>-->
+<!--						<td th:text="${one.getStuName()}">张三</td>-->
+<!--						<td th:text="${one.getClassId()}">18信管01</td>-->
+<!--						<td th:text="${one.getmName}">模块1</td>-->
+<!--					</tr>-->
+<!--				</tbody>-->
 			</table>
-			<div style="padding: 20px; ">
+
+<form th:method="post" th:action="@{giveMark}" >
+			<div th:each="markm,markmStat:${zjy}" style="padding: 20px;">
 				<div class="layui-row layui-col-space15">
 					<div class="layui-col-md10">
 						<div class="layui-card">
 							<div class="layui-card-header ">
-								<h3 class="layui-col-md2">第一题:</h3>
-								<p class="layui-col-md2">总分：20分</p>
-								<form class="layui-form layui-col-md3" action="" >
+								<h3 th:text="${markm.getReportdescribe()}" class="layui-col-md2">第一题:</h3>
+								<p th:text="${markm.getReportscore()}" class="layui-col-md2">总分：20分</p>
 									<div class="layui-form-item ">
-										<label class="layui-form-label">评分</label>
+										<label  class="layui-form-label">评分</label>
 										<div class="layui-input-block">
-											<input type="number" name="score" lay-verify="title" autocomplete="off" placeholder="请输入成绩" class="layui-input">
+											<input th:value="${markm.getScore()}" type="number"  th:name="|score${markmStat.index}|" lay-verify="title" autocomplete="off" placeholder="请输入成绩" class="layui-input">
+
 										</div>
 									</div>
-								</form>
-							</div>
 
-							<div class="layui-card-body">
+							</div>
+							<div th:text="${markm.getStureportanswer()}" class="layui-card-body">
 								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目<br>
 								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
-			<div style="padding: 20px; ">
-				<div class="layui-row layui-col-space15">
-					<div class="layui-col-md10">
-						<div class="layui-card">
-							<div class="layui-card-header ">
-								<h3 class="layui-col-md2">第二题:</h3>
-								<p class="layui-col-md2">总分：20分</p>
-								<form class="layui-form layui-col-md3" action="" >
-									<div class="layui-form-item ">
-										<label class="layui-form-label">评分</label>
-										<div class="layui-input-block">
-											<input type="number" name="score" lay-verify="title" autocomplete="off" placeholder="请输入成绩" class="layui-input">
-										</div>
-									</div>
-								</form>
-							</div>
-
-							<div class="layui-card-body">
-								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目<br>
-								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<div style="padding: 20px; ">
-				<div class="layui-row layui-col-space15">
-					<div class="layui-col-md10">
-						<div class="layui-card">
-							<div class="layui-card-header ">
-								<h3 class="layui-col-md2">第三题:</h3>
-								<p class="layui-col-md2">总分：20分</p>
-								<form class="layui-form layui-col-md3" action="" >
-									<div class="layui-form-item ">
-										<label class="layui-form-label">评分</label>
-										<div class="layui-input-block">
-											<input type="number" name="score" lay-verify="title" autocomplete="off" placeholder="请输入成绩" class="layui-input">
-										</div>
-									</div>
-								</form>
-							</div>
-
-							<div class="layui-card-body">
-								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目<br>
-								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<div style="padding: 20px; ">
-				<div class="layui-row layui-col-space15">
-					<div class="layui-col-md10">
-						<div class="layui-card">
-							<div class="layui-card-header ">
-								<h3 class="layui-col-md2">第四题:</h3>
-								<p class="layui-col-md2">总分：20分</p>
-								<form class="layui-form layui-col-md3" action="" >
-									<div class="layui-form-item ">
-										<label class="layui-form-label">评分</label>
-										<div class="layui-input-block">
-											<input type="number" name="score" lay-verify="title" autocomplete="off" placeholder="请输入成绩" class="layui-input">
-										</div>
-									</div>
-								</form>
-							</div>
-
-							<div class="layui-card-body">
-								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目<br>
-								题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目题目
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-
+	<button class="layui-btn" lay-submit="" type="submit" id="searchBtn" data-type="getInfo" style="float: left;">提交</button>
+</form>
 		</div>
 	</body>
 

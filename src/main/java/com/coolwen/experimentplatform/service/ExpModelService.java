@@ -11,6 +11,9 @@ public interface ExpModelService {
 
     public ExpModel findExpModelByID(int id);
 
+
+
+
     public void deleteExpModelById(int id);
 
     public Page<ExpModel> findModelList(int pageNum);

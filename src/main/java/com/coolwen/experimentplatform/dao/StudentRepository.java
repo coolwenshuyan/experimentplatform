@@ -27,7 +27,27 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
             "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMTestAnswerDTO();
-    //    and st.id=?1
+
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO " +
+            "(st.id, st.stuName, st.classId, expm.m_name, khms.mReportScore, khms.mReportstate) " +
+            "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
+            "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
+    public List<StudentTestScoreDTO> listStudentMReportAnswerDTO();
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
+            "left join ClassModel clas on clas.classId = st.classId")
+    public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTO(Pageable page);
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
+            "left join ClassModel clas on clas.classId = st.classId " +
+            "where st.classId = ?1")
+    public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOByClassID(int classId,Pageable page);
+
 
 //    @Query("select new com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO " +
 //            "(st.stuXuehao,st.stuName,cla.className,tsc.mTotalScore,tsc.testScore,tsc.totalScore) " +
@@ -68,6 +88,11 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     Student findAllByStuUname(String stuUname);
 
 
-//    List<TreportGradeDto> ListStudentDto();
-
+//<<<<<<< Updated upstream
+    @Query(value = "select stu_uname from t_student where id = ?",nativeQuery = true)
+    String findStudentname(int a);
+//=======
+////    List<TreportGradeDto> ListStudentDto();
+//
+//>>>>>>> Stashed changes
 }

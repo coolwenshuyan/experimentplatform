@@ -28,9 +28,19 @@ public class ReportAnswerServiceImpl implements ReportAnswerService {
     }
 
     @Override
+    public ReportAnswer findByReportByreportid(int reportid) {
+        return reportAnswerRepository.findByReportId(reportid);
+    }
+
+    @Override
     public ReportAnswer updateReportAnswer(int id) {
         ReportAnswer reportAnswer = reportAnswerRepository.findById(id);
         return reportAnswer;
+    }
+
+    @Override
+    public void updateOne(ReportAnswer reportAnswer) {
+        reportAnswerRepository.save(reportAnswer);
     }
 
     @Override

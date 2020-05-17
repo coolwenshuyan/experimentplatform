@@ -13,7 +13,9 @@ public interface ReportAnswerRepository extends BaseRepository<ReportAnswer,Inte
 
     ReportAnswer findById(int id);
 
-    String findByReportId(int reportId);
+    String findNameByReportId(int reportId);
+
+    ReportAnswer findByReportId(int reportId);
 
 
 
