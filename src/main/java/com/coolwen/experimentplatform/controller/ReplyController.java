@@ -1,7 +1,10 @@
 package com.coolwen.experimentplatform.controller;
 
-import com.coolwen.experimentplatform.dao.ReplyDao;
+import com.coolwen.experimentplatform.dao.ReplyRepository;
+import com.coolwen.experimentplatform.model.Question;
 import com.coolwen.experimentplatform.model.Reply;
+import com.coolwen.experimentplatform.model.User;
+import com.coolwen.experimentplatform.service.QuestionService;
 import com.coolwen.experimentplatform.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +23,10 @@ public class ReplyController {
     private ReplyService replyService;
 
     @Autowired
-    private ReplyDao replyDao;
+    private ReplyRepository replyRepository;
+
+    @Autowired
+    private QuestionService questionService;
 
     //用户提问点击提交
 //    @GetMapping(value = "/add1")
@@ -28,27 +34,47 @@ public class ReplyController {
 //        return "question_reply/seesee";
 //    }
 
-    //完成添加操作
+    //老师完成添加回复操作
     @PostMapping(value = "/{id}/add1")
-    public String add(@PathVariable int id,Reply reply, String uploadfile) {
+    public String add(@PathVariable int id,Reply reply, String uploadfile,@SessionAttribute("VerifyCode") User user) {
         reply.setQid(id);
-        System.out.println("adhasjkhafghjfga"+id);
-        reply.setReply_pname("yellow");
+        System.out.println("插入的回复保存为："+id);
+        reply.setReply_pname(user.getUsername());
 //        question.setContent("alg");
         reply.setDic_datetime(new Date());
         replyService.add(reply);
-        System.out.println("adhasjkhafghjfga" + reply);
-        return "redirect:/question/"+id+"/seesee";//list
+//        questionService.setIsreply(true);
+        Question question = questionService.findById(id);
+        question.setIsreply(true);
+        questionService.add(question);
+        return "redirect:/question/"+id+"/dayiMore";//list
     }
 
-    //查出来
-    @GetMapping(value = "/list")
-    public String ReplyList(Model model, @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, 5);
-        Page<Reply> page = replyDao.findAll(pageable);
-        model.addAttribute("replyPageInfo", page);
-        return "question_reply/reply";
+    //学生回复并操作
+    @PostMapping(value = "/{id}/add2")
+    public String add1(@PathVariable int id,Reply reply, String uploadfile,@SessionAttribute("u") User user) {
+        reply.setQid(id);
+        System.out.println("插入的回复保存为："+id);
+        reply.setReply_pname(user.getUsername());
+//        question.setContent("alg");
+        reply.setDic_datetime(new Date());
+        replyService.add(reply);
+//        questionService.setIsreply(true);
+        Question question = questionService.findById(id);
+        question.setIsreply(false);
+        questionService.add(question);
+        return "redirect:/home_page/"+id+"/detaill";//list
     }
+
+
+//    //查出来
+//    @GetMapping(value = "/list")
+//    public String ReplyList(Model model, @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
+//        Pageable pageable = PageRequest.of(pageNum, 5);
+//        Page<Reply> page = replyRepository.findAll(pageable);
+//        model.addAttribute("replyPageInfo", page);
+//        return "question_reply/reply";
+//    }
 
 //    //进入修改界面
 //    @GetMapping(value = "/{id}/update")
@@ -65,7 +91,7 @@ public class ReplyController {
         replyupdate.setContent(reply.getContent());
         replyService.add(replyupdate);
         System.out.println("修改成功");
-        return "redirect:/question/"+replyupdate.getQid()+"/seesee";
+        return "redirect:/question/"+replyupdate.getQid()+"/dayiMore";
     }
 
     //删除
@@ -74,6 +100,6 @@ public class ReplyController {
         Reply reply = replyService.findById(id);
         int mid = reply.getQid();
         replyService.delete(id);
-        return "redirect:/question/"+mid+"/seesee";
+        return "redirect:/question/"+mid+"/dayiMore";
     }
 }

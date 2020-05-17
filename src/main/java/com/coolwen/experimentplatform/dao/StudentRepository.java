@@ -81,4 +81,8 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 //    Page<Student> pageStudentByClassId(int class_id);
 
     Student findAllByStuUname(String stuUname);
+
+
+    @Query(value = "select stu_uname from t_student where id = ?",nativeQuery = true)
+    String findStudentname(int a);
 }

@@ -1,461 +1,186 @@
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <title>答疑室</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="fly,layui,前端社区">
-  <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
-  <link rel="stylesheet" href="../../static/css/layui.css">
-  <link rel="stylesheet" href="../../static/css/css_home/global.css">
-  <link rel="stylesheet" type="text/css" href="../../static/css/css_home/aos.css" />
+    <meta charset="utf-8">
+    <title>基于 layui 的极简社区页面模版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="fly,layui,前端社区">
+    <meta name="description" content="四川旅游学院答疑室">
+    <link rel="stylesheet" href="../../static/css/layui.css">
+    <link rel="stylesheet" href="../../static/css/css_home/global.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/css_home/aos.css" />
 </head>
 <body>
 
 <div class="fly-header layui-bg-black">
-  <div class="layui-container">
-    <!--标题-->
-    <p style="text-align: center;line-height: 62px;font-size: 16px;">虚拟仿真实验平台答疑室</p>
-    <ul class="layui-nav fly-nav-user">
-      
-      <!-- 未登入的状态 -->
-      <li class="layui-nav-item">
-        <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="user/login.html">用户登录</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="user/reg.html">注册用户</a>
-      </li>
-      
-      
-      <!-- 登入后的状态 -->
-      <!--
-      <li class="layui-nav-item">
-        <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">贤心</cite>
-          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-          <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
-        </a>
-        <dl class="layui-nav-child">
-          <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-          <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-          <hr style="margin: 5px 0;">
-          <dd><a href="" style="text-align: center;">退出</a></dd>
-        </dl>
-      </li>
-      -->
-    </ul>
-  </div>
+    <div class="layui-container">
+        <!--标题-->
+        <p style="text-align: center;line-height: 62px;font-size: 16px;">虚拟仿真实验平台答疑室</p>
+        <ul class="layui-nav fly-nav-user">
+
+            <!-- 未登入的状态 -->
+            <li class="layui-nav-item">
+                <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/login">用户登录</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/register">注册用户</a>
+            </li>
+
+
+            <!-- 登入后的状态 -->
+            <!--
+            <li class="layui-nav-item">
+              <a class="fly-nav-avatar" href="javascript:;">
+                <cite class="layui-hide-xs">贤心</cite>
+                <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
+                <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
+                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+              </a>
+              <dl class="layui-nav-child">
+                <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
+                <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                <hr style="margin: 5px 0;">
+                <dd><a href="" style="text-align: center;">退出</a></dd>
+              </dl>
+            </li>
+            -->
+        </ul>
+    </div>
 </div>
 
 <div class="fly-panel fly-column">
-  <div class="layui-container">
-   <p><a href="#"><返回上一级</a></p>
-    
-    <div class="fly-column-right layui-hide-xs"> 
-      <span class="fly-search"><i class="layui-icon"></i></span> 
-      <a href="#fabiao" class="layui-btn">发布问题</a> 
-    </div> 
-    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
-      <a href="#fabiao" class="layui-btn">发布问题</a> 
-    </div> 
-  </div>
+    <div class="layui-container">
+        <p><a href="#"><返回上一级</a></p>
+
+        <div class="fly-column-right layui-hide-xs">
+            <span class="fly-search"><i class="layui-icon"></i></span>
+            <a href="#fabiao" class="layui-btn">发布问题</a>
+        </div>
+        <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
+            <a href="#fabiao" class="layui-btn">发布问题</a>
+        </div>
+    </div>
 </div>
 
 <div class="layui-container">
-  <div class="layui-row layui-col-space15">
-    <div class="layui-col-md8">
-      <div class="fly-panel" style="margin-bottom: 0;">
-        
-        <div class="fly-panel-title fly-filter">
-          <a href="" class="layui-this">综合排序</a>
-          <span class="fly-mid"></span>
-          
-          <span class="fly-filter-right layui-hide-xs">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="fly-panel" style="margin-bottom: 0;">
+
+                <div class="fly-panel-title fly-filter">
+                    <a href="" class="layui-this">综合排序</a>
+                    <span class="fly-mid"></span>
+
+                    <span class="fly-filter-right layui-hide-xs">
             <a href="" class="layui-this">按最新</a>
-           
-            
+
+
           </span>
-        </div>
+                </div>
 
-        <ul class="fly-list">          
-          <li>
-            <a href="user/home.html" class="fly-avatar">
-              <img src="../../static/images/img_home/logo1.png" alt="贤心">
-            </a>
-            <h2>
-              <!--<a class="layui-badge">分享</a>-->
-              <a href="detail.html">没有源码的情况下如何统计某个项目功能的效率？</a>
-            </h2>
-            <div class="fly-list-info">
-              <a href="user/home.html" link>
-                <cite>划船不用桨</cite>
-                <!--
-                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                <i class="layui-badge fly-badge-vip">VIP3</i>
-                -->
-              </a>
-              <span>刚刚</span>
-              
-              
-              <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 2
-              </span>
-            </div>
-            <div class="fly-list-badge">
-              <!--<span class="layui-badge layui-bg-black">置顶</span>-->
-              <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-            </div>
-          </li>
-          <li>
-            <a href="user/home.html" class="fly-avatar">
-              <img src="../../static/images/img_home/logo1.png" alt="贤心">
-            </a>
-            <h2>
-              <!--<a class="layui-badge">分享</a>-->
-              <a href="detail.html">没有源码的情况下如何统计某个项目功能的效率？</a>
-            </h2>
-            <div class="fly-list-info">
-              <a href="user/home.html" link>
-                <cite>划船不用桨</cite>
-                <!--
-                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                <i class="layui-badge fly-badge-vip">VIP3</i>
-                -->
-              </a>
-              <span>刚刚</span>
-              
-              
-              <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 2
-              </span>
-            </div>
-            <div class="fly-list-badge">
-             <!-- <span class="layui-badge layui-bg-black">置顶</span>-->
-              <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-            </div>
-          </li>
-          <li>
-            <a href="user/home.html" class="fly-avatar">
-              <img src="../../static/images/img_home/logo1.png" alt="贤心">
-            </a>
-            <h2>
-              <!--<a class="layui-badge">分享</a>-->
-              <a href="detail.html">没有源码的情况下如何统计某个项目功能的效率？</a>
-            </h2>
-            <div class="fly-list-info">
-              <a href="user/home.html" link>
-                <cite>划船不用桨</cite>
-                <!--
-                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                <i class="layui-badge fly-badge-vip">VIP3</i>
-                -->
-              </a>
-              <span>刚刚</span>
-              
-              
-              <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 3
-              </span>
-            </div>
-            <div class="fly-list-badge">
-              <!--<span class="layui-badge layui-bg-black">置顶</span>-->
-              <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-            </div>
-          </li>
-          <li>
-            <a href="user/home.html" class="fly-avatar">
-              <img src="../../static/images/img_home/logo1.png" alt="贤心">
-            </a>
-            <h2>
-              <!--<a class="layui-badge">分享</a>-->
-              <a href="detail.html">没有源码的情况下如何统计某个项目功能的效率？</a>
-            </h2>
-            <div class="fly-list-info">
-              <a href="user/home.html" link>
-                <cite>划船不用桨</cite>
-                <!--
-                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                <i class="layui-badge fly-badge-vip">VIP3</i>
-                -->
-              </a>
-              <span>刚刚</span>
-              
-              
-              <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 3
-              </span>
-            </div>
-            <div class="fly-list-badge">
-              <!--<span class="layui-badge layui-bg-black">置顶</span>-->
-              <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-            </div>
-          </li>
-          <li>
-            <a href="user/home.html" class="fly-avatar">
-              <img src="../../static/images/img_home/logo1.png" alt="贤心">
-            </a>
-            <h2>
-              <!--<a class="layui-badge">分享</a>-->
-              <a href="detail.html">没有源码的情况下如何统计某个项目功能的效率？</a>
-            </h2>
-            <div class="fly-list-info">
-              <a href="user/home.html" link>
-                <cite>划船不用桨</cite>
-                <!--
-                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                <i class="layui-badge fly-badge-vip">VIP3</i>
-                -->
-              </a>
-              <span>刚刚</span>
-              
-              
-              <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 2
-              </span>
-            </div>
-            <div class="fly-list-badge">
-              <!--<span class="layui-badge layui-bg-black">置顶</span>-->
-              <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-            </div>
-          </li>
-          <li>
-            <a href="user/home.html" class="fly-avatar">
-              <img src="../../static/images/img_home/logo1.png" alt="贤心">
-            </a>
-            <h2>
-              <!--<a class="layui-badge">分享</a>-->
-              <a href="detail.html">没有源码的情况下如何统计某个项目功能的效率？</a>
-            </h2>
-            <div class="fly-list-info">
-              <a href="user/home.html" link>
-                <cite>划船不用桨</cite>
-                <!--
-                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                <i class="layui-badge fly-badge-vip">VIP3</i>
-                -->
-              </a>
-              <span>刚刚</span>
-              
-              
-              <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 2
-              </span>
-            </div>
-            <div class="fly-list-badge">
-              <!--<span class="layui-badge layui-bg-black">置顶</span>-->
-              <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-            </div>
-          </li>
-        </ul>
-        
-        <!-- <div class="fly-none">没有相关数据</div> -->
-    
-        <div style="text-align: center">
-          <div class="laypage-main"><span class="laypage-curr">1</span><a href="/jie/page/2/">2</a><a href="/jie/page/3/">3</a><a href="/jie/page/4/">4</a><a href="/jie/page/5/">5</a><span>…</span><a href="/jie/page/148/" class="laypage-last" title="尾页">尾页</a><a href="/jie/page/2/" class="laypage-next">下一页</a></div>
-        </div>
+                <ul class="fly-list">
+                    <li th:each="question:${questionPageInfo.content}">
+                        <a href="#" class="fly-avatar">
+                            <img src="../../static/images/logo.png" alt="贤心">
+                        </a>
+                        <h2>
+                            <!--<a class="layui-badge">分享</a>-->
+                            <a href="detaill.html" th:text="${question.content}" th:href="@{|${question.id}/detaill|}">问题</a>
+                        </h2>
+                        <div class="fly-list-info">
+                            <a href="#" link>
+                                <cite th:text="${question.stu_uname}">名字</cite>
+                                <!--
+                                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
+                                <i class="layui-badge fly-badge-vip">VIP3</i>
+                                -->
+                            </a>
+                            <span th:text="${question.dic_datetime}">时间</span>
 
-      </div>
-    </div>
-    <div class="layui-col-md4">
-      <dl class="fly-panel fly-list-one">
-        <dt class="fly-panel-title">本周热议</dt>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 3</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
-        <dd>
-          <a href="">Java框架当中service层和dao层的区别该怎么理解？</a>
-          <span><i class="iconfont icon-pinglun1"></i> 1</span>
-        </dd>
 
-        <!-- 无数据时 -->
-        <!--
-        <div class="fly-none">没有相关数据</div>
-        -->
-      </dl>
+                            <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
+                            <a class="fly-list-nums" th:href="@{|${question.id}/detaill|}">查看</a>
+                        </div>
+                        <div class="fly-list-badge">
+                            <!--<span class="layui-badge layui-bg-black">置顶</span>-->
+                            <!--<span class="layui-badge layui-bg-red">精帖</span>-->
+                        </div>
+                    </li>
+                </ul>
 
-      <!--<div class="fly-panel">
-        <div class="fly-panel-title">
-          这里可作为广告区域
+                <!-- <div class="fly-none">没有相关数据</div> -->
+
+                <div style="text-align: center">
+                    <p>当前 <span th:text="${questionPageInfo.number}+1"></span> 页,
+                        总 <span th:text="${questionPageInfo.totalPages}"></span> 页,
+                        共 <span th:text="${questionPageInfo.totalElements}"></span> 条记录</p>
+                    <a th:href="@{/question/list1}">首页</a>
+                    <a th:href="@{/question/list1(pageNum=${questionPageInfo.hasPrevious()}?${questionPageInfo.number}-1:0)}">上一页</a>
+                    <a th:href="@{/question/list1(pageNum=${questionPageInfo.hasNext()}?${questionPageInfo.number}+1:${questionPageInfo.number})}">下一页</a>
+                    <a th:href="@{/question/list1(pageNum=${questionPageInfo.totalPages}-1)}">尾页</a>
+                </div>
+
+            </div>
         </div>
-        <div class="fly-panel-main">
-          <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
-        </div>
-      </div>-->
-      
-     
 
     </div>
-  </div>
+    <!--发表帖子-->
+    <div style="margin-top: 50px" id="fabiao">
+        <form action="/question/add" method="post">
+            进行新增提问:
+            <script id="editors" name="content" type="text/plain">
+            </script>
+            <input type="submit" value="提交问题">
+        </form>
+    </div>
 </div>
 
-		<!--发表帖子-->
-		<div class="fly-marginTop " id="fabiao">
-							<div class="fly-panel" pad20 style="padding-top: 5px;">
-								<!--<div class="fly-none">没有权限</div>-->
-								<div class="layui-form layui-form-pane">
-									<div class="layui-tab layui-tab-brief" lay-filter="user">
-										<ul class="layui-tab-title">
-											<li class="layui-this">发表问题
-												<!-- 编辑帖子 -->
-											</li>
-										</ul>
-										<div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
-											<div class="layui-tab-item layui-show">
-												<form action="" method="post">
-													<div class="layui-row layui-col-space15 layui-form-item">													
-														<div class="layui-col-md12">
-															<label for="L_title" class="layui-form-label">标题</label>
-															<div class="layui-input-block">
-																<input type="text" id="L_title" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
-																<!-- <input type="hidden" name="id" value="{{d.edit.id}}"> -->
-															</div>
-														</div>
-													</div>
-													<div class="layui-row layui-col-space15 layui-form-item layui-hide" id="LAY_quiz">
-														<div class="layui-col-md3">
-															<label class="layui-form-label">所属产品</label>
-															<div class="layui-input-block">
-																<select name="project">
-																	<option></option>
-																	<option value="layui">layui</option>
-																	<option value="独立版layer">独立版layer</option>
-																	<option value="独立版layDate">独立版layDate</option>
-																	<option value="LayIM">LayIM</option>
-																	<option value="Fly社区模板">Fly社区模板</option>
-																</select>
-															</div>
-														</div>
-														<div class="layui-col-md3">
-															<label class="layui-form-label" for="L_version">版本号</label>
-															<div class="layui-input-block">
-																<input type="text" id="L_version" value="" name="version" autocomplete="off" class="layui-input">
-															</div>
-														</div>
-														<div class="layui-col-md6">
-															<label class="layui-form-label" for="L_browser">浏览器</label>
-															<div class="layui-input-block">
-																<input type="text" id="L_browser" value="" name="browser" placeholder="浏览器名称及版本，如：IE 11" autocomplete="off" class="layui-input">
-															</div>
-														</div>
-													</div>
-													<div class="layui-form-item layui-form-text">
-														<div class="layui-input-block">
-															<div class="layui-unselect fly-edit">
-																<span type="face" title="插入表情">
-																	<i class="iconfont icon-yxj-expression" style="top: 1px;"></i>
-																</span>
-																<span type="picture" title="插入图片：img[src]">
-																	<i class="iconfont icon-tupian"></i>
-																</span>
-																<span type="href" title="超链接格式：a(href)[text]">
-																	<i class="iconfont icon-lianjie"></i>
-																</span>
-																<span type="code" title="插入代码或引用">
-																		<i class="iconfont icon-emwdaima" style="top: 1px;"></i>
-																</span><span type="hr" title="插入水平线">hr</span>
-																<span type="yulan" title="预览"><i class="iconfont icon-yulan1"></i></span>
-															</div>
-															<textarea id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
-														</div>
-													</div>
-
-													<div class="layui-form-item">
-														<button class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-
-					<ul class="layui-fixbar" >
-						<a href="#fabiao">
-						<li class="layui-icon" lay-type="bar1" style="background-color:#009688"></li>
-						</a>
-						<!--<li class="layui-icon layui-fixbar-top" lay-type="top" style="background-color: rgb(0, 150, 136); display: list-item;"></li>-->
-					</ul>
-
-
+<ul class="layui-fixbar" >
+    <a href="#fabiao">
+        <li class="layui-icon" lay-type="bar1" style="background-color:#009688"></li>
+    </a>
+    <!--<li class="layui-icon layui-fixbar-top" lay-type="top" style="background-color: rgb(0, 150, 136); display: list-item;"></li>-->
+</ul>
 
 <div class="fly-footer" style="background-color:#174f37;color: white;line-height: 5px;">
-  	版权所有Copyright © 2018 四川旅游学院虚拟仿真实验教学管理平台
-  
+    版权所有Copyright © 2018 四川旅游学院虚拟仿真实验教学管理平台
+
 </div>
 
+<script src="../../static/js/js_home/wangEditor.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/js_home/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/js_home/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/js_home/echart.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/js_home/jquery.taty.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/js_home/layui.all.js" type="text/javascript" charset="utf-8"></script>
 
 
+<script th:src="@{/ueditor/ueditor.config.js}"></script>
+<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+<script th:inline="javascript">
+    UE.getEditor('editors');
+</script>
 
-
-		<script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/js_home/echart.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/js_home/jquery.taty.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script>
-layui.cache.page = 'jie';
-layui.cache.user = {
-  username: '游客'
-  ,uid: -1
-  ,avatar: '../../res/images/avatar/00.jpg'
-  ,experience: 83
-  ,sex: '男'
-};
-layui.config({
-  version: "3.0.0"
-  ,base: '../../res/mods/'
-}).extend({
-  fly: 'index'
-}).use('fly');
+    layui.cache.page = 'jie';
+    layui.cache.user = {
+        username: '游客'
+        ,uid: -1
+        ,avatar: '../../res/images/avatar/00.jpg'
+        ,experience: 83
+        ,sex: '男'
+    };
+    layui.config({
+        version: "3.0.0"
+        ,base: '../../res/mods/'
+    }).extend({
+        fly: 'index'
+    }).use('fly');
 </script>
 
 </body>

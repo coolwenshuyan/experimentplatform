@@ -1,138 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>答疑室提问管理</title>		
-		<link rel="stylesheet" href="../../static/css/layui.css">
-	</head>
-	<style type="text/css">
-		/*div{
-			margin: 10px;
-		}*/
-		#head{
-			margin-top: 30px;
-		}
-		#main{
-			margin-top: 30px;
-			padding: 10px;
-			border: 1px black solid;
-		}		
-		#d{
-			text-align: right;
-		}
-        #name{
-        	margin-top: 30px;
-        }
-	</style>
-	<body>
-		<div id="name" class="layui-col-md8 layui-col-md-offset2">
-			<div class="layui-col-md4">
-            	答疑室提问管理
-          </div>          			
-		</div>
-		<div id="main" class="layui-col-md8 layui-col-md-offset2">
-			<table class="layui-table" lay-even lay-skin="nob">
-                            <colgroup>
-                                <col width="150">
-                                <col width="200">
-                                <col>
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                	<th>序号</th>
-                                    <th>学生ID</th>
-                                    <th>姓名</th>
-                                    <th>问题内容</th> 
-                                    <th>是否回复</th>
-                                    <th>记录时间</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr> 
-                            </thead>
-                            <tbody>
-                                <tr>
-                    	            <td>1</td>
-                                    <td>010101</td>
-                                    <td>vmsh</td>
-                                    <td>1663875</td>
-                                    <td>2020-5-11</td>
-                                    <td>是</td>
-                                    <td>
-                        	            <a href="dayiMore.html">查看</a>
-                        	        </td>
-                        	        <td>
-                        	            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">删除</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>020202</td>
-                                    <td>vsuifbia</td>
-                                    <td>1663875</td>
-                                    <td>2020-5-11</td>
-                                    <td>否</td>
-                                    <td>
-                        	            <a href="dayiMore.html">查看</a>
-                        	        </td>
-                        	        <td>
-                        	            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">删除</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                    	            <td>3</td>
-                                    <td>010101</td>
-                                    <td>vmsh</td>
-                                    <td>1663875</td>
-                                    <td>2020-5-11</td>
-                                    <td>是</td>
-                                    <td>
-                        	            <a href="dayiMore.html">查看</a>
-                        	        </td>
-                        	        <td>
-                        	            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">删除</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>020202</td>
-                                    <td>vsuifbia</td>
-                                    <td>1663875</td>
-                                    <td>2020-5-11</td>
-                                    <td>否</td>
-                                    <td>
-                        	            <a href="dayiMore.html">查看</a>
-                        	        </td>
-                        	        <td>
-                        	            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">删除</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-            
-            
-            <div id="d" class="layui-btn-group">
-            	<button type="button" class="layui-btn layui-btn-sm">
-                    <i class="layui-icon">&#xe603;</i>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>答疑室提问管理</title>
+    <link rel="stylesheet" href="../../static/css/layui.css">
+</head>
+<style type="text/css">
+    /*div{
+        margin: 10px;
+    }*/
+    #head{
+        margin-top: 30px;
+    }
+    #main{
+        margin-top: 30px;
+        padding: 10px;
+        border: 1px black solid;
+    }
+    #d{
+        text-align: right;
+    }
+    #name{
+        margin-top: 30px;
+    }
+</style>
+<body>
+<div id="name" class="layui-col-md8 layui-col-md-offset2">
+    <div class="layui-col-md4">
+        答疑室提问管理
+    </div>
+</div>
+<div id="main" class="layui-col-md8 layui-col-md-offset2">
+    <table class="layui-table" lay-even lay-skin="nob">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>学生ID</th>
+            <th>姓名</th>
+            <th>问题内容</th>
+            <th>是否回复</th>
+            <th>记录时间</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="question:${questionPageInfo.content}">
+            <td th:text="${question.id}"></td>
+            <td th:text="${question.sid}"></td>
+            <td th:text="${question.stu_uname}"></td>
+            <td th:text="${question.content}"></td>
+            <td th:text="${question.isreply}?'是':'否'" ></td>
+            <td th:text="${question.dic_datetime}"></td>
+            <td>
+                <a th:href="@{|${question.id}/dayiMore|}">查看</a>
+            </td>
+            <td>
+                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+                    <a th:href="@{|${question.id}/delete|}">删除</a>
                 </button>
-                <button type="button" class="layui-btn layui-btn-sm">1</button>
-                <button type="button" class="layui-btn layui-btn-sm">2</button>
-                <button type="button" class="layui-btn layui-btn-sm">3</button>
-                <button type="button" class="layui-btn layui-btn-sm">4</button>
-                <button type="button" class="layui-btn layui-btn-sm">5</button>
-                <button type="button" class="layui-btn layui-btn-sm">···</button>
-                <button type="button" class="layui-btn layui-btn-sm">99</button>
-                <button type="button" class="layui-btn layui-btn-sm">
-                    <i class="layui-icon">&#xe602;</i>
-                </button>
-            </div>
-	    </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-		
-		
-		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-	</body>
+    <div style="margin:0 auto; width: 80%; text-align: center;">
+        <p>当前 <span th:text="${questionPageInfo.number}+1"></span> 页,
+            总 <span th:text="${questionPageInfo.totalPages}"></span> 页,
+            共 <span th:text="${questionPageInfo.totalElements}"></span> 条记录</p>
+        <a th:href="@{/question/list}">首页</a>
+        <a th:href="@{/question/list(pageNum=${questionPageInfo.hasPrevious()}?${questionPageInfo.number}-1:0)}">上一页</a>
+        <a th:href="@{/question/list(pageNum=${questionPageInfo.hasNext()}?${questionPageInfo.number}+1:${questionPageInfo.number})}">下一页</a>
+        <a th:href="@{/question/list(pageNum=${questionPageInfo.totalPages}-1)}">尾页</a>
+    </div>
+</div>
+
+
+
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+</body>
 </html>
 

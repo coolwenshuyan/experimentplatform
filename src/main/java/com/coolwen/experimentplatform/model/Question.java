@@ -13,12 +13,14 @@ public class Question {
     private int sid;            //学生id
     private String content;     //问题内容
     private Date dic_datetime;    //记录时间
+    private Boolean isreply;    //是否回复
 
 
-    public Question(int sid, String content, Date dic_datetime) {
+    public Question(int sid, String content, Date dic_datetime, Boolean isreply) {
         this.sid = sid;
         this.content = content;
         this.dic_datetime = dic_datetime;
+        this.isreply = isreply;
     }
 
     public Question() { }
@@ -55,6 +57,14 @@ public class Question {
         this.dic_datetime = dic_datetime;
     }
 
+    public Boolean getIsreply() {
+        return isreply;
+    }
+
+    public void setIsreply(Boolean isreply) {
+        this.isreply = isreply;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
@@ -62,6 +72,7 @@ public class Question {
                 ", sid=" + sid +
                 ", content='" + content + '\'' +
                 ", dic_datetime=" + dic_datetime +
+                ", isreply=" + isreply +
                 '}';
     }
 }

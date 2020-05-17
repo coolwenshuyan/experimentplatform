@@ -12,6 +12,8 @@ public interface ReplyService {
     //删
     void delete(int id);
 
+    void deleteByQid(int id);
+
     //通过id查
     public List<Reply> findByreplycontent(int qid);
 
@@ -19,4 +21,7 @@ public interface ReplyService {
 
     //查所有
     public List<Reply> getAll();
+
+    public List<Integer> findByQid(int qid);
+
 }
