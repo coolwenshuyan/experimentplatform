@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.dao.TotalScoreCurrentRepository;
+import com.coolwen.experimentplatform.model.DTO.ModuleGradesDto;
 import com.coolwen.experimentplatform.model.TotalScoreCurrent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,4 +42,15 @@ public class TotalScoreCurrentServiceImpl implements TotalScoreCurrentService {
     public List<TotalScoreCurrent> listTotalScoreCurrent() {
         return totalScoreCurrentRepository.findAll();
     }
+
+    @Override
+    public List<TotalScoreCurrent> findeAllBystuid(int id) {
+        return totalScoreCurrentRepository.findeAllBystuid(id);
+    }
+
+    @Override
+    public List<ModuleGradesDto> ModuleGrade(int id) {
+        return totalScoreCurrentRepository.ModuleGrade(id);
+    }
+
 }

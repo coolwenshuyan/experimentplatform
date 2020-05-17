@@ -18,4 +18,6 @@ public interface ExpModelService {
     public List<ExpModel> findExpModelsBym_name(String m_name);
 
     public List<ExpModel> findAll();
+
+    public Page<ExpModel> finExpAll(int pageNum);
 }

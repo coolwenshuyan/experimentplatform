@@ -37,6 +37,7 @@ public class Student {
     @Column(name = "class_id")
     private int classId;
 
+
     public int getId() {
         return id;
     }

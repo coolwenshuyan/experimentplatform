@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.service;
 
+import com.coolwen.experimentplatform.model.DTO.ModuleGradesDto;
 import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import com.coolwen.experimentplatform.model.TotalScoreCurrent;
 import org.springframework.stereotype.Service;
@@ -20,4 +21,8 @@ public interface TotalScoreCurrentService {
     public TotalScoreCurrent load(int id);
 
     public List<TotalScoreCurrent> listTotalScoreCurrent();
+
+    public List<TotalScoreCurrent> findeAllBystuid(int id);
+
+    List<ModuleGradesDto> ModuleGrade(int id);
 }
