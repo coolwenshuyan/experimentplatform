@@ -45,4 +45,10 @@ public class ExpModelServiceImpl implements ExpModelService {
     public List<ExpModel> findAll() {
         return expModelRepository.findAll();
     }
+
+    @Override
+    public Page<ExpModel> finExpAll(int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum,6);
+        return expModelRepository.findAll(pageable);
+    }
 }

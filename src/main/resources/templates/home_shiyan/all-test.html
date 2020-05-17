@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="utf-8" />
@@ -110,140 +110,19 @@
 		<hr>
 		<div class=" layui-col-xs10 layui-col-xs-offset2">
 		  <div class="layui-row">
-		     <div class="layui-col-md4 ">
+		     <div class="layui-col-md4 " th:each="model:${list}">
 		    		<div class="content">
 		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/5.jpg" width="100%"/>
+		     				<img src="../../static/images/img_shiyan/5.jpg" th:src="${model.getImageurl()}" width="100%"/>
 				     	</div>
 				     	<div class="intro">
 				     		<div class="name" >
-				     			<h3>JAVA实验二(已完成，90分)</h3><br>
-				     			<h3>权重 10%</h3>
+				     			<h3 th:text="${model.m_name}">JAVA实验二(已完成，90分)</h3><br>
+<!--				     			<h3>权重 10%</h3>-->
 				     		</div>
 				     		<div class="change" >
 				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		  	 <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/7.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>管理统计实验一(已完成，85分)</h3><br>
-				     			<h3>权重 15%</h3>
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		     <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/5.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>移动应用与开发(已完成，93分)</h3><br>
-				     			<h3>权重 20%</h3>
-				     			
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a  href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		      <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/3.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>Springboot学习(已完成)</h3>
-				     			
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								   <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		      <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/4.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>Bootstrap学习(已完成)</h3>
-				     			
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		      <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/1.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>Layui 学习(已完成)</h3>
-				     			
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								   <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
+								  <li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
 								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
 								  <li class="layui-nav-item"><a href="">进入实验</a></li>
 								  <li class="layui-nav-item">
@@ -256,28 +135,22 @@
 		    		</div>
 		     </div>
 		  </div>
-		  
+			<div class="layui-card-body ">
+				<div class="page">
+					<div>
+						<a class="prev layui-btn" th:href="@{/expmodel/alltest(pageNum=${list.hasPrevious()}?${list.number}-1:0)}">上一页</a>
+						<a class="next layui-btn" th:href="@{/expmodel/alltest(pageNum=${list.hasNext()}?${list.number}+1:${list.number})}">下一页</a>
+					</div>
+				</div>
+			</div>
 		
-		</div>    
-		<div class="layui-col-xs6 layui-col-xs-offset5">
-			<div id="test1"></div>
 		</div>
+
 		
 		
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-		layui.use('laypage', function(){
-		  var laypage = layui.laypage;
-		  
-		  //执行一个laypage实例
-		  laypage.render({
-		    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-		    ,count: 50 //数据总数，从服务端得到
-		  });
-		});
-		</script>
 		
 	</body>
 

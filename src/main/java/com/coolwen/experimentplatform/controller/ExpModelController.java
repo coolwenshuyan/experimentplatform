@@ -1,11 +1,17 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.coolwen.experimentplatform.dao.ExpModelRepository;
+import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
 import com.coolwen.experimentplatform.model.ExpModel;
 
 import com.coolwen.experimentplatform.service.ExpModelService;
 import com.coolwen.experimentplatform.service.FIleService;
 
+import com.coolwen.experimentplatform.service.KaoheModelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -30,6 +36,8 @@ public class ExpModelController {
     FIleService fIleService;
     @Autowired
     ExpModelService expModelService;
+    @Autowired
+    KaoheModelService kaoheModelService;
 
 
 //模块信息页面
@@ -63,7 +71,7 @@ public class ExpModelController {
         expModel.setM_type(m_type);
         expModel.setClasshour(m_classhour);
         expModel.setM_inurl(m_inurl);
-        expModel.setImageurl(file);
+        expModel.setImageurl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpModelImage/"+file);
         expModelService.save(expModel);
         session.setAttribute("modelId",expModel.getM_id());
         return "redirect:/expmodel/addTheory";
@@ -79,7 +87,7 @@ public class ExpModelController {
     public String toUpdate(@PathVariable("id") int id,Model model,HttpServletRequest request){
         ExpModel expModel = expModelService.findExpModelByID(id);
         model.addAttribute("preExpModel",expModel);
-        model.addAttribute("image",request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpModelImage/"+expModel.getImageurl());
+        model.addAttribute("image",expModel.getImageurl());
         return "shiyan/changeExpModel";
     }
 
@@ -102,7 +110,7 @@ public class ExpModelController {
         preExpModel.setM_inurl(m_inurl);
         String path = fIleService.upload(request,m_image);
         if(path != null){
-            preExpModel.setImageurl(path);
+            preExpModel.setImageurl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpModelImage/"+path);
         }
         expModelService.save(preExpModel);
         return "redirect:/expmodel/list";
@@ -146,22 +154,16 @@ public class ExpModelController {
         System.out.println(file);
         String pathString = null;
         if(file!=null) {
-            //获取上传的文件名称
             String filename = file.getOriginalFilename();
-            //文件上传时，chrome与IE/Edge对于originalFilename处理方式不同
-            //chrome会获取到该文件的直接文件名称，IE/Edge会获取到文件上传时完整路径/文件名
-            //Check for Unix-style path
             int unixSep = filename.lastIndexOf('/');
-            //Check for Windows-style path
             int winSep = filename.lastIndexOf('\\');
-            //cut off at latest possible point
             int pos = (winSep > unixSep ? winSep:unixSep);
             if (pos != -1)
                 filename = filename.substring(pos + 1);
-            pathString =  fIleService.upload(request,file)+",";
+            pathString =  fIleService.upload(request,file);
         }
         ExpModel expModel = expModelService.findExpModelByID(id);
-        expModel.setM_edataurl(pathString);
+        expModel.setM_edataurl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpData/"+pathString);
         expModelService.save(expModel);
         return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
     }
@@ -222,6 +224,31 @@ public class ExpModelController {
         }
 
         return "redirect:/expmodel/list";
+    }
+
+
+    //实验大厅所有模块+
+
+    @GetMapping("/alltestModel")
+    public String alltest(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum){
+        model.addAttribute("list",expModelService.finExpAll(pageNum));
+        return "home_shiyan/all-test";
+    }
+    //考核模块
+    @GetMapping("/kaoheModel/{id}")
+    public String kaoModelById(@PathVariable("id")int id,Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum){
+        Page<KaoHeModelStuDTO> kaohe = kaoheModelService.findKaoheModelStuDto(id,pageNum);
+        model.addAttribute("k",kaohe);
+        return "home_shiyan/index";
+    }
+
+    //理论学习
+    @GetMapping("/theoryStudy/{id}")
+    public String theoryStudey(@PathVariable("id")int id,Model model){
+        ExpModel expModel = expModelService.findExpModelByID(id);
+        model.addAttribute("exp",expModel);
+        String path = expModel.getM_edataurl();
+        return "home_shiyan/study";
     }
 
 

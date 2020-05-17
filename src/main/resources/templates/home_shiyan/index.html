@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="utf-8" />
@@ -109,139 +109,22 @@
 
 		<div class=" layui-col-xs10 layui-col-xs-offset2">
 		  <div class="layui-row">
-		     <div class="layui-col-md4 ">
+		     <div class="layui-col-md4 " th:each="model:${k}">
 		    		<div class="content">
 		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/5.jpg" width="100%"/>
+		     				<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${model.m_imageurl}"/>
 				     	</div>
 				     	<div class="intro">
 				     		<div class="name" >
-				     			<h3>Java实验2(已完成，92分)</h3>
-				     			<h3>权重：10%</h3>
+								<h3 th:text="${model.m_name}"></h3>
+								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>
+								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>
+								<h3>得分:<span th:text="${model.m_score}"></span></h3>
+								<h3>权重：<span th:text="${model.m_scale}"></span></h3>
 				     		</div>
 				     		<div class="change" >
 				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		   <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/7.jpg" width="100%" />
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>管理统计实验1(已完成，88分)</h3>
-				     			<h3>权重：10%</h3>
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		     <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/3.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>移动应用与开发实验2(已完成，92分)</h3>
-				     			<h3>权重：10%</h3>
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		     <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/1.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>photoshop实验3(已完成，92分)</h3>
-				     			<h3>权重：10%</h3>
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		     <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/2.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>Java实验2(已完成，92分)</h3>
-				     			<h3>权重：10%</h3>
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		      <div class="layui-col-md4 ">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/4.jpg" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3>Java实验2(已完成，92分)</h3>
-				     			<h3>权重：10%</h3>
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a href="study.html">理论学习</a></li>
+									<li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
 								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
 								  <li class="layui-nav-item"><a href="">进入实验</a></li>
 								  <li class="layui-nav-item">
@@ -254,33 +137,29 @@
 		    		</div>
 		     </div>
 		  </div>
-		</div>    
-		
-		
-		
-		<div class="layui-col-xs6 layui-col-xs-offset5">
-			<div id="test1"></div>
 		</div>
 
 
 
+	<div class="layui-card-body ">
+		<div class="page">
+			<div>
+				<a class="prev layui-btn" th:href="@{/expmodel/kaoheModel(pageNum=${k.hasPrevious()}?${k.number}-1:0)}">上一页</a>
+				<a class="next layui-btn" th:href="@{/expmodel/kaoheModel(pageNum=${k.hasNext()}?${k.number}+1:${k.number})}">下一页</a>
+			</div>
+		</div>
+	</div>
 
 
-		
-		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+
+
+	<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-		layui.use('laypage', function(){
-		  var laypage = layui.laypage;
-		  
-		  //执行一个laypage实例
-		  laypage.render({
-		    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-		    ,count: 50 //数据总数，从服务端得到
-		  });
-		});
-		</script>
+
 	</body>
 
 </html>

@@ -1,7 +1,12 @@
 package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
+import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
 import com.coolwen.experimentplatform.model.KaoheModel;
+import com.coolwen.experimentplatform.specification.SimplePageBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
@@ -35,5 +40,7 @@ public interface KaoheModelRepository extends BaseRepository<KaoheModel,Integer>
 
     @Query("select count(k) from KaoheModel k")
     Integer findKaoheNum();
+
+
 
 }

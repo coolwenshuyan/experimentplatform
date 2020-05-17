@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.service;
 
+import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
 import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.model.Resource;
 import org.springframework.data.domain.Page;
@@ -30,4 +31,9 @@ public interface KaoheModelService {
     List<KaoheModel> findAll();
 
     Integer findKaoheNum();
+
+    Page<KaoHeModelStuDTO> findKaoheModelStuDto(int stu_id,int pageNum);
+
+
+
 }

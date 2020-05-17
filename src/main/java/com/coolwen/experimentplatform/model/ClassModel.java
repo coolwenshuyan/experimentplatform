@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @ProjectName: experimentplatform
