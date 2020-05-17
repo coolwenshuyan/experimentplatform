@@ -26,4 +26,8 @@ public interface KaoheModelService {
     public List<Integer> inKaoheList();
 
     public long countKaoheModel();
+
+    List<KaoheModel> findAll();
+
+    Integer findKaoheNum();
 }

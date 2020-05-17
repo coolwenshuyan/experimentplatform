@@ -24,7 +24,7 @@ public class ReportAnswer {
     @Column(name = "stu_report_answer")
     private Long stuReportAnswer;
 
-    @Column(name = "score")
+    @Column(name = "score",columnDefinition = "int default 0")
     private int score;
 
     public ReportAnswer(int stuId, int reportId, Long stuReportAnswer, int score) {

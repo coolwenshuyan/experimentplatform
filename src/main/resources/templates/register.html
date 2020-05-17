@@ -25,6 +25,7 @@
                             <label class="layui-form-label">账号：</label>
                             <div class="layui-input-block">
                                 <input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                                <p th:text="${msg1}" style="color: red"></p>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -37,6 +38,7 @@
                             <label class="layui-form-label">确认密码：</label>
                             <div class="layui-input-block">
                                 <input type="text" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                <p th:text="${msg3}" style="color: red"></p>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -45,14 +47,32 @@
                                 <input type="text" name="tel" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-
                         <div class="layui-form-item">
-                            <label class="layui-form-label">角色：</label>
+                            <label class="layui-form-label">学号：</label>
                             <div class="layui-input-block">
-                                <input type="checkbox" name="type" title="teacher" value="teacher"><span>老师注册</span>
-                                <input type="checkbox" name="type" title="student" value="student"><span>学生注册</span>
+                                <input type="text"  name="stu_xuehao"   lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">姓名：</label>
+                            <div class="layui-input-block">
+                                <input type="text"  name="name"   lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">所属班级：</label>
+                            <div class="layui-input-block">
+                                <input type="text"  name="class_id"   lay-verify="required" placeholder="请输入班级号" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">是否在校：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="stu_isinschool" required  lay-verify="required" placeholder="0外校，1本校" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+
                         
                         <div class="layui-btn-container" style="text-align: center;">
                             <button type="submit" class="layui-btn">注册并登录</button>

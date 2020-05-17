@@ -27,8 +27,10 @@ public class AdminRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        simpleAuthorizationInfo.addRole("admin");
-        simpleAuthorizationInfo.addStringPermission("admin");
+        if (principals.getPrimaryPrincipal() instanceof Admin){
+            simpleAuthorizationInfo.addRole("admin");
+            simpleAuthorizationInfo.addStringPermission("admin");
+        }
         return simpleAuthorizationInfo;
     }
 

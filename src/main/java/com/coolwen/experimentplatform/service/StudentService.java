@@ -41,6 +41,8 @@ public interface StudentService {
 
     Student findStudentByStuXuehao(String xuehao);
 
+    Student findclassStudentByStuXuehao(String xuehao);
+
     List<Student> findStudentByClassId(int class_id);
 
     Page<Student> pageStudentByClassId(int class_id,int classid);

@@ -39,7 +39,7 @@ public class UserModularRealmAuthenticator extends ModularRealmAuthenticator {
                 typeRealms.add(realm);
             }
         }
-
+        System.out.println(typeRealms.size());
         // 判断是单Realm还是多Realm
         if (typeRealms.size() == 1){
             System.out.println("doSingleRealmAuthentication() execute ");

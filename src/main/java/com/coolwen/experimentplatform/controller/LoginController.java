@@ -97,7 +97,7 @@ public class LoginController {
             model.addObject("msg", "验证码错误");
             return model;
         }
-        LoginToken token = new LoginToken(username, ShiroKit.md5(password,username),loginType);
+        LoginToken token = new LoginToken(username,ShiroKit.md5(password,username),loginType);
         Message message = new Message();
         try {
             subject.login(token);
@@ -108,29 +108,28 @@ public class LoginController {
             }if (loginType.equals("teacher")){
                 Admin admin = (Admin) subject.getPrincipal();
             }
+            model.setViewName("common");//设置登陆成功之后默认跳转页面
         } catch (UnknownAccountException e) {
             //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
+            model.setViewName("login");
         } catch (IncorrectCredentialsException e) {
             //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
+            model.setViewName("login");
         } catch (ExcessiveAttemptsException e) {
             // TODO: handle exception
             //message.put("emsg","登录失败多次，账户锁定1小时!");
             model.addObject("msg", "登录失败多次，账户锁定1小时!");
+            model.setViewName("login");
         } catch (AuthenticationException e) {
             //message.put("emsg",e.getMessage());
             System.out.println(e.getMessage());
             model.addObject("msg", e.getMessage());
             //           logger.info("登录信息MSG:" + msg);
-        }
-        logger.debug("登陆错误信息:" + message.get("emsg"));
-        if (ShiroKit.isEmpty(model.getModel())) {
-            System.out.println(message.get("emsg"));
-            model.setViewName("user/list");//设置登陆成功之后默认跳转页面
-        } else {
             model.setViewName("login");
         }
+        logger.debug("登陆错误信息:" + message.get("emsg"));
         return model;
     }
 
@@ -142,27 +141,49 @@ public class LoginController {
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public ModelAndView register(@RequestParam("account")String username,
-                           @RequestParam("password") String password,
-                           @RequestParam("type") String registType,
-                           @RequestParam("tel") String tel) {
+                                 @RequestParam("pass") String pass,
+                                 @RequestParam("password") String password,
+                                 @RequestParam("stu_xuehao") String stu_xuehao,
+                                 @RequestParam("stu_isinschool") boolean stu_isinschool,
+                                 @RequestParam("class_id") String class_id,
+                                 @RequestParam("tel") String tel,
+                                 @RequestParam("name") String name) {
         ModelAndView model = new ModelAndView();
-        if (registType.equals("student")){
-            Student student  = new Student();
-            student.setStuUname(username);
-            student.setStuPassword(ShiroKit.md5(password,username));//密码加密
-            student.setStuMobile(tel);
-            studentService.addStudent(student);
-            model.setViewName("login");
-        }if (registType.equals("teacher")){
-            Admin admin = new Admin();
-            admin.setMobile(tel);
-            admin.setUname(ShiroKit.md5(password,username));
-            admin.setPassword(password);
-            adminService.add(admin);
-            model.setViewName("login");
+        try {if (pass.equals(password)){
+                Student student1 = studentService.findByUname(username);
+                if (student1 != null){
+                    model.addObject("msg1", "用户名已存在");
+                    model.setViewName("register");
+                }else {
+                    Student student  = new Student();
+                    student.setStuIsinschool(stu_isinschool);
+                    if (class_id != ""){
+                        student.setClassId(Integer.valueOf(class_id));
+                    }
+                    student.setStuUname(username);
+                    student.setStuPassword(ShiroKit.md5(password,username));
+                    if (stu_xuehao!= ""){
+                        System.out.println("wuhsuji");
+                        student.setStuXuehao(stu_xuehao);
+                    }
+                    student.setStuName(name);
+                    student.setStuMobile(tel);
+                    studentService.addStudent(student);
+                    System.out.println(student);
+                    model.addObject("msg2", "注册成功！！！");
+                    model.setViewName("login");
+                }
+            }else {
+                model.setViewName("register");
+                model.addObject("msg3", "两次输入密码不同");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return model;
     }
+
 
 
     @RequestMapping(value = {"/change"}, method = RequestMethod.POST)//修改个人信息

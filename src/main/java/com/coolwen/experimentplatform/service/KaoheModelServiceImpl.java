@@ -65,4 +65,14 @@ public class KaoheModelServiceImpl implements KaoheModelService {
     public long countKaoheModel() {
         return kaoheModelRepository.count();
     }
+
+    @Override
+    public List<KaoheModel> findAll() {
+        return kaoheModelRepository.findAll();
+    }
+
+    @Override
+    public Integer findKaoheNum() {
+        return kaoheModelRepository.findKaoheNum();
+    }
 }

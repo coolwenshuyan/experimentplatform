@@ -20,10 +20,10 @@ public class KaoHeModelScore {
     @Column(length = 11,nullable = false)
     private int stuId;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "int default 0")
     private float mTestScore;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "int default 0")
     private float mReportScore;
 
     @Column(nullable = false,columnDefinition="bit default 0")
@@ -40,6 +40,9 @@ public class KaoHeModelScore {
 
     @Column(nullable = false,columnDefinition = "float default 0")
     private float mScore;
+
+    public KaoHeModelScore() {
+    }
 
     public KaoHeModelScore(int tKaohemodleId, int stuId, float mTestScore, float mReportScore, int mOrder, float mScale) {
         this.tKaohemodleId = tKaohemodleId;

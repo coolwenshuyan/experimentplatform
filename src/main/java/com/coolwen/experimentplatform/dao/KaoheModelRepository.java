@@ -33,4 +33,7 @@ public interface KaoheModelRepository extends BaseRepository<KaoheModel,Integer>
     @Query("select k.m_id from KaoheModel as k")
     List<Integer> findAllMid();
 
+    @Query("select count(k) from KaoheModel k")
+    Integer findKaoheNum();
+
 }

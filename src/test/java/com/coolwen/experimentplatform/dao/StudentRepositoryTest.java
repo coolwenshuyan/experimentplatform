@@ -22,7 +22,7 @@ class StudentRepositoryTest {
 
     @Test
     void findAllById() {
-        System.out.println(studentRepository.findAllById(1).getStuUname());
+        System.out.println(studentRepository.findStudentByStuXuehao("1706101022").getStuUname());
     }
 
     @Test
