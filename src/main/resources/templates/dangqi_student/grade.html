@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>成绩查询</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css" />
+		<style>
+			.layui-tab-item{
+				line-height: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="left_nav app" style="height: 100%; width: 100%;position: fixed;">	
+		<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
+			<li class="layui-nav-item">
+				<a href="#">首页</a>
+			</li>
+			<li class="layui-nav-item ">
+				<a href="javascript:;">实验大厅</a>
+				<dl class="layui-nav-child">
+					
+					<dd>
+						<a href="index.html">考核实验</a>
+					</dd>
+					<dd>
+						<a href="all-test.html">全部实验</a>
+					</dd>
+					
+				</dl>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;">理论测试</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="ceshi.html">理论测试</a>
+					</dd>
+					
+				</dl>
+				
+			</li>
+			<li class="layui-nav-item layui-nav-itemed">
+				<a href="javascript:;">查看实验成绩</a>
+				<dl class="layui-nav-child">
+					<dd class="layui-this">
+						<a href="grade.html">实验成绩汇总</a>
+					</dd>
+					
+				</dl>
+			</li>
+			<li class="layui-nav-item ">
+				<a href="javascript:;">帮助中心</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="jieshao.html">仿真实验介绍</a>
+					</dd>
+					<dd>
+						<a href="team.html">关于我们</a>
+					</dd>
+					
+					
+				</dl>
+			</li>
+		</ul>
+	</div>
+		<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">
+			<span class="layui-breadcrumb layui-col-xs3">
+  				<a href="/">查看实验成绩</a>
+  				<!--<a href="/demo/">实验成绩汇总</a>-->
+  				<a><cite>实验成绩汇总</cite></a>
+			</span>
+			<span class="information layui-col-xs2 layui-col-xs-offset7">
+				<p class="layui-col-xs7">test</p>
+				<a href="change.html">
+					<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">
+				</a>
+			</span>
+		</div>
+		<hr >	
+		
+		
+		
+		<br>
+		
+		
+		<div class="layui-tab" style="margin-left: 17%;">
+			<ul class="layui-tab-title">
+				<li class="layui-this">考核实验模块成绩</li>
+				<li>总评成绩</li>
+				
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show" >
+					<table border="1"   width="500"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
+						<tr align="center">
+							<td>序号</td>
+							<td>考核实验名称</td>
+							<td>实验模块测试成绩<br>(50%)</td>
+							<td>实验模块报告成绩<br>(50%)</td>
+							<td>实验模块总成绩</td>
+						</tr>
+						<tr align="center">
+							<td>1</td>
+							<td>考核实验模块1</td>
+							<td>76</td>
+							<td>87</td>
+							<td>78</td>
+						</tr>
+						<tr align="center">
+							<td>2</td>
+							<td>考核实验模块2</td>
+							<td>78</td>
+							<td>87</td>
+							<td>57</td>
+						</tr>
+						<tr align="center">
+							<td>3</td>
+							<td>考核实验模块3</td>
+							<td>87</td>
+							<td>67</td>
+							<td>76</td>
+						</tr>
+					</table>
+					
+					<p style="color: grey;">注：考核实验模块成绩：考核实验模块测试成绩*比例+考核实验模块报告成绩*比例=考核实验模块成绩。</p>
+				</div>
+				<div class="layui-tab-item" >
+					<table border="1"   width="500"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
+						<tr align="center">
+							<td>序号</td>
+							<td>考核实验模块成绩<br>(50%)</td>
+							<td>理论测试成绩<br>(50%)</td>
+							<td>总评成绩</td>
+						</tr>
+						<tr align="center">
+							<td>1</td>
+							<td>76</td>
+							<td>87</td>
+							<td>78</td>
+						</tr>
+						
+					</table>
+					<p style="color: grey;">注：总评成绩：（<b>考核实验模块1成绩*权重+考核实验模块2成绩*权重…</b>）*比例+理论测试成绩*比例=总评成绩。</p>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

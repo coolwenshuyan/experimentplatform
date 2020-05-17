@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8" />
+		<title>仿真实验介绍</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+	</head>
+    <style type="text/css">
+	    p{
+	     text-indent: 2em;
+	     font-size: 16px;
+	     line-height: 30px;
+	    }
+    </style>
+
+	<body>
+	<div id="left_nav">	
+		<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
+			<li class="layui-nav-item">
+				<a href="../home_page/index.html">首页</a>
+			</li>
+			<li class="layui-nav-item ">
+				<a href="javascript:;">实验大厅</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="index.html">考核实验</a>
+					</dd>
+					<dd>
+						<a href="all-test.html">全部实验</a>
+					</dd>
+					
+				</dl>
+			</li>
+
+			<li class="layui-nav-item">
+				<a href="javascript:;">查看实验成绩</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="grade.html">实验成绩汇总</a>
+					</dd>
+					
+				</dl>
+			</li>
+			<li class="layui-nav-item layui-nav-itemed">
+				<a href="javascript:;">帮助中心</a>
+				<dl class="layui-nav-child">
+					<dd class="layui-this">
+						<a href="/setinfo/jiesao">仿真实验介绍</a>
+					</dd>
+					<dd>
+						<a href="/setinfo/aboutus">关于我们</a>
+					</dd>
+
+					
+				</dl>
+			</li>
+		</ul>
+	</div>
+		<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">
+			<span class="layui-breadcrumb layui-col-xs3">
+  				<a href="/">首页</a>
+  				<!--<a href="/demo/">演示</a>-->
+  				<a href="/">帮助中心</a>
+  				<a><cite>仿真实验介绍</cite></a>
+			</span>
+			<span class="information layui-col-xs2 layui-col-xs-offset7">
+				<p class="layui-col-xs7">test</p>
+				<a href="change.html">
+					<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">
+				</a>
+			</span>
+		</div>
+		<hr>
+		
+		<div th:utext="${setInfo.set_platintro}" class="layui-col-xs9 layui-col-xs-offset2">
+			<h2><b>学校简介</b></h2><br>
+			<p>四川旅游学院是中国第一所独立设置的旅游类普通本科高等学校，2018年，被国务院侨办批准为“海外惠侨工程----
+			中餐繁荣计划”基地。作为四川省本科院校整体转型发展改革试点高校，学校坚持“地方性、应用型”办学定位，
+			不断深化教育改革，传承中国优秀烹饪旅游文化， 培养适应社会经济发展和烹饪旅游现代化发展的应用型人才。 </p>
+            <p>四川旅游学院是中国第一所独立设置的旅游类普通本科高等学校，2018年，被国务院侨办批准为“海外惠侨工程----
+                                 中餐繁荣计划”基地。作为四川省本科院校整体转型发展改革试点高校，学校坚持“地方性、应用型”办学定位，
+                                 不断深化教育改革，传承中国优秀烹饪旅游文化， 培养适应社会经济发展和烹饪旅游现代化发展的应用型人才。 </p>
+            <br>
+			<h2><b>功能介绍</b></h2><br>
+			<p>虚拟仿真实验教学管理平台主要功能有：查看师资力量，查看申报书，查看实验教学成果以见增加老师和学生之间的互动。</p>
+			<br>
+			<h2><b>目的</b></h2><br>
+			<p>虚拟仿真实验教学管理平台可以促进学生之间的相互交流，也可以通过相关平台来提高自己。</p>
+			<br>
+		</div>
+			
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

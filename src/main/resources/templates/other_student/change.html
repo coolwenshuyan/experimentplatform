@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>个人信息</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+		<script type="text/javascript" src="../../static/js/vue.js"></script>
+		 <style>
+
+.layui-form{
+	margin-left: 13%;
+}
+.layui-btn+.layui-btn {
+    margin-left: 35%;
+}
+
+.right{
+  width: 80%;
+  margin-left: 20%;
+}
+  .task{
+    float: left;
+    margin-left: 50px;
+    margin-top: 0px;
+  }
+.taskWord{
+	padding-top: 5px;
+  margin-left: 25%;
+  color: #ffffff;
+}
+
+  .boder{
+    
+    height: 100vh;
+	padding-top: 50px;
+  }
+  .layout{
+    float: right;
+    margin-right: 20px;
+  }
+  .img{
+	  width: 20px;
+	  height: 20px;
+    padding-top: 20px;
+  }
+  .InputBox{
+    padding-left: 20px;
+    margin-top: 20px;
+    height: 30px;
+    width: 80%;
+    margin-left: 10px;
+    color: #999999;
+  }
+  .TitleWord{
+    padding: 50px 5% 0 5%;
+    display: inline-block;
+    font-size: 25px;
+  }
+  .modify{
+    /*float: right;*/
+    /*margin-top: 50px;*/
+    /*margin-left: 80%;*/
+    display: inline-block;
+  }
+  .AccountNumberP{
+    display: inline-block;
+    margin-top: 25px;
+    margin-left: 5%;
+  }
+  .aa{
+    margin-left: 70px;
+  }
+  .bb{
+	  margin-left: 30px;
+  }
+  .ss{
+	  margin-top: 5px;
+	  transform: rotate(-90deg);
+	  -ms-transform: rotate(-90deg); /* IE 9 */
+	  
+	  -moz-transform: rotate(-90deg); /* Firefox */
+	  
+	  -webkit-transform: rotate(-90deg); /* Safari and Chrome */
+	  
+	  -o-transform: rotate(-90deg); /* Opera */
+  }
+  .titleImg{
+	  margin-left: 20px;
+  }
+  .userImg{
+	  width: 50px;
+	  height: 50px;
+	  border-radius: 50px;
+  }
+  
+
+</style>
+
+	</head>
+
+	<body>
+		
+			
+		
+	<div id="left_nav app" style="height: 100%; width: 100%;position: fixed;">	
+		<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
+			<li class="layui-nav-item">
+				<a href="#">首页</a>
+			</li>
+			<li class="layui-nav-item ">
+				<a href="javascript:;">实验大厅</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="all-test.html">全部实验</a>
+					</dd>
+					
+				</dl>
+			</li>
+
+
+			<li class="layui-nav-item ">
+				<a href="javascript:;">帮助中心</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a href="jieshao.html">仿真实验介绍</a>
+					</dd>
+					<dd>
+						<a href="team.html">关于我们</a>
+					</dd>
+					
+					
+				</dl>
+			</li>
+		</ul>
+	</div>
+		<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">
+			<span class="layui-breadcrumb layui-col-xs3">
+  				<a href="/">首页</a>
+  				<!--<a href="/demo/">演示</a>-->
+  				<a><cite>个人信息</cite></a>
+			</span>
+			<span class="information layui-col-xs2 layui-col-xs-offset7">
+				<p class="layui-col-xs7">test</p>
+				<a href="change.html">
+					<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">
+				</a>
+			</span>
+		</div>
+		<hr >	
+	
+	
+	
+	<div id="app">
+		
+		
+		
+		<form class="layui-form" action="">
+ 
+  		<br><br>
+  
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">用户名</label>
+      <div class="layui-input-inline">
+        <input type="tel" name="id" lay-verify="required|id" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">姓名</label>
+      <div class="layui-input-inline">
+        <input type="text" name="name" lay-verify="name" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">学号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="xuehao" lay-verify="required|xuehao" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">手机号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="mobile" lay-verify="mobile"  autocomplete="off" class="layui-input">
+      </div>
+    </div><br><br>
+    <div class="layui-inline">
+      <label class="layui-form-label">所属班级</label>
+      <div class="layui-input-inline">
+        <input type="text" name="class" lay-verify="class" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+  </div>
+  
+  
+  <br><br>
+ 
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
+      
+      	<button class="layui-btn layui-btn-primary"  href="#">退出登录</button>
+     
+    </div>
+  </div>
+</form>
+    </div>
+
+		
+		
+	
+		
+		
+		
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+  
+  //日期
+  laydate.render({
+    elem: '#date'
+  });
+  laydate.render({
+    elem: '#date1'
+  });
+  
+  //创建一个编辑器
+  var editIndex = layedit.build('LAY_demo_editor');
+ 
+  //自定义验证规则
+  form.verify({
+    title: function(value){
+      if(value.length < 5){
+        return '标题至少得5个字符啊';
+      }
+    }
+    ,pass: [
+      /^[\S]{6,12}$/
+      ,'密码必须6到12位，且不能出现空格'
+    ]
+    ,content: function(value){
+      layedit.sync(editIndex);
+    }
+  });
+  
+  //监听指定开关
+  form.on('switch(switchTest)', function(data){
+    layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+      offset: '6px'
+    });
+    layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+  });
+  
+  //监听提交
+  form.on('submit(demo1)', function(data){
+    layer.alert(JSON.stringify(data.field), {
+    	
+      title: '最终的提交信息'
+    })
+    return false;
+  });
+ 
+  //表单赋值
+  layui.$('#LAY-component-form-setval').on('click', function(){
+    form.val('example', {
+      "username": "贤心" // "name": "value"
+      ,"password": "123456"
+      ,"interest": 1
+      ,"like[write]": true //复选框选中状态
+      ,"close": true //开关状态
+      ,"sex": "女"
+      ,"desc": "我爱 layui"
+    });
+  });
+  
+  //表单取值
+  layui.$('#LAY-component-form-getval').on('click', function(){
+    var data = form.val('example');
+    alert(JSON.stringify(data));
+  });
+  
+});
+</script>
+
+	</body>
+
+</html>
