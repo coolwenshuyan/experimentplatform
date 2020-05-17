@@ -27,6 +27,16 @@ public class ReportAnswer {
     @Column(name = "score")
     private int score;
 
+    public ReportAnswer(int stuId, int reportId, Long stuReportAnswer, int score) {
+        this.stuId = stuId;
+        this.reportId = reportId;
+        this.stuReportAnswer = stuReportAnswer;
+        this.score = score;
+    }
+
+    public ReportAnswer() {
+    }
+
     public int getId() {
         return id;
     }
@@ -65,5 +75,16 @@ public class ReportAnswer {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "ReportAnswer{" +
+                "id=" + id +
+                ", stuId=" + stuId +
+                ", reportId=" + reportId +
+                ", stuReportAnswer=" + stuReportAnswer +
+                ", score=" + score +
+                '}';
     }
 }

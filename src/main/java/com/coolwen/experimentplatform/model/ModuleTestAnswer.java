@@ -11,7 +11,6 @@ import java.util.List;
 @Table(name = "t_mtest_answer")
 public class ModuleTestAnswer {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "mtest_answer_id")
     @TableGenerator(name = "mtest_answer_id", initialValue = 0, allocationSize = 1,table = "seq_table")
@@ -31,15 +30,15 @@ public class ModuleTestAnswer {
     private int answerOrder;
 
     @Column(name = "quest_id")
-    private Integer questId;
+    private int questId;
 
-    public ModuleTestAnswer(String answerDescribe, int answerOrder) {
+    public ModuleTestAnswer(String answerDescribe, int answerOrder, int questId) {
         this.answerDescribe = answerDescribe;
         this.answerOrder = answerOrder;
+        this.questId = questId;
     }
 
     public ModuleTestAnswer() {
-
     }
 
 
@@ -73,6 +72,16 @@ public class ModuleTestAnswer {
 
     public void setQuestId(int questId) {
         this.questId = questId;
+    }
+
+    @Override
+    public String toString() {
+        return "ModuleTestAnswer{" +
+                "answerId=" + answerId +
+                ", answerDescribe='" + answerDescribe + '\'' +
+                ", answerOrder=" + answerOrder +
+                ", questId=" + questId +
+                '}';
     }
 
 }

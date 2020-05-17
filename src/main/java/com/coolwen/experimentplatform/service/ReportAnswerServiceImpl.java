@@ -29,7 +29,7 @@ public class ReportAnswerServiceImpl implements ReportAnswerService {
 
     @Override
     public ReportAnswer updateReportAnswer(int id) {
-        ReportAnswer reportAnswer = reportAnswerRepository.findAllById(id);
+        ReportAnswer reportAnswer = reportAnswerRepository.findById(id);
         return reportAnswer;
     }
 

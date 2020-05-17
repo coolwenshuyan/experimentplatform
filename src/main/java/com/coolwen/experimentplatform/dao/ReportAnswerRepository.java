@@ -11,7 +11,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface ReportAnswerRepository extends BaseRepository<ReportAnswer,Integer>,JpaSpecificationExecutor<ReportAnswer> {
 
-    ReportAnswer findAllById(int id);
+    ReportAnswer findById(int id);
 
     String findByReportId(int reportId);
+
+
+
+
 }

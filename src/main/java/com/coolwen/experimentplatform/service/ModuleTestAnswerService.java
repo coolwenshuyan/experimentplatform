@@ -14,13 +14,21 @@ public interface ModuleTestAnswerService {
 
     public void addAnswers(ModuleTestAnswer moduleTestAnswer);
 
-    public void deleteAnswer(int answerId);
+    public int deleteAnswer(int answerId);
 
     public ModuleTestAnswer updateAnswer(int answerId);
 
-    public List<ModuleTestAnswer> loadAnswer();
+    public List<ModuleTestAnswer> answerList();
 
     ModuleTestAnswer findByAnswerId(int answerId);
 
-    ModuleTestAnswer findByQuestId(int questId);
+    List<ModuleTestAnswer> findAllByQuestId(int questId);
+
+    List<ModuleTestAnswer> findAllByAnswerId(int answerI);
+
+    int findAnswerId(int answerId);
+
+    String findByAnswerDescribe(String answerDescribe);
+
+    int findQuestIdByAnswerId(int answerId);
 }

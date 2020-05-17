@@ -24,13 +24,13 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void deleteReport(int reportId) {
-        reportRepository.deleteById(reportId);
+    public Integer deleteReport(int reportId) {
+        return reportRepository.deleteByReportId(reportId);
     }
 
     @Override
     public Report updateReport(int reportId) {
-        Report report = reportRepository.findAllByReportId(reportId);
+        Report report = reportRepository.findByReportId(reportId);
         return report;
     }
 
@@ -42,6 +42,11 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Report findByReportId(int reportId) {
         return null;
+    }
+
+    @Override
+    public List<Report> findAllByReportId(int reportId) {
+        return reportRepository.findAllByReportId(reportId);
     }
 
 }

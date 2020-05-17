@@ -5,14 +5,23 @@ import com.coolwen.experimentplatform.model.ModuleTestAnswer;
 import com.coolwen.experimentplatform.model.Report;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author 淮南
  * @date 2020/5/13 20:12
  */
-public interface ReportRepository extends BaseRepository<Report,Integer>,JpaSpecificationExecutor<Report> {
+public interface ReportRepository extends BaseRepository<Report, Integer>, JpaSpecificationExecutor<Report> {
 
-//    @Query("select r from Report r ")
-    Report findAllByReportId(int reportId);
+
+    //    @Query("select r from Report r ")
+    Report findByReportId(int reportId);
+
+    @Transactional
+    int deleteByReportId(int reportId);
+
+    List<Report> findAllByReportId(int reportId);
 
 }

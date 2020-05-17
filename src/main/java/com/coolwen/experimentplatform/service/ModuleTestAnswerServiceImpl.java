@@ -26,8 +26,9 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
     }
 
     @Override
-    public void deleteAnswer(int answerId) {
-        answer.deleteById(answerId);
+    public int deleteAnswer(int answerId) {
+        System.out.println("service里面的+++++++++"+answerId);
+        return answer.deleteByAnswerId(answerId);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
     }
 
     @Override
-    public List<ModuleTestAnswer> loadAnswer() {
+    public List<ModuleTestAnswer> answerList() {
         return answer.findAll();
     }
 
@@ -48,9 +49,30 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
     }
 
     @Override
-    public ModuleTestAnswer findByQuestId(int questId) {
+    public List<ModuleTestAnswer> findAllByQuestId(int questId) {
         return answer.findAllByQuestId(questId);
     }
 
+    @Override
+    public List<ModuleTestAnswer> findAllByAnswerId(int answerId) {
+        return answer.findAllByAnswerId(answerId);
+    }
+
+    @Override
+    public int findAnswerId(int answerId) {
+        return answer.findByAId(answerId);
+    }
+
+    @Override
+    public String findByAnswerDescribe(String answerDescribe) {
+        return answer.findByAnswerDescribe(answerDescribe);
+    }
+
+    @Override
+    public int findQuestIdByAnswerId(int answerId) {
+        ModuleTestAnswer a =answer.findByAnswerId(answerId);
+
+        return a.getQuestId();
+    }
 
 }

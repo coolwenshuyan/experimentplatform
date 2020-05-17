@@ -28,10 +28,10 @@ public class DaoTest {
 //    public void findAnswer(){
 //        System.out.println(moduleTestAnswerRepository.findAnswerDescribeByQuestId(1));
 //    }
-
-    @Test
-    public void findQuestDescribe(){
-        System.out.println(questRepository.findAllByQuestDescribe("地球"));
-    }
+//
+//    @Test
+//    public void findQuestDescribe(){
+//        System.out.println(questRepository.findAllByQuestDescribe("地球"));
+//    }
 
 }

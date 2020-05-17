@@ -1,6 +1,8 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -16,9 +18,21 @@ public interface ModuleTestQuestService {
 
     public void updateQuest(int questId);
 
-    public List<ModuleTestQuest> load(String questDescribe);
+    public List<ModuleTestQuest> load(String questDescribe,int mId);
 
-    public ModuleTestQuest update(int questId);
+    public ModuleTestQuest findQuestByQuestId(int questId);
 
     public List<ModuleTestQuest> loadAll();
+
+    String findByQuestDescribes(String questDescribe);
+
+    List<ModuleTestQuest> find(int mId);
+
+    List<ModuleTestQuest> findAllByQuestId(int questId);
+
+    int countAllByQuestId();
+
+    ModuleTestQuest findByQuestDescribe(String questDescribe);
+
+    Page<ModuleTestQuest> findByPage(ModuleTestQuest moduleTestQuest, Pageable pageable);
 }

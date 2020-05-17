@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "t_mtest_quest")
 public class ModuleTestQuest {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "mtest_quest_id")
     @TableGenerator(name = "mtest_quest_id", initialValue = 0, allocationSize = 1,table = "seq_table")
@@ -34,6 +35,17 @@ public class ModuleTestQuest {
     @Column(name = "m_id")
     private int mId;
 
+    public ModuleTestQuest(String questDescribe, String questType, String questAnswer, float questScore, int questOrder, int mId) {
+        this.questDescribe = questDescribe;
+        this.questType = questType;
+        this.questAnswer = questAnswer;
+        this.questScore = questScore;
+        this.questOrder = questOrder;
+        this.mId = mId;
+    }
+
+    public ModuleTestQuest() {
+    }
 
     public int getQuestId() {
         return questId;
@@ -89,5 +101,18 @@ public class ModuleTestQuest {
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    @Override
+    public String toString() {
+        return "ModuleTestQuest{" +
+                "questId=" + questId +
+                ", questDescribe='" + questDescribe + '\'' +
+                ", questType='" + questType + '\'' +
+                ", questAnswer='" + questAnswer + '\'' +
+                ", questScore=" + questScore +
+                ", questOrder=" + questOrder +
+                ", mId=" + mId +
+                '}';
     }
 }

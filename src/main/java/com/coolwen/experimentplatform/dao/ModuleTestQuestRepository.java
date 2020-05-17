@@ -16,15 +16,31 @@ public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQues
 
 
 
-    @Query("select qs from ModuleTestQuest qs where qs.questDescribe like %?1")
-    public List<ModuleTestQuest> findAllByQuestDescribe(@Param("questDescribe") String questDescribe);
+//    @Query("select qs from ModuleTestQuest qs where qs.questDescribe like CONCAT('%',:questDescribe,'%') or qs.mId =?2")
+//    public List<ModuleTestQuest> findAllByQuestDescribeContainingAndMId(@Param("questDescribe") String questDescribe,@Param("mId") int mId);
 
     @Query("select q from ModuleTestQuest q where q.questId=?1")
     public ModuleTestQuest findQuestByQuestId(int questId);
 
     @Query("select quests from ModuleTestQuest quests order by mid asc ,questOrder asc ")
-    List<ModuleTestQuest> findAll(int mid,int questOrder, Sort sort);
+    List<ModuleTestQuest> findAll(int mid, int questOrder, Sort sort);
 
+    @Query("select q1.questId from ModuleTestQuest q1 where q1.questDescribe = ?1")
+    String findByQuestDescribes(@Param("questDescribe") String questDescribe);
 
+    @Query(value = "select qs from ModuleTestQuest qs where if(?1 !='',qs.questDescribe like concat('%',?1,'%'),1=1) and if(?2 !='',qs.mId=?2,1=1)",nativeQuery = true)
+    public List<ModuleTestQuest> findAllByQuestDescribeAndMId(String questDescribe,int mId);
+
+    @Query("select q from ModuleTestQuest q where q.mId=?1")
+    List<ModuleTestQuest> findAllByMid(int mId);
+
+    List<ModuleTestQuest> findAllByQuestId(int questId);
+
+    @Query("SELECT COUNT(q) FROM ModuleTestQuest q")
+    int countAllByQuestId();
+
+    ModuleTestQuest findByQuestDescribe(@Param("questDescribe") String questDescribe);
+
+//     Page<ModuleTestQuest> findModuleTestQuestsByQuestDescribeIsLikeOrMId();
 
 }

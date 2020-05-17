@@ -13,11 +13,13 @@ public interface ReportService {
 
     public void addReport(Report report);
 
-    public void deleteReport(int reportId);
+    public Integer deleteReport(int reportId);
 
     public Report updateReport(int reportId);
 
     public List<Report> loadReport();
 
     Report findByReportId(int reportId);
+
+    List<Report> findAllByReportId(int reportId);
 }

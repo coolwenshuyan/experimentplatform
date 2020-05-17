@@ -16,8 +16,14 @@ public class Report {
     @Column(name = "report_id")
     private int reportId;
 
+    @Column(name = "report_order")
+    private int reportOrder;
+
     @Column(name = "report_describe")
     private String reportDescribe;
+
+    @Column(name = "m_id")
+    private int mId;
 
     @Column(name = "report_type")
     private String reportType;
@@ -25,11 +31,17 @@ public class Report {
     @Column(name = "report_score")
     private float reportScore;
 
-    @Column(name = "report_order")
-    private int reportOrder;
 
-    @Column(name = "m_id")
-    private int mId;
+    public Report(int reportOrder, String reportDescribe, int mId, String reportType, float reportScore) {
+        this.reportOrder = reportOrder;
+        this.reportDescribe = reportDescribe;
+        this.mId = mId;
+        this.reportType = reportType;
+        this.reportScore = reportScore;
+    }
+
+    public Report() {
+    }
 
     public int getReportId() {
         return reportId;
@@ -77,5 +89,17 @@ public class Report {
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "reportId=" + reportId +
+                ", reportDescribe='" + reportDescribe + '\'' +
+                ", reportType='" + reportType + '\'' +
+                ", reportScore=" + reportScore +
+                ", reportOrder=" + reportOrder +
+                ", mId=" + mId +
+                '}';
     }
 }

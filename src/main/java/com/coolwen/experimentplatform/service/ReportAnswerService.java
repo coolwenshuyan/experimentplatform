@@ -21,5 +21,5 @@ public interface ReportAnswerService {
 
     ReportAnswer findByReportAnswerId(int id);
 
-    
+
 }
