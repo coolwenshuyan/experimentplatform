@@ -87,5 +87,11 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     Student findAllByStuUname(String stuUname);
 
 
-
+//<<<<<<< Updated upstream
+    @Query(value = "select stu_uname from t_student where id = ?",nativeQuery = true)
+    String findStudentname(int a);
+//=======
+////    List<TreportGradeDto> ListStudentDto();
+//
+//>>>>>>> Stashed changes
 }
