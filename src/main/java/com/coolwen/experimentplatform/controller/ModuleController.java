@@ -64,10 +64,14 @@ public class ModuleController {
 
     //试题列表
     @RequestMapping("list")
-    public String list(ModuleTestQuest moduleTestQuest, @RequestParam(value = "page", defaultValue = "0") Integer page,
+    public String list(ModuleTestQuest moduleTestQuest,HttpSession session, @RequestParam(value = "page", defaultValue = "0") Integer page,
                        @RequestParam(value = "size", defaultValue = "5") Integer size,Model model) {
         Pageable pageable = PageRequest.of(0,10);
         Page<ModuleTestQuest> questPage = questService.findByPage(moduleTestQuest,pageable);
+
+        String title = "";
+        model.addAttribute("title",title);
+        System.out.println(session.getAttribute("title"));
 //        //当前页
 //        int num = page.getNumber();
 //        //数据总条数
@@ -80,6 +84,7 @@ public class ModuleController {
 //        boolean hasNext = page.hasNext();
 //        //分页后的结果集
 //        List<User> users = page.getContent();
+
         model.addAttribute("page", page);
         model.addAttribute("productPage", questPage);
         model.addAttribute("product", moduleTestQuest);
@@ -245,11 +250,13 @@ public class ModuleController {
     public String addAnswer(String title, Model model, ModuleTestAnswer moduleTestAnswer, ModuleTestQuest moduleTestQuest, HttpSession session) {
 
         moduleTestQuest.setQuestDescribe(title);
+        System.out.println("title:-------"+ title);
         System.out.println("测试选项————" + moduleTestAnswer);
         System.out.println("测试题目————" + moduleTestQuest);
 
         String Stitle = (String) session.getAttribute("title");
-        if (Stitle == null) {
+        System.out.println("Stitle:>>>>>>>>"+Stitle);
+        if (Stitle == null || Stitle.isEmpty() || Stitle == "") {
             questService.addModuleTestQuest(moduleTestQuest);
         }
 
