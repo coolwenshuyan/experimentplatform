@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="utf-8" />
@@ -49,7 +49,7 @@
 				<a href="javascript:;">查看实验成绩</a>
 				<dl class="layui-nav-child">
 					<dd class="layui-this">
-						<a href="grade.html">实验成绩汇总</a>
+						<a href="/grade/score">实验成绩汇总</a>
 					</dd>
 					
 				</dl>
@@ -71,7 +71,7 @@
 	</div>
 		<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">
 			<span class="layui-breadcrumb layui-col-xs3">
-  				<a href="/">查看实验成绩</a>
+  				<a>查看实验成绩</a>
   				<!--<a href="/demo/">实验成绩汇总</a>-->
   				<a><cite>实验成绩汇总</cite></a>
 			</span>
@@ -98,34 +98,34 @@
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show" >
 					<table border="1"   width="500"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
-						<tr align="center">
-							<td>序号</td>
-							<td>考核实验名称</td>
-							<td>实验模块测试成绩<br>(50%)</td>
-							<td>实验模块报告成绩<br>(50%)</td>
-							<td>实验模块总成绩</td>
+						<tr align="center" th:each="moduleGrade:${ModuleGrades}">
+							<td th:text="${moduleGrade.m_id}">序号</td>
+							<td th:text="${moduleGrade.m_name}">考核实验名称</td>
+							<td th:text="${moduleGrade.m_test_score}">实验模块测试成绩<br>(50%)</td>
+							<td th:text="${moduleGrade.m_report_score}">实验模块报告成绩<br>(50%)</td>
+							<td th:text="${moduleGrade.m_score}">实验模块总成绩</td>
 						</tr>
-						<tr align="center">
-							<td>1</td>
-							<td>考核实验模块1</td>
-							<td>76</td>
-							<td>87</td>
-							<td>78</td>
-						</tr>
-						<tr align="center">
-							<td>2</td>
-							<td>考核实验模块2</td>
-							<td>78</td>
-							<td>87</td>
-							<td>57</td>
-						</tr>
-						<tr align="center">
-							<td>3</td>
-							<td>考核实验模块3</td>
-							<td>87</td>
-							<td>67</td>
-							<td>76</td>
-						</tr>
+<!--						<tr align="center">-->
+<!--							<td>1</td>-->
+<!--							<td>考核实验模块1</td>-->
+<!--							<td>76</td>-->
+<!--							<td>87</td>-->
+<!--							<td>78</td>-->
+<!--						</tr>-->
+<!--						<tr align="center">-->
+<!--							<td>2</td>-->
+<!--							<td>考核实验模块2</td>-->
+<!--							<td>78</td>-->
+<!--							<td>87</td>-->
+<!--							<td>57</td>-->
+<!--						</tr>-->
+<!--						<tr align="center">-->
+<!--							<td>3</td>-->
+<!--							<td>考核实验模块3</td>-->
+<!--							<td>87</td>-->
+<!--							<td>67</td>-->
+<!--							<td>76</td>-->
+<!--						</tr>-->
 					</table>
 					
 					<p style="color: grey;">注：考核实验模块成绩：考核实验模块测试成绩*比例+考核实验模块报告成绩*比例=考核实验模块成绩。</p>
@@ -138,11 +138,11 @@
 							<td>理论测试成绩<br>(50%)</td>
 							<td>总评成绩</td>
 						</tr>
-						<tr align="center">
-							<td>1</td>
-							<td>76</td>
-							<td>87</td>
-							<td>78</td>
+						<tr align="center" th:each="totalScore:${totalScoreCurrents}">
+							<td th:text="${totalScore.id}">1</td>
+							<td th:text="${totalScore.mTotalScore}">76</td>
+							<td th:text="${totalScore.testScore}">87</td>
+							<td th:text="${totalScore.totalScore}">78</td>
 						</tr>
 						
 					</table>
