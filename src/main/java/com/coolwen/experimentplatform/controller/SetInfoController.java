@@ -163,6 +163,8 @@ public class SetInfoController {
         SetInfo setInfo = new SetInfo();
         setInfo.setId(1);
         SetInfo setInfo1 = setInfoService.findById(1);
+        setInfo.setSet_platintro(setInfo1.getSet_platintro());
+        setInfo.setSet_platstep(setInfo1.getSet_platstep());
         setInfo.setSet_aboutus(setInfo1.getSet_aboutus());
         setInfo.setSet_rotateimg(id1+","+id2+","+id3+","+id4);
         setInfoService.add(setInfo);
