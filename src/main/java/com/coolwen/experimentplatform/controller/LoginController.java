@@ -97,7 +97,7 @@ public class LoginController {
             model.addObject("msg", "验证码错误");
             return model;
         }
-        LoginToken token = new LoginToken(username,password,loginType);
+        LoginToken token = new LoginToken(username,ShiroKit.md5(password,username),loginType);
         Message message = new Message();
         try {
             subject.login(token);
@@ -108,7 +108,7 @@ public class LoginController {
             }if (loginType.equals("teacher")){
                 Admin admin = (Admin) subject.getPrincipal();
             }
-            model.setViewName("user/list");//设置登陆成功之后默认跳转页面
+            model.setViewName("common");//设置登陆成功之后默认跳转页面
         } catch (UnknownAccountException e) {
             //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
@@ -141,34 +141,41 @@ public class LoginController {
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public ModelAndView register(@RequestParam("account")String username,
+                                 @RequestParam("pass") String pass,
                                  @RequestParam("password") String password,
                                  @RequestParam("stu_xuehao") String stu_xuehao,
                                  @RequestParam("stu_isinschool") boolean stu_isinschool,
                                  @RequestParam("class_id") String class_id,
-                                 @RequestParam("tel") String tel) {
+                                 @RequestParam("tel") String tel,
+                                 @RequestParam("name") String name) {
         ModelAndView model = new ModelAndView();
-        try {
-            Student student1 = studentService.findByUname(username);
-            if (student1 != null){
-                model.addObject("msg", "用户名已存在");
-                model.setViewName("register");
+        try {if (pass.equals(password)){
+                Student student1 = studentService.findByUname(username);
+                if (student1 != null){
+                    model.addObject("msg1", "用户名已存在");
+                    model.setViewName("register");
+                }else {
+                    Student student  = new Student();
+                    student.setStuIsinschool(stu_isinschool);
+                    if (class_id != ""){
+                        student.setClassId(Integer.valueOf(class_id));
+                    }
+                    student.setStuUname(username);
+                    student.setStuPassword(ShiroKit.md5(password,username));
+                    if (stu_xuehao!= ""){
+                        System.out.println("wuhsuji");
+                        student.setStuXuehao(stu_xuehao);
+                    }
+                    student.setStuName(name);
+                    student.setStuMobile(tel);
+                    studentService.addStudent(student);
+                    System.out.println(student);
+                    model.addObject("msg2", "注册成功！！！");
+                    model.setViewName("login");
+                }
             }else {
-                Student student  = new Student();
-                student.setStuIsinschool(stu_isinschool);
-                if (class_id != ""){
-                    student.setClassId(Integer.valueOf(class_id));
-                }
-                student.setStuUname(username);
-                student.setStuPassword(password);
-                if (stu_xuehao!= ""){
-                    System.out.println("wuhsuji");
-                    student.setStuXuehao(stu_xuehao);
-                }
-                student.setStuMobile(tel);
-                studentService.addStudent(student);
-                System.out.println(student);
-                model.addObject("msg", "注册成功！！！");
-                model.setViewName("login");
+                model.setViewName("register");
+                model.addObject("msg3", "两次输入密码不同");
             }
 
         } catch (Exception e) {

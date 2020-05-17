@@ -76,9 +76,7 @@ public class StudentRealm extends AuthorizingRealm {
         }
         //获取用户信息
         LoginToken loginToken = (LoginToken) token;
-        System.out.println("111"+loginToken.getPassword().toString());
         Student student = studentService.findByUname(loginToken.getUsername());
-        System.out.println("222"+student.getStuPassword());
         if (student == null) {
             //这里返回后会报出对应异常
             return null;
