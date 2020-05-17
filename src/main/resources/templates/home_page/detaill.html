@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Fly Template v3.0，基于 layui 的极简社区页面模版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="fly,layui,前端社区">
+    <meta name="description" content="四川旅游学院答疑室">
+    <link rel="stylesheet" href="../../static/css//layui.css">
+    <link rel="stylesheet" href="../../static/css/css_home/global.css">
+</head>
+
+<body>
+
+<div class="fly-header layui-bg-black">
+    <div class="layui-container">
+        <p style="text-align: center;line-height: 62px;font-size: 16px;">虚拟仿真实验平台答疑室</p>
+
+        <ul class="layui-nav fly-nav-user">
+
+            <li class="layui-nav-item">
+                <a class="iconfont icon-touxiang layui-hide-xs" href="login.html"></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/login">用户登录</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/register">注册用户</a>
+            </li>
+
+            <!-- 未登入的状态 -->
+            <!--
+<li class="layui-nav-item">
+<a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
+</li>
+<li class="layui-nav-item">
+<a href="user/login.html">登入</a>
+</li>
+<li class="layui-nav-item">
+<a href="user/reg.html">注册</a>
+</li>
+<li class="layui-nav-item layui-hide-xs">
+<a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+</li>
+<li class="layui-nav-item layui-hide-xs">
+<a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+</li>
+-->
+
+        </ul>
+    </div>
+</div>
+
+<div class="layui-hide-xs">
+    <div class="fly-panel fly-column">
+        <div class="layui-container">
+            <p><a href="/question/list1"><返回上一级</a></p>
+
+            <div class="fly-column-right layui-hide-xs">
+                <span class="fly-search"><i class="layui-icon"></i></span>
+                <a href="#fabiao" class="layui-btn">发表新帖</a>
+            </div>
+            <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
+                <a href=#fabiao class="layui-btn">发表新帖</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-container">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12 content detail">
+            <div class="fly-panel detail-box">
+                <h1 th:text="${question.content}">问题</h1>
+<!--                <div class="fly-detail-info">-->
+<!--							<span class="fly-list-nums">-->
+<!--            					<a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>-->
+<!--         				 	</span>-->
+<!--                </div>-->
+                <span>提问人：</span>
+                <span th:text="${studentName}">用户名</span>
+                <span>提问时间：</span>
+                <span th:text="${question.dic_datetime}">时间</span>
+
+                <div class="fly-panel detail-box" id="flyReply">
+                    <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+                        <legend>回帖内容</legend>
+                    </fieldset>
+
+                    <ul class="jieda" id="jieda">
+                        <li data-id="111" class="jieda-daan" th:each="reply:${replies}">
+                            <div class="detail-about detail-about-reply">
+<!--                                图片-->
+<!--                                <a class="fly-avatar" href="">-->
+<!--                                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">-->
+<!--                                </a>-->
+                                <span>回复人姓名：</span>
+                                <div class="fly-detail-user">
+                                    <a type="text" th:text="${reply.reply_pname}">test</a>
+                                </div>
+                                <span>回复时间：</span>
+                                <div class="detail-hits">
+                                    <span th:text="${reply.dic_datetime}">时间</span>
+                                </div>
+                            </div>
+                            <div class="detail-body jieda-body photos">
+                                <span>回复内容：</span>
+                                <p th:utext="${reply.content}">回复内容</p>
+                            </div>
+                        </li>
+
+                        <!--								<li data-id="111" class="jieda-daan">-->
+                        <!--									<div class="detail-about detail-about-reply">-->
+                        <!--										<a class="fly-avatar" href="">-->
+                        <!--											<img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">-->
+                        <!--										</a>-->
+                        <!--										<div class="fly-detail-user">-->
+                        <!--											<a href="" class="fly-link">-->
+                        <!--												<cite>test</cite>-->
+                        <!--											</a>-->
+                        <!--										</div>-->
+                        <!--										<div class="detail-hits">-->
+                        <!--											<span>2017-11-30</span>-->
+                        <!--										</div>-->
+                        <!--									</div>-->
+                        <!--									<div class="detail-body jieda-body photos">-->
+                        <!--										<p>香菇那个蓝瘦，这是一条被采纳的回帖</p>-->
+                        <!--									</div>-->
+                        <!--								</li>-->
+
+                        <!-- 无数据时 -->
+                        <!-- <li class="fly-none">消灭零回复</li> -->
+                    </ul>
+
+
+                    <hr>
+
+                    <div style="margin-top: 50px">
+                        <form th:action="'/reply/' + ${question.id} + '/add1'" method="post">
+                            进行新增回复:
+                            <script id="editors" name="content" type="text/plain">
+                            </script>
+                            <input type="submit" value="提交回复">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="fly-footer" style="background-color:#174f37;color: white;line-height: 5px;">
+    版权所有Copyright © 2018 四川旅游学院虚拟仿真实验教学管理平台
+
+</div>
+
+<!--<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="../../static/js/js_home/layui.js"></script>
+
+<script th:src="@{/ueditor/ueditor.config.js}"></script>
+<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+<script th:inline="javascript">
+    UE.getEditor('editors');
+</script>
+<script>
+    layui.cache.page = 'jie';
+    layui.cache.user = {
+        username: '游客',
+        uid: -1,
+        avatar: '../../res/images/avatar/00.jpg',
+        experience: 83,
+        sex: '男'
+    };
+    layui.config({
+        version: "3.0.0",
+        base: '../../res/mods/'
+    }).extend({
+        fly: 'index'
+    }).use(['fly', 'face'], function() {
+        var $ = layui.$,
+            fly = layui.fly;
+        //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
+
+        $('.detail-body').each(function() {
+            var othis = $(this),
+                html = othis.html();
+            othis.html(fly.content(html));
+        });
+
+    });
+</script>
+
+</body>
+
+</html>
