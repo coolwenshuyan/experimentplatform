@@ -42,21 +42,23 @@ public class MyShiroRealm extends AuthorizingRealm {
     //    用来判断授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        logger.debug("aaaaaaaaaa-------------->>>>>>>>>>>>");
-        User user = (User) principals.getPrimaryPrincipal();
-        int uid = user.getId();
-        logger.debug("授权用户:" + user.getId() + "," + user.getUsername());
-        List<String> roles = userService.listRoleSnByUser(uid);
-        logger.debug("授权角色:" + roles);
-        List<Resource> reses = userService.listAllResource(uid);
-        List<String> permissions = new ArrayList<String>();
-        logger.debug("授权资源:" + reses);
-        for (Resource r : reses) {
-            permissions.add(r.getUrl());
-        }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.setRoles(new HashSet<String>(roles));
-        info.setStringPermissions(new HashSet<String>(permissions));
+        if (principals.getPrimaryPrincipal() instanceof User){
+            logger.debug("aaaaaaaaaa-------------->>>>>>>>>>>>");
+            User user = (User) principals.getPrimaryPrincipal();
+            int uid = user.getId();
+            logger.debug("授权用户:" + user.getId() + "," + user.getUsername());
+            List<String> roles = userService.listRoleSnByUser(uid);
+            logger.debug("授权角色:" + roles);
+            List<Resource> reses = userService.listAllResource(uid);
+            List<String> permissions = new ArrayList<String>();
+            logger.debug("授权资源:" + reses);
+            for (Resource r : reses) {
+                permissions.add(r.getUrl());
+            }
+            info.setRoles(new HashSet<String>(roles));
+            info.setStringPermissions(new HashSet<String>(permissions));
+        }
         return info;
     }
 

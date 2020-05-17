@@ -40,26 +40,30 @@ public class StudentRealm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        //拿到当前登录用户
-        Student student = (Student) principals.getPrimaryPrincipal();
-        //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        List<String> perminsStrlist = new ArrayList<>();//用户的权限集合
-        List<String> roleStrlist=new ArrayList<>();////用户的角色集合
-        roleStrlist.add("student");
-        if (student.isStuIsinschool()==true){//判断是否在校
-            perminsStrlist.add("isSchool");
-            if (student.getClassId()!=0){//判断是否分班
-                perminsStrlist.add("inClass");
-                //判断班级是否往期
-                ClassModel classModel= classService.findClassById(student.getClassId());
-                if (classModel.getClassIscurrent()==false){
-                    perminsStrlist.add("isCurrent");
+        if (principals.getPrimaryPrincipal() instanceof Student){
+            //拿到当前登录用户
+            Student student = (Student) principals.getPrimaryPrincipal();
+            //添加角色和权限
+            List<String> perminsStrlist = new ArrayList<>();//用户的权限集合
+            List<String> roleStrlist=new ArrayList<>();////用户的角色集合
+            roleStrlist.add("student");
+            if (student.isStuIsinschool()==true){//判断是否在校
+                perminsStrlist.add("isSchool");
+                if (student.getClassId()!=0){//判断是否分班
+                    perminsStrlist.add("inClass");
+                    //判断班级是否往期
+                    ClassModel classModel= classService.findClassById(student.getClassId());
+                    if (classModel!=null){
+                        if (classModel.getClassIscurrent()==false){
+                            perminsStrlist.add("isCurrent");
+                        }
+                    }
                 }
             }
+            simpleAuthorizationInfo.addStringPermissions(perminsStrlist);
+            simpleAuthorizationInfo.addRoles(roleStrlist);
         }
-        simpleAuthorizationInfo.addStringPermissions(perminsStrlist);
-        simpleAuthorizationInfo.addRoles(roleStrlist);
         return simpleAuthorizationInfo;
     }
 
@@ -72,7 +76,7 @@ public class StudentRealm extends AuthorizingRealm {
         }
         //获取用户信息
         LoginToken loginToken = (LoginToken) token;
-        System.out.println("111"+loginToken.getPassword());
+        System.out.println("111"+loginToken.getPassword().toString());
         Student student = studentService.findByUname(loginToken.getUsername());
         System.out.println("222"+student.getStuPassword());
         if (student == null) {

@@ -97,7 +97,7 @@ public class LoginController {
             model.addObject("msg", "验证码错误");
             return model;
         }
-        LoginToken token = new LoginToken(username, ShiroKit.md5(password,username),loginType);
+        LoginToken token = new LoginToken(username,password,loginType);
         Message message = new Message();
         try {
             subject.login(token);
@@ -108,29 +108,28 @@ public class LoginController {
             }if (loginType.equals("teacher")){
                 Admin admin = (Admin) subject.getPrincipal();
             }
+            model.setViewName("user/list");//设置登陆成功之后默认跳转页面
         } catch (UnknownAccountException e) {
             //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
+            model.setViewName("login");
         } catch (IncorrectCredentialsException e) {
             //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
+            model.setViewName("login");
         } catch (ExcessiveAttemptsException e) {
             // TODO: handle exception
             //message.put("emsg","登录失败多次，账户锁定1小时!");
             model.addObject("msg", "登录失败多次，账户锁定1小时!");
+            model.setViewName("login");
         } catch (AuthenticationException e) {
             //message.put("emsg",e.getMessage());
             System.out.println(e.getMessage());
             model.addObject("msg", e.getMessage());
             //           logger.info("登录信息MSG:" + msg);
-        }
-        logger.debug("登陆错误信息:" + message.get("emsg"));
-        if (ShiroKit.isEmpty(model.getModel())) {
-            System.out.println(message.get("emsg"));
-            model.setViewName("user/list");//设置登陆成功之后默认跳转页面
-        } else {
             model.setViewName("login");
         }
+        logger.debug("登陆错误信息:" + message.get("emsg"));
         return model;
     }
 
@@ -146,6 +145,7 @@ public class LoginController {
                            @RequestParam("type") String registType,
                            @RequestParam("tel") String tel) {
         ModelAndView model = new ModelAndView();
+        Message message = new Message();
         if (registType.equals("student")){
             Student student  = new Student();
             student.setStuUname(username);
