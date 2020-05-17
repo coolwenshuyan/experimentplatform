@@ -8,6 +8,15 @@
     <meta name="description" content="四川旅游学院答疑室">
     <link rel="stylesheet" href="../../static/css//layui.css">
     <link rel="stylesheet" href="../../static/css/css_home/global.css">
+    <style>
+        .photos{
+            border:1px solid lightgrey;
+            padding: 1%;
+        }
+        .detail-about .detail-hits{
+            top:0px
+        }
+    </style>
 </head>
 
 <body>
@@ -94,13 +103,13 @@
 <!--                                <a class="fly-avatar" href="">-->
 <!--                                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">-->
 <!--                                </a>-->
-                                <span>回复人姓名：</span>
-                                <div class="fly-detail-user">
+                                <span style="float: left">回复人姓名：</span>
+                                <div class="fly-detail-user" style="float: left">
                                     <a type="text" th:text="${reply.reply_pname}">test</a>
                                 </div>
-                                <span>回复时间：</span>
+                                <span style="float: left;margin-left:2%">回复时间：</span>
                                 <div class="detail-hits">
-                                    <span th:text="${reply.dic_datetime}">时间</span>
+                                    <span th:text="${reply.dic_datetime}" style="float: left">时间</span>
                                 </div>
                             </div>
                             <div class="detail-body jieda-body photos">
@@ -109,27 +118,7 @@
                             </div>
                         </li>
 
-                        <!--								<li data-id="111" class="jieda-daan">-->
-                        <!--									<div class="detail-about detail-about-reply">-->
-                        <!--										<a class="fly-avatar" href="">-->
-                        <!--											<img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">-->
-                        <!--										</a>-->
-                        <!--										<div class="fly-detail-user">-->
-                        <!--											<a href="" class="fly-link">-->
-                        <!--												<cite>test</cite>-->
-                        <!--											</a>-->
-                        <!--										</div>-->
-                        <!--										<div class="detail-hits">-->
-                        <!--											<span>2017-11-30</span>-->
-                        <!--										</div>-->
-                        <!--									</div>-->
-                        <!--									<div class="detail-body jieda-body photos">-->
-                        <!--										<p>香菇那个蓝瘦，这是一条被采纳的回帖</p>-->
-                        <!--									</div>-->
-                        <!--								</li>-->
 
-                        <!-- 无数据时 -->
-                        <!-- <li class="fly-none">消灭零回复</li> -->
                     </ul>
 
 
