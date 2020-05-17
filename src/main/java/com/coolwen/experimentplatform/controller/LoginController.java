@@ -141,28 +141,42 @@ public class LoginController {
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public ModelAndView register(@RequestParam("account")String username,
-                           @RequestParam("password") String password,
-                           @RequestParam("type") String registType,
-                           @RequestParam("tel") String tel) {
+                                 @RequestParam("password") String password,
+                                 @RequestParam("stu_xuehao") String stu_xuehao,
+                                 @RequestParam("stu_isinschool") boolean stu_isinschool,
+                                 @RequestParam("class_id") String class_id,
+                                 @RequestParam("tel") String tel) {
         ModelAndView model = new ModelAndView();
-        Message message = new Message();
-        if (registType.equals("student")){
-            Student student  = new Student();
-            student.setStuUname(username);
-            student.setStuPassword(ShiroKit.md5(password,username));//密码加密
-            student.setStuMobile(tel);
-            studentService.addStudent(student);
-            model.setViewName("login");
-        }if (registType.equals("teacher")){
-            Admin admin = new Admin();
-            admin.setMobile(tel);
-            admin.setUname(ShiroKit.md5(password,username));
-            admin.setPassword(password);
-            adminService.add(admin);
-            model.setViewName("login");
+        try {
+            Student student1 = studentService.findByUname(username);
+            if (student1 != null){
+                model.addObject("msg", "用户名已存在");
+                model.setViewName("register");
+            }else {
+                Student student  = new Student();
+                student.setStuIsinschool(stu_isinschool);
+                if (class_id != ""){
+                    student.setClassId(Integer.valueOf(class_id));
+                }
+                student.setStuUname(username);
+                student.setStuPassword(password);
+                if (stu_xuehao!= ""){
+                    System.out.println("wuhsuji");
+                    student.setStuXuehao(stu_xuehao);
+                }
+                student.setStuMobile(tel);
+                studentService.addStudent(student);
+                System.out.println(student);
+                model.addObject("msg", "注册成功！！！");
+                model.setViewName("login");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return model;
     }
+
 
 
     @RequestMapping(value = {"/change"}, method = RequestMethod.POST)//修改个人信息
