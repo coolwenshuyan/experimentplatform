@@ -1,23 +1,27 @@
 package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
+import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 /**
  * @author 淮南
  * @date 2020/5/12 12:05
  */
-public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQuest,Integer> ,JpaSpecificationExecutor<ModuleTestQuest> {
+public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQuest, Integer>, JpaSpecificationExecutor<ModuleTestQuest> {
 
 
 
 //    @Query("select qs from ModuleTestQuest qs where qs.questDescribe like CONCAT('%',:questDescribe,'%') or qs.mId =?2")
 //    public List<ModuleTestQuest> findAllByQuestDescribeContainingAndMId(@Param("questDescribe") String questDescribe,@Param("mId") int mId);
+    @Query("select qs from ModuleTestQuest qs where qs.questDescribe like %?1")
+    public List<ModuleTestQuest> findAllByQuestDescribe(@Param("questDescribe") String questDescribe);
 
     @Query("select q from ModuleTestQuest q where q.questId=?1")
     public ModuleTestQuest findQuestByQuestId(int questId);
@@ -42,5 +46,13 @@ public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQues
     ModuleTestQuest findByQuestDescribe(@Param("questDescribe") String questDescribe);
 
 //     Page<ModuleTestQuest> findModuleTestQuestsByQuestDescribeIsLikeOrMId();
+    @Query("select new com.coolwen.experimentplatform.model.DTO.QuestAnswerDto" +
+            "(t1.questId,t1.questDescribe,t1.questAnswer,t1.questScore,t1.questType,t1.questOrder," +
+            "t2.answerId,t2.answerDescribe,t2.answerOrder) " +
+            "from ModuleTestQuest t1 left join ModuleTestAnswer t2 on t1.questId=t2.questId " +
+            "where t1.mId=?1and t1.questType=?1")
+    List<QuestAnswerDto> findQuestAnswerByMid(int mId, String questType);
+
+
 
 }

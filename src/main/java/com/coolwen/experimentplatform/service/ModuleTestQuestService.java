@@ -1,5 +1,7 @@
 package com.coolwen.experimentplatform.service;
 
+import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
+import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,4 +37,9 @@ public interface ModuleTestQuestService {
     ModuleTestQuest findByQuestDescribe(String questDescribe);
 
     Page<ModuleTestQuest> findByPage(ModuleTestQuest moduleTestQuest, Pageable pageable);
+
+    public List<QuestAnswerDto> loadQuestAnswerDto(int mId, String type);
+
+    public List<QuestListAnswerDto> listQuestAnswerDto(String type, int mId);
+
 }

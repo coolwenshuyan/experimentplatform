@@ -1,6 +1,9 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.dao.ModuleTestQuestRepository;
+import com.coolwen.experimentplatform.dao.QuestListAnswerRepositoryCustom;
+import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
+import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,9 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
 
     @Autowired
     private ModuleTestQuestRepository questRepository;
+
+    @Autowired
+    private QuestListAnswerRepositoryCustom questListAnswerRepositoryCustom;
 
     @Override
     public void addModuleTestQuest(ModuleTestQuest moduleTestQuest) {
@@ -117,4 +123,14 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
         return page;
     }
 
+
+    @Override
+    public List<QuestAnswerDto> loadQuestAnswerDto(int mId, String type) {
+        return questRepository.findQuestAnswerByMid(mId, type);
+    }
+
+    @Override
+    public List<QuestListAnswerDto> listQuestAnswerDto(String type, int mId) {
+        return questListAnswerRepositoryCustom.listQuestAnswerDto(type, mId);
+    }
 }
