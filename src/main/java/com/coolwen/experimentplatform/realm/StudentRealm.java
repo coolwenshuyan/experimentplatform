@@ -13,9 +13,12 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ProjectName: experimentplatform
@@ -38,23 +41,25 @@ public class StudentRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         //拿到当前登录用户
-        Subject subject = SecurityUtils.getSubject();
-        //查询用户名称
-        Student student = (Student) subject.getPrincipal();
+        Student student = (Student) principals.getPrimaryPrincipal();
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        List<String> perminsStrlist = new ArrayList<>();//用户的权限集合
+        List<String> roleStrlist=new ArrayList<>();////用户的角色集合
+        roleStrlist.add("student");
         if (student.isStuIsinschool()==true){//判断是否在校
-            simpleAuthorizationInfo.addRole("role:school");
+            perminsStrlist.add("isSchool");
             if (student.getClassId()!=0){//判断是否分班
-                simpleAuthorizationInfo.addRole("role:class");
+                perminsStrlist.add("inClass");
                 //判断班级是否往期
                 ClassModel classModel= classService.findClassById(student.getClassId());
                 if (classModel.getClassIscurrent()==false){
-                    simpleAuthorizationInfo.addRole("role:isCurrent");
+                    perminsStrlist.add("isCurrent");
                 }
             }
         }
-
+        simpleAuthorizationInfo.addStringPermissions(perminsStrlist);
+        simpleAuthorizationInfo.addRoles(roleStrlist);
         return simpleAuthorizationInfo;
     }
 
@@ -67,14 +72,23 @@ public class StudentRealm extends AuthorizingRealm {
         }
         //获取用户信息
         LoginToken loginToken = (LoginToken) token;
+        System.out.println("111"+loginToken.getPassword());
         Student student = studentService.findByUname(loginToken.getUsername());
+        System.out.println("222"+student.getStuPassword());
         if (student == null) {
             //这里返回后会报出对应异常
             return null;
         } else {
+            Session session = SecurityUtils.getSubject().getSession();
+            session.setAttribute("user", student);//成功则放入session
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(student, student.getStuPassword(), getName());
             return simpleAuthenticationInfo;
         }
+    }
+
+    @Override
+    public boolean supports(AuthenticationToken var1){
+        return var1 instanceof LoginToken;
     }
 }

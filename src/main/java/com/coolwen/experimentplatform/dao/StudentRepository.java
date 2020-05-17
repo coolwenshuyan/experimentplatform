@@ -80,6 +80,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
 //    Page<Student> pageStudentByClassId(int class_id);
 
+    @Query("select s from Student s where s.stuUname = ?1 ")
     Student findAllByStuUname(String stuUname);
 
 

@@ -3,10 +3,7 @@ package com.coolwen.experimentplatform.realm;
 import com.coolwen.experimentplatform.model.Admin;
 import com.coolwen.experimentplatform.service.AdminService;
 import com.coolwen.experimentplatform.utils.LoginToken;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -30,7 +27,8 @@ public class AdminRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        simpleAuthorizationInfo.addRole("role:admin");
+        simpleAuthorizationInfo.addRole("admin");
+        simpleAuthorizationInfo.addStringPermission("admin");
         return simpleAuthorizationInfo;
     }
 
@@ -52,4 +50,10 @@ public class AdminRealm extends AuthorizingRealm {
             return simpleAuthenticationInfo;
         }
     }
+
+    @Override
+    public boolean supports(AuthenticationToken var1){
+        return var1 instanceof LoginToken;
+    }
+
 }
