@@ -95,6 +95,7 @@ public class SetInfoController {
     public String addus(SetInfo setInfo){
         setInfo.setId(1);
         SetInfo setInfo1 = setInfoService.findById(1);
+        setInfo.setSet_platintro(setInfo1.getSet_platintro());
         setInfo.setSet_platstep(setInfo1.getSet_platstep());
         setInfo.setSet_rotateimg(setInfo1.getSet_rotateimg());
         setInfoService.add(setInfo);
