@@ -6,7 +6,6 @@ import com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
 import com.coolwen.experimentplatform.model.DTO.StudentVo;
-import com.coolwen.experimentplatform.model.TreportGradeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -88,11 +87,5 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     Student findAllByStuUname(String stuUname);
 
 
-//<<<<<<< Updated upstream
-    @Query(value = "select stu_uname from t_student where id = ?",nativeQuery = true)
-    String findStudentname(int a);
-//=======
-////    List<TreportGradeDto> ListStudentDto();
-//
-//>>>>>>> Stashed changes
+
 }
