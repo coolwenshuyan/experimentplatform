@@ -91,43 +91,45 @@ public class LoginController {
         Session session = subject.getSession();
         String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();//转换成小写;
         loginCode = loginCode.toLowerCase();
-        if (loginCode.equals(code)) {
-            LoginToken token = new LoginToken(username, ShiroKit.md5(password,username),loginType);
-            Message message = new Message();
-            try {
-                subject.login(token);
-                if (loginType.equals("student")){
-                    Student student = (Student) subject.getPrincipal();
-                    session.setAttribute("username",student.getStuUname());
-                    session.setAttribute("loginType",loginType);
-                }if (loginType.equals("teacher")){
-                    Admin admin = (Admin) subject.getPrincipal();
-                }
-
-            } catch (UnknownAccountException e) {
-                //message.put("emsg","用户名/密码错误");
-                model.addObject("msg", "用户名/密码错误");
-            } catch (IncorrectCredentialsException e) {
-                //message.put("emsg","用户名/密码错误");
-                model.addObject("msg", "用户名/密码错误");
-            } catch (ExcessiveAttemptsException e) {
-                // TODO: handle exception
-                //message.put("emsg","登录失败多次，账户锁定1小时!");
-                model.addObject("msg", "登录失败多次，账户锁定1小时!");
-            } catch (AuthenticationException e) {
-                //message.put("emsg",e.getMessage());
-                model.addObject("msg", e.getMessage());
-                //           logger.info("登录信息MSG:" + msg);
-            }
-            model.addObject("msg", message);
-            logger.debug("登陆错误信息:" + message.get("emsg"));
-            if (ShiroKit.isEmpty(message.get("emsg"))) {
-                model.setViewName("user/list");//设置登陆成功之后默认跳转页面
-            } else {
-                model.setViewName("login");;
-            }
-        }else {
+        System.out.println(code+"    "+loginCode);
+        if (!loginCode.equals(code)) {
+            model.setViewName("login");
             model.addObject("msg", "验证码错误");
+            return model;
+        }
+        LoginToken token = new LoginToken(username, ShiroKit.md5(password,username),loginType);
+        Message message = new Message();
+        try {
+            subject.login(token);
+            if (loginType.equals("student")){
+                Student student = (Student) subject.getPrincipal();
+                session.setAttribute("username",student.getStuUname());
+                session.setAttribute("loginType",loginType);
+            }if (loginType.equals("teacher")){
+                Admin admin = (Admin) subject.getPrincipal();
+            }
+        } catch (UnknownAccountException e) {
+            //message.put("emsg","用户名/密码错误");
+            model.addObject("msg", "用户名/密码错误");
+        } catch (IncorrectCredentialsException e) {
+            //message.put("emsg","用户名/密码错误");
+            model.addObject("msg", "用户名/密码错误");
+        } catch (ExcessiveAttemptsException e) {
+            // TODO: handle exception
+            //message.put("emsg","登录失败多次，账户锁定1小时!");
+            model.addObject("msg", "登录失败多次，账户锁定1小时!");
+        } catch (AuthenticationException e) {
+            //message.put("emsg",e.getMessage());
+            System.out.println(e.getMessage());
+            model.addObject("msg", e.getMessage());
+            //           logger.info("登录信息MSG:" + msg);
+        }
+        logger.debug("登陆错误信息:" + message.get("emsg"));
+        if (ShiroKit.isEmpty(model.getModel())) {
+            System.out.println(message.get("emsg"));
+            model.setViewName("user/list");//设置登陆成功之后默认跳转页面
+        } else {
+            model.setViewName("login");
         }
         return model;
     }
@@ -147,14 +149,14 @@ public class LoginController {
         if (registType.equals("student")){
             Student student  = new Student();
             student.setStuUname(username);
-            student.setStuPassword(password);
+            student.setStuPassword(ShiroKit.md5(password,username));//密码加密
             student.setStuMobile(tel);
             studentService.addStudent(student);
             model.setViewName("login");
         }if (registType.equals("teacher")){
             Admin admin = new Admin();
             admin.setMobile(tel);
-            admin.setUname(username);
+            admin.setUname(ShiroKit.md5(password,username));
             admin.setPassword(password);
             adminService.add(admin);
             model.setViewName("login");
