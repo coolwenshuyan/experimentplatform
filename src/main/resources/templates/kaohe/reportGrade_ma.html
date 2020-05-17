@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -35,18 +35,18 @@
 				</colgroup>-->
 				<thead align="center">
 					<tr align="center">
-						<th>学号</th>
-						<th>姓名</th>
-						<th>班级</th>
-						<th>模块名</th>
+						<th  >学号</th>
+						<th >姓名</th>
+						<th >班级</th>
+						<th >模块名</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>18000000</td>
-						<td>张三</td>
-						<td>18信管01</td>
-						<td>模块1</td>
+					<tr th:each="one:${allStu}">
+						<td th:text="${one.getStuXuehao()}">18000000</td>
+						<td th:text="${one.getStuName()}">张三</td>
+						<td th:text="${one.getClassId()}">18信管01</td>
+						<td th:text="${one.getmName}">模块1</td>
 					</tr>
 				</tbody>
 			</table>
