@@ -1,5 +1,7 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.service.*;
 import com.coolwen.experimentplatform.model.ClassModel;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.model.DTO.StudentVo;
@@ -19,7 +21,12 @@ public class StudentController {
     StudentService studentservice;
     @Autowired
     ClazzService clazzService;
-
+    @Autowired
+    KaoheModelService kaoheModelService;
+    @Autowired
+    KaoHeModelScoreService kaoHeModelScoreService;
+    @Autowired
+    TotalScoreCurrentService totalScoreCurrentService;
 
     //学生列表
     @GetMapping("/list")
@@ -200,8 +207,25 @@ public class StudentController {
 
     @PostMapping("/viewAddStudent/{id}")
     public String addStudent(@RequestParam("stu_xuehao")String xuehao, @PathVariable("id") int id){
-        Student student = studentservice.findStudentByStuXuehao(xuehao);//分班的学生必须是审核过了
+        Student student = studentservice.findclassStudentByStuXuehao(xuehao);//分班的学生必须是审核过了
         student.setClassId(id);
+        List<KaoheModel> kaoheModels = kaoheModelService.findAll();
+        KaoHeModelScore kaoHeModelScore = null;
+        if(!kaoheModels.isEmpty() && kaoheModels != null){
+            for(KaoheModel km : kaoheModels){
+                kaoHeModelScore = new KaoHeModelScore();
+                kaoHeModelScore.settKaohemodleId(km.getId());
+                kaoHeModelScore.setStuId(student.getId());
+                kaoHeModelScore.setmOrder(km.getM_order());
+                kaoHeModelScore.setmScale(km.getM_scale());
+                kaoHeModelScoreService.add(kaoHeModelScore);
+            }
+        }
+        TotalScoreCurrent totalScoreCurrent = new TotalScoreCurrent();
+        totalScoreCurrent.setStuId(student.getId());
+        int kaoheNum = kaoheModelService.findKaoheNum();
+        totalScoreCurrent.setKaoheNum(kaoheNum);
+        totalScoreCurrentService.add(totalScoreCurrent);
         studentservice.saveStudent(student);
         return "redirect:/studentManage/addStudent/"+id;
     }

@@ -76,6 +76,9 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     @Query("select s from Student s where s.stuCheckstate = false and s.stuXuehao = ?1 ")
     Student findStudentByStuXuehao(String xuehao);
 
+    @Query("select s from Student s where s.stuCheckstate = true and s.stuXuehao = ?1 ")
+    Student findclassStudentByStuXuehao(String xuehao);
+
     List<Student> findStudentByClassId(int class_id);
 
 //    Page<Student> pageStudentByClassId(int class_id);

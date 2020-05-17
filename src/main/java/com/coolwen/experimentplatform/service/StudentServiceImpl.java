@@ -108,6 +108,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student findclassStudentByStuXuehao(String xuehao) {
+        return studentRepository.findclassStudentByStuXuehao(xuehao);
+    }
+
+    @Override
     public List<Student> findStudentByClassId(int class_id) {
         return studentRepository.findStudentByClassId(class_id);
     }
