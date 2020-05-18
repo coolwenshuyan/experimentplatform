@@ -33,22 +33,6 @@ public class SetInfoController {
         return "home_page/situation";
     }
 
-    //前端轮播展示
-    @GetMapping(value = "/lunboimg")
-    public String lunbo(Model model){
-        SetInfo setInfo = setInfoService.findById(1);
-        String ids = setInfo.getSet_rotateimg();
-        String[] sid =ids.split(",");
-//        for (int i = 0; i < sid.length; i++) {
-//            System.out.println(">>>>>>>>>>>>>>>>>>>>>>.."+Integer.parseInt(sid[i]));
-//        }
-        for (int i = 0; i < sid.length ; i++) {
-            String imgurl = setInfoService.findexpimg(Integer.parseInt(sid[i]));
-            model.addAttribute("{i}",imgurl);
-            System.out.println(">>>>>>>>>>>>>>>>>>>."+imgurl);
-        }
-        return "";
-    }
 
     //前端实验仿真介绍
     @GetMapping(value = "/jiesao")
