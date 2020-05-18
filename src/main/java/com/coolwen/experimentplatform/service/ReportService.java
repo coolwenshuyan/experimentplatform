@@ -2,6 +2,8 @@ package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.ModuleTestAnswer;
 import com.coolwen.experimentplatform.model.Report;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -26,4 +28,6 @@ public interface ReportService {
 
 
     List<Report> findByMid(int mid);
+
+    Page<Report> findByReportPage(Pageable pageable);
 }
