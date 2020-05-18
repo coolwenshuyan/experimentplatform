@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/tian")
-public class TianController {
+public class Tian2Controller {
 
 
     @Autowired

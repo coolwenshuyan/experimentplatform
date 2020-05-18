@@ -25,5 +25,10 @@ public interface ReportAnswerService {
 
     ReportAnswer findByReportAnswerId(int id);
 
+    public ReportAnswer findByReportidAndStuID(int reportid,int stuID);
+
+    List<ReportAnswer> findByStuId(int stuid);
+
+    List<ReportAnswer> listByReportidAndStuID(int reportid,int stuId);
 
 }

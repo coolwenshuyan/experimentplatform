@@ -49,4 +49,9 @@ public class ReportServiceImpl implements ReportService {
         return reportRepository.findAllByReportId(reportId);
     }
 
+    @Override
+    public List<Report> findByMid(int mid) {
+        return reportRepository.findAllByMId(mid);
+    }
+
 }

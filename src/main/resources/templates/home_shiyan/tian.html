@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="utf-8" />
@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
 		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css" />
-		<link rel="stylesheet" type="text/css" href="" />
+<!--		<link rel="stylesheet" type="text/css" href="" />-->
 	</head>
 
 	<body>
@@ -86,63 +86,59 @@
 		<div class="test layui-col-xs8 layui-col-xs-offset2">
 			<h2 align="center"><strong>填写报告</strong></h2><br><br>
 
-			<form class="layui-form layui-form-pane" action="">
+			<form th:method="post" class="layui-form layui-form-pane" action="">
 
-				<div class="layui-form-item layui-form-text">
-					<label class="layui-form-label">1.Java语言的主要特点有</label>
-					<div class="layui-input-block" id="app1">
-						<!--<textarea placeholder="请输入内容" class="layui-textarea"></textarea>-->
-					</div>
-				</div>
-				<div class="layui-form-item layui-form-text">
-					<label class="layui-form-label">2.说说你对java接口和继承的理解</label>
-					<div class="layui-input-block" id="app2">
-						
-					</div>
-				</div>
-				<div class="layui-form-item layui-form-text">
-					<label class="layui-form-label">3.Java中哪个类提供了随机访问文件的功能</label>
-					<div class="layui-input-block" id="app3">
-						
-					</div>
-				</div>
-					
-				<div class="layui-form-item layui-form-text" style="margin-top: 100px;">
-					<hr />
-					<div><h2><b>简洁模式填写实验报告:</b></h2></div>
-					<div id="app4" style="margin-top: 30px;">
+				<div th:each="YiGeTi,YiGeTiStat:${TiMuList}" class="layui-form-item layui-form-text">
+					<label th:text="${YiGeTi.getReportDescribe()}" class="layui-form-label">1.Java语言的主要特点有</label>
+					<script th:utext="${daAn.getStuReportAnswer()}" th:id="|editor${YiGeTiStat.index}|" th:each="daAn,daAnStat:${DaAnList}" th:if="${YiGeTiStat.index}==${daAnStat.index}" th:name = "|LZeDA${YiGeTiStat.index}|" type="text/plain">
 
-					</div>
+					</script>
+					<!--富文本框-->
 				</div>
 
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						<button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
 						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</div>
+
 			</form>
 		</div>
 
+<!--		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
+<!--		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>-->
+<!--		<script type="text/javascript" src="../../static/js/wangEditor.js"></script>-->
+<!--	    <script type="text/javascript">-->
+<!--	        var E = window.wangEditor-->
+<!--	        var editor1 = new E('#app1');-->
+<!--	        var editor2 = new E('#app2');-->
+<!--	        var editor3 = new E('#app3');-->
+<!--			var editor4 = new E('#app4');-->
+<!--	        // 或者 var editor = new E( document.getElementById('editor') )-->
+<!--	        editor1.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片-->
+<!--	        editor2.customConfig.uploadImgShowBase64 = true-->
+<!--	        editor3.customConfig.uploadImgShowBase64 = true-->
+<!--			editor4.customConfig.uploadImgShowBase64 = true-->
+<!--	        editor1.create()-->
+<!--	        editor2.create()-->
+<!--	        editor3.create()-->
+<!--			editor4.create()-->
+<!--	    </script>-->
+		<script th:src="@{/ueditor/ueditor.config.js}"></script>
+		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+		<script th:each="YiGeTi,YiGeTiStat:${TiMuList}">
+			UE.getEditor('editor[[${YiGeTiStat.index}]]');
+		</script>
+
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="../../static/js/wangEditor.js"></script>
-	    <script type="text/javascript">
-	        var E = window.wangEditor
-	        var editor1 = new E('#app1');
-	        var editor2 = new E('#app2');
-	        var editor3 = new E('#app3');
-			var editor4 = new E('#app4');
-	        // 或者 var editor = new E( document.getElementById('editor') )
-	        editor1.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
-	        editor2.customConfig.uploadImgShowBase64 = true
-	        editor3.customConfig.uploadImgShowBase64 = true
-			editor4.customConfig.uploadImgShowBase64 = true
-	        editor1.create()
-	        editor2.create()
-	        editor3.create()
-			editor4.create()
-	    </script>
+		<script>
+			layui.use(['element','form'],function () {
+				var form = layui.form;
+			})
+
+		</script>
 	</body>
 
 </html>
