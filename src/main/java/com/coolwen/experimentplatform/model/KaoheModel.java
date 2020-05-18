@@ -5,8 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "t_kaohemodel")
 public class KaoheModel {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_kaohemodel")
+    @TableGenerator(name = "t_kaohemodel", initialValue = 0, allocationSize = 1,table = "seq_table")
     private int id;
     //模块id
     @Column(nullable = false)
@@ -30,7 +32,16 @@ public class KaoheModel {
     @Column(nullable = false)
     private float kaohe_baifenbi;
 
-    public KaoheModel(int id, int m_id, int m_order, float m_scale, float m_test_baifenbi, float m_report_baifenbi, float test_baifenbi, float kaohe_baifenbi) {
+    //实验名称 以下是新添加的方法
+    private String Experiment_name;
+    //课时
+    private int class_hour;
+    //实验目的
+    private String shiyan_Purpose;
+    //实验类型
+    private String shiyan_Types;
+
+    public KaoheModel(int id, int m_id, int m_order, float m_scale, float m_test_baifenbi, float m_report_baifenbi, float test_baifenbi, float kaohe_baifenbi, String experiment_name, int class_hour, String shiyan_Purpose, String shiyan_Types) {
         this.id = id;
         this.m_id = m_id;
         this.m_order = m_order;
@@ -39,6 +50,10 @@ public class KaoheModel {
         this.m_report_baifenbi = m_report_baifenbi;
         this.test_baifenbi = test_baifenbi;
         this.kaohe_baifenbi = kaohe_baifenbi;
+        Experiment_name = experiment_name;
+        this.class_hour = class_hour;
+        this.shiyan_Purpose = shiyan_Purpose;
+        this.shiyan_Types = shiyan_Types;
     }
 
     public KaoheModel() {
@@ -108,6 +123,38 @@ public class KaoheModel {
         this.kaohe_baifenbi = kaohe_baifenbi;
     }
 
+    public String getExperiment_name() {
+        return Experiment_name;
+    }
+
+    public void setExperiment_name(String experiment_name) {
+        Experiment_name = experiment_name;
+    }
+
+    public int getClass_hour() {
+        return class_hour;
+    }
+
+    public void setClass_hour(int class_hour) {
+        this.class_hour = class_hour;
+    }
+
+    public String getShiyan_Purpose() {
+        return shiyan_Purpose;
+    }
+
+    public void setShiyan_Purpose(String shiyan_Purpose) {
+        this.shiyan_Purpose = shiyan_Purpose;
+    }
+
+    public String getShiyan_Types() {
+        return shiyan_Types;
+    }
+
+    public void setShiyan_Types(String shiyan_Types) {
+        this.shiyan_Types = shiyan_Types;
+    }
+
     @Override
     public String toString() {
         return "KaoheModel{" +
@@ -119,6 +166,10 @@ public class KaoheModel {
                 ", m_report_baifenbi=" + m_report_baifenbi +
                 ", test_baifenbi=" + test_baifenbi +
                 ", kaohe_baifenbi=" + kaohe_baifenbi +
+                ", Experiment_name='" + Experiment_name + '\'' +
+                ", class_hour=" + class_hour +
+                ", shiyan_Purpose='" + shiyan_Purpose + '\'' +
+                ", shiyan_Types='" + shiyan_Types + '\'' +
                 '}';
     }
 }

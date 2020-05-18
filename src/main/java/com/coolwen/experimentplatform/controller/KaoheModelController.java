@@ -112,8 +112,12 @@ public class KaoheModelController {
         KaoheModel u = new KaoheModel();
         ExpModel expModel = expModelService.findExpModelByID(mid);
         u.setM_id(expModel.getM_id());
+        u.setExperiment_name(expModel.getM_name());
+        u.setClass_hour(expModel.getClasshour());
         u.setM_order(moveIn.getM_order());
         u.setM_scale(moveIn.getM_scale());
+        u.setShiyan_Purpose(expModel.getPurpose());
+        u.setShiyan_Types(expModel.getM_type());
         u.setM_test_baifenbi(moveIn.getM_test_baifenbi());
         u.setM_report_baifenbi(moveIn.getM_report_baifenbi());
         u.setKaohe_baifenbi(moveIn.getKaohe_baifenbi());
@@ -148,7 +152,9 @@ public class KaoheModelController {
     public String update(@PathVariable int id,KaoheModel kaoheModel){
         KaoheModel u = new KaoheModel();
         u=kaoheModelService.findById(id);
+        u.setClass_hour(kaoheModel.getClass_hour());
         u.setM_id(kaoheModel.getM_id());
+        u.setExperiment_name(kaoheModel.getExperiment_name());
         u.setM_order(kaoheModel.getM_order());
         u.setM_scale(kaoheModel.getM_scale());
         u.setM_test_baifenbi(kaoheModel.getM_test_baifenbi());
