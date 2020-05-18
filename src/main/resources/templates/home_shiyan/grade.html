@@ -58,10 +58,10 @@
 				<a href="javascript:;">帮助中心</a>
 				<dl class="layui-nav-child">
 					<dd>
-						<a href="jieshao.html">仿真实验介绍</a>
+						<a href="/setinfo/jiesao">仿真实验介绍</a>
 					</dd>
 					<dd>
-						<a href="team.html">关于我们</a>
+						<a href="/setinfo/aboutus">关于我们</a>
 					</dd>
 					
 					
@@ -98,20 +98,20 @@
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show" >
 					<table border="1"   width="500"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
-						<tr align="center" th:each="moduleGrade:${ModuleGrades}">
-							<td th:text="${moduleGrade.m_id}">序号</td>
-							<td th:text="${moduleGrade.m_name}">考核实验名称</td>
-							<td th:text="${moduleGrade.m_test_score}">实验模块测试成绩<br>(50%)</td>
-							<td th:text="${moduleGrade.m_report_score}">实验模块报告成绩<br>(50%)</td>
-							<td th:text="${moduleGrade.m_score}">实验模块总成绩</td>
+						<tr align="center" >
+							<td>序号</td>
+							<td>考核实验名称</td>
+							<td>实验模块测试成绩<br>(50%)</td>
+							<td>实验模块报告成绩<br>(50%)</td>
+							<td>实验模块总成绩</td>
 						</tr>
-<!--						<tr align="center">-->
-<!--							<td>1</td>-->
-<!--							<td>考核实验模块1</td>-->
-<!--							<td>76</td>-->
-<!--							<td>87</td>-->
-<!--							<td>78</td>-->
-<!--						</tr>-->
+						<tr align="center" th:each="moduleGrade:${ModuleGrades}">
+							<td th:text="${moduleGrade.m_id}">1</td>
+							<td th:text="${moduleGrade.m_name}">考核实验模块1</td>
+							<td th:text="${moduleGrade.m_test_score}">76</td>
+							<td th:text="${moduleGrade.m_report_score}">87</td>
+							<td th:text="${moduleGrade.m_score}">78</td>
+						</tr>
 <!--						<tr align="center">-->
 <!--							<td>2</td>-->
 <!--							<td>考核实验模块2</td>-->
