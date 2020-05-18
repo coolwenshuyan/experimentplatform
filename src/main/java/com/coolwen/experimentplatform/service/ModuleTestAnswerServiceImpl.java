@@ -75,4 +75,9 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
         return a.getQuestId();
     }
 
+    @Override
+    public ModuleTestAnswer findbyAnswerid(int id) {
+        return findByAnswerId(id);
+    }
+
 }

@@ -34,6 +34,6 @@ public interface KaoheModelService {
 
     Page<KaoHeModelStuDTO> findKaoheModelStuDto(int stu_id,int pageNum);
 
-
+    KaoheModel findKaoheModelByMid(int mid);
 
 }
