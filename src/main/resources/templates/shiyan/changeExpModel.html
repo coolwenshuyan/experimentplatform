@@ -34,6 +34,7 @@
 				height: 38px;
 				background-color: #fff;
 				/*border:1px solid #e6e6e6 ;*/
+				position: absolute;
 			}
 			.layui-upload-list img{
 				width: 100%;
@@ -96,7 +97,7 @@
 				    <div class="layui-input-block">
 				      <input class="layui-btn" lay-submit lay-filter="formDemo" value="修改" type="submit">
 				      <button type="reset" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">取消</button>
-				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
+				      	<a type="layui-btn" class="layui-btn layui-btn-primary" href="" th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
 				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteTheory/${preExpModel.m_id}|}">删除理论学习</a>
 				    </div>
 				</div>
