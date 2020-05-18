@@ -61,10 +61,11 @@ public class SetInfoController {
         SetInfo setInfo = setInfoService.findById(1);
         if (setInfo==null){
             SetInfo setInfo1 = new SetInfo();
+            setInfo1.setId(1);
             setInfo1.setSet_aboutus("无数据");
             setInfo1.setSet_platintro("无数据");
             setInfo1.setSet_platstep("无数据");
-            setInfo1.setSet_rotateimg("无数据");
+            setInfo1.setSet_rotateimg("1,2,3,4");
             setInfoService.add(setInfo1);
             model.addAttribute("setInfo",setInfo1);
             return "/shouye/aboutUs";
@@ -92,13 +93,14 @@ public class SetInfoController {
         SetInfo setInfo = setInfoService.findById(1);
         if (setInfo==null){
             SetInfo setInfo1 = new SetInfo();
+            setInfo1.setId(1);
             setInfo1.setSet_aboutus("无数据");
             setInfo1.setSet_platintro("无数据");
             setInfo1.setSet_platstep("无数据");
-            setInfo1.setSet_rotateimg("无数据");
+            setInfo1.setSet_rotateimg("1,2,3,4");
             setInfoService.add(setInfo1);
             model.addAttribute("setInfo",setInfo1);
-            return "/shouye/aboutUs";
+            return "/shouye/aboutPlatform";
         }
         model.addAttribute("setInfo",setInfo);
         return "/shouye/aboutPlatform";
@@ -123,10 +125,11 @@ public class SetInfoController {
         SetInfo setInfo = setInfoService.findById(1);
         if (setInfo == null) {
             SetInfo setInfo1 = new SetInfo();
+            setInfo1.setId(1);
             setInfo1.setSet_aboutus("无数据");
             setInfo1.setSet_platintro("无数据");
             setInfo1.setSet_platstep("无数据");
-            setInfo1.setSet_rotateimg("无数据");
+            setInfo1.setSet_rotateimg("1,2,3,4");
             setInfoService.add(setInfo1);
             model.addAttribute("setInfo", setInfo1);
             return "shouye/lunbo";
