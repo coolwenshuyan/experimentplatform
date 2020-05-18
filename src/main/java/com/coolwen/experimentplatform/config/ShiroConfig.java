@@ -95,17 +95,17 @@ public class ShiroConfig {
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //Map<String, String> chains = new HashMap();
-        filterChainDefinitionMap.put("/css/**", "anon");//静态资源不要求权限 , 若有其他目录下文件(如js,img等)也依此设置
-        filterChainDefinitionMap.put("/js/**", "anon");
-        filterChainDefinitionMap.put("/js/*/*/*", "anon");
-        filterChainDefinitionMap.put("/images/**", "anon");
-        filterChainDefinitionMap.put("/user/**", "authc,perms[admin]");
-        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
-        filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/kaohe/allModule", "anon");
-        filterChainDefinitionMap.put("/405", "anon");
-        filterChainDefinitionMap.put("/logout", "logout");
-        filterChainDefinitionMap.put("/**", "authc");//需要登录访问的资源 , 一般将/**放在最下边
+//        filterChainDefinitionMap.put("/css/**", "anon");//静态资源不要求权限 , 若有其他目录下文件(如js,img等)也依此设置
+//        filterChainDefinitionMap.put("/js/**", "anon");
+//        filterChainDefinitionMap.put("/js/*/*/*", "anon");
+//        filterChainDefinitionMap.put("/images/**", "anon");
+//        filterChainDefinitionMap.put("/user/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
+//        filterChainDefinitionMap.put("/login", "anon");
+//        filterChainDefinitionMap.put("/kaohe/allModule", "anon");
+//        filterChainDefinitionMap.put("/405", "anon");
+//        filterChainDefinitionMap.put("/logout", "logout");
+//        filterChainDefinitionMap.put("/**", "authc");//需要登录访问的资源 , 一般将/**放在最下边
 //        chains.put("/admin/*", "roles[Admin]");
 //        chains.put("/admin/*", "roles[Admin]");
         logger.debug("filterChainDefinitionMap" + filterChainDefinitionMap);
