@@ -19,6 +19,9 @@ public interface ExpModelRepository extends BaseRepository<ExpModel,Integer> {
     @Query(value ="select * from t_exp_model",nativeQuery=true)
     Page<ExpModel> findAllexp(Pageable pageable1);
 
+    @Query(value = "select t_exp_model.imageurl from t_exp_model where m_id= ?",nativeQuery=true)
+    String findexpimg(int parseInt);
+
     //找到改学生考核model的相关信息
 
 }

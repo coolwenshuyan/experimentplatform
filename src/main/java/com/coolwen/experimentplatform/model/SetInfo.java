@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class SetInfo {
 
     @Id //自动获取id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "setinfo_id")
-    @TableGenerator(name = "setinfo_id", initialValue = 0, allocationSize = 1, table = "seq_table")
+//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "setinfo_id")
+//    @TableGenerator(name = "setinfo_id", initialValue = 0, allocationSize = 1, table = "seq_table")
     private int id;
 
     private String set_platintro;

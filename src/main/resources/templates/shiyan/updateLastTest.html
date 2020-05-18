@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>修改整体模块测试</title>
+
+    <link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+
+</head>
+<style type="text/css">
+    .layui-row {
+        padding: 3% 0;
+    }
+    h2{
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+
+<body>
+<h2>修改整体测试题</h2>
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-md6">
+        <!--<form class="layui-form" action="">	-->
+        <form class="layui-form" method="post" th:object="${UpLastQuest}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">题目</label>
+                <div class="layui-input-block">
+                    <input type="text" name="questDescribe" th:value="${UpLastQuest.questDescribe}" required
+                           lay-verify="required" autocomplete="off" class="layui-input"/>
+                    <!--<input type="text" name="title" required lay-verify="required" placeholder="请输入题目" autocomplete="off" class="layui-input">-->
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">分数</label>
+                <div class="layui-input-block">
+                    <input type="text" name="questScore" th:value="${UpLastQuest.questScore}" required lay-verify="required"
+                           placeholder="100" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="questType" th:field="${UpLastQuest.questType}" value="单选" title="单选">
+                    <input type="radio" name="questType" th:field="${UpLastQuest.questType}" value="多选" title="多选">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">答案</label>
+                <div class="layui-input-block">
+                    <input type="text" name="questAnswer" th:value="${UpLastQuest.questAnswer}" required
+                           lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <a href="lookLastTest.html" th:href="@{|/shiyan/lastTestList|}" class="layui-btn layui-btn-primary">取消</a>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="layui-col-md5">
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">选项</label>
+                <div class="layui-input-block content">
+                    <div class="layui-card-body ">
+                        <table class="layui-table layui-form">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" name="" lay-skin="primary">
+                                </th>
+                                <th>选项</th>
+                                <th>内容</th>
+                                <th>操作</th>
+                            </thead>
+                            <tbody>
+                            <form>
+                                <tr th:each="answer:${UpLastAnswer}">
+                                    <td>
+                                        <input type="checkbox" name="answerId" lay-skin="primary">
+                                    </td>
+                                    <td th:text="${answer.answerOrder}" name="answerOrder">
+                                        <!--<input th:text="${answer.answerOrder}" name="answerOrder" required lay-verify="required" placeholder="A" autocomplete="off" class="layui-input">-->
+                                    </td>
+                                    <td th:text="${answer.answerDescribe}" name="answerDescribe">
+                                        <!--<input th:text="${answer.answerDescribe}" name="answerDescribe" required lay-verify="required" autocomplete="off" class="layui-input">-->
+                                    </td>
+
+                                    <td class="td-manage">
+                                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;"
+                                           th:href="@{|/shiyan/deleteLastUpAnswer/${answer.answerId}|}">
+                                            <button type="button" class="layui-btn">删除</button>
+                                        </a>
+                                        <!--<a title="修改" onclick="member_del(this,'要修改的id')" href="javascript:;" th:href="@{|updateAnswer/${answer.answerId}|}" >-->
+                                        <!--<button type="button" class="layui-btn">修改</button>-->
+                                        <!--</a>-->
+                                    </td>
+                                </tr>
+                            </form>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        <form class="layui-form" method="post" th:action="@{|/shiyan/upLastAnswer/${qid}|}"  >
+        <div class="layui-form-item">
+                <label class="layui-form-label">序号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="answerOrder" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">内容</label>
+                <div class="layui-input-block">
+                    <textarea name="answerDescribe" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-primary" lay-submit >增加选项</button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+
+<!--<script>-->
+<!--//Demo-->
+<!--layui.use('form', function(){-->
+<!--var form = layui.form;-->
+
+<!--//监听提交-->
+<!--form.on('submit(formDemo)', function(data){-->
+<!--layer.msg(JSON.stringify(data.field));-->
+<!--return false;-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+</body>
+
+</html>

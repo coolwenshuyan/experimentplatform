@@ -10,12 +10,34 @@
 		<link rel="stylesheet" href="../../static/css/layui.css" media="all">
 		<link rel="stylesheet" type="text/css" href="../../static/css/page.css"/>
 		<link rel="stylesheet" type="text/css" href="../../static/css/code.css"/>
+		<style>
+			.text-overflow {
+				display:block;/*内联对象需加*/
+				width:31em;/*指定宽度*/
+				word-break:keep-all;/* 不换行 */
+				white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+				text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+			}
+
+			table{
+				width:30em;
+				table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+			}
+			td{
+				width:100%;
+				word-break:keep-all;/* 不换行 */
+				white-space:nowrap;/* 不换行 */
+				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+				text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+			}
+		</style>
 	</head>
 
 
 	<body>
 		<div class="layui-container">
-			<img src="../../static/images/LOGO2.png"> <br><br>
+<!--			<img src="../../static/images/LOGO2.png"> <br><br>-->
 			<span class="layui-breadcrumb">
   			<a href="/">首页</a>
   			<!--<a href="/demo/">轮播公告</a>-->
@@ -60,7 +82,7 @@
 								<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="导出" class="layui-btn" lay-submit="" lay-filter="demo1">导出</button>
+<!--								<button type="导出" class="layui-btn" lay-submit="" lay-filter="demo1">导出</button>-->
 							</li>
 
 						</th>
@@ -70,8 +92,8 @@
 						<th>姓名</th>
 						<th>班级</th>
 						<th>模块1</th>
-						<th>测试成绩</th>
-						<th>状态</th>
+						<th width="8%">测试成绩</th>
+						<th width="8%">状态</th>
 					</tr>
 				</thead>
 				<tbody>

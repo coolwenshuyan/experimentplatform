@@ -4,7 +4,9 @@ import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public interface ModuleTestQuestService {
 
     public void updateQuest(int questId);
 
-    public List<ModuleTestQuest> load(String questDescribe,int mId);
+    public List<ModuleTestQuest> load(String questDescribe, int mId);
 
     public ModuleTestQuest findQuestByQuestId(int questId);
 
@@ -36,10 +38,14 @@ public interface ModuleTestQuestService {
 
     ModuleTestQuest findByQuestDescribe(String questDescribe);
 
-    Page<ModuleTestQuest> findByPage(ModuleTestQuest moduleTestQuest, Pageable pageable);
+    public Page<ModuleTestQuest> findByPage(Pageable pageable);
 
     public List<QuestAnswerDto> loadQuestAnswerDto(int mId, String type);
 
     public List<QuestListAnswerDto> listQuestAnswerDto(String type, int mId);
+
+    public List<ModuleTestQuest> findAllByMId(int mId);
+
+    Page<ModuleTestQuest> findByLastPage(Pageable pageable,int mId);
 
 }
