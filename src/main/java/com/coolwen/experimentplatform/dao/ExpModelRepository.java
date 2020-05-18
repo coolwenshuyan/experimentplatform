@@ -16,6 +16,9 @@ public interface ExpModelRepository extends BaseRepository<ExpModel,Integer> {
     @Query("select e from ExpModel e where e.m_name=?1")
     List<ExpModel> findExpModelsByM_name(String m_name);
 
+    @Query(value ="select * from t_exp_model",nativeQuery=true)
+    Page<ExpModel> findAllexp(Pageable pageable1);
+
     //找到改学生考核model的相关信息
 
 }

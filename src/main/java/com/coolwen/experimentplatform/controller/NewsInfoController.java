@@ -1,8 +1,10 @@
 package com.coolwen.experimentplatform.controller;
 
 
+import com.coolwen.experimentplatform.dao.ExpModelRepository;
 import com.coolwen.experimentplatform.dao.NewsInfoRepository;
 import com.coolwen.experimentplatform.model.Effect;
+import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.service.NewsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,22 @@ public class NewsInfoController {
     NewsInfoRepository newsInfoRepository;
 
     @Autowired
+    ExpModelRepository expModelRepository;
+
+    @Autowired
     NewsInfoService newsInfoService;
 
     //进入前端展示页面
     @GetMapping(value = "/newslist")
     public String newslist(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+        //公告信息
         Pageable pageable = PageRequest.of(pageNum,10);
         Page<NewsInfo> page = newsInfoRepository.findAllorderby(pageable);
         model.addAttribute("newsPageInfo",page);
+        //实验列表
+        Pageable pageable1 = PageRequest.of(pageNum,9);
+        Page<ExpModel> page1 = expModelRepository.findAllexp(pageable1);
+        model.addAttribute("allexp",page1);
         return "home_page/index";
     }
 
