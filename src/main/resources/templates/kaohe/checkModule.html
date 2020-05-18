@@ -39,7 +39,7 @@
   			<!--<a href="/demo/">师资队伍</a>-->
   			<a><cite>考核模块</cite></a>
 			</span> <br><br><br>
-			<a href="/kaohemodel/checkModule"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">考核模块</button></a>
+			<a href="/kaohemodel/checkModule"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #FFFFFF; background: #009688">考核模块</button></a>
 			<a href="/kaohemodel/allModule"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">全部模块</button></a>
 			<div class="layui-form">
 				<table class="layui-table">
@@ -76,8 +76,7 @@
 
 							<td>
 								<a  type="update" class="layui-btn layui-btn-sm" th:href="@{|/kaohemodel/${kaoheModel.id}/update|}">修改</a>
-								<a  type="delete"  class="layui-btn layui-btn-sm" style="background-color: red;"  th:href="@{|/kaohemodel/${kaoheModel.id}/delete|}">移出考核</a>
-
+								<a  type="delete"  class="layui-btn layui-btn-sm app" @click="isTrue" style="background-color: red;"  th:href="@{|/kaohemodel/${kaoheModel.id}/delete|}">移出考核</a>
 							</td>
 						</tr>
 
@@ -125,15 +124,15 @@
 		<script src="../../static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/jquery.z-pager.js" type="text/javascript" charset="utf-8"></script>
 		<script>
-	var app = new Vue({
-		el:"#app",
+			var app = new Vue({
+				el:".app",
 
-		methods:{
-			isTrue:function(){
-				confirm("确认要删除吗？")
-			}
-		}
-	})
+				methods:{
+					isTrue:function(){
+						confirm("确认要删除吗(这会清除所有数据)？")
+					}
+				}
+			})
 /*
 			$("#pager").zPager({
 				totalData: 11,

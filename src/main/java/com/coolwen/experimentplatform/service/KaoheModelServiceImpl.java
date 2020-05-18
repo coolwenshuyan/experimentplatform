@@ -99,4 +99,9 @@ public class KaoheModelServiceImpl implements KaoheModelService {
         return kaoHeModelScoreRepository.findKaoHeModelStuDTOByStuId(stu_id,pageRequest);
     }
 
+    @Override
+    public KaoheModel findKaoheModelByMid(int mid) {
+        return kaoheModelRepository.findKaoheModelByMid(mid);
+    }
+
 }

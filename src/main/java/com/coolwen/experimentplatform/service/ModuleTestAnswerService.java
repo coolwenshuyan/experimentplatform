@@ -31,4 +31,6 @@ public interface ModuleTestAnswerService {
     String findByAnswerDescribe(String answerDescribe);
 
     int findQuestIdByAnswerId(int answerId);
+
+    ModuleTestAnswer findbyAnswerid(int id);
 }

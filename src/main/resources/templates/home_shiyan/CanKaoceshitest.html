@@ -100,7 +100,7 @@
 <div class="test layui-col-xs8 layui-col-xs-offset2">
     <h2 align="center"><strong>测试检验</strong></h2><br><br>
 
-    <form class="layui-form layui-form-pane" action="postExam">
+    <form class="layui-form layui-form-pane" th:action="@{|/kaoshi/${midd}/postExam|}">
         <h3>单选题(共六十分)</h3><br>
 
         <div class="layui-form-item layui-form-text" th:each="m,iterStat:${radioQuestionsList}">

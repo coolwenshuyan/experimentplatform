@@ -26,6 +26,8 @@ public interface KaoHeModelScoreRepository extends BaseRepository<KaoHeModelScor
     @Query("select new com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO(kh.m_id,khs.stuId,khs.mTeststate,khs.mReportstate,khs.mScale,khs.mScore,e.m_name,e.imageurl) from KaoheModel kh left join ExpModel e on kh.m_id = e.m_id left join KaoHeModelScore khs on khs.tKaohemodleId = kh.id where khs.stuId = ?1")
     Page<KaoHeModelStuDTO> findKaoHeModelStuDTOByStuId (int stu_id, PageRequest pageRequest);
 
+    @Query("select k from KaoHeModelScore k where k.tKaohemodleId=?1 and k.stuId = ?2")
+    KaoHeModelScore findByStuIdAndTKaohemodleId(int kaoHeModleId,int stu);
 
 //
 }

@@ -24,4 +24,6 @@ public interface KaoHeModelScoreService {
 
     public List<KaoHeModelScore> listKaoHeModleScore();
 
+    KaoHeModelScore findKaoheModelScoreByMid(int mid,int stu);
+
 }
