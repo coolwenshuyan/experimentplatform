@@ -58,16 +58,19 @@
 				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
 				text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
 			}
+			.ak{
+				margin-left: 0px;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="layui-container">
 <!--			<img src="../../static/images/LOGO2.png"> <br><br>-->
-			<span class="layui-breadcrumb">
-  			<a href="/">首页</a>
-  			<!--<a href="/demo/">轮播公告</a>-->
-  			<a><cite>模块测试成绩管理</cite></a>
-			</span> <br><br><br>
+<!--			<span class="layui-breadcrumb">-->
+<!--  			<a href="/">首页</a>-->
+<!--  			&lt;!&ndash;<a href="/demo/">轮播公告</a>&ndash;&gt;-->
+<!--  			<a><cite>模块测试成绩管理</cite></a>-->
+<!--			</span> <br><br><br>-->
 			<table class="layui-table" lay-size="lg" style="    text-align: center;">
 <!--				<colgroup>-->
 <!--					<col width="150">-->
@@ -96,7 +99,7 @@
 						<th colspan="3">
 							<form th:action="@{/testScoreManage/list}">
 							<li>
-								<div class="layui-input-block" style="float: left; position: relative;">
+								<div class="layui-input-block ak" style="float: left; position: relative;">
 									<label class="layui-form-label">学号搜索</label>
 									<input style="width: auto;" type="text"  th:value="${select_orderId}" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
 								</div>

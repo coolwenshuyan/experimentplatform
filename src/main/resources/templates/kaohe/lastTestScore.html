@@ -35,6 +35,13 @@
 				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
 				text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
 			}
+
+			.ak{
+				margin-left: 0px;
+			}
+			.ab{
+				padding-top: 0px;
+			}
 		</style>
 	</head>
 
@@ -42,11 +49,11 @@
 	<body>
 		<div class="layui-container">
 <!--			<img src="../../static/images/LOGO2.png"> <br><br>-->
-			<span class="layui-breadcrumb">
-  			<a href="/">首页</a>
-  			<!--<a href="/demo/">轮播公告</a>-->
-  			<a><cite>测试成绩管理</cite></a>
-			</span> <br><br><br>
+<!--			<span class="layui-breadcrumb">-->
+<!--  			<a href="/">首页</a>-->
+<!--  			&lt;!&ndash;<a href="/demo/">轮播公告</a>&ndash;&gt;-->
+<!--  			<a><cite>测试成绩管理</cite></a>-->
+<!--			</span> <br><br><br>-->
 
 			<table class="layui-table" lay-size="lg" style="    text-align: center;">
 <!--				<colgroup>-->
@@ -59,7 +66,7 @@
 						<th colspan="2">
 <!--							<div class="layui-form">-->
 								<div class="layui-form-item">
-									<label class="layui-form-label">班级筛选</label>
+									<label class="layui-form-label ab">班级筛选</label>
 									<div class="layui-input-block" style="width: 30%;">
 <!--										<select name="interest" lay-filter="aihao">-->
 <!--											&lt;!&ndash;<option value=""></option>&ndash;&gt;-->
@@ -99,7 +106,7 @@
 
 							<form th:action="@{/lastTestScoreManage/list}">
 								<li>
-									<div class="layui-input-block" style="float: left; position: relative;">
+									<div class="layui-input-block ak" style="float: left; position: relative;" style="margin-left: 10px">
 										<label class="layui-form-label">学号搜索</label>
 										<input style="width: auto;" type="text"  th:value="${select_orderId}" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
 									</div>
