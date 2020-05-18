@@ -395,7 +395,7 @@
 		
 							$.post("http://202.115.133.235/index.php/Home/Index/e_look.html", {}, function(data) {
 								datas = JSON.parse(data);
-								$('#ooid1').html("<br/>"+"实验目总数量:<span style='color:#ff0000;font-weight:bold'>" + 12 + "</span>个");
+								$('#ooid1').html("<br/>"+"实验目总数量:<span style='color:#ff0000;font-weight:bold'>" + [[${modenum}]] + "</span>个");
 								myChart1.setOption({
 
 									title: {
@@ -456,7 +456,7 @@
 								console.log(datas.user_type['data']);
 								console.log(datas.course_type['data']);
 								console.log(datas.course_type['data']);
-								$('#ooid2').html("<br/>"+"平台总用户数:<span style='color:#ff0000;font-weight:bold'>" + 579 + "</span>人");
+								$('#ooid2').html("<br/>"+"平台总用户数:<span style='color:#ff0000;font-weight:bold'>" + [[${usernum}]] + "</span>人");
 		
 								myChart2.setOption({
 
@@ -515,7 +515,7 @@
 								    ]
 		
 								});
-								$('#ooid3').html("<br/>"+"参与考核总人数:<span style='color:#ff0000;font-weight:bold'>" +500 + "</span>人");
+								$('#ooid3').html("<br/>"+"参与考核总人数:<span style='color:#ff0000;font-weight:bold'>" +[[${studentmodel}]] + "</span>人");
 		
 								myChart3.setOption({
 
@@ -573,7 +573,7 @@
 								    ]
 								});
 								
-								$('#ooid4').html("<br/>"+"通过考核总人数:<span style='color:#ff0000;font-weight:bold'>" +300 + "</span>人");
+								$('#ooid4').html("<br/>"+"通过考核总人数:<span style='color:#ff0000;font-weight:bold'>" +[[${passpeople}]] + "</span>人");
 								myChart4.setOption({
 									title: {
 								        text: '',
