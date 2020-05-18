@@ -27,6 +27,26 @@
         .layui-col-md4{
             background-color: #fff;
         }
+        .text-overflow {
+            display:block;/*内联对象需加*/
+            width:31em;/*指定宽度*/
+            word-break:keep-all;/* 不换行 */
+            white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+            overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+        }
+
+        table{
+            width:30em;
+            table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+        }
+        td{
+            width:100%;
+            word-break:keep-all;/* 不换行 */
+            white-space:nowrap;/* 不换行 */
+            overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+        }
 
     </style>
     <body>
@@ -59,11 +79,11 @@
                                       <td th:text="${report.reportScore}" name="reportScore">会员相关</td>
                                       <td th:text="${report.reportType}" name="reportType">会员相关</td>
                                     <td class="td-manage">
-                                    <a th:href="@{|updateReport/${report.reportId}|}">
-										 <button class="layui-btn" onclick="xadmin.open('修改成功','./updatePart.html')">
+                                    <!--<a th:href="@{|updateReport/${report.reportId}|}">-->
+										 <a class="layui-btn" onclick="xadmin.open('修改成功','./|updateReport/${report.reportId}|')">
                                              修改
-			                            </button>
-                                    </a>
+			                            </a>
+                                    <!--</a>-->
                                       <a title="删除" onclick="member_del(this,'修改成功')" th:href="@{|/shiyan/deleteReport/${report.reportId}|}">
                                         <button type="layui-btn" class="layui-btn layui-btn-primary">删除</button>
                                       </a>

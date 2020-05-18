@@ -120,6 +120,8 @@ public class KaoheModelController {
         u.setShiyan_Types(expModel.getM_type());
         u.setM_test_baifenbi(moveIn.getM_test_baifenbi());
         u.setM_report_baifenbi(moveIn.getM_report_baifenbi());
+        u.setKaohe_baifenbi(moveIn.getKaohe_baifenbi());
+        u.setTest_baifenbi(moveIn.getTest_baifenbi());
         System.out.println(u);
         kaoheModelService.add(u);
         expModel.setNeedKaohe(true);
@@ -157,6 +159,8 @@ public class KaoheModelController {
         u.setM_scale(kaoheModel.getM_scale());
         u.setM_test_baifenbi(kaoheModel.getM_test_baifenbi());
         u.setM_report_baifenbi(kaoheModel.getM_report_baifenbi());
+        u.setKaohe_baifenbi(kaoheModel.getKaohe_baifenbi());
+        u.setTest_baifenbi(kaoheModel.getTest_baifenbi());
         kaoheModelService.add(u);
         return "redirect:/kaohemodel/checkModule";
     }

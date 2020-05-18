@@ -15,11 +15,30 @@
         <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
         <!--<script type="text/javascript" src="./js/xadmin.js"></script>-->
         <script src="../../static/js/xadmin.js" type="text/javascript" charset="utf-8"></script>
-        <!--[if lt IE 9]>
-          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+
     </head>
+    <style>
+        .text-overflow {
+            display:block;/*内联对象需加*/
+            width:31em;/*指定宽度*/
+            word-break:keep-all;/* 不换行 */
+            white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+            overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+        }
+
+        table{
+            width:30em;
+            table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+        }
+        td{
+            width:100%;
+            word-break:keep-all;/* 不换行 */
+            white-space:nowrap;/* 不换行 */
+            overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+        }
+    </style>
     <body>
 
     <div style="text-align: center;margin-top:30px;font-size: 20px;">查找/删除---实验模块</div>

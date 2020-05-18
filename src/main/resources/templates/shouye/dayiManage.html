@@ -45,6 +45,10 @@
         overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
         text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
     }
+    .layui-table th {
+        text-align: left;
+        font-weight: 900;
+    }
 </style>
 <body>
 <div id="name" class="layui-col-md8 layui-col-md-offset2">
@@ -61,12 +65,12 @@
         </colgroup>
         <thead>
         <tr>
-            <th>序号</th>
-            <th>学生ID</th>
-            <th>姓名</th>
-            <th>问题内容</th>
-            <th>是否回复</th>
-            <th>记录时间</th>
+            <th style="width: 11%;">序号</th>
+            <th style="width: 19%;">学生ID</th>
+            <th style="width: 10%;">姓名</th>
+            <th style="width: 23%;">问题内容</th>
+            <th style="width: 15%;">是否回复</th>
+            <th style="width: 14%;">记录时间</th>
             <th></th>
             <th></th>
         </tr>

@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class TotalScoreCurrent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_totalscore_current")
+    @TableGenerator(name = "t_totalscore_current", initialValue = 0, allocationSize = 1,table = "seq_table")
     private int id;
 
     @Column(length = 11,nullable = false)

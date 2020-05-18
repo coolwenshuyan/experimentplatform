@@ -7,14 +7,14 @@ import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,37 +90,13 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
     }
 
     @Override
-    public Page<ModuleTestQuest> findByPage(ModuleTestQuest moduleTestQuest, Pageable pageable) {
-        Page<ModuleTestQuest> page = null;
-//　　如果moduleTestQuest的name属性为空
-        if (moduleTestQuest == null) {
-//　　　　　　 仅仅是分页，调用此方法
-            page = questRepository.findAll(pageable);
-        } else {
-            Specification<ModuleTestQuest> specification = new Specification<ModuleTestQuest>() {
+    public Page<ModuleTestQuest> findByPage(Pageable pageable) {
+        return questRepository.findAll(pageable);
+    }
 
-                //        　　　　　Root：查询哪个表
-//　　　　　　　　　　CriteriaQuery：查询哪些字段，排序是什么
-//　　　　　　　　　　CriteriaBuilder：字段之间是什么关系，如何生成一个查询条件，每一个查询条件都是什么方式
-//　　　　　　　　　　Predicate（Expression）：单独每一条查询条件的详细描述
-                @Override
-                public Predicate toPredicate(Root<ModuleTestQuest> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                    List<Predicate> predicates = new ArrayList<>();
-                    if (moduleTestQuest.getQuestDescribe() != null) {
-                        predicates.add(cb.like(root.get("questDescribe").as(String.class), "%" + moduleTestQuest.getQuestDescribe().trim() + "%"));
-                    }
-                    if (predicates.size() > 0) {
-                        Predicate[] predicateArr = new Predicate[predicates.size()];
-                        return query.where(predicates.toArray(predicateArr)).getRestriction();
-                    }
-//　　　　　　　　　　这种方式使用JPA的API设置了查询条件，所以不需要再返回查询条件moduleTestQuest给Spring Data Jpa，故最后return null;即可
-                    return null;
-                }
-
-            };
-            page = questRepository.findAll(specification, pageable);
-        }
-        return page;
+    @Override
+    public List<ModuleTestQuest> findAllByMId(int mId) {
+        return questRepository.findAllByMid(mId);
     }
 
 
@@ -132,5 +108,10 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
     @Override
     public List<QuestListAnswerDto> listQuestAnswerDto(String type, int mId) {
         return questListAnswerRepositoryCustom.listQuestAnswerDto(type, mId);
+    }
+
+    @Override
+    public Page<ModuleTestQuest> findByLastPage(Pageable pageable ,int mId) {
+        return questRepository.findTermQuest(mId,pageable);
     }
 }
