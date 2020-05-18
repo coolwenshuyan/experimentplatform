@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.stream.events.DTD;
@@ -84,9 +81,10 @@ public class TreportGradeController {
     @PostMapping(value = "/{stuId}/{mid}/giveMark" )
     public String giveamark(Model model, HttpServletRequest request,
                             @RequestParam(required = true, defaultValue = "1") int stuId,
-                            @RequestParam(required = true, defaultValue = "1") int mid
+                            @PathVariable("mid")int mid
+
     ) {
-        List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,2);
+        List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,mid);
         model.addAttribute("zjy",score);
         System.out.println(">>>>>>>>>>>>>>>>>>"+score);
         Enumeration em = request.getParameterNames();

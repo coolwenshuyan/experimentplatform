@@ -25,7 +25,7 @@ public class SetInfoController {
     @Autowired
     TeacherRepository teacherRepository;
 
-    //前端页面
+    //前端页面平台概况
     @GetMapping(value = "/situation")
     public String about(Model model){
         SetInfo setInfo = setInfoService.findById(1);
