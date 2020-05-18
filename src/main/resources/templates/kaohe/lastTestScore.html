@@ -15,13 +15,33 @@
 			.layui-form-label{
 				width: 100px;
 			}
+			.text-overflow {
+				display:block;/*内联对象需加*/
+				width:31em;/*指定宽度*/
+				word-break:keep-all;/* 不换行 */
+				white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+				text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+			}
+
+			table{
+				width:30em;
+				table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+			}
+			td{
+				width:100%;
+				word-break:keep-all;/* 不换行 */
+				white-space:nowrap;/* 不换行 */
+				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+				text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+			}
 		</style>
 	</head>
 
 
 	<body>
 		<div class="layui-container">
-			<img src="../../static/images/LOGO2.png"> <br><br>
+<!--			<img src="../../static/images/LOGO2.png"> <br><br>-->
 			<span class="layui-breadcrumb">
   			<a href="/">首页</a>
   			<!--<a href="/demo/">轮播公告</a>-->
@@ -29,14 +49,14 @@
 			</span> <br><br><br>
 
 			<table class="layui-table" lay-size="lg" style="    text-align: center;">
-				<colgroup>
-					<col width="150">
-					<col width="200">
-					<col>
-				</colgroup>
+<!--				<colgroup>-->
+<!--					<col width="150">-->
+<!--					<col width="200">-->
+<!--					<col>-->
+<!--				</colgroup>-->
 				<thead>
 					<tr>
-						<th colspan="3">
+						<th colspan="2">
 <!--							<div class="layui-form">-->
 								<div class="layui-form-item">
 									<label class="layui-form-label">班级筛选</label>
@@ -64,7 +84,7 @@
 							</div>
 						</th>
 
-						<th colspan="3">
+						<th colspan="2">
 
 <!--							<li>-->
 <!--								<div class="layui-input-block" style="float: left; position: relative;">-->
@@ -95,7 +115,7 @@
 						<th>学号</th>
 						<th>姓名</th>
 						<th>班级</th>
-						<th>整体测试成绩</th>
+						<th >整体测试成绩</th>
 					</tr>
 				</thead>
 				<tbody>
