@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,13 +51,14 @@ public class ModuleController {
      */
 
     @PostMapping("addTest")
-    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session, String questType, float questScore, String questAnswer) {
+    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session, String questType, float questScore, String questAnswer, int mId) {
 //        在试题表添加试题信息
         String title = (String) session.getAttribute("title");
         moduleTestQuest = questService.findByQuestDescribe(title);
         moduleTestQuest.setQuestType(questType);
         moduleTestQuest.setQuestScore(questScore);
         moduleTestQuest.setQuestAnswer(questAnswer);
+        moduleTestQuest.setmId(mId);
         System.out.println(moduleTestQuest);
         questService.addModuleTestQuest(moduleTestQuest);
         return "redirect:/shiyan/list";
@@ -64,31 +66,23 @@ public class ModuleController {
 
     //试题列表
     @RequestMapping("list")
-    public String list(ModuleTestQuest moduleTestQuest,HttpSession session, @RequestParam(value = "page", defaultValue = "0") Integer page,
-                       @RequestParam(value = "size", defaultValue = "5") Integer size,Model model) {
-        Pageable pageable = PageRequest.of(0,10);
-        Page<ModuleTestQuest> questPage = questService.findByPage(moduleTestQuest,pageable);
+    public String list( HttpSession session,
+//                       @RequestParam(value = "page", defaultValue = "0") Integer page,
+//                       @RequestParam(value = "size", defaultValue = "10") Integer size,
+                       @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum,
+                       Model model) {
+//        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageNum, 5);
+        Page<ModuleTestQuest> pageList = questService.findByPage(pageable);
 
         String title = "";
-        model.addAttribute("title",title);
+        model.addAttribute("title", title);
         System.out.println(session.getAttribute("title"));
-//        //当前页
-//        int num = page.getNumber();
-//        //数据总条数
-//        int totalElements = page.getNumberOfElements();
-//        //总页数
-//        int totalPage = page.getTotalPages();
-//        //是否有前一页
-//        boolean hasPrevious = page.hasPrevious();
-//        //是否有最下一页：
-//        boolean hasNext = page.hasNext();
-//        //分页后的结果集
-//        List<User> users = page.getContent();
+        System.out.println("分页信息：" + pageList);
 
-        model.addAttribute("page", page);
-        model.addAttribute("productPage", questPage);
-        model.addAttribute("product", moduleTestQuest);
-        model.addAttribute("quests", questService.loadAll());
+//        model.addAttribute("search", search);
+        model.addAttribute("questsPage", pageList);
+//        model.addAttribute("quests", questService.loadAll());
         return "shiyan/lookTest";
     }
 
@@ -142,7 +136,8 @@ public class ModuleController {
         questService.addModuleTestQuest(quest1);
 
         model.addAttribute("questDescribe", questDescribe);
-        return "redirect:/shiyan/updateQuest/{questId}";
+//        return "redirect:/shiyan/updateQuest/{questId}";
+        return "redirect:/shiyan/list";
     }
 
 //    修改试题中增加选项
@@ -230,7 +225,7 @@ public class ModuleController {
     @GetMapping("addAnswer")
     public String addAnswer(Model model, HttpSession session, ModuleTestAnswer moduleTestAnswer, ModuleTestQuest moduleTestQuest) {
         String title = (String) session.getAttribute("title");
-        if (title == null) {
+        if (title == null || title.isEmpty() || title == "") {
             model.addAttribute("addAnswer", new ModuleTestAnswer());
             model.addAttribute("quest", new ModuleTestQuest());
         } else {
@@ -250,12 +245,12 @@ public class ModuleController {
     public String addAnswer(String title, Model model, ModuleTestAnswer moduleTestAnswer, ModuleTestQuest moduleTestQuest, HttpSession session) {
 
         moduleTestQuest.setQuestDescribe(title);
-        System.out.println("title:-------"+ title);
+        System.out.println("title:-------" + title);
         System.out.println("测试选项————" + moduleTestAnswer);
         System.out.println("测试题目————" + moduleTestQuest);
 
         String Stitle = (String) session.getAttribute("title");
-        System.out.println("Stitle:>>>>>>>>"+Stitle);
+        System.out.println("Stitle:>>>>>>>>" + Stitle);
         if (Stitle == null || Stitle.isEmpty() || Stitle == "") {
             questService.addModuleTestQuest(moduleTestQuest);
         }
@@ -314,7 +309,7 @@ public class ModuleController {
     public String updateReport(@PathVariable("reportId") int reportId, Model model) {
         Report report = reportService.updateReport(reportId);
         model.addAttribute("Upreport", report);
-        return "redirect:/shiyan/addReport";
+        return ".././updatePart";
     }
 
     @PostMapping("updateReport/{reportId}")
@@ -326,8 +321,15 @@ public class ModuleController {
         r.setReportOrder(report.getReportOrder());
         r.setmId(report.getmId());
         reportService.addReport(r);
-        return "redirect:/shiyan/addReport/";
+        return "redirect:/shiyan/addReport";
     }
+
+
+
+
+
+
+
 
 //    查询所有实验
 

@@ -13,11 +13,15 @@
     .layui-row {
         padding: 3% 0;
     }
-
+    h2{
+        text-align: center;
+        margin-top: 20px;
+    }
 </style>
 
 
 <body>
+<h2>添加模块测试题</h2>
 <div class="layui-row layui-col-space10">
     <div class="layui-col-md6">
         <!--<form class="layui-form" action="">	-->
@@ -25,7 +29,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">题目</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" th:value="${title}"/>
+                    <input type="text" name="title" th:value="${title}" required lay-verify="required" autocomplete="off"
+                           class="layui-input"/>
                     <!--<input type="text" name="title" required lay-verify="required" placeholder="请输入题目" autocomplete="off" class="layui-input">-->
                 </div>
             </div>
@@ -128,7 +133,7 @@
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="layui-btn" class="layui-btn layui-btn-primary">取消</button>
+                    <a href="lookTest.html" th:href="@{|list|}" class="layui-btn layui-btn-primary">取消</a>
                     <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
                 </div>
             </div>
@@ -136,7 +141,7 @@
 
 
     </div>
-
+</div>
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 
     <!--<script>-->
