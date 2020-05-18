@@ -15,10 +15,7 @@
     <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
     <!--<script type="text/javascript" src="./js/xadmin.js"></script>-->
     <script src="../../static/js/xadmin.js" type="text/javascript" charset="utf-8"></script>
-    <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 </head>
 <body>
 
@@ -30,7 +27,7 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
-                        <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{/expmodel/addExpModel}">新建</a>
+                        <a type="layui-btn" class="layui-btn layui-btn-primary" href="http://localhost:8888/expmodel/addExpModel" th:href="@{/expmodel/addExpModel}">新建</a>
                         <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">返回列表</a>
 
                         <!--<div class="layui-inline layui-show-xs-block">
@@ -62,11 +59,11 @@
                             <td th:text="${model.getClasshour()}"></td>
                             <td th:text="${model.getM_inurl()}"></td>
                             <td class="td-manage">
-                                <a title="编辑"  onclick="xadmin.open('编辑','班级修改.html')" href="javascript:;">
+                                <a  href="javascript:;">
                                     <!--<i class="layui-icon">&#xe642;</i>-->
                                     <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/updateExpModel/${model.getM_id()}|}">编辑</a>
                                 </a>
-                                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                <a href="javascript:;">
                                     <!--<i class="layui-icon">&#xe640;</i>-->
                                     <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteExpModel/${model.getM_id()}|}">删除</a>
                                 </a>
