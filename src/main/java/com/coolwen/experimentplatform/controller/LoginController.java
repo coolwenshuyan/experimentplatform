@@ -91,7 +91,7 @@ public class LoginController {
         Session session = subject.getSession();
         String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();//转换成小写;
         loginCode = loginCode.toLowerCase();
-        System.out.println(code+" "+loginCode);
+        System.out.println(code+" 》》》》》 "+loginCode);
         if (!loginCode.equals(code)) {
             model.setViewName("login");
             model.addObject("msg", "验证码错误");
@@ -108,6 +108,7 @@ public class LoginController {
                 session.setAttribute("loginType",loginType);
             }if (loginType.equals("admin")){
                 Admin admin = (Admin) subject.getPrincipal();
+                System.out.println("1");
                 session.setAttribute("admin",admin);
             }
             model.setViewName("common");//设置登陆成功之后默认跳转页面
