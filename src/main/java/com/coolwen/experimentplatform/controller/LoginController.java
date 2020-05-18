@@ -91,7 +91,7 @@ public class LoginController {
         Session session = subject.getSession();
         String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();//转换成小写;
         loginCode = loginCode.toLowerCase();
-        System.out.println(code+"    "+loginCode);
+        System.out.println(code+" "+loginCode);
         if (!loginCode.equals(code)) {
             model.setViewName("login");
             model.addObject("msg", "验证码错误");
@@ -100,13 +100,19 @@ public class LoginController {
         LoginToken token = new LoginToken(username,ShiroKit.md5(password,username),loginType);
         Message message = new Message();
         try {
+            System.out.println("909090");
             subject.login(token);
+            System.out.println("sa");
             if (loginType.equals("student")){
+                System.out.println("dsfasdgasdfsdfsd");
                 Student student = (Student) subject.getPrincipal();
                 session.setAttribute("username",student.getStuUname());
+                session.setAttribute("student",student);
                 session.setAttribute("loginType",loginType);
-            }if (loginType.equals("teacher")){
+            }if (loginType.equals("admin")){
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 Admin admin = (Admin) subject.getPrincipal();
+                session.setAttribute("admin",admin);
             }
             model.setViewName("common");//设置登陆成功之后默认跳转页面
         } catch (UnknownAccountException e) {

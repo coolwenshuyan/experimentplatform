@@ -1,11 +1,11 @@
 package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.dao.ReplyRepository;
-import com.coolwen.experimentplatform.model.Question;
-import com.coolwen.experimentplatform.model.Reply;
-import com.coolwen.experimentplatform.model.User;
+import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.service.QuestionService;
 import com.coolwen.experimentplatform.service.ReplyService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,14 +36,17 @@ public class ReplyController {
 
     //老师完成添加回复操作
     @PostMapping(value = "/{id}/add1")
-    public String add(@PathVariable int id,Reply reply, String uploadfile,@SessionAttribute("VerifyCode") User user) {
+    public String add(@PathVariable int id, Reply reply, String uploadfile, Session session) {
         reply.setQid(id);
         System.out.println("插入的回复保存为："+id);
-        reply.setReply_pname(user.getUsername());
+
+//        Admin admin = (Admin) session.getAttribute("admin");
+        Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
+
+        reply.setReply_pname(admin.getUname());//获得并存入回复名字
 //        question.setContent("alg");
         reply.setDic_datetime(new Date());
         replyService.add(reply);
-//        questionService.setIsreply(true);
         Question question = questionService.findById(id);
         question.setIsreply(true);
         questionService.add(question);
@@ -52,10 +55,12 @@ public class ReplyController {
 
     //学生回复并操作
     @PostMapping(value = "/{id}/add2")
-    public String add1(@PathVariable int id,Reply reply, String uploadfile,@SessionAttribute("u") User user) {
+    public String add1(@PathVariable int id,Reply reply,Session session) {
         reply.setQid(id);
         System.out.println("插入的回复保存为："+id);
-        reply.setReply_pname(user.getUsername());
+
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        reply.setReply_pname(student.getStuUname());
 //        question.setContent("alg");
         reply.setDic_datetime(new Date());
         replyService.add(reply);
@@ -63,7 +68,7 @@ public class ReplyController {
         Question question = questionService.findById(id);
         question.setIsreply(false);
         questionService.add(question);
-        return "redirect:/home_page/"+id+"/detaill";//list
+        return "redirect:/question/"+id+"/detaill";//list
     }
 
 

@@ -45,13 +45,14 @@ public class QuesstionController {
     //完成添加提交问题操作
     @PostMapping(value = "/add")
     public String add(Question question, Session session) {
-        Student student = (Student) session.getAttribute("student");
+//        Student student = (Student) session.getAttribute("student");
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         question.setSid(student.getId());
         question.setIsreply(false);
 //        question.setContent("alg");
         question.setDic_datetime(new Date());
         questionService.add(question);
-        return "redirect:/home_page/question";//list
+        return "redirect:/question/list1";//list
     }
 
     //老师端看到question列表，查出来

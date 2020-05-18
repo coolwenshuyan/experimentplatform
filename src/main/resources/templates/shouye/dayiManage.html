@@ -56,7 +56,7 @@
             <td th:text="${question.id}"></td>
             <td th:text="${question.sid}"></td>
             <td th:text="${question.stu_uname}"></td>
-            <td th:text="${question.content}"></td>
+            <td th:utext="${question.content}"></td>
             <td th:text="${question.isreply}?'是':'否'" ></td>
             <td th:text="${question.dic_datetime}"></td>
             <td>
