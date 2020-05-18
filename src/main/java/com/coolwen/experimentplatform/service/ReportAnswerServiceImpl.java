@@ -52,4 +52,21 @@ public class ReportAnswerServiceImpl implements ReportAnswerService {
     public ReportAnswer findByReportAnswerId(int id) {
         return null;
     }
+
+    @Override
+    public ReportAnswer findByReportidAndStuID(int reportid, int stuID) {
+        return reportAnswerRepository.findByReportIdAndAndStuId(reportid,stuID);
+    }
+
+    @Override
+    public List<ReportAnswer> findByStuId(int stuid) {
+        return reportAnswerRepository.findAllByStuId(stuid);
+    }
+
+    @Override
+    public List<ReportAnswer> listByReportidAndStuID(int reportid, int stuId) {
+        return reportAnswerRepository.findAllByReportIdAndAndStuId(reportid,stuId);
+    }
+
+
 }

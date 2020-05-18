@@ -24,4 +24,8 @@ public interface ReportRepository extends BaseRepository<Report, Integer>, JpaSp
 
     List<Report> findAllByReportId(int reportId);
 
+    //findAllByMid找不到啊
+    @Query("select r from Report r where r.mId = ?1")
+    List<Report> findAllByMId(int mid);
+
 }

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>添加模块测试</title>
+    <title>修改整体模块测试</title>
 
     <link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
 
@@ -13,19 +13,23 @@
     .layui-row {
         padding: 3% 0;
     }
-
+    h2{
+        text-align: center;
+        margin-top: 20px;
+    }
 </style>
 
 
 <body>
+<h2>修改整体测试题</h2>
 <div class="layui-row layui-col-space10">
     <div class="layui-col-md6">
         <!--<form class="layui-form" action="">	-->
-        <form class="layui-form" method="post" th:object="${UpQuest}">
+        <form class="layui-form" method="post" th:object="${UpLastQuest}">
             <div class="layui-form-item">
                 <label class="layui-form-label">题目</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questDescribe" th:value="${UpQuest.questDescribe}" required
+                    <input type="text" name="questDescribe" th:value="${UpLastQuest.questDescribe}" required
                            lay-verify="required" autocomplete="off" class="layui-input"/>
                     <!--<input type="text" name="title" required lay-verify="required" placeholder="请输入题目" autocomplete="off" class="layui-input">-->
                 </div>
@@ -35,28 +39,28 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">分数</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questScore" th:value="${UpQuest.questScore}" required lay-verify="required"
+                    <input type="text" name="questScore" th:value="${UpLastQuest.questScore}" required lay-verify="required"
                            placeholder="100" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="questType" value="单选" title="单选">
-                    <input type="radio" name="questType" value="多选" title="多选">
+                    <input type="radio" name="questType" th:field="${UpLastQuest.questType}" value="单选" title="单选">
+                    <input type="radio" name="questType" th:field="${UpLastQuest.questType}" value="多选" title="多选">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">答案</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questAnswer" th:value="${UpQuest.questAnswer}" required
+                    <input type="text" name="questAnswer" th:value="${UpLastQuest.questAnswer}" required
                            lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="layui-btn" class="layui-btn layui-btn-primary">取消</button>
+                    <a href="lookLastTest.html" th:href="@{|/shiyan/lastTestList|}" class="layui-btn layui-btn-primary">取消</a>
                     <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
                 </div>
             </div>
@@ -84,7 +88,7 @@
                             </thead>
                             <tbody>
                             <form>
-                                <tr th:each="answer:${UpAnswer}">
+                                <tr th:each="answer:${UpLastAnswer}">
                                     <td>
                                         <input type="checkbox" name="answerId" lay-skin="primary">
                                     </td>
@@ -97,7 +101,7 @@
 
                                     <td class="td-manage">
                                         <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;"
-                                           th:href="@{|/shiyan/deleteUpAnswer/${answer.answerId}|}">
+                                           th:href="@{|/shiyan/deleteLastUpAnswer/${answer.answerId}|}">
                                             <button type="button" class="layui-btn">删除</button>
                                         </a>
                                         <!--<a title="修改" onclick="member_del(this,'要修改的id')" href="javascript:;" th:href="@{|updateAnswer/${answer.answerId}|}" >-->
@@ -112,8 +116,7 @@
                 </div>
 
             </div>
-        <form class="layui-form" method="post" th:action="@{|/shiyan/upAnswer/${qid}|}"  >
-            <!--<input type="text" th:value="${qid}">-->
+        <form class="layui-form" method="post" th:action="@{|/shiyan/upLastAnswer/${qid}|}"  >
         <div class="layui-form-item">
                 <label class="layui-form-label">序号</label>
                 <div class="layui-input-block">

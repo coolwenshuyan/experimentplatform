@@ -71,5 +71,11 @@
 
 </body>
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-
+<script>
+    function colse() {
+        //$(".layui-layer-close1").trigger('click');    // 关闭弹出层
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);//关闭当前页
+    }
+</script>
 </html>

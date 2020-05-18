@@ -44,9 +44,9 @@
 
 						<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 						<i class="fa fa-sign-out"></i>
-						<a style="color:#fff" href="login.html">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
-						<a style="color:#fff" href="vcode.html">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a style="color:#fff" href="javascript:;">后台入口</a>
+						<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+						<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<!--						<a style="color:#fff" href="javascript:;">后台入口</a>-->
 					</div>
 				</div>
 			</div>
@@ -76,17 +76,17 @@
 								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="#">实验大厅入口</a>
 							</li>
 							<li>
-								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="situation.html">仿真平台概况</a>
+								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/setinfo/situation">仿真平台概况</a>
 							</li>
 							<li>
-								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="teachers.html">师资队伍</a>
+								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/teachers/frontList">师资队伍</a>
 							</li>
 							<li>
 							<li>
-								<a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="question.html">答疑室</a>
+								<a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/question/list1">答疑室</a>
 							</li>
 							<li>
-								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="study_situation.html">学习效果</a>
+								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/learning/learningList">学习效果</a>
 							</li>
 						</ul>
 					</div>
@@ -135,8 +135,7 @@
 						</div>
 		
 						<div id="tttaa_wrapper" class="dataTables_wrapper no-footer">
-							<!-- <div class="dataTables_length" id="tttaa_length"><label>显示 <select name="tttaa_length" aria-controls="tttaa" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 项实验</label></div> -->
-							<!-- <div id="tttaa_filter" class="dataTables_filter"><label>搜索:<input type="search" class="" placeholder="" aria-controls="tttaa"></label></div> -->
+
 							<table style="height: 750px;" border="1" id="tttaa" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="tttaa_info">
 								<thead>
 									<tr role="row">
@@ -155,98 +154,107 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr role="row" class="odd">
-										<td style="text-align: center;" class="sorting_1"><span>1</span></td>
-										<td><span>Java框架实验1</span></td>
-										<td style="text-align: center;"><span>温佐承</span></td>
-										<td><span>熟练运用java框架，并对spring有所了解</span></td>
-										<td style="text-align: center;"><span>2</span></td>
+									<tr role="row" class="odd" th:each="exp:${allexp.content}">
+										<td style="text-align: center;" class="sorting_1"><span th:text="${exp.m_id}">1</span></td>
+										<td><span th:text="${exp.m_name}">Java框架实验1</span></td>
+										<td style="text-align: center;"><span th:text="${exp.m_manager}">温佐承</span></td>
+										<td><span th:text="${exp.purpose}">熟练运用java框架，并对spring有所了解</span></td>
+										<td style="text-align: center;"><span th:text="${exp.classhour}">2</span></td>
 										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
+											<a target="view_frame" th:href="@{|${exp.m_id}/list|}"><button type="button" class="btn btn-primary">开始实验</button></a>
 										</td>
 									</tr>
-									<tr role="row" class="even">
-										<td style="text-align: center;" class="sorting_1"><span>2</span></td>
-										<td><span>layui实验1</span></td>
-										<td style="text-align: center;"><span>舒红梅</span></td>
-										<td><span>掌握前端框架的技巧，并按照实验要求写出相应的网页</span></td>
-										<td style="text-align: center;"><span>2</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
-									<tr role="row" class="odd">
-										<td style="text-align: center;" class="sorting_1"><span>3</span></td>
-										<td><span>python实验1</span></td>
-										<td style="text-align: center;"><span>温佐承</span></td>
-										<td><span>运用python中的海龟库，用代码画出相应图形</span></td>
-										<td style="text-align: center;"><span>4</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
-									<tr role="row" class="even">
-										<td style="text-align: center;" class="sorting_1"><span>4</span></td>
-										<td><span>html实验2</span></td>
-										<td style="text-align: center;"><span>舒红梅</span></td>
-										<td><span>利用JavaScript的知识，实现无缝滚动功能</span></td>
-										<td style="text-align: center;"><span>2</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
-									<tr role="row" class="odd">
-										<td style="text-align: center;" class="sorting_1"><span>5</span></td>
-										<td><span>photoshop实验2</span></td>
-										<td style="text-align: center;"><span>冉小娟</span></td>
-										<td><span>学会ps的仿制盖章功能来去除图片自带的水印</span></td>
-										<td style="text-align: center;"><span>4</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
-									<tr role="row" class="even">
-										<td style="text-align: center;" class="sorting_1"><span>6</span></td>
-										<td><span>html实验3</span></td>
-										<td style="text-align: center;"><span>舒红梅</span></td>
-										<td><span>分别使用原生js、jquery、for循环来写轮播图</span></td>
-										<td style="text-align: center;"><span>4</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
-									<tr role="row" class="odd">
-										<td style="text-align: center;" class="sorting_1"><span>7</span></td>
-										<td><span>Java框架实验2</span></td>
-										<td style="text-align: center;"><span>温佐承</span></td>
-										<td><span>	掌握Spring框架的IOC和AOP</span></td>
-										<td style="text-align: center;"><span>4</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
-									<tr role="row" class="even">
-										<td style="text-align: center;" class="sorting_1"><span>8</span></td>
-										<td><span>javaweb实验1</span></td>
-										<td style="text-align: center;"><span>陈功锁</span></td>
-										<td><span>使用 3+1 的基本知识完成对数据库的连接</span></td>
-										<td style="text-align: center;"><span>2</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
-									<tr role="row" class="odd">
-										<td style="text-align: center;" class="sorting_1"><span>9</span></td>
-										<td><span>layui实验2</span></td>
-										<td style="text-align: center;"><span>舒红梅</span></td>
-										<td><span>使用layui框架完成对网页的布局</span></td>
-										<td style="text-align: center;"><span>4</span></td>
-										<td style="text-align: center;">
-											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>
-										</td>
-									</tr>
+<!--									<tr role="row" class="even">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>2</span></td>-->
+<!--										<td><span>layui实验1</span></td>-->
+<!--										<td style="text-align: center;"><span>舒红梅</span></td>-->
+<!--										<td><span>掌握前端框架的技巧，并按照实验要求写出相应的网页</span></td>-->
+<!--										<td style="text-align: center;"><span>2</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
+<!--									<tr role="row" class="odd">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>3</span></td>-->
+<!--										<td><span>python实验1</span></td>-->
+<!--										<td style="text-align: center;"><span>温佐承</span></td>-->
+<!--										<td><span>运用python中的海龟库，用代码画出相应图形</span></td>-->
+<!--										<td style="text-align: center;"><span>4</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
+<!--									<tr role="row" class="even">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>4</span></td>-->
+<!--										<td><span>html实验2</span></td>-->
+<!--										<td style="text-align: center;"><span>舒红梅</span></td>-->
+<!--										<td><span>利用JavaScript的知识，实现无缝滚动功能</span></td>-->
+<!--										<td style="text-align: center;"><span>2</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
+<!--									<tr role="row" class="odd">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>5</span></td>-->
+<!--										<td><span>photoshop实验2</span></td>-->
+<!--										<td style="text-align: center;"><span>冉小娟</span></td>-->
+<!--										<td><span>学会ps的仿制盖章功能来去除图片自带的水印</span></td>-->
+<!--										<td style="text-align: center;"><span>4</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
+<!--									<tr role="row" class="even">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>6</span></td>-->
+<!--										<td><span>html实验3</span></td>-->
+<!--										<td style="text-align: center;"><span>舒红梅</span></td>-->
+<!--										<td><span>分别使用原生js、jquery、for循环来写轮播图</span></td>-->
+<!--										<td style="text-align: center;"><span>4</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
+<!--									<tr role="row" class="odd">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>7</span></td>-->
+<!--										<td><span>Java框架实验2</span></td>-->
+<!--										<td style="text-align: center;"><span>温佐承</span></td>-->
+<!--										<td><span>	掌握Spring框架的IOC和AOP</span></td>-->
+<!--										<td style="text-align: center;"><span>4</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
+<!--									<tr role="row" class="even">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>8</span></td>-->
+<!--										<td><span>javaweb实验1</span></td>-->
+<!--										<td style="text-align: center;"><span>陈功锁</span></td>-->
+<!--										<td><span>使用 3+1 的基本知识完成对数据库的连接</span></td>-->
+<!--										<td style="text-align: center;"><span>2</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
+<!--									<tr role="row" class="odd">-->
+<!--										<td style="text-align: center;" class="sorting_1"><span>9</span></td>-->
+<!--										<td><span>layui实验2</span></td>-->
+<!--										<td style="text-align: center;"><span>舒红梅</span></td>-->
+<!--										<td><span>使用layui框架完成对网页的布局</span></td>-->
+<!--										<td style="text-align: center;"><span>4</span></td>-->
+<!--										<td style="text-align: center;">-->
+<!--											<a target="view_frame" href="#"><button type="button" class="btn btn-primary">开始实验</button></a>-->
+<!--										</td>-->
+<!--									</tr>-->
 								</tbody>
 							</table>
+							<div style="margin:0 auto; width: 80%; text-align: center;">
+								<p>当前 <span th:text="${allexp.number}+1"></span> 页,
+									总 <span th:text="${allexp.totalPages}"></span> 页,
+									共 <span th:text="${allexp.totalElements}"></span> 条记录</p>
+								<a th:href="@{/newsinfo/newslist}">首页</a>
+								<a th:href="@{/newsinfo/newslist(pageNum=${allexp.hasPrevious()}?${allexp.number}-1:0)}">上一页</a>
+								<a th:href="@{/newsinfo/newslist(pageNum=${allexp.hasNext()}?${allexp.number}+1:${allexp.number})}">下一页</a>
+								<a th:href="@{/newsinfo/newslist(pageNum=${allexp.totalPages}-1)}">尾页</a>
+							</div>
 						</div>
 						<div class="clearfix"></div>
 						<!-- <div class="more text-center"><a href="products.html" title="">查看更多</a></div> -->
@@ -266,7 +274,7 @@
 								<a href="#">
 	
 									<div class="img">
-										<img style="height:300px" src="../../static/images/img_home/shiyan1 .jpg" alt="产品项目" class="img-responsive">
+										<img style="height:300px" th:src="${img1}" alt="产品项目" class="img-responsive">
 										<div class="overlay"></div>
 									</div>
 								</a>
@@ -283,7 +291,7 @@
 								<a href="#">
 	
 									<div class="img">
-										<img style="height:300px;width:100%;" src="../../static/images/img_home/index1.png" alt="产品项目" class="img-responsive">
+										<img style="height:300px;width:100%;" th:src="${img2}" alt="产品项目" class="img-responsive">
 										<div class="overlay"></div>
 									</div>
 								</a>
@@ -666,67 +674,67 @@
 		<link href="../../static/css/css_home/jquery.dataTables.css" rel="stylesheet">
 
 		<script src="../../static/js/js_home/jquery.dataTables.js"></script>
-		<script type="text/javascript">
-			$(window).ready(function() {
-				$('#zhe').slideUp(1000);
-				// alert('您可以尝试通过快捷键');
-				// $('#tttaa').DataTable();
-				$('#tttaa').DataTable({
-					'iDisplayLength': 10,
-					language: {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项实验",
-						"sZeroRecords": "没有匹配实验",
-						"sInfo": "显示第 _START_ 至 _END_ 项实验，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项实验，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项实验过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-					}
-				});
-				$('.tttada').DataTable({
-					'iDisplayLength': 10,
-					language: {
-						"sProcessing": "处理中...",
-						"sLengthMenu": "显示 _MENU_ 项实验",
-						"sZeroRecords": "没有匹配实验",
-						"sInfo": "显示第 _START_ 至 _END_ 项实验，共 _TOTAL_ 项",
-						"sInfoEmpty": "显示第 0 至 0 项实验，共 0 项",
-						"sInfoFiltered": "(由 _MAX_ 项实验过滤)",
-						"sInfoPostFix": "",
-						"sSearch": "搜索:",
-						"sUrl": "",
-						"sEmptyTable": "表中数据为空",
-						"sLoadingRecords": "载入中...",
-						"sInfoThousands": ",",
-						"oPaginate": {
-							"sFirst": "首页",
-							"sPrevious": "上页",
-							"sNext": "下页",
-							"sLast": "末页"
-						},
-						"oAria": {
-							"sSortAscending": ": 以升序排列此列",
-							"sSortDescending": ": 以降序排列此列"
-						}
-					}
-				});
-			});
-		</script>
+<!--		<script type="text/javascript">-->
+<!--			$(window).ready(function() {-->
+<!--				$('#zhe').slideUp(1000);-->
+<!--				// alert('您可以尝试通过快捷键');-->
+<!--				// $('#tttaa').DataTable();-->
+<!--				$('#tttaa').DataTable({-->
+<!--					'iDisplayLength': 10,-->
+<!--					language: {-->
+<!--						"sProcessing": "处理中...",-->
+<!--						"sLengthMenu": "显示 _MENU_ 项实验",-->
+<!--						"sZeroRecords": "没有匹配实验",-->
+<!--						"sInfo": "显示第 _START_ 至 _END_ 项实验，共 _TOTAL_ 项",-->
+<!--						"sInfoEmpty": "显示第 0 至 0 项实验，共 0 项",-->
+<!--						"sInfoFiltered": "(由 _MAX_ 项实验过滤)",-->
+<!--						"sInfoPostFix": "",-->
+<!--						"sSearch": "搜索:",-->
+<!--						"sUrl": "",-->
+<!--						"sEmptyTable": "表中数据为空",-->
+<!--						"sLoadingRecords": "载入中...",-->
+<!--						"sInfoThousands": ",",-->
+<!--						"oPaginate": {-->
+<!--							"sFirst": "首页",-->
+<!--							"sPrevious": "上页",-->
+<!--							"sNext": "下页",-->
+<!--							"sLast": "末页"-->
+<!--						},-->
+<!--						"oAria": {-->
+<!--							"sSortAscending": ": 以升序排列此列",-->
+<!--							"sSortDescending": ": 以降序排列此列"-->
+<!--						}-->
+<!--					}-->
+<!--				});-->
+<!--				$('.tttada').DataTable({-->
+<!--					'iDisplayLength': 10,-->
+<!--					language: {-->
+<!--						"sProcessing": "处理中...",-->
+<!--						"sLengthMenu": "显示 _MENU_ 项实验",-->
+<!--						"sZeroRecords": "没有匹配实验",-->
+<!--						"sInfo": "显示第 _START_ 至 _END_ 项实验，共 _TOTAL_ 项",-->
+<!--						"sInfoEmpty": "显示第 0 至 0 项实验，共 0 项",-->
+<!--						"sInfoFiltered": "(由 _MAX_ 项实验过滤)",-->
+<!--						"sInfoPostFix": "",-->
+<!--						"sSearch": "搜索:",-->
+<!--						"sUrl": "",-->
+<!--						"sEmptyTable": "表中数据为空",-->
+<!--						"sLoadingRecords": "载入中...",-->
+<!--						"sInfoThousands": ",",-->
+<!--						"oPaginate": {-->
+<!--							"sFirst": "首页",-->
+<!--							"sPrevious": "上页",-->
+<!--							"sNext": "下页",-->
+<!--							"sLast": "末页"-->
+<!--						},-->
+<!--						"oAria": {-->
+<!--							"sSortAscending": ": 以升序排列此列",-->
+<!--							"sSortDescending": ": 以降序排列此列"-->
+<!--						}-->
+<!--					}-->
+<!--				});-->
+<!--			});-->
+<!--		</script>-->
 
 	</body>
 

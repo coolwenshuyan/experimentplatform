@@ -3,6 +3,8 @@ package com.coolwen.experimentplatform.dao;
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
 import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -45,7 +47,9 @@ public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQues
 
     ModuleTestQuest findByQuestDescribe(@Param("questDescribe") String questDescribe);
 
-//     Page<ModuleTestQuest> findModuleTestQuestsByQuestDescribeIsLikeOrMId();
+    @Query(value = "select b from ModuleTestQuest b where b.mId=?1")
+     Page<ModuleTestQuest> findTermQuest(@Param("mId") int mId,Pageable pageable);
+
     @Query("select new com.coolwen.experimentplatform.model.DTO.QuestAnswerDto" +
             "(t1.questId,t1.questDescribe,t1.questAnswer,t1.questScore,t1.questType,t1.questOrder," +
             "t2.answerId,t2.answerDescribe,t2.answerOrder) " +

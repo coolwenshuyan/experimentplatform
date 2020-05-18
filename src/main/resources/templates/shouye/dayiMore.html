@@ -66,7 +66,7 @@
         </div>
         <hr/>
         <div>
-            <p style="padding-left: 72px;">问题：<a th:text="${question.content}" ></a></p>
+            <p style="padding-left: 72px;">问题：<a th:utext="${question.content}" ></a></p>
 
         </div>
     </div>
@@ -83,6 +83,12 @@
 
     <div style="margin-top: 20px">
         <form th:action="'/reply/' + ${reply.id} + '/update'" method="post" th:each="reply:${replies}">
+
+            <hr/>
+
+            <p style="text-align: left; margin: 10px; float: left;">回复人:<a type="text" th:text="${reply.reply_pname}"></a></p>
+            <p style="text-align: right; margin: 10px; float: right;">回复时间:<a type="text" th:text="${reply.dic_datetime}"></a></p>
+
             <div>
                 <button type="submit" class="layui-btn layui-btn-primary layui-btn-sm">
                     <i class="layui-icon">&#xe642;</i>
@@ -91,13 +97,12 @@
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </div>
-            <label class="layui-form-label" >回复：</label>
+
+            <label class="layui-form-label" >回复内容：</label>
             <div>
                 <script th:id="'editor' + ${reply.id}" name="content" th:utext="${reply.content}" type="text/plain">
                 </script>
             </div>
-            <p style="text-align: left; margin: 10px; float: left;">回复人:<a type="text" th:text="${reply.reply_pname}"></a></p>
-            <p style="text-align: right; margin: 10px; float: right;">回复时间:<a type="text" th:text="${reply.dic_datetime}"></a></p>
         </form>
     </div>
 

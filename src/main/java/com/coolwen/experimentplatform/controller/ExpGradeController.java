@@ -5,6 +5,7 @@ import com.coolwen.experimentplatform.model.DTO.ModuleGradesDto;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.model.TotalScoreCurrent;
 import com.coolwen.experimentplatform.service.TotalScoreCurrentService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,12 @@ public class ExpGradeController {
     TotalScoreCurrentService totalScoreCurrentService;
 
     @GetMapping(value = "/score")
-    public String totalscore(Model model, Session session){
-//        Student student = (Student) session.getAttribute("");
-        List<TotalScoreCurrent> totalScoreCurrents = totalScoreCurrentService.findeAllBystuid(1);
+    public String totalscore(Model model){
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        System.out.println(">>>>>>>>>>>>>>>>grade>>>>>...."+student);
+        List<TotalScoreCurrent> totalScoreCurrents = totalScoreCurrentService.findeAllBystuid(student.getId());
         model.addAttribute("totalScoreCurrents",totalScoreCurrents);
-        List<ModuleGradesDto> ModuleGrades = totalScoreCurrentService.ModuleGrade(1);
+        List<ModuleGradesDto> ModuleGrades = totalScoreCurrentService.ModuleGrade(student.getId());
         model.addAttribute("ModuleGrades",ModuleGrades);
         return "home_shiyan/grade";
     }

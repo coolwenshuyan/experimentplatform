@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.ModuleTestAnswer;
 import com.coolwen.experimentplatform.model.Report;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface ReportService {
     Report findByReportId(int reportId);
 
     List<Report> findAllByReportId(int reportId);
+
+
+    List<Report> findByMid(int mid);
 }

@@ -24,6 +24,9 @@
     	#layerDemo{
     		float: left;
     	}
+        .layui-col-md4{
+            background-color: #fff;
+        }
 
     </style>
     <body>
@@ -56,11 +59,11 @@
                                       <td th:text="${report.reportScore}" name="reportScore">会员相关</td>
                                       <td th:text="${report.reportType}" name="reportType">会员相关</td>
                                     <td class="td-manage">
-                                    <a th:href="@{|updateReport/${report.reportId}|}">
-										 <button class="layui-btn" onclick="xadmin.open('修改成功','./updatePart.html')">
+                                    <!--<a th:href="@{|updateReport/${report.reportId}|}">-->
+										 <a class="layui-btn" onclick="xadmin.open('修改成功','./|updateReport/${report.reportId}|')">
                                              修改
-			                            </button>
-                                    </a>
+			                            </a>
+                                    <!--</a>-->
                                       <a title="删除" onclick="member_del(this,'修改成功')" th:href="@{|/shiyan/deleteReport/${report.reportId}|}">
                                         <button type="layui-btn" class="layui-btn layui-btn-primary">删除</button>
                                       </a>

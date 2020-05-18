@@ -69,7 +69,7 @@
 		        	<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-liuliangyunpingtaitubiao03 left"></i>首页<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('http://localhost:8888/setinfo/addplat',this)">仿真平台概括</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/addplat',this)">仿真平台概括</a></dt>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../teachers/list',this)">师资队伍</a></dt>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../learning/list',this)">学习效果</a></dt>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/lunbo',this)">轮播导航</a></dt>
@@ -83,9 +83,9 @@
 						<a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-yunying left"></i>实验模块设置<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addExpModel',this)">实验模块添加</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/changeTheory.html',this)">理论学习添加</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/addTest.html',this)">模块测试添加</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/part.html',this)">填写报告添加</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/addAnswer',this)">模块测试添加</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/addReport',this)">填写报告添加</a></dt>
 
 
 						</dl>
@@ -95,12 +95,12 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>考核设置<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('http://localhost:8888/kaohemodel/checkModule',this)">考核模块设置</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('http://localhost:8888/shiyan/list',this)">理论测试添加</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick(' http://localhost:8888/testScoreManage/list ',this)">模块测试成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('http://localhost:8888/reportScoreManage/list ',this)">实验报告成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohemodel/checkModule',this)">考核模块设置</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">理论测试添加</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick(' ../testScoreManage/list ',this)">模块测试成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../reportScoreManage/list ',this)">实验报告成绩管理</a></dt>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohe/report_manage.html',this)">理论测试成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('http://localhost:8888/totalscore/list',this)">班级成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../totalscore/list',this)">班级成绩管理</a></dt>
 						</dl>
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
 					</li>
@@ -110,8 +110,8 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>学生账号管理<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../student/student_list.html',this)">学生管理列表</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../student/class_administer.html',this)">分班管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/list',this)">学生管理列表</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/classManage',this)">分班管理</a></dt>
 
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
 						</dl>
@@ -121,7 +121,7 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>教师账号管理<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shouye/teacherID_add.html',this)">教师账号管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../admin/list',this)">教师账号管理</a></dt>
 
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
 						</dl>
@@ -130,23 +130,24 @@
 		        	<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>答疑室<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../shouye/dayiManage.html',this)">答疑提问管理</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../question/list',this)">答疑提问管理</a></dt>
 		                </dl>
 		           	</li>
 		        	<!--<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-caiwu left"></i></a>
 		           	</li>-->
-		        	<li>
-		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>其他页面<i class="iconfont icon-dajiantouyou right"></i></a>
-		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../login/login.html',this)">登录页面</a></dt>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../res/add.html',this)">注册页面</a></dt>
-		                </dl>
-		           	</li>
+<!--		        	<li>-->
+<!--		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>其他页面<i class="iconfont icon-dajiantouyou right"></i></a>-->
+<!--		                <dl>-->
+<!--		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../login/login.html',this)">登录页面</a></dt>-->
+<!--		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../res/add.html',this)">注册页面</a></dt>-->
+<!--		                </dl>-->
+<!--		           	</li>-->
 		        </ul>
 		    </div>
 		</div>
 		<!-- 左侧菜单 - 结束 -->
+
 		
 		<div class="main">
 			<!-- 头部栏 - 开始 -->
@@ -168,7 +169,7 @@
 					<span><i class="iconfont icon-xianshiqi"></i>后台首页</span>
 				</div>
 				<div class="con">
-					<iframe id="mainIframe" src="http://localhost:8888/setinfo/addplat" scrolling=""></iframe>
+					<iframe id="mainIframe" src="../setinfo/addplat" scrolling=""></iframe>
 				</div>
 			</div>
 			<!-- 核心区域 - 结束 -->

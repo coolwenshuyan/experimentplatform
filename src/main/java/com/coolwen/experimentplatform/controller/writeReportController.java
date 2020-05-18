@@ -1,33 +1,32 @@
 package com.coolwen.experimentplatform.controller;
 
-import antlr.ASTNULLType;
 import com.coolwen.experimentplatform.dao.KaoheModelRepository;
-import com.coolwen.experimentplatform.dao.ModuleTestQuestRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
-import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.PScoreDto;
-import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
-//import com.coolwen.experimentplatform.model.StudentTestScoreDTO;
+import com.coolwen.experimentplatform.model.Report;
+import com.coolwen.experimentplatform.model.ReportAnswer;
 import com.coolwen.experimentplatform.service.ReportAnswerService;
+import com.coolwen.experimentplatform.service.ReportService;
 import com.coolwen.experimentplatform.service.ScoreService;
 import com.coolwen.experimentplatform.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.stream.events.DTD;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+//import com.coolwen.experimentplatform.model.StudentTestScoreDTO;
+
 
 @Controller
 //老师评分
-@RequestMapping(value = "/TreportGrade")
-public class TreportGradeController {
+@RequestMapping(value = "/WriteReport")
+public class writeReportController {
 
     @Autowired
     public StudentRepository studentRepository;
@@ -43,6 +42,9 @@ public class TreportGradeController {
 
     @Autowired
     private ReportAnswerService reportAnswerService;
+
+    @Autowired
+    private ReportService reportService;
 
 //    @GetMapping(value = "/add")
 //    public String loadAllModel(Model model) {
@@ -65,42 +67,73 @@ public class TreportGradeController {
 //        return "kaohe/score_management ";
 //    }stuId,mid
 
-    @GetMapping(value = "/{stuId}/{mid}/giveMark" )
+    @GetMapping(value = "/{mid}/Timu" )
     public String GiveAmark(Model model,
-                            @RequestParam(required = true, defaultValue = "1") int stuId,
-                            @RequestParam(required = true, defaultValue = "1") int mid
-    ) {
-        List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,2);
-        model.addAttribute("zjy",score);
-        System.out.println(">>>>>>>>>>>>>>>>>>"+score);
-        return "kaohe/reportGrade_ma";
+                            @PathVariable("mid")int mid){
+
+//        List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,2);
+        List<Report> reports= reportService.findByMid(mid);
+        model.addAttribute("TiMuList",reports);
+        int stuId = 1;
+        //测试的是id为一的学生
+
+        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
+        model.addAttribute("DaAnList",reportAnswers);
+
+        System.out.println(">>>>>>>>>>>>>>>>>>"+reports);
+        return "home_shiyan/tian";
     }
 
 
 
-    @PostMapping(value = "/{stuId}/{mid}/giveMark" )
+    @PostMapping(value = "/{mid}/Timu" )
     public String giveamark(Model model, HttpServletRequest request,
-                            @RequestParam(required = true, defaultValue = "1") int stuId,
-                            @PathVariable("mid")int mid
+                            HttpSession httpSession,
+//                            @RequestParam(required = true, defaultValue = "1") int stuId,
+                            @PathVariable("mid")int mid){
 
-    ) {
-        List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,mid);
-        model.addAttribute("zjy",score);
-        System.out.println(">>>>>>>>>>>>>>>>>>"+score);
+        List<Report> reports= reportService.findByMid(mid);
+        model.addAttribute("TiMuList",reports);
+
         Enumeration em = request.getParameterNames();
         List<String> zyy = new ArrayList<>();
+
+
+
         while (em.hasMoreElements()) {
         String name = (String) em.nextElement();
         String value = request.getParameter(name);
-        System.out.println("<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
+        System.out.println("<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>value"+value);
         zyy.add(value);
         }
+
+        int stuId=1;
+        //测试的是id为一的学生
+
+        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
+        model.addAttribute("DaAnList",reportAnswers);
+
         for (int i = 0; i <zyy.size() ; i++) {
-            PScoreDto d= score.get(i);
-            ReportAnswer c = reportAnswerService.findByReportByreportid(d.getReportid());
-            c.setScore(Integer.parseInt(zyy.get(i)));
-            reportAnswerService.updateOne(c);
+
+            Report d= reports.get(i);
+            List<ReportAnswer> b = reportAnswerService.listByReportidAndStuID(d.getReportId(),stuId);
+            if (b == null || b.size() ==0){
+                ReportAnswer c = new ReportAnswer();
+                c.setStuReportAnswer(zyy.get(i));
+                c.setScore(0);
+                c.setReportId(d.getReportId());
+                c.setStuId(stuId);
+                reportAnswerService.addReportAnswer(c);
+            }else {
+                ReportAnswer c = new ReportAnswer();
+                c.setId(b.get(0).getId());
+                c.setStuReportAnswer(zyy.get(i));
+                c.setScore(0);
+                c.setReportId(d.getReportId());
+                c.setStuId(stuId);
+                reportAnswerService.addReportAnswer(c);
+            }
         }
-        return "kaohe/reportGrade_ma";
+        return "home_shiyan/tian";
     }
 }
