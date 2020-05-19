@@ -109,8 +109,9 @@ public class ModuleController {
         String title1 = (String) session.getAttribute("questScore");
         String title2 = (String) session.getAttribute("questType");
         String title3 = (String) session.getAttribute("questAnswer");
+        String title4 = (String) session.getAttribute("mId");
         ModuleTestQuest quest = questService.findQuestByQuestId(questId);
-        if (title == null && title1 == null && title2 == null && title3 == null) {
+        if (title == null && title1 == null && title2 == null && title3 == null && title4 == null) {
             model.addAttribute("UpQuest", quest);
         }
 
@@ -131,6 +132,7 @@ public class ModuleController {
         quest1.setQuestAnswer(quest.getQuestAnswer());
         quest1.setQuestType(quest.getQuestType());
         quest1.setQuestScore(quest.getQuestScore());
+        quest1.setmId(quest.getmId());
         model.addAttribute("UpQuest", quest1);
         model.addAttribute("qid", questId);
         questService.addModuleTestQuest(quest1);

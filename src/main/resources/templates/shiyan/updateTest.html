@@ -67,6 +67,14 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">实验模块</label>
+                <div class="layui-input-block">
+                    <input type="text" name="mId" th:value="${UpQuest.mId}" required lay-verify="required" placeholder="1" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label class="layui-form-label">答案</label>
                 <div class="layui-input-block">
                     <input type="text" name="questAnswer" th:value="${UpQuest.questAnswer}" required
