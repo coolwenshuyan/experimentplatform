@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class QuestionStudentDto {
 
+
     private int id;   //t_question   id
     private int sid;  //学生id
     private String content;  //问题

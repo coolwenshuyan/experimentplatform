@@ -22,14 +22,18 @@ public class StudentTestScoreDTO {
 //   完成状态
     private boolean Done;
 
-    public StudentTestScoreDTO(int sid, String sName, int sClass, String mName, float mScore, boolean done) {
+    private int mid;
+
+    public StudentTestScoreDTO(int sid, String sName, int sClass, String mName, float mScore, boolean done, int mid) {
         this.sid = sid;
         this.sName = sName;
         this.sClass = sClass;
         this.mName = mName;
         this.mScore = mScore;
         Done = done;
+        this.mid = mid;
     }
+
 
     public int getSid() {
         return sid;
@@ -79,6 +83,14 @@ public class StudentTestScoreDTO {
         Done = done;
     }
 
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+
     @Override
     public String toString() {
         return "StudentTestScoreDTO{" +
@@ -88,6 +100,7 @@ public class StudentTestScoreDTO {
                 ", mName='" + mName + '\'' +
                 ", mScore=" + mScore +
                 ", Done=" + Done +
+                ", mid=" + mid +
                 '}';
     }
 }

@@ -66,13 +66,13 @@ public class ModuleController {
 
     //试题列表
     @RequestMapping("list")
-    public String list( HttpSession session,
+    public String list(HttpSession session,
 //                       @RequestParam(value = "page", defaultValue = "0") Integer page,
 //                       @RequestParam(value = "size", defaultValue = "10") Integer size,
-                       @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum,
+                       @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum,
                        Model model) {
 //        Sort sort = new Sort(Sort.Direction.DESC, "id");
-        Pageable pageable = PageRequest.of(pageNum, 5);
+        Pageable pageable = PageRequest.of(pageNum, 10);
         Page<ModuleTestQuest> pageList = questService.findByPage(pageable);
 
         String title = "";
@@ -109,8 +109,9 @@ public class ModuleController {
         String title1 = (String) session.getAttribute("questScore");
         String title2 = (String) session.getAttribute("questType");
         String title3 = (String) session.getAttribute("questAnswer");
+        String title4 = (String) session.getAttribute("mId");
         ModuleTestQuest quest = questService.findQuestByQuestId(questId);
-        if (title == null && title1 == null && title2 == null && title3 == null) {
+        if (title == null && title1 == null && title2 == null && title3 == null && title4 == null) {
             model.addAttribute("UpQuest", quest);
         }
 
@@ -131,6 +132,7 @@ public class ModuleController {
         quest1.setQuestAnswer(quest.getQuestAnswer());
         quest1.setQuestType(quest.getQuestType());
         quest1.setQuestScore(quest.getQuestScore());
+        quest1.setmId(quest.getmId());
         model.addAttribute("UpQuest", quest1);
         model.addAttribute("qid", questId);
         questService.addModuleTestQuest(quest1);
@@ -277,9 +279,14 @@ public class ModuleController {
 //实验报告问题增加
 
     @GetMapping("addReport")
-    public String addReport(Model model) {
-        List<Report> addReport = reportService.loadReport();
-        model.addAttribute("addReport", addReport);
+    public String addReport(Model model,
+                            @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, 10);
+        Page<Report> reportList = reportService.findByReportPage(pageable);
+
+//        List<Report> addReport = reportService.loadReport();
+
+        model.addAttribute("addReport", reportList);
         return "shiyan/part";
     }
 
@@ -308,8 +315,9 @@ public class ModuleController {
     @GetMapping("updateReport/{reportId}")
     public String updateReport(@PathVariable("reportId") int reportId, Model model) {
         Report report = reportService.updateReport(reportId);
+
         model.addAttribute("Upreport", report);
-        return ".././updatePart";
+        return "shiyan/updatePart";
     }
 
     @PostMapping("updateReport/{reportId}")
@@ -323,12 +331,6 @@ public class ModuleController {
         reportService.addReport(r);
         return "redirect:/shiyan/addReport";
     }
-
-
-
-
-
-
 
 
 //    查询所有实验

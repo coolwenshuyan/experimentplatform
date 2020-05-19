@@ -11,7 +11,8 @@ import javax.persistence.*;
 public class KaoHeModelScore {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_kaohemodel_score")
+    @TableGenerator(name = "t_kaohemodel_score", initialValue = 0, allocationSize = 1,table = "seq_table")
     private int id;
 
     @Column(length = 11,nullable = false)

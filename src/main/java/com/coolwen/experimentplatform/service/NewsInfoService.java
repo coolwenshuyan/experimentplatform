@@ -8,4 +8,8 @@ public interface NewsInfoService {
     NewsInfo findById(int id);
 
     void delete(int id);
+
+    int findAllmodelpeople();
+
+    int findAllPass();
 }

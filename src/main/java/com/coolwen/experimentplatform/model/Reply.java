@@ -6,6 +6,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_reply")
 public class Reply {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE,generator = "reply_id")
     @TableGenerator(name = "reply_id",initialValue = 0,allocationSize = 1,table = "seq_table")

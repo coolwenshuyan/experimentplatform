@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface ReplyService {
 
+
     //添加
-    void add (Reply reply);
+    void add(Reply reply);
 
     //删
     void delete(int id);

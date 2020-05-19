@@ -76,10 +76,12 @@
 	 * @return {[type]}        [description]
 	 */
 	Xadmin.prototype.open = function (title,url,w,h,full) {
+        console.log(url);
 		if (title == null || title == '') {
 	        var title=false;
 	    };
 	    if (url == null || url == '') {
+
 	        var url="404.html";
 	    };
 	    if (w == null || w == '') {

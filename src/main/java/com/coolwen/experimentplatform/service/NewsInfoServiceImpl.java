@@ -26,4 +26,14 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         newsInfoRepository.deleteById(id);
     }
 
+    @Override
+    public int findAllmodelpeople() {
+        return newsInfoRepository.findAllmodelpeople();
+    }
+
+    @Override
+    public int findAllPass() {
+        return newsInfoRepository.findAllPass();
+    }
+
 }

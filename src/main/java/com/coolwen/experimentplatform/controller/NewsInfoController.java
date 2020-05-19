@@ -3,6 +3,8 @@ package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.dao.ExpModelRepository;
 import com.coolwen.experimentplatform.dao.NewsInfoRepository;
+import com.coolwen.experimentplatform.dao.StudentRepository;
+import com.coolwen.experimentplatform.dao.TeacherRepository;
 import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.model.SetInfo;
@@ -23,15 +25,16 @@ public class NewsInfoController {
 
     @Autowired
     NewsInfoRepository newsInfoRepository;
-
     @Autowired
     ExpModelRepository expModelRepository;
-
     @Autowired
     NewsInfoService newsInfoService;
-
     @Autowired
     SetInfoService setInfoService;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    TeacherRepository teacherRepository;
 
     //进入前端展示页面
     @GetMapping(value = "/newslist")
@@ -53,8 +56,32 @@ public class NewsInfoController {
             String imgurl = expModelRepository.findexpimg(Integer.parseInt(sid[i]));
             model.addAttribute("img"+String.valueOf(i),imgurl);
         }
+        //平台统计数据
+        //实验模块总数
+        int modenum = (int) expModelRepository.count();
+        model.addAttribute("modenum",modenum);
+        System.out.println(modenum);
+        //平台总用户数
+        int studentnum = (int) studentRepository.count();
+        int teachernum = (int) teacherRepository.count();
+        model.addAttribute("usernum",studentnum+teachernum);
+        //参与考核人数
+        int studentmodel = newsInfoService.findAllmodelpeople();
+        model.addAttribute("studentmodel",studentmodel);
+        System.out.println(studentmodel);
+        //通过考核人数
+        int passpeople = newsInfoService.findAllPass();
+        model.addAttribute("passpeople",passpeople);
+        System.out.println(passpeople);
         return "home_page/index";
     }
+
+//    //实验大厅入口
+//    @GetMapping(value = "/expModel/alltestModel")
+//    public String model(){
+//        return "home_shiyan/all-test";
+//    }
+
 
     //点击公告，查看详情
     @GetMapping(value = "/{id}/noticeDetails")

@@ -13,7 +13,8 @@ import java.util.Date;
 @Table(name = "t_totalscore_pass")
 public class TotalScorePass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "t_totalscore_pass")
+    @TableGenerator(name = "t_totalscore_pass", initialValue = 0, allocationSize = 1,table = "seq_table")
     private int id;
 
     @Column(length = 11,nullable = false)

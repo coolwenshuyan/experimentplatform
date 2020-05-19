@@ -32,7 +32,7 @@ import java.util.*;
  * @author CoolWen
  * @version 2018-11-01 7:44
  */
-//@Configuration
+@Configuration
 @EnableTransactionManagement
 public class ShiroConfig {
 
@@ -106,6 +106,7 @@ public class ShiroConfig {
 //        filterChainDefinitionMap.put("/405", "anon");
 //        filterChainDefinitionMap.put("/logout", "logout");
 //        filterChainDefinitionMap.put("/**", "authc");//需要登录访问的资源 , 一般将/**放在最下边
+
 //        chains.put("/admin/*", "roles[Admin]");
 //        chains.put("/admin/*", "roles[Admin]");
         logger.debug("filterChainDefinitionMap" + filterChainDefinitionMap);
