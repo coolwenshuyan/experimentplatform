@@ -134,7 +134,7 @@
 						<th>班级ID</th>
 						<div th:each="a:${numList}">
 							<th>模块名</th>
-							<th>测试成绩</th>
+							<th>报告成绩</th>
 							<th>状态</th>
 							<th>操作</th>
 						</div>
@@ -153,7 +153,7 @@
 							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmName()}">12345678</p></td>
 							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmScore()}">12345678</p></td>
 							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.isDone()}?'完成':'未完成'">12345678</p></td>
-							<td th:if="${stat.index >= 0}" ><a><button type="评分" class="layui-btn" lay-submit="" lay-filter="demo1">评分</button></a></td>
+							<td th:if="${stat.index >= 0}" ><a th:href="|/TreportGrade/${one.getId()}/${stuInfo.getMid()}/giveMark|"><button type="评分" class="layui-btn" lay-submit="" lay-filter="demo1">评分</button></a></td>
 
 						</div>
 					</tr>

@@ -15,12 +15,24 @@
     <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
     <!--<script type="text/javascript" src="./js/xadmin.js"></script>-->
     <script src="../../static/js/xadmin.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .choice{
+            display: flex;
+            /*float: left;*/
+        }
+        input{
+            width: 100%;
+        }
+        .choice1{
+            margin-right: 10rem;
+        }
+    </style>
 </head>
 
 <body>
     <div class="layui-fluid exr">
         <div class="layui-row">
-            <form class="layui-form" th:object="${Upreport}" method="post">
+            <form class="layui-form" th:object="${Upreport}" method="post" >
                 <div class="layui-form-item">
                     <label for="username" class="layui-form-label">
                         <span class="x-red">*</span>实验报告序号</label>
@@ -52,19 +64,39 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">类型</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="reportType" checked="checked" value="填空" title="填空">
-                        <input type="radio" name="reportType" value="整篇" title="整篇">
+                        <input type="radio" name="reportType" th:field="${Upreport.reportType}" checked="checked" value="填空" title="填空">
+                        <input type="radio" name="reportType" th:field="${Upreport.reportType}" value="整篇" title="整篇">
                     </div>
                 </div>
 
+                <div class="choice layui-form-item">
                 <!--for="L_repass"-->
-                <a class="layui-form-item" th:href="@{|/shiyan/updateReport/${Upreport.reportId}|}">
-                    <label   class="layui-form-label"></label>
-                    <button class="layui-btn" lay-filter="add" lay-submit="" onclick="colse()"
-                            >修改</button>
+                    <a class="" th:href="@{|/shiyan/updateReport/${Upreport.reportId}|}">
+                        <label   class="layui-form-label"></label>
+                        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="colse()"
+                                >修改</button>
 
-                    <!--onclick="colse()"-->
-                </a>
+                        <!--onclick="colse()"-->
+                    </a>
+                    <a class="choice1" th:href="@{|addReport|}">
+                        <label   class="layui-form-label"></label>
+                        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="colse()"
+                        >取消</button>
+
+                        <!--onclick="colse()"-->
+                    </a>
+
+                    <!--<div class="layui-form-item">-->
+                        <!--<div class="layui-input-block">-->
+                            <!--<a class="choice1" th:href="@{|/shiyan/addReport|}">-->
+                                <!--<button type="reset" class="layui-btn layui-btn-primary">取消</button>-->
+                            <!--</a>-->
+                            <!--<a class="" th:href="@{|/shiyan/updateReport/${Upreport.reportId}|}">-->
+                            <!--<button class="layui-btn" lay-submit lay-filter="formDemo">修改</button>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
             </form>
         </div>
     </div>

@@ -4,6 +4,8 @@ import com.coolwen.experimentplatform.dao.ReportRepository;
 import com.coolwen.experimentplatform.model.ModuleTestAnswer;
 import com.coolwen.experimentplatform.model.Report;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +54,11 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public List<Report> findByMid(int mid) {
         return reportRepository.findAllByMId(mid);
+    }
+
+    @Override
+    public Page<Report> findByReportPage(Pageable pageable) {
+        return reportRepository.findAll(pageable);
     }
 
 }

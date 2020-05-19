@@ -76,6 +76,13 @@ public class NewsInfoController {
         return "home_page/index";
     }
 
+//    //实验大厅入口
+//    @GetMapping(value = "/expModel/alltestModel")
+//    public String model(){
+//        return "home_shiyan/all-test";
+//    }
+
+
     //点击公告，查看详情
     @GetMapping(value = "/{id}/noticeDetails")
     public String noticedetails(@PathVariable int id,Model model){
