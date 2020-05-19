@@ -6,6 +6,7 @@ import java.util.Date;
 @Entity
 @Table(name = "t_question")
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE,generator = "question_id")
     @TableGenerator(name = "question_id",initialValue = 0,allocationSize = 1,table = "seq_table")
