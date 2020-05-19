@@ -189,6 +189,7 @@ public class LoginController {
     }
 
 
+
     @RequestMapping(value = {"/change"}, method = RequestMethod.POST)//修改个人信息
     public ModelAndView change(@RequestParam("account") String username,
                                @RequestParam("password") String password,

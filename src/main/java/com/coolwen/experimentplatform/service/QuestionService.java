@@ -15,6 +15,7 @@ public interface QuestionService {
     //删
     void delete(int id);
 
+
     //通过id查
     public String findByquestioncontent(int id);
 

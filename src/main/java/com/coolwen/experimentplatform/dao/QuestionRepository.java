@@ -16,6 +16,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     @Query(value = "select content from t_question where id = ?", nativeQuery = true)
     public String findByquestioncontent(int id);
 
+
 //    @Query(value="select * from t_question",nativeQuery=true)
 //    public Question getAll();
 

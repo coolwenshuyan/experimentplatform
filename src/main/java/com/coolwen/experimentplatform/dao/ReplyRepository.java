@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface ReplyRepository extends BaseRepository<Reply, Integer>, JpaRepository<Reply, Integer> {
 
+
     @Modifying
     @Transactional
     @Query("delete from Reply where qid in ?1")
