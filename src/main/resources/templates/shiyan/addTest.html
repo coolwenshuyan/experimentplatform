@@ -73,7 +73,7 @@
                                 <td>
                                     <input type="checkbox" name="answerId" lay-skin="primary">
                                 </td>
-                                <td th:text="${answer.answerOrder}" name="answerOrder">A</td>
+                                <td th:text="${answer.answerOrder}" name="answerOrder">1</td>
                                 <td th:text="${answer.answerDescribe}" name="answerDescribe">怎么实现？？</td>
 
                                 <td class="td-manage">
@@ -96,7 +96,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">序号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="answerOrder" required lay-verify="required" autocomplete="off"
+                    <input type="text" name="answerOrder" required lay-verify="required" autocomplete="off" placeholder="1"
                            class="layui-input">
                 </div>
             </div>
@@ -146,7 +146,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">答案</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questAnswer" required lay-verify="required" placeholder="A"
+                    <input type="text" name="questAnswer" required lay-verify="required" placeholder="1,2,3"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>

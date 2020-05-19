@@ -72,18 +72,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                  <tr th:each="report:${addReport}">
+                                  <tr th:each="report:${addReport.content}">
                                       <td th:text="${report.reportOrder}" name="reportOrder">1</td>
                                       <td th:text="${report.reportDescribe}" name="reportDescribe">会员相关</td>
                                       <td th:text="${report.mId}" name="mId">会员相关</td>
                                       <td th:text="${report.reportScore}" name="reportScore">会员相关</td>
                                       <td th:text="${report.reportType}" name="reportType">会员相关</td>
                                     <td class="td-manage">
-                                    <!--<a th:href="@{|updateReport/${report.reportId}|}">-->
-										 <a class="layui-btn" onclick="xadmin.open('修改成功','./|updateReport/${report.reportId}|')">
+                                    <a th:href="@{|updateReport/${report.reportId}|}">
+										 <button class="layui-btn"
+                                            onclick=xadmin.open('修改成功','./updatePart.html')
+                                            >
                                              修改
-			                            </a>
-                                    <!--</a>-->
+			                            </button>
+                                        <!--http://localhost:8888/shiyan/updateReport-->
+                                        <!--th:onclick="xadmin.open(${report.reportId})${report.reportId}"-->
+                                        <!--onclick="xadmin.open('修改成功','./reportId')"-->
+                                        <!--|updateReport/${report.reportId}|-->
+                                    </a>
+                                        <!--<a class="layui-btn">-->
+                                        <!--修改-->
+                                        <!--</a>-->
+
                                       <a title="删除" onclick="member_del(this,'修改成功')" th:href="@{|/shiyan/deleteReport/${report.reportId}|}">
                                         <button type="layui-btn" class="layui-btn layui-btn-primary">删除</button>
                                       </a>
@@ -95,22 +105,30 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <a class="num" href="">1</a>
-                                  <span class="current">2</span>
-                                  <a class="num" href="">3</a>
-                                  <a class="num" href="">489</a>
-                                  <a class="next" href="">&gt;&gt;</a>
+                                  <!--<a class="prev" href="">&lt;&lt;</a>-->
+                                  <!--<a class="num" href="">1</a>-->
+                                  <!--<span class="current">2</span>-->
+                                  <!--<a class="num" href="">3</a>-->
+                                  <!--<a class="num" href="">489</a>-->
+                                  <!--<a class="next" href="">&gt;&gt;</a>-->
+                                    <p>当前 <span th:text="${addReport.number}+1"></span> 页,
+                                        总 <span th:text="${addReport.totalPages}"></span> 页,
+                                        共 <span th:text="${addReport.totalElements}"></span> 条记录</p>
+                                    <a th:href="@{/shiyan/addReport}">首页</a>
+                                    <a th:href="@{/shiyan/addReport(pageNum=${addReport.hasPrevious()}?${addReport.number}-1:0)}">上一页</a>
+                                    <a th:href="@{/shiyan/addReport(pageNum=${addReport.hasNext()}?${addReport.number}+1:${addReport.number})}">下一页</a>
+                                    <a th:href="@{/shiyan/addReport(pageNum=${addReport.totalPages}-1)}">尾页</a>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-					    <div class="layui-input-block">
-					    	<button type="reset" class="layui-btn layui-btn-primary">取消</button>
-					      <button class="layui-btn" lay-submit lay-filter="formDemo">完成</button>
-					    </div>
-					</div>
+                    <!--<div class="layui-form-item">-->
+					    <!--<div class="layui-input-block">-->
+					    	<!--<button type="reset" class="layui-btn layui-btn-primary">取消</button>-->
+					      <!--<button class="layui-btn" lay-submit lay-filter="formDemo">完成</button>-->
+					    <!--</div>-->
+					<!--</div>-->
                 </div>
                 <div class="layui-col-md4">
                 	<form class="layui-form"  th:action="@{/shiyan/addReport}" method="post" th:object="${addReport}">
@@ -162,6 +180,7 @@
                 </div>
             </div>
         </div>
+
     </body>
     <!--<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>-->
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>

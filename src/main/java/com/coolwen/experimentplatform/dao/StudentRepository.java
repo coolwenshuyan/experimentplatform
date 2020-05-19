@@ -22,14 +22,14 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     Student findAllById(int id);
 
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO" +
-            "(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate)" +
+            "(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate,khm.m_id)" +
             "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMTestAnswerDTO();
 
 
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO " +
-            "(st.id, st.stuName, st.classId, expm.m_name, khms.mReportScore, khms.mReportstate) " +
+            "(st.id, st.stuName, st.classId, expm.m_name, khms.mReportScore, khms.mReportstate,khm.m_id) " +
             "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMReportAnswerDTO();
