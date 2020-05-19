@@ -38,7 +38,7 @@ public class ReplyController {
     @PostMapping(value = "/{id}/add1")
     public String add(@PathVariable int id, Reply reply, String uploadfile, Session session) {
         reply.setQid(id);
-        System.out.println("插入的回复保存为："+id);
+        System.out.println("插入的回复保存为：" + id);
 
 //        Admin admin = (Admin) session.getAttribute("admin");
         Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
@@ -50,14 +50,14 @@ public class ReplyController {
         Question question = questionService.findById(id);
         question.setIsreply(true);
         questionService.add(question);
-        return "redirect:/question/"+id+"/dayiMore";//list
+        return "redirect:/question/" + id + "/dayiMore";//list
     }
 
     //学生回复并操作
     @PostMapping(value = "/{id}/add2")
-    public String add1(@PathVariable int id,Reply reply,Session session) {
+    public String add1(@PathVariable int id, Reply reply, Session session) {
         reply.setQid(id);
-        System.out.println("插入的回复保存为："+id);
+        System.out.println("插入的回复保存为：" + id);
 
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         reply.setReply_pname(student.getStuUname());
@@ -68,7 +68,7 @@ public class ReplyController {
         Question question = questionService.findById(id);
         question.setIsreply(false);
         questionService.add(question);
-        return "redirect:/question/"+id+"/detaill";//list
+        return "redirect:/question/" + id + "/detaill";//list
     }
 
 
@@ -96,7 +96,7 @@ public class ReplyController {
         replyupdate.setContent(reply.getContent());
         replyService.add(replyupdate);
         System.out.println("修改成功");
-        return "redirect:/question/"+replyupdate.getQid()+"/dayiMore";
+        return "redirect:/question/" + replyupdate.getQid() + "/dayiMore";
     }
 
     //删除
@@ -105,6 +105,6 @@ public class ReplyController {
         Reply reply = replyService.findById(id);
         int mid = reply.getQid();
         replyService.delete(id);
-        return "redirect:/question/"+mid+"/dayiMore";
+        return "redirect:/question/" + mid + "/dayiMore";
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface QuestionRepository extends JpaRepository<Question,Integer> {
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
     //    @Query("select t from t_question t where t.id = ?1")
     @Query(value = "select content from t_question where id = ?", nativeQuery = true)
     public String findByquestioncontent(int id);

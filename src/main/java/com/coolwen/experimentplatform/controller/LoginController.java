@@ -73,7 +73,6 @@ public class LoginController {
     }
 
 
-
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String login() {
         return "login";
@@ -81,7 +80,7 @@ public class LoginController {
 
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam("account")String username,
+    public ModelAndView login(@RequestParam("account") String username,
                               @RequestParam("password") String password,
                               @RequestParam("type") String loginType,
                               @RequestParam("code") String loginCode) {
@@ -91,25 +90,26 @@ public class LoginController {
         Session session = subject.getSession();
         String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();//转换成小写;
         loginCode = loginCode.toLowerCase();
-        System.out.println(code+" 》》》》》 "+loginCode);
+        System.out.println(code + " 》》》》》 " + loginCode);
         if (!loginCode.equals(code)) {
             model.setViewName("login");
             model.addObject("msg", "验证码错误");
             return model;
         }
-        LoginToken token = new LoginToken(username,ShiroKit.md5(password,username),loginType);
+        LoginToken token = new LoginToken(username, ShiroKit.md5(password, username), loginType);
         Message message = new Message();
         try {
             subject.login(token);
-            if (loginType.equals("student")){
+            if (loginType.equals("student")) {
                 Student student = (Student) subject.getPrincipal();
-                session.setAttribute("username",student.getStuUname());
-                session.setAttribute("student",student);
-                session.setAttribute("loginType",loginType);
-            }if (loginType.equals("admin")){
+                session.setAttribute("username", student.getStuUname());
+                session.setAttribute("student", student);
+                session.setAttribute("loginType", loginType);
+            }
+            if (loginType.equals("admin")) {
                 Admin admin = (Admin) subject.getPrincipal();
                 System.out.println("1");
-                session.setAttribute("admin",admin);
+                session.setAttribute("admin", admin);
             }
             model.setViewName("common");//设置登陆成功之后默认跳转页面
         } catch (UnknownAccountException e) {
@@ -143,7 +143,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
-    public ModelAndView register(@RequestParam("account")String username,
+    public ModelAndView register(@RequestParam("account") String username,
                                  @RequestParam("pass") String pass,
                                  @RequestParam("password") String password,
                                  @RequestParam("stu_xuehao") String stu_xuehao,
@@ -152,20 +152,21 @@ public class LoginController {
                                  @RequestParam("tel") String tel,
                                  @RequestParam("name") String name) {
         ModelAndView model = new ModelAndView();
-        try {if (pass.equals(password)){
+        try {
+            if (pass.equals(password)) {
                 Student student1 = studentService.findByUname(username);
-                if (student1 != null){
+                if (student1 != null) {
                     model.addObject("msg1", "用户名已存在");
                     model.setViewName("register");
-                }else {
-                    Student student  = new Student();
+                } else {
+                    Student student = new Student();
                     student.setStuIsinschool(stu_isinschool);
-                    if (class_id != ""){
+                    if (class_id != "") {
                         student.setClassId(Integer.valueOf(class_id));
                     }
                     student.setStuUname(username);
-                    student.setStuPassword(ShiroKit.md5(password,username));
-                    if (stu_xuehao!= ""){
+                    student.setStuPassword(ShiroKit.md5(password, username));
+                    if (stu_xuehao != "") {
                         System.out.println("wuhsuji");
                         student.setStuXuehao(stu_xuehao);
                     }
@@ -176,7 +177,7 @@ public class LoginController {
                     model.addObject("msg2", "注册成功！！！");
                     model.setViewName("login");
                 }
-            }else {
+            } else {
                 model.setViewName("register");
                 model.addObject("msg3", "两次输入密码不同");
             }
@@ -188,17 +189,17 @@ public class LoginController {
     }
 
 
-
     @RequestMapping(value = {"/change"}, method = RequestMethod.POST)//修改个人信息
-    public ModelAndView change(@RequestParam("account")String username,
+    public ModelAndView change(@RequestParam("account") String username,
                                @RequestParam("password") String password,
                                @RequestParam("type") String registType,
                                @RequestParam("tel") String tel, HttpSession session) {
         ModelAndView model = new ModelAndView();
         String uName = (String) session.getAttribute("username");
-        if (((String) session.getAttribute("username")).equals("student")){
+        if (((String) session.getAttribute("username")).equals("student")) {
             //studentService.updateByUnmae(uName);
-        }if (((String) session.getAttribute("username")).equals("teacher")){
+        }
+        if (((String) session.getAttribute("username")).equals("teacher")) {
 
         }
         return model;

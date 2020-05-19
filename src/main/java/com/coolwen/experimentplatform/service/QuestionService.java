@@ -10,7 +10,7 @@ import java.util.List;
 public interface QuestionService {
 
     //添加
-    void add (Question question);
+    void add(Question question);
 
     //删
     void delete(int id);
@@ -26,7 +26,7 @@ public interface QuestionService {
 
     public Page<QuestionStudentDto> findAndUname(Pageable pageable);
 
-//    //查提问者
+    //查提问者
     public String findQuestionUname(int id);
 
     void setIsreply(boolean b);
