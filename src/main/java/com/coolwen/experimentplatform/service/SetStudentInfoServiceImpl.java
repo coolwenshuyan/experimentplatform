@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SetStudentInfoServiceImpl implements SetStudentInfoService{
+public class SetStudentInfoServiceImpl implements SetStudentInfoService {
 
     @Autowired
     SetStudentInfoRepository setStudentInfoRepository;
 
     @Autowired
     ClassDao classDao;
-
 
     @Override
     public Student findById(int id) {
@@ -28,7 +27,7 @@ public class SetStudentInfoServiceImpl implements SetStudentInfoService{
     }
 
     @Override
-    public String findByClassName() {
-        return classDao.findByClassName();
+    public String findByClassName(int id) {
+        return classDao.findByClassName(id);
     }
 }

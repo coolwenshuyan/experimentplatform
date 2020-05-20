@@ -10,6 +10,6 @@ public interface SetStudentInfoService {
 
     void add(Student student);
 
-    String findByClassName();
+    String findByClassName(int id);
 
 }
