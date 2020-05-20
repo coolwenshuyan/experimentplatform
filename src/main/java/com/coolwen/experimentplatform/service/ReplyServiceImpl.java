@@ -41,6 +41,7 @@ public class ReplyServiceImpl implements ReplyService {
 //        entityManager.remove(reply);
 
         replyRepository.deleteByQid(id);
+
     }
 
     @Override

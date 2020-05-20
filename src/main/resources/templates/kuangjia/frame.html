@@ -82,10 +82,10 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-yunying left"></i>实验模块设置<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addExpModel',this)">实验模块添加</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/addAnswer',this)">模块测试添加</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/addReport',this)">填写报告添加</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addExpModel',this)">实验模块管理</a></dt>
+<!--							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>-->
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/addAnswer',this)">模块测试管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/list',this)">实验模块报告管理</a></dt>
 
 
 						</dl>
@@ -96,11 +96,11 @@
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>考核设置<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohemodel/checkModule',this)">考核模块设置</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">理论测试添加</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">课程理论测试管理</a></dt>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick(' ../testScoreManage/list ',this)">模块测试成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../reportScoreManage/list ',this)">实验报告成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohe/report_manage.html',this)">理论测试成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../totalscore/list',this)">班级成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../reportScoreManage/list ',this)">模块报告成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohe/report_manage.html',this)">课程理论测试成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../totalscore/list',this)">学生总评成绩管理</a></dt>
 						</dl>
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
 					</li>
@@ -110,8 +110,9 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>学生账号管理<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/list',this)">学生管理列表</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/classManage',this)">分班管理</a></dt>
+                            <dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/toBeReviewd',this)">学生账号信息审核</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/list',this)">学生账号信息管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/classManage',this)">班级管理</a></dt>
 
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
 						</dl>
@@ -128,7 +129,7 @@
 					</li>
 
 		        	<li>
-		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>答疑室<i class="iconfont icon-dajiantouyou right"></i></a>
+		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>学生答疑管理<i class="iconfont icon-dajiantouyou right"></i></a>
 		                <dl>
 		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../question/list',this)">答疑提问管理</a></dt>
 		                </dl>

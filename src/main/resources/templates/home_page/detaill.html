@@ -25,6 +25,7 @@
     <div class="layui-container">
         <p style="text-align: center;line-height: 62px;font-size: 16px;">虚拟仿真实验平台答疑室</p>
 
+
         <ul class="layui-nav fly-nav-user">
 
             <li class="layui-nav-item">
@@ -80,7 +81,7 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12 content detail">
             <div class="fly-panel detail-box">
-                <h1 th:text="${question.content}">问题</h1>
+                <h1 th:utext="${question.content}">问题</h1>
 <!--                <div class="fly-detail-info">-->
 <!--							<span class="fly-list-nums">-->
 <!--            					<a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>-->

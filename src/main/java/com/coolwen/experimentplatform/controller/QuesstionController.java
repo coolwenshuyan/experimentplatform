@@ -42,6 +42,7 @@ public class QuesstionController {
 //        return "question_reply/add";
 //    }
 
+
     //完成添加提交问题操作
     @PostMapping(value = "/add")
     public String add(Question question, Session session) {
@@ -122,32 +123,33 @@ public class QuesstionController {
 
     @Autowired
     StudentRepository studentRepository;
+
     //老师进入查看页面
     @GetMapping(value = "/{id}/dayiMore")
-    public String seesee (@PathVariable int id,Model model) {
+    public String seesee(@PathVariable int id, Model model) {
         Question question = questionService.findById(id);
         model.addAttribute("question", question);
         List<Reply> replies = replyService.findByreplycontent(id);
-        model.addAttribute("replies",replies);
+        model.addAttribute("replies", replies);
         int a = question.getSid();
 //        String studentName = questionService.findQuestionUname(a);
         String studentName = studentRepository.findStudentname(a);
 //        System.out.println(studentName);
-        model.addAttribute("studentName",studentName);
+        model.addAttribute("studentName", studentName);
         return "shouye/dayiMore";
     }
 
     //学生进入查看页
     @GetMapping(value = "/{id}/detaill")
-    public String seesee1 (@PathVariable int id,Model model) {
+    public String seesee1(@PathVariable int id, Model model) {
         Question question = questionService.findById(id);
         model.addAttribute("question", question);
         List<Reply> replies = replyService.findByreplycontent(id);
-        model.addAttribute("replies",replies);
+        model.addAttribute("replies", replies);
         int a = question.getSid();
         String studentName = studentRepository.findStudentname(a);
 //        System.out.println(studentName);
-        model.addAttribute("studentName",studentName);
+        model.addAttribute("studentName", studentName);
         return "home_page/detaill";
     }
 

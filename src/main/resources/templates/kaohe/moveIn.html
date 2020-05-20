@@ -88,19 +88,19 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">测试成绩占比</label>
 					<div class="layui-input-block">
-						<input th:value="*{m_test_baifenbi}" type="number" name="m_test_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入测试成绩占比" class="layui-input">
+						<input th:value="*{m_test_baifenbi}" type="text" name="m_test_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入测试成绩占比" class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">报告成绩占比</label>
 					<div class="layui-input-block">
-						<input th:value="*{m_report_baifenbi}" type="text" name="m_report_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入报告成绩占比" class="layui-input">
+						<input th:value="*{m_report_baifenbi}" type="text" name="m_report_baifenbi" lay-verify="title" autocomplete="off" placeholder="请输入报告成绩占比" class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">权重</label>
 					<div class="layui-input-block">
-						<input th:value="*{m_scale}" type="text" name="m_scale" lay-verify="title" autocomplete="off" placeholder="请输入权重" class="layui-input">
+						<input th:value="*{m_scale}" type="text" name="m_scale" lay-verify="title" autocomplete="off" placeholder="请输入权重" class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
 					</div>
 				</div>
 				<div class="layui-form-item">

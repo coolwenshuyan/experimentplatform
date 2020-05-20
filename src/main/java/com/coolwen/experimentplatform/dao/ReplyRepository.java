@@ -10,20 +10,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface ReplyRepository extends BaseRepository<Reply, Integer>,JpaRepository<Reply,Integer> {
+public interface ReplyRepository extends BaseRepository<Reply, Integer>, JpaRepository<Reply, Integer> {
+
 
     @Modifying
     @Transactional
     @Query("delete from Reply where qid in ?1")
     public void deleteByQid(int id);
 
-    @Query(value="select * from t_reply where id = ?",nativeQuery=true)
-    public Reply findById (int id);
+    @Query(value = "select * from t_reply where id = ?", nativeQuery = true)
+    public Reply findById(int id);
 
-    @Query(value="select * from t_reply where qid = ?",nativeQuery=true)
+    @Query(value = "select * from t_reply where qid = ?", nativeQuery = true)
     public List<Reply> findByreplycontent(int qid);
 
-    @Query(value = "select id from t_question where qid = ?",nativeQuery=true)
+    @Query(value = "select id from t_question where qid = ?", nativeQuery = true)
     List<Integer> findByQid(int qid);
 
 }

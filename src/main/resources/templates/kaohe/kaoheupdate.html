@@ -57,25 +57,25 @@
         <div class="layui-form-item">
             <label class="layui-form-label">测试成绩占比</label>
             <div class="layui-input-block">
-                <input type="number" th:value="${kaohemodel.m_test_baifenbi}" name="m_test_baifenbi" lay-verify="title" autocomplete="off"  class="layui-input">
+                <input type="text" th:value="${kaohemodel.m_test_baifenbi}" name="m_test_baifenbi" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">报告成绩占比</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${kaohemodel.m_report_baifenbi}" name="m_report_baifenbi" lay-verify="title" autocomplete="off"  class="layui-input">
+                <input type="text" th:value="${kaohemodel.m_report_baifenbi}" name="m_report_baifenbi" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">权重</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${kaohemodel.m_scale}" name="m_scale" lay-verify="title" autocomplete="off"  class="layui-input">
+                <input type="text" th:value="${kaohemodel.m_scale}" name="m_scale" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">序号</label>
             <div class="layui-input-block">
-                <input type="number" th:value="${kaohemodel.m_order}" name="m_order" lay-verify="title" autocomplete="off"  class="layui-input">
+                <input type="number" th:value="${kaohemodel.m_order}" name="m_order" lay-verify="title" autocomplete="off"  class="layui-input" >
             </div>
         </div>
 
