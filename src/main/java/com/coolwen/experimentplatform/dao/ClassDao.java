@@ -14,4 +14,6 @@ import com.coolwen.experimentplatform.model.ClassModel;
  */
 public interface ClassDao extends BaseRepository<ClassModel, Integer> {
     ClassModel findByClassId(int id);
+
+    String findByClassName();
 }

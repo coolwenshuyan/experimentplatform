@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="utf-8" />
@@ -182,18 +182,19 @@
 		<form class="layui-form" action="">
  
   		<br><br>
-  
+
+<form th:action="@{update}" th:object="${student}" method="post">
   <div class="layui-form-item">
     <div class="layui-inline">
       <label class="layui-form-label">用户名</label>
       <div class="layui-input-inline">
-        <input type="tel" name="id" lay-verify="required|id" autocomplete="off" class="layui-input">
+        <input type="tel" name="stuUname" th:text="${student.stuUname}" lay-verify="required|id" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-inline">
       <label class="layui-form-label">姓名</label>
       <div class="layui-input-inline">
-        <input type="text" name="name" lay-verify="name" autocomplete="off" class="layui-input">
+        <input type="text" name="stuName" th:text="${student.stuName}" lay-verify="name" autocomplete="off" class="layui-input">
       </div>
     </div>
   </div>
@@ -202,23 +203,30 @@
     <div class="layui-inline">
       <label class="layui-form-label">学号</label>
       <div class="layui-input-inline">
-        <input type="text" name="xuehao" lay-verify="required|xuehao" autocomplete="off" class="layui-input">
+        <input type="text" name="stuXuehao" th:text="${student.stuXuehao}" lay-verify="required|xuehao" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-inline">
       <label class="layui-form-label">手机号</label>
       <div class="layui-input-inline">
-        <input type="text" name="mobile" lay-verify="mobile"  autocomplete="off" class="layui-input">
+        <input type="text" name="stuMobile" th:text="${student.stuMobile}" stuXuehao lay-verify="mobile"  autocomplete="off" class="layui-input">
       </div>
-    </div><br><br>
+    </div>
+	<div class="layui-inline">
+		  <label class="layui-form-label">密码</label>
+		  <div class="layui-input-inline">
+			  <input type="text" name="stuPassword"  lay-verify="password"  autocomplete="off" class="layui-input">
+		  </div>
+	</div>
+	  <br><br>
     <div class="layui-inline">
       <label class="layui-form-label">所属班级</label>
       <div class="layui-input-inline">
-        <input type="text" name="class" lay-verify="class" autocomplete="off" class="layui-input">
+		  <a type="text" name="class"  th:text="${classname}" lay-verify="class" autocomplete="off" class="layui-input"></a>
       </div>
     </div>
   </div>
-  
+</form>
   
   <br><br>
  
