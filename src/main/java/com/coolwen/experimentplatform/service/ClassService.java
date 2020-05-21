@@ -19,7 +19,6 @@ public class ClassService {
     @Autowired
     ClassDao classDao;
 
-
     public ClassModel findClassById(int classId){
         return classDao.findByClassId(classId);
     }
