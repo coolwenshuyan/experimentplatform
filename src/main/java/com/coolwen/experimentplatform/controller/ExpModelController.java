@@ -1,13 +1,11 @@
 package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.dao.ExpModelRepository;
+import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
-import com.coolwen.experimentplatform.model.ExpModel;
 
-import com.coolwen.experimentplatform.service.ExpModelService;
-import com.coolwen.experimentplatform.service.FIleService;
+import com.coolwen.experimentplatform.service.*;
 
-import com.coolwen.experimentplatform.service.KaoheModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +36,18 @@ public class ExpModelController {
     ExpModelService expModelService;
     @Autowired
     KaoheModelService kaoheModelService;
+    @Autowired
+    ModuleTestAnswerService moduleTestAnswerService;
+    @Autowired
+    ModuleTestQuestService moduleTestQuestService;
+    @Autowired
+    ReportService reportService;
+    @Autowired
+    ReportAnswerService reportAnswerService;
+    @Autowired
+    KaoHeModelScoreService kaoHeModelScoreService;
+    @Autowired
+    TotalScoreCurrentService totalScoreCurrentService;
 
 
 //模块信息页面
@@ -77,9 +87,38 @@ public class ExpModelController {
         return "redirect:/expmodel/addTheory";
     }
 //模块删除
-    @GetMapping("/deleteExpModel/{id}")
+        @GetMapping("/deleteExpModel/{id}")
     public String delete(@PathVariable("id")int id){
         expModelService.deleteExpModelById(id);
+        //删除考核模块以及更改学生相关成绩
+        KaoheModel kaoheModel = kaoheModelService.findKaoheModelByMid(id);
+        if(kaoheModel != null){
+            List<KaoHeModelScore> kaoHeModelScores = kaoHeModelScoreService.findKaoHeModelScoreByTKaohemodleIdAndStuId(kaoheModel.getId());
+            for (KaoHeModelScore k : kaoHeModelScores){
+                TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(k.getStuId());
+                totalScoreCurrent.setKaoheNum(totalScoreCurrent.getKaoheNum()-1);
+                totalScoreCurrent.setmTotalScore(totalScoreCurrent.getmTotalScore()-k.getmScore());
+                totalScoreCurrent.setTotalScore(totalScoreCurrent.getmTotalScore()*kaoheModel.getKaohe_baifenbi()+totalScoreCurrent.getTestScore()* kaoheModel.getTest_baifenbi());
+                totalScoreCurrentService.add(totalScoreCurrent);
+            }
+            kaoHeModelScoreService.deleteAllKaohe(kaoHeModelScores);
+            kaoheModelService.deleteKaoHeModuleByMid(kaoheModel);
+        }
+        //删除所属的问题以及答案以及相关回复
+        List<ModuleTestQuest> moduleTestQuests = expModelService.findModuleTestQuestByMId(id);
+        for(ModuleTestQuest m:moduleTestQuests){
+            List<ModuleTestAnswer> moduleTestAnswers = moduleTestAnswerService.findAllByQuestId(m.getQuestId());
+            moduleTestAnswerService.deleteAllAnswer(moduleTestAnswers);
+            expModelService.deleteModuleTestAnswerStuByQuestId(m.getQuestId());
+        }
+        moduleTestQuestService.deleteAllModuleTestQuest(moduleTestQuests);
+        //删除实验模块报告
+        List<Report> reports = reportService.findReportByMId(id);
+        for(Report r : reports){
+            reportAnswerService.deleteReportAnswerByReportId(r.getReportId());
+        }
+        reportService.deleteReports(reports);
+
         return "redirect:/expmodel/list";
     }
 //模块更新

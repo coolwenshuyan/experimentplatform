@@ -36,4 +36,8 @@ public interface KaoheModelService {
 
     KaoheModel findKaoheModelByMid(int mid);
 
+    void deleteKaoHeModuleByMid(KaoheModel kaoheModel);
+
+
+
 }

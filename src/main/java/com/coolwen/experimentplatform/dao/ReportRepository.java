@@ -28,4 +28,7 @@ public interface ReportRepository extends BaseRepository<Report, Integer>, JpaSp
     @Query("select r from Report r where r.mId = ?1")
     List<Report> findAllByMId(int mid);
 
+    @Query("select r from Report r where r.mId = ?1")
+    List<Report> findReportByMId(int mid);
+
 }

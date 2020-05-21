@@ -114,4 +114,9 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
     public Page<ModuleTestQuest> findByLastPage(Pageable pageable ,int mId) {
         return questRepository.findTermQuest(mId,pageable);
     }
+
+    @Override
+    public void deleteAllModuleTestQuest(List<ModuleTestQuest> list) {
+        questRepository.deleteAll(list);
+    }
 }

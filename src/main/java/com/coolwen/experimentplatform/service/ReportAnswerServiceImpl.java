@@ -68,5 +68,11 @@ public class ReportAnswerServiceImpl implements ReportAnswerService {
         return reportAnswerRepository.findAllByReportIdAndAndStuId(reportid,stuId);
     }
 
+    @Override
+    public void deleteReportAnswerByReportId(int reportid) {
+        List<ReportAnswer> list = reportAnswerRepository.findReportAnswerByReportId(reportid);
+        reportAnswerRepository.deleteAll(list);
+    }
+
 
 }

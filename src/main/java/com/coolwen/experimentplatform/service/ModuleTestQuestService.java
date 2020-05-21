@@ -48,4 +48,6 @@ public interface ModuleTestQuestService {
 
     Page<ModuleTestQuest> findByLastPage(Pageable pageable,int mId);
 
+    void deleteAllModuleTestQuest(List<ModuleTestQuest> list);
+
 }

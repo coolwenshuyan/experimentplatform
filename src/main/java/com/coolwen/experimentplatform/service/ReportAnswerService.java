@@ -31,4 +31,6 @@ public interface ReportAnswerService {
 
     List<ReportAnswer> listByReportidAndStuID(int reportid,int stuId);
 
+    void deleteReportAnswerByReportId(int reportid);
+
 }
