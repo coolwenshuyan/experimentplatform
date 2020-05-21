@@ -16,11 +16,105 @@
         margin-top: 30px;
     }
     .layui-table th {
-        text-align: left;
+        text-align: center;
         font-weight: 900;
+    }
+    .text-overflow {
+        display:block;/*内联对象需加*/
+        width:31em;/*指定宽度*/
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+    }
+
+    table{
+        text-align: center;
+        width:30em;
+        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+    }
+    td{
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
     }
 </style>
 <body>
+<div  class="layui-container">
+    <div  style="margin-top: 50px">
+        <a href="/learning/add">
+            <button type="button" class="layui-btn">
+                <i class="layui-icon">&#xe608;</i> 添加
+            </button></a>
+    </div>
+
+    <div id="main" >
+        <table id="d1" class="layui-table">
+            <colgroup>
+                <col width="100">
+                <col width="150">
+                <col width="100">
+<!--                <col width="240">-->
+<!--                <col width="100">-->
+<!--                <col width="100">-->
+<!--                <col width="160">-->
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>标题</th>
+                <th>缩略图</th>
+                <th>发布者</th>
+                <th style="width: 32%;">发布内容</th>
+                <th style="width: 15%;">发布时间</th>
+                <th style="width: 12%;">点击次数</th>
+                <th style="width: 17%;">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="effect:${learningPageInfo.content}">
+                <td th:text="${effect.effect_name}">贤心</td>
+                <td ><img th:src="${effect.effect_imgurl}"></td>
+                <td th:text="${effect.effect_person}">人生</td>
+                <td th:text="${effect.effect_content}">人生就像是一场修行</td>
+                <td th:text="${effect.dic_datetime}">2020-5-29</td>
+                <td th:text="${effect.dic_num}">10</td>
+                <td>
+                    <div id="d" class="layui-btn-container">
+                        <a type="add" class="layui-btn layui-btn-sm"  th:href="@{|${effect.id}/update|}">修改</a>
+                        <a type="delete" @click="isTrue" class="layui-btn layui-btn-sm layui-bg-red"  th:href="@{|${effect.id}/delete|}">删除</a>
+                        <!--                    <a type="button" th:href="@{|${effect.id}/update|}" class="layui-btn">编辑</a>-->
+                        <!--                    <a type="button" th:href="@{|${effect.id}/delete|}" class="layui-btn">删除</a>-->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div id="d2" class="layui-row">
+            <div style="margin:0 auto; width: 80%; text-align: center;">
+                <p>当前 <span th:text="${learningPageInfo.number}+1"></span> 页,
+                    总 <span th:text="${learningPageInfo.totalPages}"></span> 页,
+                    共 <span th:text="${learningPageInfo.totalElements}"></span> 条记录</p>
+                <a th:href="@{/learning/list}">首页</a>
+                <a th:href="@{/learning/list(pageNum=${learningPageInfo.hasPrevious()}?${learningPageInfo.number}-1:0)}">上一页</a>
+                <a th:href="@{/learning/list(pageNum=${learningPageInfo.hasNext()}?${learningPageInfo.number}+1:${learningPageInfo.number})}">下一页</a>
+                <a th:href="@{/learning/list(pageNum=${learningPageInfo.totalPages}-1)}">尾页</a>
+            </div>
+            <!--            	<div class="layui-col-md1  layui-col-md-offset7">-->
+            <!--            		<select name="page" lay-verify="" lay-search>-->
+            <!--                        <option value="010">第1页</option>-->
+            <!--                        <option value="021">第2页</option>-->
+            <!--                        <option value="0571" selected>第3页</option>-->
+            <!--                        ……-->
+            <!--                    </select>     -->
+            <!--            	</div>-->
+        </div>
+
+    </div>
+</div>
 <!--<div id="head" class="layui-col-md10 layui-col-md-offset2">-->
 <!--			<span class="layui-col-md3">-->
 <!--  				<a class="layui-btn layui-btn-primary" href="#">首页设置</a>-->
@@ -28,73 +122,7 @@
 <!--			</span>-->
 <!--</div>-->
 <!--<hr>-->
-<div id="main" class="layui-col-md8 layui-col-md-offset2">
-    <table id="d1" class="layui-table">
-        <colgroup>
-            <col width="100">
-            <col width="150">
-            <col width="100">
-            <col width="250">
-            <col width="100">
-            <col width="100">
-            <col>
-        </colgroup>
-        <thead>
-        <tr>
-            <th>标题</th>
-            <th>缩略图</th>
-            <th>发布者</th>
-            <th style="width:20%">发布内容</th>
-            <th style="width:13%">发布时间</th>
-            <th>点击次数</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="effect:${learningPageInfo.content}">
-            <td th:text="${effect.effect_name}">贤心</td>
-            <td ><img th:src="${effect.effect_imgurl}"></td>
-            <td th:text="${effect.effect_person}">人生</td>
-            <td th:text="${effect.effect_content}">人生就像是一场修行</td>
-            <td th:text="${effect.dic_datetime}">2020-5-29</td>
-            <td th:text="${effect.dic_num}">10</td>
-            <td>
-                <div id="d" class="layui-btn-container">
-                    <a type="button" th:href="@{|${effect.id}/update|}" class="layui-btn">编辑</a>
-                    <a type="button" th:href="@{|${effect.id}/delete|}" class="layui-btn">删除</a>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 
-    <div id="d2" class="layui-row">
-        <div class="layui-col-md4">
-            <a href="/learning/add">
-                <button type="button" class="layui-btn">
-                    <i class="layui-icon">&#xe608;</i> 添加
-                </button></a>
-        </div>
-        <div style="margin:0 auto; width: 80%; text-align: center;">
-            <p>当前 <span th:text="${learningPageInfo.number}+1"></span> 页,
-                总 <span th:text="${learningPageInfo.totalPages}"></span> 页,
-                共 <span th:text="${learningPageInfo.totalElements}"></span> 条记录</p>
-            <a th:href="@{/learning/list}">首页</a>
-            <a th:href="@{/learning/list(pageNum=${learningPageInfo.hasPrevious()}?${learningPageInfo.number}-1:0)}">上一页</a>
-            <a th:href="@{/learning/list(pageNum=${learningPageInfo.hasNext()}?${learningPageInfo.number}+1:${learningPageInfo.number})}">下一页</a>
-            <a th:href="@{/learning/list(pageNum=${learningPageInfo.totalPages}-1)}">尾页</a>
-        </div>
-        <!--            	<div class="layui-col-md1  layui-col-md-offset7">-->
-        <!--            		<select name="page" lay-verify="" lay-search>-->
-        <!--                        <option value="010">第1页</option>-->
-        <!--                        <option value="021">第2页</option>-->
-        <!--                        <option value="0571" selected>第3页</option>-->
-        <!--                        ……-->
-        <!--                    </select>     -->
-        <!--            	</div>-->
-    </div>
-
-</div>
 
 
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
