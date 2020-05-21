@@ -47,7 +47,7 @@
 		</style>
 	<body>
 
-	<div style="text-align: center;margin-top:30px;font-size: 20px;">新建---实验模块</div>
+	<!--<div style="text-align: center;margin-top:30px;font-size: 20px;">新建-&#45;&#45;实验模块</div>-->
 		<div class="layui-container" id="content">
 			<div class="layui-row">
 				<form class="layui-form layui-col-md7" th:action="@{/expmodel/addExpModel}"  method="post" enctype="multipart/form-data">
@@ -98,8 +98,8 @@
 				 
 				<div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <input type="submit" class="layui-btn layui-btn-primary" href="http://localhost:8888/expmodel/addTheory" value="添加理论学习"/>
-				      <button type="reset" class="layui-btn layui-btn-primary" href="http://localhost:8888/expmodel/list" th:href="@{/expmodel/list}">取消</button>
+				      <input type="submit" class="layui-btn layui-bg-green" href="../expmodel/addTheory" value="添加理论学习"/>
+				      <button type="reset" class="layui-btn layui-btn-primary" href="../expmodel/list" th:href="@{/expmodel/list}">取消</button>
 				    </div>
 				</div>
 			</form>

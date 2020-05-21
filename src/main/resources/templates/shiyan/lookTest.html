@@ -25,7 +25,11 @@
             width:30em;
             table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
         }
+        .layui-table th{
+            text-align: center;
+        }
         td{
+            text-align: center;
             width:100%;
             word-break:keep-all;/* 不换行 */
             white-space:nowrap;/* 不换行 */
@@ -39,18 +43,19 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <a href="addTest.html" th:href="@{|addAnswer|}">
-                            <button type="layui-btn" class="layui-btn layui-btn-primary">新建</button>
-                        </a>
+
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5" method="post">
+                                <a href="addTest.html" th:href="@{|addAnswer|}">
+                                    <button type="layui-btn" class="layui-btn layui-bg-green">新建</button>
+                                </a>
 
                                 <div class="layui-inline layui-show-xs-block">
                                     <input type="text" name="search" th:value="${search}" placeholder="请输入实验模块号" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <button class="layui-btn"  lay-submit="" lay-filter="sreach">
-                                        <a th:href="@{|/shiyan/list|}" class="layui-icon">搜索</a></button>
+                                        <a th:href="@{|/shiyan/list|}" class="layui-btn layui-bg-green">搜索</a></button>
                                 </div>
                                 
                                 <!--<div class="layui-inline layui-show-xs-block">
@@ -82,11 +87,11 @@
                                     <td class="td-manage">
                                       <a title="编辑" th:href="@{|updateQuest/${Quest.questId}|}">
                                         <!--<i class="layui-icon">&#xe642;</i>-->
-                                        <button type="layui-btn" class="layui-btn layui-btn-primary" >修改</button>
+                                        <button type="layui-btn" class="layui-btn layui-bg-green" >修改</button>
                                       </a>
                                       <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;" th:href="@{|deleteQuest/${Quest.questId}|}">
                                         <!--<i class="layui-icon">&#xe640;</i>-->
-                                        <button type="layui-btn" class="layui-btn layui-btn-primary">删除</button>
+                                        <button type="layui-btn" class="layui-btn layui-bg-red">删除</button>
                                       </a>
                                     </td>
                                   </tr>
