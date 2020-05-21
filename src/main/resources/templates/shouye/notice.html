@@ -36,8 +36,11 @@
         text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
     }
     .layui-table th {
-        text-align: left;
+        text-align: center;
         font-weight: 900;
+    }
+    .layui-table{
+        text-align: center;
     }
 </style>
 <body>
@@ -48,11 +51,21 @@
 <!--			</span>-->
 <!--</div>-->
 <!--<hr>-->
-<div id="main" class="layui-col-md10 layui-col-md-offset1">
+<div class="layui-container">
+
+<div  style="margin-top: 50px;">
+    <a href="/newsinfo/add">
+        <button type="button" class="layui-btn">
+            <i class="layui-icon">&#xe608;</i> 添加
+        </button>
+    </a>
+</div>
+
+<div id="main" >
     <table id="d1" class="layui-table">
         <colgroup>
-            <col width="150">
-            <col width="200">
+            <col >
+            <col >
             <col>
         </colgroup>
         <thead>
@@ -60,10 +73,10 @@
             <th>id</th>
             <th>标题</th>
             <th>发布者</th>
-            <th>内容</th>
+            <th style=" width: 30%;">内容</th>
             <th>发布日期</th>
             <th>点击次数</th>
-            <th>操作</th>
+            <th style="width:15%;">操作</th>
         </tr>
         </thead>
         <tbody>
@@ -75,27 +88,22 @@
             <td th:text="${news.dic_datetime}">时间</td>
             <td th:text="${news.dic_num}">点击</td>
             <td>
-                <div class="layui-btn-group">
-                    <a type="button" th:href="@{|${news.id}/update|}" class="layui-btn layui-btn-primary layui-btn-sm">
-                        <i class="layui-icon">&#xe642;</i>
-                    </a>
-                    <a type="button" th:href="@{|${news.id}/delete|}" class="layui-btn layui-btn-primary layui-btn-sm">
-                        <i class="layui-icon">&#xe640;</i>
-                    </a>
-                </div>
+                <div id="d" class="layui-btn-container">
+                <!--                    <a type="button" th:href="@{|${news.id}/update|}" class="layui-btn layui-btn-primary layui-btn-sm">-->
+                <!--                        <i class="layui-icon">&#xe642;</i>-->
+                <!--                    </a>-->
+                <!--                    <a type="button" th:href="@{|${news.id}/delete|}" class="layui-btn layui-btn-primary layui-btn-sm">-->
+                <!--                        <i class="layui-icon">&#xe640;</i>-->
+                <!--                    </a>-->
+                <a type="add" class="layui-btn layui-btn-sm" th:href="@{|${news.id}/update|}">修改</a>
+                <a type="delete" @click="isTrue" class="layui-btn layui-btn-sm layui-bg-red" th:href="@{|${news.id}/delete|}">删除</a>
+            </div>
             </td>
         </tr>
         </tbody>
     </table>
 
     <div id="d2" class="layui-row">
-        <div class="layui-col-md4">
-            <a href="/newsinfo/add">
-                <button type="button" class="layui-btn">
-                    <i class="layui-icon">&#xe608;</i> 添加
-                </button>
-            </a>
-        </div>
         <div style="margin:0 auto; width: 80%; text-align: center;">
             <p>当前 <span th:text="${newsPageInfo.number}+1"></span> 页,
                 总 <span th:text="${newsPageInfo.totalPages}"></span> 页,
@@ -108,7 +116,7 @@
     </div>
 
 </div>
-
+</div>
 
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
