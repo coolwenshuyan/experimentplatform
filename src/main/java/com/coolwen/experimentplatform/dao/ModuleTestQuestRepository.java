@@ -57,6 +57,9 @@ public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQues
             "where t1.mId=?1and t1.questType=?1")
     List<QuestAnswerDto> findQuestAnswerByMid(int mId, String questType);
 
+    @Query("select mtq from ModuleTestQuest mtq where mtq.mId = ?1")
+    List<ModuleTestQuest> findModuleTestQuestByMId(int mid);
+
 
 
 }

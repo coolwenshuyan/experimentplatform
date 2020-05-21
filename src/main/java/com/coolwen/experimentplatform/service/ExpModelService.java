@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.ExpModel;
+import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,9 +12,6 @@ public interface ExpModelService {
 
     public ExpModel findExpModelByID(int id);
 
-
-
-
     public void deleteExpModelById(int id);
 
     public Page<ExpModel> findModelList(int pageNum);
@@ -23,4 +21,9 @@ public interface ExpModelService {
     public List<ExpModel> findAll();
 
     public Page<ExpModel> finExpAll(int pageNum);
+
+    List<ModuleTestQuest> findModuleTestQuestByMId(int mid);
+
+    void deleteModuleTestAnswerStuByQuestId(int questid);
+
 }

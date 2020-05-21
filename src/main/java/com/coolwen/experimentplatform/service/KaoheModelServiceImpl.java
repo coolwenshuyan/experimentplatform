@@ -104,4 +104,9 @@ public class KaoheModelServiceImpl implements KaoheModelService {
         return kaoheModelRepository.findKaoheModelByMid(mid);
     }
 
+    @Override
+    public void deleteKaoHeModuleByMid(KaoheModel kaoheModel) {
+        kaoheModelRepository.delete(kaoheModel);
+    }
+
 }

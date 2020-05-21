@@ -27,4 +27,6 @@ public interface TotalScoreCurrentService {
     List<ModuleGradesDto> ModuleGrade(int id);
 
     TotalScoreCurrent findTotalScoreCurrentByStuID(int stuId);
+
+    TotalScoreCurrent findTotalScoreCurrentByStuId(int stuid);
 }

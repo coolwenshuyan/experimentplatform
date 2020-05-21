@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>报告填写</title>
@@ -15,37 +15,37 @@
 	</style>
 	<body>
 		   <div class="layui-col-md11">
-                	<form class="layui-form" action="">	
+                	<form class="layui-form"  th:action="@{/shiyan/addReport}" method="post" th:object="${addReport}">
                 		 <div class="layui-form-item">
 						    <label class="layui-form-label">报告序号：</label>
 						    <div class="layui-input-block">
-						      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+						      <input type="text" name="reportOrder" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
 						    </div>
 					  </div>
 			
 					  <div class="layui-form-item layui-form-text">
 					    <label class="layui-form-label">报告描述：</label>
 					    <div class="layui-input-block">
-					      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+					      <textarea name="reportDescribe" placeholder="请输入内容" class="layui-textarea"></textarea>
 					    </div>
 					  </div>
 					  <div class="layui-form-item">
 						    <label class="layui-form-label">实验模块：</label>
 						    <div class="layui-input-block">
-						      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+						      <input type="text" name="mId" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
 						    </div>
 					  </div>
 					  <div class="layui-form-item">
 						    <label class="layui-form-label">分数：</label>
 						    <div class="layui-input-block">
-						      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请设定分数" class="layui-input">
+						      <input type="text" name="reportScore" lay-verify="title" autocomplete="off" placeholder="请设定分数" class="layui-input">
 						    </div>
 					  </div>
 					  <div class="layui-form-item">
 					    <label class="layui-form-label">类型:</label>
 					    <div class="layui-input-block">
-					      <input type="radio" name="1" value="1" title="整篇">
-					      <input type="radio" name="1" value="0" title="问答" >
+					      <input type="radio" name="reportType" checked="checked" value="填空" title="填空">
+					      <input type="radio" name="reportType" value="整篇" title="整篇" >
 					    </div>
 					  </div>
 					  <div class="layui-form-item">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="x-admin-sm">
+<html class="x-admin-sm" lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>填空</title>
@@ -32,7 +32,7 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-header">
-                        	 <button class="layui-btn" lay-submit lay-filter="formDemo">新建</button>				
+                        	 <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|addReport|}">新建</a>
                            分数：100
                         </div>
                         <div class="layui-card-body ">
@@ -48,22 +48,22 @@
                                       <th>操作</th>
                                 </thead>
                                 <tbody>
-                                  <tr>
+                                  <tr th:each="report:${reports.content}">
                                     
-                                    <td>1</td>
-                                    <td>数据库的操作</td>
-                                   <td>1</td>
-                                   <td>20</td>
-                                   <td>实验操作</td>
+                                    <td th:text="${report.reportOrder}" name="reportOrder">1</td>
+                                    <td th:text="${report.reportDescribe}" name="reportDescribe">数据库的操作</td>
+                                   <td th:text="${report.mId}" name="mId">1</td>
+                                   <td th:text="${report.reportScore}" name="reportScore">20</td>
+                                   <td th:text="${report.reportType}" name="reportType">实验操作</td>
                                     <td class="td-manage">
-                                    
-										 <button class="layui-btn" onclick="xadmin.open('修改内容','./updatePart.html')">
+                                    <a  th:href="@{|updateReport/${report.reportId}|}">
+										 <button class="layui-btn" >
 			                                修改
 			                            </button>
-										
+                                    </a>
 										
 
-                                      <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">                                                                     
+                                      <a title="删除" onclick="member_del(this,'要删除的id')" th:href="@{|/shiyan/deleteReport/${report.reportId}|}">
                                         <button type="layui-btn" class="layui-btn layui-bg-red">删除</button>
                                       </a>
                                     </td>
@@ -74,12 +74,14 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <a class="num" href="">1</a>
-                                  <span class="current">2</span>
-                                  <a class="num" href="">3</a>
-                                  <a class="num" href="">489</a>
-                                  <a class="next" href="">&gt;&gt;</a>
+                                    <p>当前 <span th:text="${reports.number}+1"></span> 页,
+                                        总 <span th:text="${reports.totalPages}"></span> 页,
+                                        共 <span th:text="${reports.totalElements}"></span> 条记录</p>
+                                    <a th:href="@{/shiyan/reportList}">首页</a>
+                                    <a th:href="@{/shiyan/reportList(pageNum=${reports.hasPrevious()}?${reports.number}-1:0)}">上一页</a>
+                                    <a th:href="@{/shiyan/reportList(pageNum=${reports.hasNext()}?${reports.number}+1:${reports.number})}">下一页</a>
+                                    <a th:href="@{/shiyan/reportList(pageNum=${reports.totalPages}-1)}">尾页</a>
+
                                 </div>
                             </div>
                         </div>
