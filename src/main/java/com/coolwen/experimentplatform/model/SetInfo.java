@@ -10,11 +10,11 @@ public class SetInfo {
 //    @GeneratedValue(strategy = GenerationType.AUTO, generator = "setinfo_id")
 //    @TableGenerator(name = "setinfo_id", initialValue = 0, allocationSize = 1, table = "seq_table")
     private int id;
-
+    @Column(columnDefinition = "text")
     private String set_platintro;
-
+    @Column(columnDefinition = "text")
     private String set_aboutus;
-
+    @Column(columnDefinition = "text")
     private String set_platstep;
 
     private String set_rotateimg;

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>报告填写</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/xadmin.css"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+		
+	</head>
+	<style type="text/css">
+		*{
+			padding: 3%;
+		}
+		
+	</style>
+	<body>
+		   <div class="layui-col-md11">
+                	<form class="layui-form"  th:action="@{/shiyan/addReport}" method="post" th:object="${addReport}">
+                		 <div class="layui-form-item">
+						    <label class="layui-form-label">报告序号：</label>
+						    <div class="layui-input-block">
+						      <input type="text" name="reportOrder" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+						    </div>
+					  </div>
+			
+					  <div class="layui-form-item layui-form-text">
+					    <label class="layui-form-label">报告描述：</label>
+					    <div class="layui-input-block">
+					      <textarea name="reportDescribe" placeholder="请输入内容" class="layui-textarea"></textarea>
+					    </div>
+					  </div>
+					  <div class="layui-form-item">
+						    <label class="layui-form-label">实验模块：</label>
+						    <div class="layui-input-block">
+						      <input type="text" name="mId" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+						    </div>
+					  </div>
+					  <div class="layui-form-item">
+						    <label class="layui-form-label">分数：</label>
+						    <div class="layui-input-block">
+						      <input type="text" name="reportScore" lay-verify="title" autocomplete="off" placeholder="请设定分数" class="layui-input">
+						    </div>
+					  </div>
+					  <div class="layui-form-item">
+					    <label class="layui-form-label">类型:</label>
+					    <div class="layui-input-block">
+					      <input type="radio" name="reportType" checked="checked" value="填空" title="填空">
+					      <input type="radio" name="reportType" value="整篇" title="整篇" >
+					    </div>
+					  </div>
+					  <div class="layui-form-item">
+					    <div class="layui-input-block">					    	
+					      <button class="layui-btn" lay-submit lay-filter="formDemo">添加</button>					     
+					    </div>
+					  </div>
+					  
+					</form>
+                </div>
+	</body>
+	 <script src="../../static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+</html>

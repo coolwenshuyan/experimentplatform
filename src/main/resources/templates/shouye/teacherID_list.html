@@ -8,32 +8,63 @@
     <link rel="stylesheet" href="../../static/css/layui.css">
 </head>
 <style type="text/css">
-    #b{
-        float: right;
-        margin: 10px 0;
+    /*#b{*/
+    /*    float: right;*/
+    /*    margin: 10px 0;*/
+    /*}*/
+    .text-overflow {
+        display:block;/*内联对象需加*/
+        width:31em;/*指定宽度*/
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+    }
+
+    table{
+        width:30em;
+        table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+    }
+    td{
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+    }
+    .layui-table th {
+        text-align: center;
+        font-weight: 900;
+    }
+    .layui-table{
+        text-align: center;
     }
 </style>
 <body>
 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-    <ul class="layui-tab-title">
-        <li class="layui-this">管理界面</li>
-    </ul>
+<!--    <ul class="layui-tab-title">-->
+<!--        <li class="layui-this">管理界面</li>-->
+<!--    </ul>-->
     <div class="layui-tab-content">
 
         <div class="layui-tab-item layui-show">
-            <div id="l2" class="layui-col-md8 layui-col-md-offset2">
-                <button id="b" class="layui-btn">
-                    <i class="layui-icon"><a href="/admin/add">添加</a></i>
-                </button>
+            <div id="l2" class="layui-col-md10 layui-col-md-offset1">
 
-                <table class="layui-table" lay-even lay-skin="nob">
+                <div   style="margin-top: 30px">
+                    <a href="/admin/add">
+                        <button type="button" class="layui-btn">
+                            <i class="layui-icon">&#xe608;</i> 添加
+                        </button></a>
+                </div>
+
+                <table class="layui-table" >
                     <colgroup>
-                        <col width="150">
-                        <col width="200">
+<!--                        <col width="150">-->
+<!--                        <col width="200">-->
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th style="width:10%;">ID</th>
                         <th>账号</th>
                         <th>密码</th>
                         <th>手机号</th>
@@ -48,14 +79,16 @@
                         <td th:text="${admin.password}">vmsh</td>
                         <td th:text="${admin.mobile}">1663875</td>
                         <td>
-                            <div class="layui-btn-group">
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon"><a th:href="@{|${admin.id}/update|}">&#xe642;</a></i>
-                                </button>
-                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                                    <i class="layui-icon"><a th:href="@{|${admin.id}/delete|}">&#xe640;</a></i>
-                                </button>
-                            </div>
+<!--                            <div class="layui-btn-group">-->
+<!--                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">-->
+<!--                                    <i class="layui-icon"><a th:href="@{|${admin.id}/update|}">&#xe642;</a></i>-->
+<!--                                </button>-->
+<!--                                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">-->
+<!--                                    <i class="layui-icon"><a th:href="@{|${admin.id}/delete|}">&#xe640;</a></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+                            <a type="add" class="layui-btn layui-btn-sm"  th:href="@{|${admin.id}/update|}">修改</a>
+                            <a type="delete" @click="isTrue" class="layui-btn layui-btn-sm layui-bg-red"  th:href="@{|${admin.id}/delete|}">删除</a>
                         </td>
                     </tr>
                     </tbody>

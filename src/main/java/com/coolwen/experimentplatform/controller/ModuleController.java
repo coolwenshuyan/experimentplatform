@@ -279,21 +279,21 @@ public class ModuleController {
 //实验报告问题增加
 
     @GetMapping("addReport")
-    public String addReport(Model model,
-                            @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, 10);
-        Page<Report> reportList = reportService.findByReportPage(pageable);
+    public String addReport(Model model
+                            ) {
+//        Pageable pageable = PageRequest.of(pageNum, 10);
+//        Page<Report> reportList = reportService.findByReportPage(pageable);
 
 //        List<Report> addReport = reportService.loadReport();
 
-        model.addAttribute("addReport", reportList);
-        return "shiyan/part";
+        model.addAttribute("addReport", new Report());
+        return "shiyan/part-add";
     }
 
     @PostMapping("addReport")
     public String addReport(Report report) {
         reportService.addReport(report);
-        return "redirect:/shiyan/addReport";
+        return "redirect:/shiyan/reportList";
     }
 
 //  删除实验报告
@@ -302,7 +302,7 @@ public class ModuleController {
     public String deleteReport(@PathVariable("reportId") String reportId) {
         System.out.println("——————————————————" + reportId);
         reportService.deleteReport(Integer.parseInt(reportId));
-        return "redirect:/shiyan/addReport";
+        return "redirect:/shiyan/reportList";
     }
 
     /**
@@ -329,16 +329,20 @@ public class ModuleController {
         r.setReportOrder(report.getReportOrder());
         r.setmId(report.getmId());
         reportService.addReport(r);
-        return "redirect:/shiyan/addReport";
+        return "redirect:/shiyan/reportList";
     }
 
 
 //    查询所有实验
 
-    @RequestMapping("findReport")
-    public String loadReport(Model model) {
-        model.addAttribute("reports", reportService.loadReport());
-        return "reportList";
+    @RequestMapping("reportList")
+    public String loadReport(Model model,
+                             @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
+
+        Pageable pageable = PageRequest.of(pageNum, 10);
+        Page<Report> reportList = reportService.findByReportPage(pageable);
+        model.addAttribute("reports", reportList);
+        return "shiyan/part-list";
     }
 
 

@@ -33,4 +33,6 @@ public interface ModuleTestAnswerService {
     int findQuestIdByAnswerId(int answerId);
 
     ModuleTestAnswer findbyAnswerid(int id);
+
+    void deleteAllAnswer(List<ModuleTestAnswer> moduleTestAnswers);
 }

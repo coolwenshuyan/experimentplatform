@@ -8,7 +8,20 @@
 	<title>平台公告发布</title>
 
 	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" />
-	<link rel="stylesheet" type="text/css" href="../../static/css/notice.css" />
+<!--	<link rel="stylesheet" type="text/css" href="../../static/css/notice.css" />-->
+	<style>
+		.layui-breadcrumb{
+			margin: 5%;
+		}
+		#editor{
+			margin-left: 11%;
+			margin-bottom: 30px;
+		}
+		.layui-input{
+			width: 50%;
+		}
+
+	</style>
 </head>
 <style>
 	.layui-table th {
@@ -20,11 +33,11 @@
 <div class="layui-container">
 <!--	<img src="../../static/images/LOGO2.png">-->
 	<br><br>
-	<span class="layui-breadcrumb">
-  			<a href="/">首页</a>
-  			<a href="/demo/">轮播公告</a>
-  			<a><cite>公告添加</cite></a>
-			</span>			<br><br><br>
+<!--	<span class="layui-breadcrumb">-->
+<!--  			<a href="/">首页</a>-->
+<!--  			<a href="/demo/">轮播公告</a>-->
+<!--  			<a><cite>公告添加</cite></a>-->
+<!--			</span>			<br><br><br>-->
 
 
 	<!--标题-->
@@ -38,9 +51,11 @@
 
 		<div class="layui-form-item">
 			<label class="layui-form-label" >内容</label>
-			<script id="editor" name="content" th:utext="${newsInfo.content}" type="text/plain">
-			</script>
+
 		</div>
+
+		<script id="editor" name="content" th:utext="${newsInfo.content}" type="text/plain">
+		</script>
 
 		<div class="layui-form-item" style="margin-top: 1%;">
 			<label class="layui-form-label">发布人</label>
@@ -76,10 +91,12 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script>
-	UE.getEditor('editor');
+	var editor = new UE.ui.Editor({ initialFrameHeight:100,initialFrameWidth:626 });
+	editor.render("editor");
 </script>
 
 <script type="text/javascript">
+
 	var E = window.wangEditor
 	var editor = new E('#editor')
 	// 或者 var editor = new E( document.getElementById('editor') )

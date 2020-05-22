@@ -4,6 +4,7 @@ import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
 import com.coolwen.experimentplatform.model.Report;
 import com.coolwen.experimentplatform.model.ReportAnswer;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -24,5 +25,8 @@ public interface ReportAnswerRepository extends BaseRepository<ReportAnswer,Inte
     List<ReportAnswer> findAllByStuId(int stuid);
 
     List<ReportAnswer> findAllByReportIdAndAndStuId(int reportId,int stuid);
+
+    @Query("select ra from ReportAnswer  ra where ra.reportId = ?1")
+    List<ReportAnswer> findReportAnswerByReportId(int reportId);
 
 }

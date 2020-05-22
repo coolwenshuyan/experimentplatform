@@ -61,4 +61,14 @@ public class ReportServiceImpl implements ReportService {
         return reportRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Report> findReportByMId(int mid) {
+        return reportRepository.findReportByMId(mid);
+    }
+
+    @Override
+    public void deleteReports(List<Report> report) {
+        reportRepository.deleteAll(report);
+    }
+
 }

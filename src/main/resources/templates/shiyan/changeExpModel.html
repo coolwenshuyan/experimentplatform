@@ -44,7 +44,7 @@
 		</style>
 	<body>
 
-	<div style="text-align: center;margin-top:30px;font-size: 20px;">修改---实验模块</div>
+	<!--<div style="text-align: center;margin-top:30px;font-size: 20px;">修改-&#45;&#45;实验模块</div>-->
 		<div class="layui-container" id="content">
 			<div class="layui-row">
 				<form class="layui-form layui-col-md7" th:action="@{|/expmodel/updateExpModel/${preExpModel.m_id}|}" method="post"  th:object="${preExpModel}" enctype="multipart/form-data">
@@ -97,7 +97,7 @@
 				    <div class="layui-input-block">
 				      <input class="layui-btn" lay-submit lay-filter="formDemo" value="修改" type="submit">
 				      <button type="reset" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">取消</button>
-				      	<a type="layui-btn" class="layui-btn layui-btn-primary" href="" th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
+				      	<a type="layui-btn" class="layui-btn layui-bg-green" href="" th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
 				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteTheory/${preExpModel.m_id}|}">删除理论学习</a>
 				    </div>
 				</div>

@@ -30,4 +30,9 @@ public interface ReportService {
     List<Report> findByMid(int mid);
 
     Page<Report> findByReportPage(Pageable pageable);
+
+    List<Report> findReportByMId(int mid);
+
+    void deleteReports(List<Report> report);
+
 }

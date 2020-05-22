@@ -63,4 +63,14 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
         Integer a = kaoheModelRepository.findByMid(mid);
         return kaoHeModelScoreRepository.findByStuIdAndTKaohemodleId(a,stu);
     }
+
+    @Override
+    public List<KaoHeModelScore> findKaoHeModelScoreByTKaohemodleIdAndStuId(int kaohemodeleid) {
+        return kaoHeModelScoreRepository.findKaoHeModelScoreByTKaohemodleIdAndStuId(kaohemodeleid);
+    }
+
+    @Override
+    public void deleteAllKaohe(List<KaoHeModelScore> kaoHeModelScores) {
+        kaoHeModelScoreRepository.deleteAll(kaoHeModelScores);
+    }
 }

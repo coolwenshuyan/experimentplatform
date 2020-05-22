@@ -14,6 +14,7 @@ public class Effect {
     private String effect_name;
     private String effect_imgurl;
     private String effect_person;
+    @Column(columnDefinition = "text")
     private String effect_content;
     private int dic_num;
     private Date dic_datetime;

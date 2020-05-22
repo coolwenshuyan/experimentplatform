@@ -14,28 +14,28 @@
 	<body>
 		<div class="layui-container">
 <!--			<img src="../../static/images/LOGO2.png"> <br><br>-->
-			<span class="layui-breadcrumb">
-  			<a href="/">首页</a>
-  			<a href="/demo/">师资队伍</a>
-  			<a><cite>师资队伍添加</cite></a>
-			</span>			<br><br><br>
+<!--			<span class="layui-breadcrumb">-->
+<!--  			<a href="/">首页</a>-->
+<!--  			<a href="/demo/">师资队伍</a>-->
+<!--  			<a><cite>师资队伍添加</cite></a>-->
+<!--			</span>			<br><br><br>-->
 
 
 		<!--标题-->
 		<form class="layui-form" action="/teachers/add" method="post" enctype="multipart/form-data">
-  		<div class="layui-form-item">
+  		<div class="layui-form-item" style="margin-top: 50px">
     		<label class="layui-form-label">姓名</label>
     		<div class="layui-input-block">
       		<input type="text" name="person_name" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
     		</div>
   		</div>
   		
-  		<div class="layui-form-item">
+  		<div class="layui-form-item" style="margin-top: 50px">
     		<label class="layui-form-label">图片</label>
     		<div class="layui-upload">
-		  		<input type="file" name="file" value="请选择图片">
+		  		<input type="file" name="file" id="uploadImg" onchange="xmTanUploadImg(this)" value="请选择图片">
 		  		<div class="layui-upload-list">
-		    	<img class="layui-upload-img" id="demo1">
+		    	<img class="layui-upload-img" id="selectImg" style="width: 100px; height: 100px;">
 		    	<p id="demoText"></p>
 		  	</div>
 		</div> 	
@@ -70,8 +70,15 @@
 		<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<script>
-			
-			
+			function xmTanUploadImg(obj) {
+				var file = obj.files[0];
+				var reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = function(e) { //成功读取文件
+					var img = document.getElementById("selectImg");
+					img.src = e.target.result;
+				};
+			}
 			
 			layui.use('upload', function(){
 			  var $ = layui.jquery

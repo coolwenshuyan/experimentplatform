@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
 import com.coolwen.experimentplatform.model.ClassModel;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @ProjectName: experimentplatform
@@ -14,4 +15,7 @@ import com.coolwen.experimentplatform.model.ClassModel;
  */
 public interface ClassDao extends BaseRepository<ClassModel, Integer> {
     ClassModel findByClassId(int id);
+
+    @Query(value = "select class_name from t_class where class_id = ?",nativeQuery = true)
+    String findByClassName(int id);
 }

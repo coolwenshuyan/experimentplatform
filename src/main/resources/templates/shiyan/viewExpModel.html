@@ -31,7 +31,11 @@
         width:30em;
         table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
     }
+    .layui-table th{
+        text-align: center;
+    }
     td{
+        text-align: center;
         width:100%;
         word-break:keep-all;/* 不换行 */
         white-space:nowrap;/* 不换行 */
@@ -41,7 +45,7 @@
 </style>
 <body>
 
-<div style="text-align: center;margin-top:30px;font-size: 20px;">查找/删除---实验模块</div>
+<!--<div style="text-align: center;margin-top:30px;font-size: 20px;">查找/删除-&#45;&#45;实验模块</div>-->
 
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
@@ -49,7 +53,7 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
-                        <a type="layui-btn" class="layui-btn layui-btn-primary" href="../expmodel/addExpModel" th:href="@{/expmodel/addExpModel}">新建</a>
+                        <a type="layui-btn" class="layui-btn layui-bg-green" href="../expmodel/addExpModel" th:href="@{/expmodel/addExpModel}">新建</a>
                         <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">返回列表</a>
 
                         <!--<div class="layui-inline layui-show-xs-block">
@@ -83,11 +87,11 @@
                             <td class="td-manage">
                                 <a  href="javascript:;">
                                     <!--<i class="layui-icon">&#xe642;</i>-->
-                                    <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/updateExpModel/${model.getM_id()}|}">编辑</a>
+                                    <a type="layui-btn" class="layui-btn layui-bg-green"  th:href="@{|/expmodel/updateExpModel/${model.getM_id()}|}">编辑</a>
                                 </a>
                                 <a href="javascript:;">
                                     <!--<i class="layui-icon">&#xe640;</i>-->
-                                    <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteExpModel/${model.getM_id()}|}">删除</a>
+                                    <a type="layui-btn" class="layui-btn layui-bg-red" th:href="@{|/expmodel/deleteExpModel/${model.getM_id()}|}">删除</a>
                                 </a>
                             </td>
                         </tr>

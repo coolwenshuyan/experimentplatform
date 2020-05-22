@@ -14,7 +14,7 @@ public class NewsInfo {
     private String news_name;
 
     private String news_person;
-
+    @Column(columnDefinition = "text")
     private String content;
 
     private int dic_num;

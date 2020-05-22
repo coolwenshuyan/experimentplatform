@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>学习效果添加</title>
 	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" />
-	<link rel="stylesheet" type="text/css" href="../../static/css/notice.css" />
+<!--	<link rel="stylesheet" type="text/css" href="../../static/css/notice.css" />-->
 	<style type="text/css">
 		.layui-textarea{
 			width: 50%;
@@ -13,16 +13,27 @@
 			margin-top: 50px;
 			margin-bottom: 0px;
 		}
+		 .layui-breadcrumb{
+			 margin: 5%;
+		 }
+		#editor{
+			margin-left: 11%;
+			margin-bottom: 30px;
+		}
+		.layui-input{
+			width: 50%;
+		}
+
 	</style>
 </head>
 <body>
 <div class="layui-container">
-	<img src="../../static/images/LOGO2.png"> <br><br>
-	<span class="layui-breadcrumb">
-  			<a href="/">首页</a>
-  			<a>学习效果</a>
-  			<a><cite>学习效果添加</cite></a>
-			</span>			<br><br><br>
+<!--	<img src="../../static/images/LOGO2.png"> <br><br>-->
+<!--	<span class="layui-breadcrumb">-->
+<!--  			<a href="/">首页</a>-->
+<!--  			<a>学习效果</a>-->
+<!--  			<a><cite>学习效果添加</cite></a>-->
+<!--			</span>			<br><br><br>-->
 
 
 	<!--标题-->
@@ -38,9 +49,9 @@
 			<label class="layui-form-label">图片</label>
 			<div class="layui-upload">
 				<!--		  		<input type="file" name="file">上传图片</input>-->
-				<input type="file" name="file" value="请选择图片">
+				<input type="file" name="file" id="uploadImg" onchange="xmTanUploadImg(this)" value="请选择图片">
 				<div class="layui-upload-list">
-					<img class="layui-upload-img" id="demo1">
+					<img class="layui-upload-img" id="selectImg" style="width: 100px; height: 100px;">
 					<p id="demoText"></p>
 				</div>
 			</div>
@@ -55,9 +66,11 @@
 
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">发布内容</label>
-			<script id="editor" name="effect_content" type="text/plain">
-			</script>
+
 		</div>
+
+		<script id="editor" name="effect_content" type="text/plain">
+		</script>
 
 
 
@@ -88,11 +101,20 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script>
-	UE.getEditor('editor');
+	var editor = new UE.ui.Editor({ initialFrameHeight:100,initialFrameWidth:626 });
+	editor.render("editor");
+	// UE.getEditor('editor');
 </script>
 <script>
-
-
+	function xmTanUploadImg(obj) {
+		var file = obj.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function(e) { //成功读取文件
+			var img = document.getElementById("selectImg");
+			img.src = e.target.result;
+		};
+	}
 
 	layui.use('upload', function(){
 		var $ = layui.jquery

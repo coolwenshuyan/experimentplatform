@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.KaoHeModelScore;
+import com.coolwen.experimentplatform.model.KaoheModel;
 
 import java.util.List;
 
@@ -25,5 +26,10 @@ public interface KaoHeModelScoreService {
     public List<KaoHeModelScore> listKaoHeModleScore();
 
     KaoHeModelScore findKaoheModelScoreByMid(int mid,int stu);
+
+    List<KaoHeModelScore> findKaoHeModelScoreByTKaohemodleIdAndStuId(int kaohemodeleid);
+
+    void deleteAllKaohe(List<KaoHeModelScore> kaoHeModelScores);
+
 
 }

@@ -80,4 +80,9 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
         return findByAnswerId(id);
     }
 
+    @Override
+    public void deleteAllAnswer(List<ModuleTestAnswer> moduleTestAnswers) {
+        answer.deleteAll(moduleTestAnswers);
+    }
+
 }

@@ -25,12 +25,19 @@
             width:30em;
             table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
         }
+        .layui-table th{
+            text-align: center;
+        }
         td{
+            text-align: center;
             width:100%;
             word-break:keep-all;/* 不换行 */
             white-space:nowrap;/* 不换行 */
             overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
             text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+        }
+        #new{
+            margin:2% 0  0 2%;
         }
     </style>
     <body>
@@ -40,7 +47,7 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <a href="addLastTest.html" th:href="@{|addLastAnswer|}">
-                            <button type="layui-btn" class="layui-btn layui-btn-primary">新建</button>
+                            <button type="layui-btn" class="layui-btn layui-bg-green" id="new">新建</button>
                         </a>
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5" method="post">
@@ -82,11 +89,11 @@
                                     <td class="td-manage">
                                       <a title="编辑" th:href="@{|updateLastQuest/${Quest.questId}|}">
                                         <!--<i class="layui-icon">&#xe642;</i>-->
-                                        <button type="layui-btn" class="layui-btn layui-btn-primary" >修改</button>
+                                        <button type="layui-btn" class="layui-btn layui-bg-green" >修改</button>
                                       </a>
                                       <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;" th:href="@{|deleteLastQuest/${Quest.questId}|}">
                                         <!--<i class="layui-icon">&#xe640;</i>-->
-                                        <button type="layui-btn" class="layui-btn layui-btn-primary">删除</button>
+                                        <button type="layui-btn" class="layui-btn layui-bg-red">删除</button>
                                       </a>
                                     </td>
                                   </tr>
