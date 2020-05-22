@@ -89,73 +89,11 @@
 	</head>
 
 	<body>
-	<div id="left_nav">	
-		<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
-			<li class="layui-nav-item">
-				<a href="../home_page/index.html">首页</a>
-			</li>
-			<li class="layui-nav-item ">
-				<a href="javascript:;">实验大厅</a>
-				<dl class="layui-nav-child">
-					<dd>
-						<a href="index.html">考核实验</a>
-					</dd>
-					<dd>
-						<a href="all-test.html">全部实验</a>
-					</dd>
-					
-				</dl>
-			</li>
-			<li class="layui-nav-item">
-				<a href="javascript:;">理论测试</a>
-				<dl class="layui-nav-child">
-					<dd>
-						<a href="ceshi.html">理论测试</a>
-					</dd>
-					
-				</dl>
-				
-			</li>
-			<li class="layui-nav-item">
-				<a href="javascript:;">查看实验成绩</a>
-				<dl class="layui-nav-child">
-					<dd>
-						<a href="grade.html">实验成绩汇总</a>
-					</dd>
-					
-				</dl>
-			</li>
-			<li class="layui-nav-item ">
-				<a href="javascript:;">帮助中心</a>
-				<dl class="layui-nav-child">
-					<dd>
-						<a href="jieshao.html">仿真实验介绍</a>
-					</dd>
-					<dd>
-						<a href="team.html">关于我们</a>
-					</dd>
-					
-				</dl>
-			</li>
-		</ul>
-	</div>
-		<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">
-			<span class="layui-breadcrumb layui-col-xs3">
-  				<a href="/">首页</a>
-  				<!--<a href="/demo/">演示</a>-->
-  				<a><cite>实验大厅</cite></a>
-  				<a><cite>理论学习</cite></a>
-			</span>
-			
-			<span class="information layui-col-xs2 layui-col-xs-offset7">
-				<p class="layui-col-xs7">test</p>
-				<a href="change.html">
-					<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">
-				</a>
-			</span>
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<button type="button" class="layui-btn" lay-submit lay-filter="formDemo" style="    float: right;margin-right: 5%;">返回上一级</button>
 		</div>
-		<a id="return" href="index.html">返回上一级</a>
-		<hr>
+	</div>
 		<div class="container" th:object="${exp}">
 			<div class="introduce">
 				<div class="title">
