@@ -28,6 +28,10 @@
 			text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
 		}
 
+		.layui-table th {
+			text-align: center;
+			font-weight: 900;
+		}
 	</style>
 </head>
 <body>
@@ -60,7 +64,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="b:${allKaohe}">
+			<tr align="center" th:each="b:${allKaohe}">
 				<td th:text="${b.getM_id()}">1</td>
 				<td th:text="${b.getM_name()}">模块1</td>
 				<td th:text="${b.getM_type()}">拓展创新</td>

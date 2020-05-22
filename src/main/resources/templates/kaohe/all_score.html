@@ -51,7 +51,11 @@
 				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
 				text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
 			}
-		
+
+			.layui-table th {
+				text-align: center;
+				font-weight: 900;
+			}
 		</style>
 	</head>
 	<body>
@@ -115,7 +119,7 @@
 								<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="导出" class="layui-btn" lay-submit="" lay-filter="demo1">导出</button>
+<!--								<button type="导出" class="layui-btn" lay-submit="" lay-filter="demo1">导出</button>-->
 							</li>						
 						</th>						
 					</tr>
@@ -154,7 +158,7 @@
 				</colgroup>
 				<thead class="header">
 					
-					<tr>
+					<tr align="center">
 						<th>学号</th>
 						<th>姓名</th>
 						<th>班级</th>

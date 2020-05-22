@@ -63,6 +63,10 @@
 			.ak{
 				margin-left: 0px;
 			}
+			.layui-table th {
+				text-align: center;
+				font-weight: 900;
+			}
 		</style>
 	</head>
 	<body>
@@ -85,9 +89,9 @@
 						<th colspan="3">
 
 								<div class="layui-form-item">
-									<label class="layui-form-label">班级筛选</label>
+									<label class="layui-form-label" style="padding-top: 15px;">班级筛选</label>
 									<div class="layui-input-block" style="width: 30%;">
-										<select name="interest" lay-filter="aihao" onchange="window.open(this.options[this.selectedIndex].value,target='_self')">
+										<select name="interest" lay-filter="aihao" onchange="window.open(this.options[this.selectedIndex].value,target='_self')" style="margin-top: 13px;">
 												<option>请选择</option>
 											<div th:each="clazz:${classList}" >
 												<option th:value="|/reportScoreManage/${clazz.getClassId()}/list|"  th:text="${clazz.getClassName()}">18信管01</option>
