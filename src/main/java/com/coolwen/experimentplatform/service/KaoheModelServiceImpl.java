@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+
 @Service("kaoheModelService")
 public class KaoheModelServiceImpl implements KaoheModelService {
 
@@ -53,7 +54,7 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Override
     public KaoheModel findById(int id) {
-        return  kaoheModelRepository.findbyid(id);
+        return kaoheModelRepository.findbyid(id);
     }
 
     @Override
@@ -92,11 +93,10 @@ public class KaoheModelServiceImpl implements KaoheModelService {
     }
 
 
-
     @Override
     public Page<KaoHeModelStuDTO> findKaoheModelStuDto(int stu_id, int pageNum) {
-        PageRequest pageRequest = PageRequest.of(pageNum,6);
-        return kaoHeModelScoreRepository.findKaoHeModelStuDTOByStuId(stu_id,pageRequest);
+        PageRequest pageRequest = PageRequest.of(pageNum, 6);
+        return kaoHeModelScoreRepository.findKaoHeModelStuDTOByStuId(stu_id, pageRequest);
     }
 
     @Override

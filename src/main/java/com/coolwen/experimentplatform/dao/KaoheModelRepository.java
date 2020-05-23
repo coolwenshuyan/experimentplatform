@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface KaoheModelRepository extends BaseRepository<KaoheModel,Integer> , JpaSpecificationExecutor<KaoheModel> {
+public interface KaoheModelRepository extends BaseRepository<KaoheModel, Integer>, JpaSpecificationExecutor<KaoheModel> {
 
 //    static void sava(KaoheModel kaoheModel) {
 //    }
