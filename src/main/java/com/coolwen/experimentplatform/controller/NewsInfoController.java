@@ -76,11 +76,11 @@ public class NewsInfoController {
         return "home_page/index";
     }
 
-//    //实验大厅入口
-//    @GetMapping(value = "/expModel/alltestModel")
-//    public String model(){
-//        return "home_shiyan/all-test";
-//    }
+    //实验大厅入口
+    @GetMapping(value = "/shiyan")
+    public String model(){
+        return "kuangjia/shiyan";
+    }
 
 
     //点击公告，查看详情
