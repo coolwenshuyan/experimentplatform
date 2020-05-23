@@ -3,7 +3,7 @@
                                     <input type="hidden" name="spid" value="SUB_NUMBER">
                                 </form>
                                 <!doctype html>
-<html lang="zh">
+ <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
@@ -114,60 +114,69 @@
 					<a href="#" class="change-ewm-btn" style="display:none"></a>
 					<a href="#" class="change-acount-btn" style="display:none"></a>
 
-					<div class="acount-box">
-						<p class="login-bag-title">使用用户名密码登录</p>
-						<div id="form1" class="fm-v clearfix" >
-							<div class="input-box">
-								<select name="" id="job" class="login-username">
-										<option value="1">平台学习者</option>
-										<option value="2">平台管理员</option>
-								</select>
-							</div>
-							<div class="input-box">
-								<input type="text" name="username" id="username" placeholder="请输入您的学/工号" class="login-username">
-								
-							</div>
-							<div class="input-box">
-								<input type="password" name="password" id="password" placeholder="请输入您的密码" class="login-password">
-								<div class="hide error-box" style="right:-48px"><span class="fa fa-minus-circle"></span> 密码错误</div>
-							</div>
-							
-
-							<div class="login-submit-box">
-								<div class="pull-left">
-									<button id="submidt" type="submit" class="submit_button" style="padding-left: 40px;padding-right: 40px;font-size:16px">登 录</button>
+					<form method="post" th:action="@{/login}">
+						<div class="acount-box">
+							<p class="login-bag-title">使用用户名密码登录</p>
+							<div id="form1" class="fm-v clearfix" >
+								<div class="input-box">
+									<select name="type" id="job" class="login-username">
+										<option value="student">平台学习者</option>
+										<option value="admin">平台管理员</option>
+									</select>
 								</div>
+								<div class="input-box">
+									<input type="text" name="account" id="username" placeholder="请输入您的学/工号" class="login-username">
+
+								</div>
+								<div class="input-box">
+									<input type="password" name="password" id="password" placeholder="请输入您的密码" class="login-password">
+									<div class="hide error-box" style="right:-48px"><span class="fa fa-minus-circle"></span> 密码错误</div>
+								</div>
+								<div class="input-box">
+									<input style="width: 40%;height: 38px;float: left;" type="text" name="code" placeholder="请输入验证码" autocomplete="off">
+									<div style="width: 49%;float: left;height: 50px;">
+										<img  id="verifyimg" th:src="@{/verifyCode}" style="width: 60%;height: 30px;float: left;" alt="">
+										<a href="javascript:void(0)" onclick="javascript:refreshCaptcha()" style="color: coral;float: left">(看不清?换一张)</a>
+									</div>
+								</div>
+
+
+								<div class="login-submit-box">
+									<div class="pull-left">
+										<button id="submidt" type="submit" class="submit_button" style="padding-left: 40px;padding-right: 40px;font-size:16px">登 录</button>
+									</div>
 									<a href="vcode.html">
-								<div class="pull-right">
-										<button class="submit_button" style="padding-left: 40px;padding-right: 40px;font-size:16px">注册</button>
+										<div class="pull-right">
+											<button class="submit_button" style="padding-left: 40px;padding-right: 40px;font-size:16px"><a style="color: white" href="/register">注册</a></button>
 
-								</div>
+										</div>
 									</a>
 									<!-- <button id="submitp" class="submit_button" style="padding-left: 20px;padding-right: 20px">专家一键登陆</button> -->
-								<div class="other-login-type">
-									
-								                               
-                                	<!-- <a href="javascript:;"><div class="pull-right">
-									<div class="pull-left"  onclick="$('#ffro').submit();" style="line-height:40px;">莱伊卡账户登陆</div>
-									</div></a> -->
-                                									<!-- <div class="pull-left" style="line-height:40px;">使用其它认证</div> -->
-									
-									
+									<div class="other-login-type">
+
+
+										<!-- <a href="javascript:;"><div class="pull-right">
+                                        <div class="pull-left"  onclick="$('#ffro').submit();" style="line-height:40px;">莱伊卡账户登陆</div>
+                                        </div></a> -->
+										<!-- <div class="pull-left" style="line-height:40px;">使用其它认证</div> -->
+
+
+									</div>
+
+									<p class="login-submit-box-forget">
+										<button id="submitp" class="submit_button" style="padding-left: 20px;padding-right: 20px;background:#FF9900;color:#fff;font-size:16px">评审专家一键登陆</button>
+									</p>
+
+									<div class="errorInfo text-center" id="errorInfo">
+										<p th:text="${msg}" style="color: red"></p>
+
+									</div>
 								</div>
 
-								<p class="login-submit-box-forget">
-									<button id="submitp" class="submit_button" style="padding-left: 20px;padding-right: 20px;background:#FF9900;color:#fff;font-size:16px">评审专家一键登陆</button>
-								</p>
 
-								<div class="errorInfo text-center" id="errorInfo">
-									
-									
-								</div>
 							</div>
-
-							
 						</div>
-					</div>
+					</form>
 					<div class="ewm-box">
 						<img src="picture/erweima.jpg">
 					</div>
@@ -201,8 +210,12 @@
 		
 		</div>
 	</div>
-
-
+	<script src="../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function refreshCaptcha(){
+			$("#verifyimg").attr("src","/verifyCode?id=" + new Date() + Math.floor(Math.random()*24));
+		}
+	</script>
 
 <script type="text/javascript">
    (function (window, $, undefined) {
