@@ -47,6 +47,18 @@
 				text-align: center;
 				font-weight: 900;
 			}
+
+			.top1 th {
+				text-align: center;
+				font-weight: 500;
+			}
+			.top1 .layui-form-label{
+				font-weight: 900;
+			}
+			.top1{
+				width: 90%;
+				margin: 0 auto;
+			}
 		</style>
 	</head>
 
@@ -61,15 +73,15 @@
 <!--			</span> <br><br><br>-->
 
 
-			<table class="layui-table" lay-size="lg" style="    text-align: center;">
+			<table class="layui-table top1" lay-size="lg" style="    text-align: center;">
 <!--				<colgroup>-->
 <!--					<col width="150">-->
 <!--					<col width="200">-->
 <!--					<col>-->
 <!--				</colgroup>-->
-				<thead>
+
 					<tr>
-						<th colspan="2">
+						<th colspan="2" style="padding: 0">
 <!--							<div class="layui-form">-->
 								<div class="layui-form-item">
 									<label class="layui-form-label ab">班级筛选</label>
@@ -97,7 +109,7 @@
 							</div>
 						</th>
 
-						<th colspan="2">
+						<th colspan="2" style="padding: 0">
 
 <!--							<li>-->
 <!--								<div class="layui-input-block" style="float: left; position: relative;">-->
@@ -124,6 +136,9 @@
 
 						</th>
 					</tr>
+			</table>
+			<table class="layui-table" lay-size="lg" style="    text-align: center;">
+				<thead>
 					<tr>
 						<th>学号</th>
 						<th>姓名</th>

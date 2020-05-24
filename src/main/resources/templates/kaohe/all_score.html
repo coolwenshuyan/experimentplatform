@@ -56,6 +56,17 @@
 				text-align: center;
 				font-weight: 900;
 			}
+			.top1 th {
+				text-align: center;
+				font-weight: 500;
+			}
+			.top1 .layui-form-label{
+				font-weight: 900;
+			}
+			.top1{
+				width: 90%;
+				margin: 0 auto;
+			}
 		</style>
 	</head>
 	<body>
@@ -69,15 +80,15 @@
 			
 
 
-			<table class="layui-table" lay-size="lg" style="    text-align: center;">
+			<table class="top1" lay-size="lg" style="    text-align: center;">
 				<!--<colgroup>
 					<col width="150">
 					<col width="200">
 					<col>
 				</colgroup>-->
-				<thead>
-					<tr>
-						<th colspan="5">
+
+					<tr >
+						<th  style="padding: 0">
 							<form class="layui-form" action="">
 								<div class="layui-form-item">
 									<label class="layui-form-label" >当期往期</label>
@@ -92,11 +103,13 @@
 
 								</div>
 							</form>
+						</th>
+						<th style="padding: 0">
 							<form class="layui-form" action="">
 								<div class="layui-form-item">
 									<label class="layui-form-label">班级筛选</label>
-									<div class="layui-input-block" style="width: 30%;">
-										<select name="interest" lay-filter="aihao">
+									<div class="layui-input-block" style="width: 45%;">
+										<select name="interest" lay-filter="aihao" >
 											
 											<option value="0" selected="">18信管01</option>
 											<option value="1">18信管02</option>
@@ -110,10 +123,10 @@
 							</form>
 						</th>
 
-						<th colspan="5">
+						<th  style="padding: 0;width: 18%;">
 							<li>
-								<div class="layui-input-block" style="float: left; position: relative;">
-									<label class="layui-form-label">学号搜索</label>
+								<div class="layui-input-block" style="float: left; position: relative;    margin-left: -30px;">
+									<label class="layui-form-label" >学号搜索</label>
 									<input style="width: auto;" type="text" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
 								</div>
 								<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
@@ -124,7 +137,7 @@
 						</th>						
 					</tr>
 					<tr>
-						<th colspan="5">
+						<th style="padding: 0">
 							<form class="layui-form layui-col-md3" action="" >
 									<div class="layui-form-item ">
 										<label class="layui-form-label">模块占比</label>
@@ -133,9 +146,9 @@
 										</div>
 									</div>
 							</form>
-						</th>
-						<th colspan="5">
-							<form class="layui-form layui-col-md3" action="" >
+<!--						</th>-->
+<!--						<th colspan="6" style="padding: 0">-->
+							<form class="layui-form layui-col-md3" action="" style="margin-left: 45%;" >
 									<div class="layui-form-item ">
 										<label class="layui-form-label">理论占比</label>
 										<div class="layui-input-block">
@@ -143,10 +156,10 @@
 										</div>
 									</div>
 							</form>	
-							<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 50%;">修改</button>
+							<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 167%;margin-top: -30%">修改</button>
 						</th>												
 					</tr>
-				</thead>
+
 			</table>
 			
 			<div class="table-wrapper">

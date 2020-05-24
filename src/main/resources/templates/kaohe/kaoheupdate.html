@@ -8,6 +8,15 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/code.css">
 
     <style type="text/css">
+        body{
+            background-color: rgb(242,242,242);
+        }
+
+        .layui-container {
+            width: 50%;
+            background-color: white;
+        }
+
         .layui-input,
         .layui-textarea {
             width: 35%;
@@ -39,6 +48,17 @@
         /*   border: 1px solid green;*/
         /*    !*width: 500px;*!*/
         /*}*/
+        .layui-form-label b{
+            font-weight: 900;
+            font-size: 20px;
+            color: rgb(0,150,136);
+        }
+        .layui-form-label{
+            text-align: left;
+        }
+        .bo{
+            margin-bottom: 5%;
+        }
     </style>
 </head>
 <body>
@@ -52,41 +72,52 @@
 
     <form th:object="${kaohemodel}" class="layui-form" th:action="@{update}" method="post">
         <div class="layui-form-item">
-            <label class="layui-form-label">实验名</label>
+            <label class="layui-form-label">
+                <b>|</b>&nbsp;
 
-            <p th:text="${kaohemodel.experiment_name}">实验名</p>
+                实验名</label>
+
+            <p th:text="${kaohemodel.experiment_name}" style="padding-top: 2%;">实验名</p>
         </div>
 
 
         <div class="layui-form-item">
-            <label class="layui-form-label">测试成绩占比</label>
+            <label class="layui-form-label">
+                <b>|</b>&nbsp;
+                测试成绩占比</label>
             <div class="layui-input-block">
                 <input type="text" th:value="${kaohemodel.m_test_baifenbi}" name="m_test_baifenbi" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">报告成绩占比</label>
+            <label class="layui-form-label">
+                <b>|</b>&nbsp;
+                报告成绩占比</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${kaohemodel.m_report_baifenbi}" name="m_report_baifenbi" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
+                <input type="text" th:value="${kaohemodel.m_report_baifenbi}" name="m_report_baifenbi" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$" >
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">权重</label>
+            <label class="layui-form-label">
+                <b>|</b>&nbsp;
+                权重</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${kaohemodel.m_scale}" name="m_scale" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
+                <input type="text" th:value="${kaohemodel.m_scale}" name="m_scale" lay-verify="title" autocomplete="off"  class="layui-input" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$" style="width: 15%;">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">序号</label>
+            <label class="layui-form-label">
+                <b>|</b>&nbsp;
+                序号</label>
             <div class="layui-input-block">
-                <input type="number" th:value="${kaohemodel.m_order}" name="m_order" lay-verify="title" autocomplete="off"  class="layui-input" >
+                <input type="number" th:value="${kaohemodel.m_order}" name="m_order" lay-verify="title" autocomplete="off"  class="layui-input" style="width: 15%;">
             </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">修改</button>
-                <a th:href="@{/kaohemodel/checkModule}" class="layui-btn layui-btn-primary">取消</a>
+                <button type="submit" class="layui-btn bo" lay-submit="" lay-filter="demo1">修改</button>
+                <a th:href="@{/kaohemodel/checkModule}" class="layui-btn layui-btn-primary bo">取消</a>
             </div>
         </div>
     </form>
