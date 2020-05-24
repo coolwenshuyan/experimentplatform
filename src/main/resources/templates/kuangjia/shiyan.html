@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -24,6 +24,7 @@
 		<link rel="stylesheet" type="text/css" href="../../static/css/iconfont.css">
 		<script type="text/javascript" src="../../static/js/jquery10.min.js" ></script>
 		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
 	    <!--[if lt IE 9]>
 	      	<script src="../../static/js/html5shiv.min.js"></script>
 	      	<script src="../../static/js/respond.min.js"></script>
@@ -41,14 +42,44 @@
 		<script type="text/javascript" src="../../static/js/frame.js" ></script>
 		<style>
 			.frameMenu{
-				width: 204px;
-				 background-color: #1c1c1c;
+				width: 182px;
+				/* background-color: #1c1c1c; */
 				float: left;
-				/*background: #174f37;*/
+				background: #174f37;
 				font-size: 16px;
 			}
+			.frameTop{
+				width: 120%;
+				height: 60px;
+				background-color: #FFF;
+				position: relative;
+			}
+			.frameTop .topMenu ul li{
+				border: none;
+			}
+			.inf_img{
+				width: 11%;
+				margin-top: 3%;
+			}
+			.span1{
+				padding-left: 10px;
+				font-size: 18px;
+				color: black;
+			}
+			.frameTop .topMenu ul li a:hover i{
+				color: white;
+			}
+			.frameTop .topMenu ul li a i{
+				color: white;
+			}
 		</style>
-		
+		<script>
+			//处理菜单样式变化
+			$(_this).css("cssText", "background-color:#009688 !important;").css("color","#FFF");
+			$(_this).parent().siblings().find("a").css("cssText", "background-color:#transparent").css("color","#c2c2c2");
+			$(_this).parent().parent().parent().siblings().find("dl dt a").css("cssText", "background-color:#transparent").css("color","#c2c2c2")
+
+		</script>
 	</head>
 
 	<body>
@@ -57,7 +88,7 @@
 		    <div class="logo">
 		        <img src="../../static/images/logo.png"/>
 		        <div class="logoText">
-		            <h1>仿真平台</h1>
+		            <h1>实验大厅</h1>
 		        </div>
 		    </div>
 		    <div class="menu">
@@ -76,25 +107,15 @@
 		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/iconfont.html',this)"><i class="iconfont icon-huojian left"></i>iconfont字体库</a>
 		           	</li>-->
 		        	<li>
-		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-liuliangyunpingtaitubiao03 left"></i>首页<i class="iconfont icon-dajiantouyou right"></i></a>
-		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/addplat',this)">仿真平台概括</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../teachers/list',this)">师资队伍</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../learning/list',this)">学习效果</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/lunbo',this)">轮播导航</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../newsinfo/list',this)">平台公告</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/addus',this)">关于我们</a></dt>
-
-						</dl>
+		                <a class="menuFA" href="/newsinfo/newslist">首页</a>
 		            </li>
 
 					<li>
-						<a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-yunying left"></i>实验模块设置<i class="iconfont icon-dajiantouyou right"></i></a>
+						<a class="menuFA" href="javascript:void(0)">实验大厅<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/list',this)">实验模块管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/kaohe',this)">考核实验</a></dt>
 <!--							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>-->
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/moduleList',this)">模块测试管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">实验模块报告管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/alltestModel',this)">全部实验</a></dt>
 
 
 						</dl>
@@ -102,14 +123,9 @@
 					</li>
 
 					<li>
-						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>考核设置<i class="iconfont icon-dajiantouyou right"></i></a>
+						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">理论测试<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohemodel/checkModule',this)">考核模块设置</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">课程理论测试管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick(' ../testScoreManage/list ',this)">模块测试成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../reportScoreManage/list ',this)">模块报告成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/kaohe',this)">课程理论测试成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../totalscore/list',this)">学生总评成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../',this)">理论测试</a></dt>
 						</dl>
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
 					</li>
@@ -117,11 +133,9 @@
 
 					<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('学生账号管理/X-admin/student_list.html',this)">学生账号管理</a></dt>-->
 					<li>
-						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>学生账号管理<i class="iconfont icon-dajiantouyou right"></i></a>
+						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">查看实验成绩<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-                            <dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/toBeReviewd',this)">学生账号信息审核</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/list',this)">学生账号信息管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/classManage',this)">班级管理</a></dt>
+                            <dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/score',this)">实验成绩汇总</a></dt>
 
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
 						</dl>
@@ -129,20 +143,15 @@
 
 
 					<li>
-						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>教师账号管理<i class="iconfont icon-dajiantouyou right"></i></a>
+						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">帮助中心<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../admin/list',this)">教师账号管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/jiesao',this)">仿真平台介绍</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/aboutus',this)">关于我们</a></dt>
 
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
 						</dl>
 					</li>
 
-		        	<li>
-		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>学生答疑管理<i class="iconfont icon-dajiantouyou right"></i></a>
-		                <dl>
-		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../question/list',this)">答疑提问管理</a></dt>
-		                </dl>
-		           	</li>
 		        	<!--<li>
 		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-caiwu left"></i></a>
 		           	</li>-->
@@ -165,21 +174,29 @@
 				<img class="jt" src="../../static/images/top_jt.png"/>
 				<div class="topMenu">
 					<ul>
-						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-yonghu1"></i>管理员</a></li>
-						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>
-						<li><a href="login.html"><i class="iconfont icon-084tuichu"></i>注销</a></li>
+<!--						<li><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/change.html',this)"><img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img"><i class="iconfont icon-yonghu1"></i>管理员</a></li>-->
+<!--						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>-->
+						<li><a href="javascript:void(0)" onclick="menuCAClick('../setstudentinfo/update',this)"><img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img"><i class="iconfont icon-yonghu1"></i><span class="span1">test</span></a></li>
 					</ul>
 				</div>
+<!--				<span class="information layui-col-xs2 layui-col-xs-offset7 topMenu">-->
+<!--				<p class="layui-col-xs7">test</p>-->
+<!--				<a href="change.html">-->
+<!--					<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">-->
+<!--				</a>-->
+<!--			</span>-->
 			</div>
+
 			<!-- 头部栏 - 结束 -->
 			
 			<!-- 核心区域 - 开始 -->
 			<div class="frameMain">
-				<div class="title" id="frameMainTitle">
-					<span><i class="iconfont icon-xianshiqi"></i>后台首页</span>
-				</div>
+<!--				<div class="title" id="frameMainTitle">-->
+<!--					<span><i class="iconfont icon-xianshiqi"></i>后台首页</span>-->
+<!--				</div>-->
+				<hr>
 				<div class="con">
-					<iframe id="mainIframe" src="../setinfo/addplat" scrolling=""></iframe>
+					<iframe id="mainIframe" src="../home_shiyan/index.html" scrolling=""></iframe>
 				</div>
 			</div>
 			<!-- 核心区域 - 结束 -->

@@ -40,7 +40,7 @@ public class LearningeffectController {
         return "home_page/study_situation";
     }
     //前端进入详情展示
-    @GetMapping(value = "/{id}/effectDetails")
+    @GetMapping(value = "/effectDetails/{id}")
     public String effectDetails(@PathVariable int id,Model model){
         Effect effect = effectService.findById(id);
         model.addAttribute("effect",effect);

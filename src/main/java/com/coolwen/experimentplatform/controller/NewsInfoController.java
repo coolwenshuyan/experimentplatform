@@ -76,19 +76,28 @@ public class NewsInfoController {
         return "home_page/index";
     }
 
-//    //实验大厅入口
-//    @GetMapping(value = "/expModel/alltestModel")
-//    public String model(){
-//        return "home_shiyan/all-test";
-//    }
+    //实验大厅入口
+    @GetMapping(value = "/shiyan")
+    public String model(){
+        return "kuangjia/shiyan";
+    }
 
 
     //点击公告，查看详情
-    @GetMapping(value = "/{id}/noticeDetails")
+    @GetMapping(value = "/noticeDetails/{id}")
     public String noticedetails(@PathVariable int id,Model model){
         NewsInfo newsInfo = newsInfoService.findById(id);
         model.addAttribute("newsInfo",newsInfo);
         return "home_page/noticeDetails";
+    }
+
+    //点击查看更多
+    @GetMapping(value = "more")
+    public String more(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+        Pageable pageable = PageRequest.of(pageNum,12);
+        Page<NewsInfo> page = newsInfoRepository.findAllorderby(pageable);
+        model.addAttribute("newsPageInfo",page);
+        return "home_page/notice_more";
     }
 
 

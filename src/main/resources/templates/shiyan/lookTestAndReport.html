@@ -2,7 +2,7 @@
 <html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>查找/删除---实验模块</title>
+        <title>实验模块</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -46,26 +46,26 @@
     </style>
     <body>
 
-    <!--<div style="text-align: center;margin-top:30px;font-size: 20px;">查找/删除-&#45;&#45;实验模块</div>-->
+    <!--<div style="text-align: center;margin-top:30px;font-size: 20px;">实验模块</div>-->
 
         <div class="layui-fluid">
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5" th:action="@{/expmodel/viewExpModel}" method="get">
-                            	<a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{/expmodel/addExpModel}">新建</a>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="m_name"  placeholder="请输入实验名称" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="submit"  class="layui-btn"  lay-submit="" lay-filter="sreach" value="搜索"/>
-                                </div>
-                                
-                                <!--<div class="layui-inline layui-show-xs-block">
-                                    <a class="layui-btn"  lay-submit="" title="增加" onclick="xadmin.open('增加','班级新增.html')"><i class="layui-icon"></i>增加</a>
-                                </div>-->
-                            </form>
+                            <!--<form class="layui-form layui-col-space5" th:action="@{/expmodel/viewExpModel}" method="get">-->
+                            	<!--<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{/expmodel/addExpModel}">新建</a>-->
+                                <!--<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<input type="text" name="m_name"  placeholder="请输入实验名称" autocomplete="off" class="layui-input">-->
+                                <!--</div>-->
+                                <!--<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<input type="submit"  class="layui-btn"  lay-submit="" lay-filter="sreach" value="搜索"/>-->
+                                <!--</div>-->
+                                <!---->
+                                <!--&lt;!&ndash;<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<a class="layui-btn"  lay-submit="" title="增加" onclick="xadmin.open('增加','班级新增.html')"><i class="layui-icon"></i>增加</a>-->
+                                <!--</div>&ndash;&gt;-->
+                            <!--</form>-->
                         </div>
                        
                         <div class="layui-card-body ">
@@ -75,29 +75,29 @@
                                     
                                     <th>ID</th>
                                     <th>实验名称</th>
-                                    <th>负责人</th>
+                                    <!--<th>负责人</th>-->
                                     <th>实验类型</th>
                                     <th>课时</th>
-                                    <th>实验地址</th>
+                                    <!--<th>实验地址</th>-->
                                     <th>操作</th>
                                 </thead>
                                 <tbody>
-                                  <tr th:each="list:${page}">
+                                  <tr th:each="list:${page1}">
                                     
                                     <td th:text="${list.getM_id()}"></td>
                                     <td th:text="${list.getM_name()}"></td>
-                                    <td th:text="${list.getM_manager()}"></td>
+                                    <!--<td th:text="${list.getM_manager()}"></td>-->
                                     <td th:text="${list.getM_type()}"></td>
                                     <td th:text="${list.getClasshour()}"></td>
-                                    <td th:text="${list.getM_inurl()}"></td>
+                                    <!--<td th:text="${list.getM_inurl()}"></td>-->
                                     <td class="td-manage">
                                       <a title="编辑"  onclick="xadmin.open('编辑','班级修改.html')" href="javascript:;">
                                         <!--<i class="layui-icon">&#xe642;</i>-->
-                                        <a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{|/expmodel/updateExpModel/${list.getM_id()}|}">编辑</a>
+                                        <a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{|/shiyan/list/${list.getM_id()}|}">查看实验测试</a>
                                       </a>
                                       <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                                         <!--<i class="layui-icon">&#xe640;</i>-->
-                                        <a type="layui-btn" class="layui-btn layui-bg-red" th:href="@{|/expmodel/deleteExpModel/${list.getM_id()}|}">删除</a>
+                                        <a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{|/shiyan/reportList/${list.getM_id()}|}">查看实验报告</a>
                                       </a>
                                     </td>
                                   </tr>
@@ -107,8 +107,8 @@
                         <div class="layui-card-body ">
                             <div class="page">
                                 <div>
-                                  <a class="prev" th:href="@{/expmodel/list(pageNum=${page.hasPrevious()}?${page.number}-1:0)}">&lt;&lt;</a>
-                                  <a class="next" th:href="@{/expmodel/list(pageNum=${page.hasNext()}?${page.number}+1:${page.number})}">&gt;&gt;</a>
+                                  <a class="prev" th:href="@{/expmodel/moduleList(pageNum=${page1.hasPrevious()}?${page1.number}-1:0)}">&lt;&lt;</a>
+                                  <a class="next" th:href="@{/expmodel/moduleList(pageNum=${page1.hasNext()}?${page1.number}+1:${page1.number})}">&gt;&gt;</a>
                                 </div>
                             </div>
                         </div>

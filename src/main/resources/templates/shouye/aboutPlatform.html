@@ -39,11 +39,11 @@
 <!--</div>-->
 
 <form method="post" action="" th:object="${setInfo}">
-	<div id="main" class="layui-col-md8 layui-col-md-offset2">
-		<div style="padding: 10px 0;text-align: center; color: black"><b>平台概况</b></div>
+	<div id="main" class="layui-container">
+		<div style="padding: 10px 0;text-align: center; color: black;font-size: 20px;"><b>平台概况</b></div>
 		<script id="editor1" name="set_platintro" th:utext="${setInfo.set_platintro}" type="text/plain">
 		</script>
-		<div style="padding: 10px 0;text-align: center; color: black"><b>平台使用介绍</b></div>
+		<div style="padding: 10px 0;text-align: center; color: black;font-size: 20px;"><b>平台使用介绍</b></div>
 		<script id="editor2" name="set_platstep" th:utext="${setInfo.set_platstep}" type="text/plain">
 		</script>
 		<div id="d" class="layui-btn-container">
@@ -59,8 +59,12 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script>
-	UE.getEditor('editor1');
-	UE.getEditor('editor2');
+	var editor1 = new UE.ui.Editor({ initialFrameHeight:400 });
+	editor1.render("editor1");
+	var editor2 = new UE.ui.Editor({ initialFrameHeight:400 });
+	editor2.render("editor2");
+	// UE.getEditor('editor1');
+	// UE.getEditor('editor2');
 </script>
 </body>
 </html>

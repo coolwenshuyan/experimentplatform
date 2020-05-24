@@ -1,18 +1,13 @@
 package com.coolwen.experimentplatform.controller;
 
-import com.coolwen.experimentplatform.model.ModuleTestAnswer;
-import com.coolwen.experimentplatform.model.ModuleTestQuest;
-import com.coolwen.experimentplatform.model.Report;
-import com.coolwen.experimentplatform.model.ReportAnswer;
-import com.coolwen.experimentplatform.service.ModuleTestAnswerService;
-import com.coolwen.experimentplatform.service.ModuleTestQuestService;
-import com.coolwen.experimentplatform.service.ReportAnswerService;
-import com.coolwen.experimentplatform.service.ReportService;
+import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +38,9 @@ public class ModuleController {
     @Autowired
     private ReportAnswerService reportAnswerService;
 
+    @Autowired
+    private ExpModelService expModelService;
+
 
     /**
      * 添加实验模块试题
@@ -65,15 +63,19 @@ public class ModuleController {
     }
 
     //试题列表
-    @RequestMapping("list")
+    @RequestMapping("list/{mId}")
     public String list(HttpSession session,
+                       @PathVariable("mId") int mId,
 //                       @RequestParam(value = "page", defaultValue = "0") Integer page,
 //                       @RequestParam(value = "size", defaultValue = "10") Integer size,
                        @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum,
                        Model model) {
 //        Sort sort = new Sort(Sort.Direction.DESC, "id");
+//        expModelService.findByMid(m_id);
+//        ExpModel exp = expModelService.findExpModelByID(m_id);
+//        System.out.println("get.m_id"+exp.getM_id());
         Pageable pageable = PageRequest.of(pageNum, 10);
-        Page<ModuleTestQuest> pageList = questService.findByPage(pageable);
+        Page<ModuleTestQuest> pageList = questService.findByExpPage(mId,pageable);
 
         String title = "";
         model.addAttribute("title", title);
@@ -280,7 +282,7 @@ public class ModuleController {
 
     @GetMapping("addReport")
     public String addReport(Model model
-                            ) {
+    ) {
 //        Pageable pageable = PageRequest.of(pageNum, 10);
 //        Page<Report> reportList = reportService.findByReportPage(pageable);
 
@@ -335,12 +337,13 @@ public class ModuleController {
 
 //    查询所有实验
 
-    @RequestMapping("reportList")
+    @RequestMapping("reportList/{mId}")
     public String loadReport(Model model,
+                             @PathVariable("mId") int mId,
                              @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
 
         Pageable pageable = PageRequest.of(pageNum, 10);
-        Page<Report> reportList = reportService.findByReportPage(pageable);
+        Page<Report> reportList = reportService.findByReportPage(pageable,mId);
         model.addAttribute("reports", reportList);
         return "shiyan/part-list";
     }

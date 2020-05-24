@@ -70,4 +70,12 @@ public class ExpModelServiceImpl implements ExpModelService {
         List<ModuleTestAnswerStu> list = moduleTestAnswerStuRepository.findModuleTestAnswerStuByQuest_id(questid);
         moduleTestAnswerStuRepository.deleteAll(list);
     }
+
+    @Override
+    public int findByMid(int m_id) {
+        return expModelRepository.findByM_id(m_id);
+    }
+
+
+
 }

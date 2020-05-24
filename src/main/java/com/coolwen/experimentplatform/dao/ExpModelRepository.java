@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -23,5 +24,9 @@ public interface ExpModelRepository extends BaseRepository<ExpModel,Integer> {
     String findexpimg(int parseInt);
 
     //找到改学生考核model的相关信息
+
+    @Query("select e.m_id from ExpModel e where e.m_id =?1")
+    int findByM_id(int m_id);
+
 
 }

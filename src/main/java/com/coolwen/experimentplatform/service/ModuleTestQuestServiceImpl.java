@@ -1,9 +1,11 @@
 package com.coolwen.experimentplatform.service;
 
+import com.coolwen.experimentplatform.dao.ExpModelRepository;
 import com.coolwen.experimentplatform.dao.ModuleTestQuestRepository;
 import com.coolwen.experimentplatform.dao.QuestListAnswerRepositoryCustom;
 import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
+import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +32,7 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
 
     @Autowired
     private QuestListAnswerRepositoryCustom questListAnswerRepositoryCustom;
+
 
     @Override
     public void addModuleTestQuest(ModuleTestQuest moduleTestQuest) {
@@ -90,7 +93,7 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
     }
 
     @Override
-    public Page<ModuleTestQuest> findByPage(Pageable pageable) {
+    public Page<ModuleTestQuest> findByPage(Pageable pageable,int mId) {
         return questRepository.findAll(pageable);
     }
 
@@ -119,4 +122,11 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
     public void deleteAllModuleTestQuest(List<ModuleTestQuest> list) {
         questRepository.deleteAll(list);
     }
+
+
+    @Override
+    public Page<ModuleTestQuest> findByExpPage(int mId, Pageable pageable) {
+        return questRepository.findByExpPage(mId,pageable);
+    }
+
 }

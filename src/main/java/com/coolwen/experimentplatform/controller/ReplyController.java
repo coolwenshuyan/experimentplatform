@@ -55,7 +55,7 @@ public class ReplyController {
     }
 
     //学生回复并操作
-    @PostMapping(value = "/{id}/add2")
+    @PostMapping(value = "/add2/{id}")
     public String add1(@PathVariable int id, Reply reply, Session session) {
         reply.setQid(id);
         System.out.println("插入的回复保存为：" + id);
@@ -69,7 +69,7 @@ public class ReplyController {
         Question question = questionService.findById(id);
         question.setIsreply(false);
         questionService.add(question);
-        return "redirect:/question/" + id + "/detaill";//list
+        return "redirect:/question/"  + "detaill/"+ id;//list
     }
 
 

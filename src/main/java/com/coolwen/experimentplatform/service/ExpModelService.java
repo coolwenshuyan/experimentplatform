@@ -26,4 +26,8 @@ public interface ExpModelService {
 
     void deleteModuleTestAnswerStuByQuestId(int questid);
 
+    int findByMid(int m_id);
+
+
+
 }

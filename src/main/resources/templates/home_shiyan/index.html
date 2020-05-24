@@ -1,157 +1,111 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
-		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
-	</head>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+</head>
 
-	<style type="text/css">
-		.layui-col-md4 {
-			padding: 2% 0;
-		}
-		.content{			
-			width: 80%;
-			box-shadow:2px 2px 10px #000;
-		}
-		.name{
-			background-color: #f8f8f8;
-			
-			padding: 10px 0;
-			text-align: center;
-		}
-		
-		.change .layui-nav{
-			background-color: #f8f8f8;
-			
-		}
-		
-		.change .layui-nav .layui-nav-item a{
-			color: rgba(97,96,96,.8);
-			padding:0 2px ;
-		}
-		.img img{
-			height: 198px;
-		}
-		.page{
-			margin: 0 auto;
-			width: 14%;
-		}
-	</style>
+<style type="text/css">
+	.layui-col-md4 {
+		padding: 1% 0;
+	}
+	.content{
+		width: 98%;
+		box-shadow:2px 2px 10px #000;
+	}
+	.name{
+		background-color: #f8f8f8;
+		padding: 10px 0;
+		text-align: center;
+	}
 
-	<body>
-	<div id="left_nav">	
-		<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
-			<li class="layui-nav-item">
-				<a href="../home_page/index.html">首页</a>
-			</li>
-			<li class="layui-nav-item layui-nav-itemed">
-				<a href="javascript:;">实验大厅</a>
-				<dl class="layui-nav-child">
-					<dd class="layui-this">
-						<a href="index.html">考核实验</a>
-					</dd>
-					<dd>
-						<a href="all-test.html">全部实验</a>
-					</dd>
-					
-				</dl>
-			</li>
-			<li class="layui-nav-item">
-				<a href="javascript:;">理论测试</a>
-				<dl class="layui-nav-child">
-					<dd>
-						<a href="ceshi.html">理论测试</a>
-					</dd>
-					
-				</dl>
-				
-			</li>
-			<li class="layui-nav-item">
-				<a href="javascript:;">查看实验成绩</a>
-				<dl class="layui-nav-child">
-					<dd>
-						<a href="grade.html">实验成绩汇总</a>
-					</dd>
-					
-				</dl>
-			</li>
-			<li class="layui-nav-item ">
-				<a href="javascript:;">帮助中心</a>
-				<dl class="layui-nav-child">
-					<dd>
-						<a href="jieshao.html">仿真实验介绍</a>
-					</dd>
-					<dd>
-						<a href="team.html">关于我们</a>
-					</dd>
-					
-					
-				</dl>
-			</li>
-		</ul>
-	</div>
-		<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">
-			<span class="layui-breadcrumb layui-col-xs3">
-  				<a href="javascript:;">首页</a>
-  				<!--<a href="/demo/">演示</a>-->
-  				<a><cite>实验大厅&nbsp;/&nbsp;考核实验</cite></a>
-			</span>
-			<span class="information layui-col-xs2 layui-col-xs-offset7">
-				<p class="layui-col-xs7">test</p>
-				<a href="change.html">
-					<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">
-				</a>
-			</span>
-		</div>
-		<hr>
+	.change .layui-nav{
+		background-color:   rgba(97,96,96,.2);
+		text-align: center;
+	}
 
-		<div class=" layui-col-xs10 layui-col-xs-offset2" style="float: none">
-		  <div class="layui-row">
-		     <div class="layui-col-md4 " th:each="model:${k}">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${model.m_imageurl}"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-								<h3 th:text="${model.m_name}"></h3>
-								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>
-								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>
-								<h3>得分:<span th:text="${model.m_score}"></span></h3>
-								<h3>权重：<span th:text="${model.m_scale}"></span></h3>
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-									<li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
-								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
-								  <li class="layui-nav-item">
-								    <a href="tian.html">填写报告</a>
-								  </li>
-								  
-								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		  </div>
-		</div>
+	.change .layui-nav .layui-nav-item a{
+		color: #61b577;
+		padding:0 5px ;
+		font-size: 15px;
+
+	}
+	.img img{
+		height: 198px;
+	}
+	.page{
+		margin: 0 auto;
+		width: 22%;
+	}
+
+	.fir_h5{
+		display: inline;
+		text-align: left;
+		margin: 0 29px;
+	}
+	.layui-btn{
+		background-color: #174f37;
+	}
+	.layui-nav {
+		padding: 0 13px;
+	}
+</style>
+
+<body>
 
 
-	<div class="layui-card-body ">
-		<div class="page">
-			<div>
-				<a class="prev layui-btn" th:href="@{/expmodel/kaoheModel(pageNum=${k.hasPrevious()}?${k.number}-1:0)}">上一页</a>
-				<a class="next layui-btn" th:href="@{/expmodel/kaoheModel(pageNum=${k.hasNext()}?${k.number}+1:${k.number})}">下一页</a>
+<div class="layui-container" style="float: none">
+	<div class="layui-row">
+		<div class="layui-col-xs4 " th:each="model:${k}">
+			<div class="content">
+				<div class="img" >
+					<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${model.m_imageurl}"/>
+				</div>
+				<div class="intro">
+					<div class="name" >
+						<h3 th:text="${model.m_name}"></h3>
+						<br>
+						<!--								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>-->
+						<!--								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>-->
+						<!--								<h3>得分:<span th:text="${model.m_score}"></span></h3>-->
+						<!--								<h3>权重：<span th:text="${model.m_scale}"></span></h3>-->
+
+						<h5 class="fir_h5" style="float: left;">模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h5>
+						<h5 class="fir_h5">填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h5><br>
+						<h5 class="fir_h5" style="float: left;">得分:<span th:text="${model.m_score}"></span></h5>
+						<h5 class="fir_h5">权重:<span th:text="${model.m_scale}"></span></h5>
+
+					</div>
+					<div class="change" >
+						<ul class="layui-nav" lay-filter="" >
+							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
+							<li class="layui-nav-item"><a href="test.html">模块测试</a></li>
+							<li class="layui-nav-item"><a href="">进入实验</a></li>
+							<li class="layui-nav-item"><a href="tian.html">填写报告</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+
+<div class="layui-card-body ">
+	<div class="page">
+		<div>
+			<a class="prev layui-btn" th:href="@{/expmodel/kaoheModel(pageNum=${k.hasPrevious()}?${k.number}-1:0)}">上一页</a>
+			<a class="next layui-btn" th:href="@{/expmodel/kaoheModel(pageNum=${k.hasNext()}?${k.number}+1:${k.number})}">下一页</a>
+		</div>
+	</div>
+</div>
 
 
 
@@ -159,10 +113,10 @@
 
 
 
-	<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
 
-	</body>
+</body>
 
 </html>

@@ -19,8 +19,7 @@ import java.util.List;
 public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQuest, Integer>, JpaSpecificationExecutor<ModuleTestQuest> {
 
 
-
-//    @Query("select qs from ModuleTestQuest qs where qs.questDescribe like CONCAT('%',:questDescribe,'%') or qs.mId =?2")
+    //    @Query("select qs from ModuleTestQuest qs where qs.questDescribe like CONCAT('%',:questDescribe,'%') or qs.mId =?2")
 //    public List<ModuleTestQuest> findAllByQuestDescribeContainingAndMId(@Param("questDescribe") String questDescribe,@Param("mId") int mId);
     @Query("select qs from ModuleTestQuest qs where qs.questDescribe like %?1")
     public List<ModuleTestQuest> findAllByQuestDescribe(@Param("questDescribe") String questDescribe);
@@ -34,8 +33,8 @@ public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQues
     @Query("select q1.questId from ModuleTestQuest q1 where q1.questDescribe = ?1")
     String findByQuestDescribes(@Param("questDescribe") String questDescribe);
 
-    @Query(value = "select qs from ModuleTestQuest qs where if(?1 !='',qs.questDescribe like concat('%',?1,'%'),1=1) and if(?2 !='',qs.mId=?2,1=1)",nativeQuery = true)
-    public List<ModuleTestQuest> findAllByQuestDescribeAndMId(String questDescribe,int mId);
+    @Query(value = "select qs from ModuleTestQuest qs where if(?1 !='',qs.questDescribe like concat('%',?1,'%'),1=1) and if(?2 !='',qs.mId=?2,1=1)", nativeQuery = true)
+    public List<ModuleTestQuest> findAllByQuestDescribeAndMId(String questDescribe, int mId);
 
     @Query("select q from ModuleTestQuest q where q.mId=?1")
     List<ModuleTestQuest> findAllByMid(int mId);
@@ -48,7 +47,7 @@ public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQues
     ModuleTestQuest findByQuestDescribe(@Param("questDescribe") String questDescribe);
 
     @Query(value = "select b from ModuleTestQuest b where b.mId=?1")
-     Page<ModuleTestQuest> findTermQuest(@Param("mId") int mId,Pageable pageable);
+    Page<ModuleTestQuest> findTermQuest(@Param("mId") int mId, Pageable pageable);
 
     @Query("select new com.coolwen.experimentplatform.model.DTO.QuestAnswerDto" +
             "(t1.questId,t1.questDescribe,t1.questAnswer,t1.questScore,t1.questType,t1.questOrder," +
@@ -60,6 +59,9 @@ public interface ModuleTestQuestRepository extends BaseRepository<ModuleTestQues
     @Query("select mtq from ModuleTestQuest mtq where mtq.mId = ?1")
     List<ModuleTestQuest> findModuleTestQuestByMId(int mid);
 
+
+    @Query("select q from ExpModel e, ModuleTestQuest q where e.m_id =q.mId and e.m_id = ?1")
+    Page<ModuleTestQuest> findByExpPage(@Param("mid") int mid, Pageable pageable);
 
 
 }

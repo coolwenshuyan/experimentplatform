@@ -48,6 +48,7 @@ public class StudentRealm extends AuthorizingRealm {
             List<String> perminsStrlist = new ArrayList<>();//用户的权限集合
             List<String> roleStrlist=new ArrayList<>();////用户的角色集合
             roleStrlist.add("student");
+            perminsStrlist.add("student");
             if (student.isStuIsinschool()==true){//判断是否在校
                 perminsStrlist.add("isSchool");
                 if (student.getClassId()!=0){//判断是否分班

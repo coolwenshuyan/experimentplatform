@@ -27,7 +27,7 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
 
     @Override
     public int deleteAnswer(int answerId) {
-        System.out.println("service里面的+++++++++"+answerId);
+        System.out.println("service里面的+++++++++" + answerId);
         return answer.deleteByAnswerId(answerId);
     }
 
@@ -70,7 +70,7 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
 
     @Override
     public int findQuestIdByAnswerId(int answerId) {
-        ModuleTestAnswer a =answer.findByAnswerId(answerId);
+        ModuleTestAnswer a = answer.findByAnswerId(answerId);
 
         return a.getQuestId();
     }
