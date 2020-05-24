@@ -126,7 +126,7 @@
                     <hr>
 
                     <div style="margin-top: 50px">
-                        <form th:action="'/reply/' + ${question.id} + '/add2'" method="post">
+                        <form th:action="'/reply/'  + 'add2/' + ${question.id}" method="post">
                             进行新增回复:
                             <script id="editors" name="content" type="text/plain">
                             </script>
