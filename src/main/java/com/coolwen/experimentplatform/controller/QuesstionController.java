@@ -140,7 +140,7 @@ public class QuesstionController {
     }
 
     //学生进入查看页
-    @GetMapping(value = "/{id}/detaill")
+    @GetMapping(value = "/detaill/{id}")
     public String seesee1(@PathVariable int id, Model model) {
         Question question = questionService.findById(id);
         model.addAttribute("question", question);

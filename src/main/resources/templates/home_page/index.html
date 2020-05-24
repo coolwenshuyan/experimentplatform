@@ -73,7 +73,7 @@
 								<a style="color: #000;font-size: 18px;font-weight: 400" rel="nofollow" href="javascript:;">首页</a>
 							</li>
 							<li>
-								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/expmodel/alltestModel">实验大厅入口</a>
+								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/newsinfo/shiyan">实验大厅入口</a>
 							</li>
 							<li>
 								<a style="color:  #000;font-size: 18px;font-weight: 400" rel="nofollow" href="/setinfo/situation">仿真平台概况</a>
@@ -323,7 +323,7 @@
 					</div>
 					<ul class="nesws_ul">
 						<li th:each="news:${newsPageInfo.content}">
-							<a th:href="@{|${news.id}/noticeDetails|}" th:title="${news.news_name}" title="“五一”假期，广大劳动者保持干劲、贡献力量">
+							<a th:href="@{|noticeDetails/${news.id}|}" th:title="${news.news_name}" title="“五一”假期，广大劳动者保持干劲、贡献力量">
 								<span th:text="${#dates.format(news.dic_datetime,'yyyy-MM-dd')}">05-02</span>&nbsp;&nbsp;<span th:text="${news.news_name}"></span>
 							</a>
 						</li>

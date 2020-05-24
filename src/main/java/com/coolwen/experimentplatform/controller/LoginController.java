@@ -75,7 +75,7 @@ public class LoginController {
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String login() {
-        return "login";
+        return "home_page/login";
     }
 
 
@@ -92,7 +92,7 @@ public class LoginController {
         loginCode = loginCode.toLowerCase();
         System.out.println(code + " 》》》》》 " + loginCode);
         if (!loginCode.equals(code)) {
-            model.setViewName("login");
+            model.setViewName("home_page/login");
             model.addObject("msg", "验证码错误");
             return model;
         }
@@ -115,22 +115,22 @@ public class LoginController {
         } catch (UnknownAccountException e) {
             //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
-            model.setViewName("login");
+            model.setViewName("home_page/login");
         } catch (IncorrectCredentialsException e) {
             //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
-            model.setViewName("login");
+            model.setViewName("home_page/login");
         } catch (ExcessiveAttemptsException e) {
             // TODO: handle exception
             //message.put("emsg","登录失败多次，账户锁定1小时!");
             model.addObject("msg", "登录失败多次，账户锁定1小时!");
-            model.setViewName("login");
+            model.setViewName("home_page/login");
         } catch (AuthenticationException e) {
             //message.put("emsg",e.getMessage());
             System.out.println(e.getMessage());
             model.addObject("msg", e.getMessage());
             //           logger.info("登录信息MSG:" + msg);
-            model.setViewName("login");
+            model.setViewName("home_page/login");
         }
         logger.debug("登陆错误信息:" + message.get("emsg"));
         return model;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -107,15 +107,15 @@
 		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/iconfont.html',this)"><i class="iconfont icon-huojian left"></i>iconfont字体库</a>
 		           	</li>-->
 		        	<li>
-		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('../newsinfo/newslist',this)">首页</a>
+		                <a class="menuFA" href="/newsinfo/newslist">首页</a>
 		            </li>
 
 					<li>
 						<a class="menuFA" href="javascript:void(0)">实验大厅<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/index.html',this)">考核实验</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('',this)">考核实验</a></dt>
 <!--							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>-->
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/all-test.html',this)">全部实验</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/alltestModel',this)">全部实验</a></dt>
 
 
 						</dl>
@@ -125,7 +125,7 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">理论测试<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/ceshi.html',this)">理论测试</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../',this)">理论测试</a></dt>
 						</dl>
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
 					</li>
@@ -135,7 +135,7 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">查看实验成绩<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-                            <dt><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/grade.html',this)">实验成绩汇总</a></dt>
+                            <dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/score',this)">实验成绩汇总</a></dt>
 
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
 						</dl>
@@ -145,8 +145,8 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">帮助中心<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/jieshao.html',this)">仿真平台介绍</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/team.html',this)">关于我们</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/jiesao',this)">仿真平台介绍</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/aboutus',this)">关于我们</a></dt>
 
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
 						</dl>
@@ -176,7 +176,7 @@
 					<ul>
 <!--						<li><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/change.html',this)"><img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img"><i class="iconfont icon-yonghu1"></i>管理员</a></li>-->
 <!--						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>-->
-						<li><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/change.html',this)"><img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img"><i class="iconfont icon-yonghu1"></i><span class="span1">test</span></a></li>
+						<li><a href="javascript:void(0)" onclick="menuCAClick('../setstudentinfo/update',this)"><img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img"><i class="iconfont icon-yonghu1"></i><span class="span1">test</span></a></li>
 					</ul>
 				</div>
 <!--				<span class="information layui-col-xs2 layui-col-xs-offset7 topMenu">-->

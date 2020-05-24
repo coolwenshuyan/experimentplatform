@@ -162,7 +162,7 @@
 			<h1 style="font-size: 22px; margin: 1%;"><b>优秀实验报告展示</b></h1>
 			<div >
 				<div style="float: left" th:each="effect:${learningPageInfo.content}" class="col-xs-6 col-md-3">
-					<a th:href="@{|${effect.id}/effectDetails|}" class="thumbnail">
+					<a th:href="@{|effectDetails/${effect.id}|}" class="thumbnail">
 						<img th:src="${effect.effect_imgurl}" alt="">
 					</a>
 				</div>
