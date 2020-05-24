@@ -153,98 +153,113 @@
             </div>
              -->
 
-			<div th:utext="${setInfo.set_platintro}"  name="set_platintro"  class="college">
-				<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
+			<div name="set_platintro"  class="college">
+				<div th:each="news:${newsPageInfo.content}">
+					<p>
+						<a th:href="@{|noticeDetails/${news.id}|}">
+						<span th:text="${news.news_name}" class="content0">
+							满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
+						</span>
+							<span th:text="${#dates.format(news.dic_datetime,'yyyy-MM-dd')}" class="data">2020-05-24</span>
+						</a>
+
 					</p>
 					<hr class="hr0" />
-				<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-					<hr  class="hr0"/>
-					<p>
-					<a href="javascript:;">
-				<span class="content0">
-					各就各位、各担其责、各尽其责打好评估攻坚战 ——学校召开应用型本科人才培养的实践与思考线上专题培训会
-				</span>
-				<span class="data">2020-05-24</span>
-				</a>
-					</p>
-<!--					<div style="clear: both;"></div>-->
-					<hr  class="hr0"/>
+				</div>
+
+				<div style="margin:0 auto; width: 80%; text-align: center;">
+					<p>当前 <span th:text="${newsPageInfo.number}+1"></span> 页,
+						总 <span th:text="${newsPageInfo.totalPages}"></span> 页,
+						共 <span th:text="${newsPageInfo.totalElements}"></span> 条记录</p>
+					<a th:href="@{/newsinfo/more}">首页</a>
+					<a th:href="@{/newsinfo/more(pageNum=${newsPageInfo.hasPrevious()}?${newsPageInfo.number}-1:0)}">上一页</a>
+					<a th:href="@{/newsinfo/more(pageNum=${newsPageInfo.hasNext()}?${newsPageInfo.number}+1:${newsPageInfo.number})}">下一页</a>
+					<a th:href="@{/newsinfo/more(pageNum=${newsPageInfo.totalPages}-1)}">尾页</a>
+				</div>
+
+
+<!--				<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					满园花开，只为等你归来——我校2020年春季学期首批学生返校复学-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--					<hr  class="hr0"/>-->
+<!--					<p>-->
+<!--					<a href="javascript:;">-->
+<!--				<span class="content0">-->
+<!--					各就各位、各担其责、各尽其责打好评估攻坚战 ——学校召开应用型本科人才培养的实践与思考线上专题培训会-->
+<!--				</span>-->
+<!--				<span class="data">2020-05-24</span>-->
+<!--				</a>-->
+<!--					</p>-->
+<!--&lt;!&ndash;					<div style="clear: both;"></div>&ndash;&gt;-->
+<!--					<hr  class="hr0"/>-->
 			</div>
 
 		</div>

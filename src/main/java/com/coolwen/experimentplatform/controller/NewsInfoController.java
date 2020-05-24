@@ -91,6 +91,15 @@ public class NewsInfoController {
         return "home_page/noticeDetails";
     }
 
+    //点击查看更多
+    @GetMapping(value = "more")
+    public String more(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+        Pageable pageable = PageRequest.of(pageNum,12);
+        Page<NewsInfo> page = newsInfoRepository.findAllorderby(pageable);
+        model.addAttribute("newsPageInfo",page);
+        return "home_page/notice_more";
+    }
+
 
     //公告列表
     @GetMapping(value = "/list")
