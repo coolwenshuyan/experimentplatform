@@ -31,7 +31,12 @@
             width:30em;
             table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
         }
+        .layui-table th{
+            text-align: center;
+            font-weight: 900;
+        }
         td{
+            text-align: center;
             width:100%;
             word-break:keep-all;/* 不换行 */
             white-space:nowrap;/* 不换行 */
@@ -88,11 +93,11 @@
                                     <td class="td-manage">
                                       <a title="编辑"  onclick="xadmin.open('编辑','班级修改.html')" href="javascript:;">
                                         <!--<i class="layui-icon">&#xe642;</i>-->
-                                        <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/shiyan/list/${list.getM_id()}|}">查看实验测试</a>
+                                        <a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{|/shiyan/list/${list.getM_id()}|}">查看实验测试</a>
                                       </a>
                                       <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                                         <!--<i class="layui-icon">&#xe640;</i>-->
-                                        <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/shiyan/reportList/${list.getM_id()}|}">查看实验报告</a>
+                                        <a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{|/shiyan/reportList/${list.getM_id()}|}">查看实验报告</a>
                                       </a>
                                     </td>
                                   </tr>
