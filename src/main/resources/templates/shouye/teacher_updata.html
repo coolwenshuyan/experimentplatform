@@ -9,6 +9,12 @@
         .layui-textarea{
             width: 50%;
         }
+        #img{
+            width: 232px;
+        }
+        .layui-form-label{
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -23,7 +29,7 @@
 
     <!--标题-->
     <form class="layui-form" th:action="@{update}" method="post" enctype="multipart/form-data">
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="margin-top:50px;">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
                 <input th:value="${teacher.person_name}" type="text" name="person_name" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
@@ -33,13 +39,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">图片</label>
             <input type="image" name="image_url" th:src="${teacher.image_url}" class="form-control" id="img" />
-            <div class="layui-upload">
+<!--            <br/>-->
+            <!--            <div class="layui-upload">-->
                 <input type="file" name="file" value="更换图片">
                 <div class="layui-upload-list">
                     <img class="layui-upload-img" id="demo1">
                     <p id="demoText"></p>
                 </div>
-            </div>
+<!--            </div>-->
         </div>
 
 

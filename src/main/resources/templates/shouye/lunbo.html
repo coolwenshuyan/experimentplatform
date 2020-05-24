@@ -34,28 +34,28 @@
         <form action="/setinfo/lunbo" method="post">
 		<div id="main" class="layui-col-md8 layui-col-md-offset2">
             <div id="d1" class="layui-form-item">
-                <label class="layui-form-label">Model1</label>
+                <label class="layui-form-label">轮播图id1</label>
                 <div class="layui-input-block">
                     <input type="text" name="id1" th:value="${id1}" required  lay-verify="required" placeholder="请输入id" autocomplete="off" class="layui-input">
                 </div>
             </div>
             
 		    <div id="d2" class="layui-form-item">
-                <label class="layui-form-label">Model2</label>
+                <label class="layui-form-label">轮播图id2</label>
                 <div class="layui-input-block">
                     <input type="text" name="id2" th:value="${id2}" required  lay-verify="required" placeholder="请输入id" autocomplete="off" class="layui-input">
                 </div>
             </div>
             
             <div id="d3" class="layui-form-item">
-                <label class="layui-form-label">Model3</label>
+                <label class="layui-form-label">轮播图id3</label>
                 <div class="layui-input-block">
                     <input type="text" name="id3" th:value="${id3}" required  lay-verify="required" placeholder="请输入id" autocomplete="off" class="layui-input">
                 </div>
             </div>
             
             <div id="d4" class="layui-form-item">
-                <label class="layui-form-label">Model4</label>
+                <label class="layui-form-label">轮播图id4</label>
                 <div class="layui-input-block">
                     <input type="text" name="id4" th:value="${id4}" required  lay-verify="required" placeholder="请输入M4" autocomplete="off" class="layui-input">
                 </div>
@@ -65,9 +65,13 @@
 <!--                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">-->
 <!--                    <i class="layui-icon">&#xe654;</i>-->
 <!--                </button>-->
-                <button type="submit" class="layui-btn layui-btn-primary layui-btn-sm">
-                    <i class="layui-icon">&#xe642;</i>
-                </button>
+<!--                <button type="submit" class="layui-btn layui-btn-primary layui-btn-sm">-->
+<!--                    <i class="layui-icon">&#xe642;</i>-->
+                    <div id="d" class="layui-btn-container">
+                        <input type="submit" class="layui-btn" value="添加">
+                        <!--					<button type="button" class="layui-btn">删除</button>-->
+                    </div>
+<!--                </button>-->
 <!--                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">-->
 <!--                    <i class="layui-icon">&#xe640;</i>-->
 <!--                </button>-->

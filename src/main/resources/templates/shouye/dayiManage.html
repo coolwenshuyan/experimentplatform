@@ -17,7 +17,7 @@
     #main{
         margin-top: 30px;
         padding: 10px;
-        border: 1px black solid;
+        /*border: 1px black solid;*/
     }
     #d{
         text-align: right;
@@ -45,34 +45,32 @@
         overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
         text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
     }
+    .layui-table{
+        text-align: center;
+    }
     .layui-table th {
-        text-align: left;
+        text-align: center;
         font-weight: 900;
     }
 </style>
 <body>
-<div id="name" class="layui-col-md8 layui-col-md-offset2">
-    <div class="layui-col-md4">
-        答疑室提问管理
-    </div>
-</div>
-<div id="main" class="layui-col-md8 layui-col-md-offset2">
-    <table class="layui-table" lay-even lay-skin="nob">
+
+<div id="main" class="layui-container">
+    <table class="layui-table" >
         <colgroup>
-            <col width="150">
-            <col width="200">
+            <col >
+            <col >
             <col>
         </colgroup>
         <thead>
         <tr>
-            <th style="width: 11%;">序号</th>
-            <th style="width: 19%;">学生ID</th>
+            <th style="width: 9%;">序号</th>
+            <th style="width: 9%;">学生ID</th>
             <th style="width: 10%;">姓名</th>
-            <th style="width: 23%;">问题内容</th>
-            <th style="width: 15%;">是否回复</th>
-            <th style="width: 14%;">记录时间</th>
-            <th></th>
-            <th></th>
+            <th style="width: 28%;">问题内容</th>
+            <th style="width: 12%;">是否回复</th>
+            <th style="width: 16%;">记录时间</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -84,12 +82,12 @@
             <td th:text="${question.isreply}?'是':'否'" ></td>
             <td th:text="${question.dic_datetime}"></td>
             <td>
-                <a th:href="@{|${question.id}/dayiMore|}">查看</a>
-            </td>
-            <td>
-                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
-                    <a th:href="@{|${question.id}/delete|}">删除</a>
-                </button>
+<!--                <a th:href="@{|${question.id}/dayiMore|}">查看</a>-->
+<!--                <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">-->
+<!--                    <a th:href="@{|${question.id}/delete|}">删除</a>-->
+<!--                </button>-->
+                <a type="button" class="layui-btn layui-btn-sm" th:href="@{|${question.id}/dayiMore|}">查看</a>
+                <a type="button" class="layui-btn layui-btn-sm layui-bg-red" th:href="@{|${question.id}/delete|}">删除</a>
             </td>
         </tr>
         </tbody>

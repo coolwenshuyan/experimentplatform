@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -36,9 +37,12 @@
     .table0{
         width: 71%;
         margin: 0 auto;
-        border: 1px solid black;
+        /*border: 1px solid black;*/
         margin-bottom: 25px;
         line-height: 57px;
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 16px;
     }
 </style>
 <body>
@@ -55,21 +59,24 @@
 <div>
     <div class="table0">
         <div>
-            <div>
-                <p style="padding-left: 72px;float: left;">提问人：</p>
+            <div style="height: 20px;width: auto;position: relative;top: 20px;left:19% ;">
+                <p>问题：<a th:utext="${question.content}" ></a></p>
+
+            </div>
+            <div style="height:auto;width: auto;">
+                <p style="float: left;">提问人：</p>
                 <a style="float: left" th:text="${studentName}"></a>
             </div>
             <div>
-                <a style="padding-right: 72px;float: right;" th:text="${question.dic_datetime}"></a>
+                <a style="padding-right: 12px;float: right;" th:text="${question.dic_datetime}"></a>
                 <p style="float: right;">提问时间：</p>
             </div>
         </div>
-        <hr/>
-        <div>
-            <p style="padding-left: 72px;">问题：<a th:utext="${question.content}" ></a></p>
-
-        </div>
     </div>
+    <!--<div>
+        <p style="">问题：<a th:utext="${question.content}" ></a></p>
+
+    </div>-->
 </div>
 
 
@@ -82,7 +89,7 @@
     <!--    		    </div>-->
     <!--  		    </div>-->
 
-    <div style="margin-top: 20px">
+    <div>
         <form th:action="'/reply/' + ${reply.id} + '/update'" method="post" th:each="reply:${replies}">
 
             <hr/>
@@ -107,12 +114,17 @@
         </form>
     </div>
 
-    <div style="margin-top: 50px">
+    <div style="margin-top: 50px; margin-left: 5%;">
         <form th:action="'/reply/' + ${question.id} + '/add1'" method="post">
-            进行新增回复:
+            <span style="font-weight: bold">进行新增回复:</span>
             <script id="editors" name="content"type="text/plain">
             </script>
-            <input type="submit" value="提交">
+<!--            <input type="submit" value="提交">-->
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin-left:0px;margin-top: 18px;">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -128,7 +140,8 @@
     UE.getEditor('editor' + [[${reply.id}]]);
 </script>
 <script th:inline="javascript">
-    UE.getEditor('editors');
+    var editor = new UE.ui.Editor({ initialFrameHeight:600,initialFrameWidth:800 });
+    editor.render("editors");
 </script>
 <!--		<script type="text/javascript">-->
 <!--        var E = window.wangEditor-->

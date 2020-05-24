@@ -39,7 +39,7 @@
 <!--</div>-->
 
 <form method="post" action="" th:object="${setInfo}">
-	<div id="main" class="layui-col-md8 layui-col-md-offset2">
+	<div id="main" class="layui-container">
 		<div style="padding: 10px 0; text-align: center; color: black"><b>关于我们</b></div>
 		<script id="editor" name="set_aboutus" th:utext="${setInfo.set_aboutus}" type="text/plain">
 		</script>
@@ -57,7 +57,9 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script>
-	UE.getEditor('editor');
+	var editor1 = new UE.ui.Editor({ initialFrameHeight:300 });
+	editor1.render("editor");
+	// UE.getEditor('editor');
 </script>
 </body>
 </html>
