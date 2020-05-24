@@ -136,7 +136,7 @@
 		
 						<div id="tttaa_wrapper" class="dataTables_wrapper no-footer">
 
-							<table style="height: 750px;" border="1" id="tttaa" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="tttaa_info">
+							<table  border="1" id="tttaa" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="tttaa_info">
 								<thead>
 									<tr role="row">
 										<th class="sorting_asc" tabindex="0" aria-controls="tttaa" rowspan="1" colspan="1" aria-sort="ascending" aria-label="序号: 以降序排列此列" style="width: 40px;"><span>序号<span></span></span>
@@ -145,9 +145,9 @@
 										</th>
 										<th class="sorting" tabindex="0" aria-controls="tttaa" rowspan="1" colspan="1" aria-label="实验负责人: 以升序排列此列" style="width: 89px;"><span>实验负责人<span></span></span>
 										</th>
-										<th class="sorting" tabindex="0" aria-controls="tttaa" rowspan="1" colspan="1" aria-label="学院: 以升序排列此列" style="width: 407px;"><span>实验目的<span></span></span>
+										<th class="sorting" tabindex="0" aria-controls="tttaa" rowspan="1" colspan="1" aria-label="学院: 以升序排列此列" style="width: 379px;"><span>实验目的<span></span></span>
 										</th>
-										<th class="sorting" tabindex="0" aria-controls="tttaa" rowspan="1" colspan="1" aria-label="课时: 以升序排列此列" style="width: 40px;"><span>课时<span></span></span>
+										<th class="sorting" tabindex="0" aria-controls="tttaa" rowspan="1" colspan="1" aria-label="课时: 以升序排列此列" style="width: 50px;"><span>课时<span></span></span>
 										</th>
 										<th class="sorting" tabindex="0" aria-controls="tttaa" rowspan="1" colspan="1" aria-label="操作: 以升序排列此列" style="width: 86px;"><span>操作<span></span></span>
 										</th>
@@ -530,7 +530,7 @@
 								    legend: {
 								        orient: 'vertical',
 								        left: 'left',
-								        data: ['信息管理与信息系统', '数字媒体与技术', '建筑电气与智能化']
+								        data: ['通过考核人数', '未通过考核人数']
 								    },
 								    series: [
 								        {
@@ -558,9 +558,8 @@
 												}
 											},
 								            data: [
-								                {value: 300, name: '信息管理与信息系统'},
-								                {value: 170, name: '数字媒体与技术'},
-								                {value: 130, name: '建筑电气与智能化'},
+								                {value: 400, name: '通过考核人数'},
+								                {value: 200, name: '未通过考核人数'},
 								            ],
 								            emphasis: {
 								                itemStyle: {
@@ -572,8 +571,9 @@
 								        }
 								    ]
 								});
-								
-								$('#ooid4').html("<br/>"+"通过考核总人数:<span style='color:#ff0000;font-weight:bold'>" +[[${passpeople}]] + "</span>人");
+
+								// $('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" +[[${passpeople}]] + "</span>人");
+								$('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" );
 								myChart4.setOption({
 									title: {
 								        text: '',
@@ -586,7 +586,7 @@
 								    legend: {
 								        orient: 'vertical',
 								        left: 'left',
-								        data: ['信息管理与信息系统', '数字媒体与技术', '建筑电气与智能化']
+								        data: ['高', '中', '低']
 								    },
 								    series: [
 								        {
@@ -614,9 +614,9 @@
 												}
 											},
 								            data: [
-								                {value: 130, name: '信息管理与信息系统'},
-								                {value: 100, name: '数字媒体与技术'},
-								                {value: 70, name: '建筑电气与智能化'}
+								                {value: 130, name: '高'},
+								                {value: 100, name: '中'},
+								                {value: 70, name: '低'}
 								            ],
 								            emphasis: {
 								                itemStyle: {
