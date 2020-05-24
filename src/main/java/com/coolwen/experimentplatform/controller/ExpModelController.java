@@ -292,5 +292,14 @@ public class ExpModelController {
 
 
 
+    //模块页面
+    @GetMapping("/moduleList")
+    public String moduleList(Model model,@RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+        model.addAttribute("page1",expModelService.findModelList(pageNum));
+        return "shiyan/lookTestAndReport";
+    }
+
+
+
 
 }

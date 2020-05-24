@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>实验模块</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+        <!--<link rel="stylesheet" href="./css/font.css">-->
+        	<link rel="stylesheet" type="text/css" href="../../static/css/font.css"/>
+        <!--<link rel="stylesheet" href="./css/xadmin.css">-->
+        	<link rel="stylesheet" type="text/css" href="../../static/css/xadmin.css"/>
+        <!--<script src="./lib/layui/layui.js" charset="utf-8"></script>-->
+        <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+        <!--<script type="text/javascript" src="./js/xadmin.js"></script>-->
+        <script src="../../static/js/xadmin.js" type="text/javascript" charset="utf-8"></script>
+
+    </head>
+    <style>
+        .text-overflow {
+            display:block;/*内联对象需加*/
+            width:31em;/*指定宽度*/
+            word-break:keep-all;/* 不换行 */
+            white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+            overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+        }
+
+        table{
+            width:30em;
+            table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+        }
+        td{
+            width:100%;
+            word-break:keep-all;/* 不换行 */
+            white-space:nowrap;/* 不换行 */
+            overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+        }
+    </style>
+    <body>
+
+    <div style="text-align: center;margin-top:30px;font-size: 20px;">实验模块</div>
+
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <!--<form class="layui-form layui-col-space5" th:action="@{/expmodel/viewExpModel}" method="get">-->
+                            	<!--<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{/expmodel/addExpModel}">新建</a>-->
+                                <!--<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<input type="text" name="m_name"  placeholder="请输入实验名称" autocomplete="off" class="layui-input">-->
+                                <!--</div>-->
+                                <!--<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<input type="submit"  class="layui-btn"  lay-submit="" lay-filter="sreach" value="搜索"/>-->
+                                <!--</div>-->
+                                <!---->
+                                <!--&lt;!&ndash;<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<a class="layui-btn"  lay-submit="" title="增加" onclick="xadmin.open('增加','班级新增.html')"><i class="layui-icon"></i>增加</a>-->
+                                <!--</div>&ndash;&gt;-->
+                            <!--</form>-->
+                        </div>
+                       
+                        <div class="layui-card-body ">
+                            <table class="layui-table layui-form">
+                                <thead>
+                                  <tr>
+                                    
+                                    <th>ID</th>
+                                    <th>实验名称</th>
+                                    <!--<th>负责人</th>-->
+                                    <th>实验类型</th>
+                                    <th>课时</th>
+                                    <!--<th>实验地址</th>-->
+                                    <th>操作</th>
+                                </thead>
+                                <tbody>
+                                  <tr th:each="list:${page1}">
+                                    
+                                    <td th:text="${list.getM_id()}"></td>
+                                    <td th:text="${list.getM_name()}"></td>
+                                    <!--<td th:text="${list.getM_manager()}"></td>-->
+                                    <td th:text="${list.getM_type()}"></td>
+                                    <td th:text="${list.getClasshour()}"></td>
+                                    <!--<td th:text="${list.getM_inurl()}"></td>-->
+                                    <td class="td-manage">
+                                      <a title="编辑"  onclick="xadmin.open('编辑','班级修改.html')" href="javascript:;">
+                                        <!--<i class="layui-icon">&#xe642;</i>-->
+                                        <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/shiyan/list/${list.getM_id()}|}">查看实验测试</a>
+                                      </a>
+                                      <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                        <!--<i class="layui-icon">&#xe640;</i>-->
+                                        <a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/shiyan/reportList/${list.getM_id()}|}">查看实验报告</a>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="layui-card-body ">
+                            <div class="page">
+                                <div>
+                                  <a class="prev" th:href="@{/expmodel/moduleList(pageNum=${page1.hasPrevious()}?${page1.number}-1:0)}">&lt;&lt;</a>
+                                  <a class="next" th:href="@{/expmodel/moduleList(pageNum=${page1.hasNext()}?${page1.number}+1:${page1.number})}">&gt;&gt;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </body>
+<!--    <script>-->
+<!--      layui.use(['laydate','form'], function(){-->
+<!--        var laydate = layui.laydate;-->
+<!--        var form = layui.form;-->
+<!--        -->
+<!--        //执行一个laydate实例-->
+<!--        laydate.render({-->
+<!--          elem: '#start' //指定元素-->
+<!--        });-->
+
+<!--        //执行一个laydate实例-->
+<!--        laydate.render({-->
+<!--          elem: '#end' //指定元素-->
+<!--        });-->
+<!--      });-->
+
+<!--       /*用户-停用*/-->
+<!--//    function member_stop(obj,id){-->
+<!--//        layer.confirm('确认要停用吗？',function(index){-->
+<!--//-->
+<!--//            if($(obj).attr('title')=='启用'){-->
+<!--//-->
+<!--//              //发异步把用户状态进行更改-->
+<!--//              $(obj).attr('title','停用')-->
+<!--//              $(obj).find('i').html('&#xe62f;');-->
+<!--//-->
+<!--//              $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');-->
+<!--//              layer.msg('已停用!',{icon: 5,time:1000});-->
+<!--//-->
+<!--//            }else{-->
+<!--//              $(obj).attr('title','启用')-->
+<!--//              $(obj).find('i').html('&#xe601;');-->
+<!--//-->
+<!--//              $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');-->
+<!--//              layer.msg('已启用!',{icon: 5,time:1000});-->
+<!--//            }-->
+<!--//            -->
+<!--//        });-->
+<!--//    }-->
+
+<!--      /*用户-删除*/-->
+<!--    &lt;!&ndash;  function member_del(obj,id){&ndash;&gt;-->
+<!--    &lt;!&ndash;      layer.confirm('确认要删除吗？',function(index){&ndash;&gt;-->
+<!--    -->
+<!--    &lt;!&ndash;          $(obj).parents("tr").remove();&ndash;&gt;-->
+<!--    &lt;!&ndash;          layer.msg('已删除!',{icon:1,time:1000});&ndash;&gt;-->
+<!--    &lt;!&ndash;      });&ndash;&gt;-->
+<!--    &lt;!&ndash;  }&ndash;&gt;-->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--    &lt;!&ndash;  function delAll (argument) {&ndash;&gt;-->
+<!--    -->
+<!--    &lt;!&ndash;    var data = tableCheck.getData();&ndash;&gt;-->
+<!--    -->
+<!--    &lt;!&ndash;    layer.confirm('确认要删除吗？'+data,function(index){&ndash;&gt;-->
+<!--    -->
+<!--    &lt;!&ndash;        layer.msg('删除成功', {icon: 1});&ndash;&gt;-->
+<!--    &lt;!&ndash;        $(".layui-form-checked").not('.header').parents('tr').remove();&ndash;&gt;-->
+<!--    &lt;!&ndash;    });&ndash;&gt;-->
+<!--    &lt;!&ndash;  }&ndash;&gt;-->
+<!--    &lt;!&ndash;</script>&ndash;&gt;-->
+<!--    &lt;!&ndash;<script>var _hmt = _hmt || []; (function() {&ndash;&gt;-->
+<!--    &lt;!&ndash;    var hm = document.createElement("script");&ndash;&gt;-->
+<!--    &lt;!&ndash;    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";&ndash;&gt;-->
+<!--    &lt;!&ndash;    var s = document.getElementsByTagName("script")[0];&ndash;&gt;-->
+<!--    &lt;!&ndash;    s.parentNode.insertBefore(hm, s);&ndash;&gt;-->
+<!--    &lt;!&ndash;  })();</script>&ndash;&gt;-->
+</html>

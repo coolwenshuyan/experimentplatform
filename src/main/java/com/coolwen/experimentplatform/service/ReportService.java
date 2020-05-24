@@ -29,7 +29,7 @@ public interface ReportService {
 
     List<Report> findByMid(int mid);
 
-    Page<Report> findByReportPage(Pageable pageable);
+    Page<Report> findByReportPage(Pageable pageable,int mId);
 
     List<Report> findReportByMId(int mid);
 

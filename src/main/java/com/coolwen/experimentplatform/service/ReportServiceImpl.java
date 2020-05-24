@@ -57,8 +57,9 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Page<Report> findByReportPage(Pageable pageable) {
-        return reportRepository.findAll(pageable);
+    public Page<Report> findByReportPage(Pageable pageable,int mId) {
+
+        return reportRepository.findByReportPage(mId,pageable);
     }
 
     @Override
