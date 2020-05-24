@@ -169,10 +169,10 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">所属班级</label>
-                    <div class="layui-input-inline">
-                        <a type="text" name="classname" th:text="${classname}"></a>
-                    </div>
+                    <label class="layui-form-label">所属班级:&nbsp<a type="text" name="classname" th:text="${classname}"></a></label>
+<!--                    <div class="layui-input-inline">-->
+<!--                        -->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -180,7 +180,7 @@
             <div class="layui-input-block">
                 <button type="submit" class="layui-btn a0" lay-submit="" lay-filter="demo1">保存</button>
 
-                <button class="layui-btn layui-btn-primary" href="#">退出登录</button>
+                <button class="layui-btn layui-btn-primary" href="/logout">退出登录</button>
 
             </div>
         </div>
