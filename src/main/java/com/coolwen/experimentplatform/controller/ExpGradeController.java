@@ -33,4 +33,10 @@ public class ExpGradeController {
         model.addAttribute("ModuleGrades",ModuleGrades);
         return "home_shiyan/grade";
     }
+
+    @GetMapping(value = "/kaohe")
+    public String kaohe(){
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        return "redirect:/expmodel/kaoheModel/"+student.getId();
+    }
 }
