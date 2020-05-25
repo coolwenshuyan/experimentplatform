@@ -12,6 +12,14 @@ public class TotalScorePassServiceImpl implements TotalScorePassService {
     @Override
     public void delteTotalScorePassByStuId(int id) {
         TotalScorePass totalScorePass = totalScorePassRepository.findTotalScorePassByStuId(id);
-        totalScorePassRepository.delete(totalScorePass);
+        if(totalScorePass != null){
+            totalScorePassRepository.delete(totalScorePass);
+
+        }
+    }
+
+    @Override
+    public void save(TotalScorePass totalScorePass) {
+        totalScorePassRepository.save(totalScorePass);
     }
 }

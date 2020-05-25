@@ -1,6 +1,5 @@
 
-<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8" />
@@ -150,19 +149,25 @@
     <!--					<button type="button" class="layui-btn">删除</button>-->
 </div>
 <div class="container" style="margin-left: -6%;">
-    <div id="contain1">
-        <div class="introduce">
+    <div id="contain1" th:object="${exp}">
+        <div class="introduce" >
             <div id="title">
                 <h2 align="center">实验介绍</h2>
             </div>
-            <p style="height: 6rem;">本项目将使用 Bootstrap 框架制作餐饮页面。主要实验内容是完成一个响应 式的餐饮类电商网站。 </p>
-            <img src="../../static/images/img_shiyan/预览图.png" />
+            <div th:utext="${exp.introduce}">
+
+            </div>
+<!--            <p style="height: 6rem;">本项目将使用 Bootstrap 框架制作餐饮页面。主要实验内容是完成一个响应 式的餐饮类电商网站。 </p>-->
+<!--            <img src="../../static/images/img_shiyan/预览图.png" />-->
         </div>
-        <div class="purpose">
+        <div class="purpose" >
             <div id="title">
                 <h2 align="center">实验目的</h2>
             </div>
-            <p style="height: 13rem;">本次实验的目的是让大家熟悉前端框架 Bootstrap。使用 Bootstrap 框架制作 前端网页，主要内容包括 Bootstrap 栅格系统原理、 CSS 组件、JavaScript 插件等， 通过学习与实践掌握快速制作适合各种终端的精美网页。</p>
+            <div th:utext="${exp.purpose}">
+
+            </div>
+<!--            <p style="height: 13rem;">本次实验的目的是让大家熟悉前端框架 Bootstrap。使用 Bootstrap 框架制作 前端网页，主要内容包括 Bootstrap 栅格系统原理、 CSS 组件、JavaScript 插件等， 通过学习与实践掌握快速制作适合各种终端的精美网页。</p>-->
 
         </div>
     </div>
@@ -171,47 +176,68 @@
             <div id="title">
                 <h2 align="center">实验原理</h2>
             </div>
-            <p style="height: 10rem;">Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。为开发人员创建接口提供了一个简洁统一的解决方案。包含了功能强大的内置组件，易于定制，还提供了基于 Web 的定制。并且它是是开源的。</p>
+            <div  th:utext="${exp.principle}">
+
+            </div>
+<!--            <p style="height: 10rem;">Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。为开发人员创建接口提供了一个简洁统一的解决方案。包含了功能强大的内置组件，易于定制，还提供了基于 Web 的定制。并且它是是开源的。</p>-->
         </div>
 
 
-        <div class="content">
+        <div class="content" >
             <div id="title">
                 <h2 align="center">实验内容</h2>
             </div>
-            <p style="height: 5rem;">1. 实现响应式布局 2. 完成网页 header 部分 3. 完成网页搜索模块 4. 完成热卖商品模块 5. 完成特色推荐模块 6. 完成轮播广告模块 7. 完成 footer 部分 8. 整合所有模块 </p>
-            <img src="../../static/images/img_shiyan/结构图.PNG" />
+            <div th:utext="${exp.m_content}">
+
+            </div>
+<!--            <p style="height: 5rem;">1. 实现响应式布局 2. 完成网页 header 部分 3. 完成网页搜索模块 4. 完成热卖商品模块 5. 完成特色推荐模块 6. 完成轮播广告模块 7. 完成 footer 部分 8. 整合所有模块 </p>-->
+<!--            <img src="../../static/images/img_shiyan/结构图.PNG" />-->
         </div>
         <div class="data">
             <div id="title">
                 <h2 align="center">实验资料</h2>
             </div>
-            <div class="tiao">
-                <a href="http://www.layui.com" class="layui-btn">http://www.layui.com</a>
-            </div>
+            <table class="layui-table">
+                <tr>
+                    <td>
+                        资料路径
+                    </td>
+                </tr>
+                <tr th:each="p:${path}">
+                    <td>
+                        <a th:href="${p}" th:text="${p}"></a>
+                    </td>
+                </tr>
+            </table>
+<!--            <div class="tiao">-->
+<!--                <a href="http://www.layui.com" class="layui-btn">http://www.layui.com</a>-->
+<!--            </div>-->
 <!--            <p style="height: 7rem;"><a href="">https://www.baidu.com/</a></p>-->
 
         </div>
     </div>
 </div>
 <button class="layui-btn layui-btn-radius" style="background-color: #174f37;margin-left: -6%">进入实验平台</button>
-<div class="step">
+<div class="step" >
     <div id="title">
         <h2 align="center">实验步骤</h2>
     </div>
-    <p>1. 本任务要完成网页 header 部分的页面效果。 该导航页面主要由两部分构成，添加背景色的div标签（绿色横条）和nav 标签，为了更好的体现 HTML5 的语义化，整个 header 部分所有内容应该包含在 一个header标签中。
-    </p>
-    <img src="../../static/images/img_shiyan/header.PNG" />
-    <p>2、完成网页搜索模块 </p>
-    <img src="../../static/images/img_shiyan/step2.PNG" />
-    <p>3、完成热卖商品模。</p>
-    <img src="../../static/images/img_shiyan/step3.PNG" />
-    <p>4、完成特色推荐模块 。</p>
-    <img src="../../static/images/img_shiyan/step4.PNG" />
-    <p>5、完成轮播广告模块。</p>
-    <img src="../../static/images/img_shiyan/step5.PNG" />
-    <p>6、完成footer，整合所有部分。</p>
-    <img src="../../static/images/img_shiyan/step6.PNG" />
+    <div th:utext="${exp.m_step}">
+
+    </div>
+<!--    <p>1. 本任务要完成网页 header 部分的页面效果。 该导航页面主要由两部分构成，添加背景色的div标签（绿色横条）和nav 标签，为了更好的体现 HTML5 的语义化，整个 header 部分所有内容应该包含在 一个header标签中。-->
+<!--    </p>-->
+<!--    <img src="../../static/images/img_shiyan/header.PNG" />-->
+<!--    <p>2、完成网页搜索模块 </p>-->
+<!--    <img src="../../static/images/img_shiyan/step2.PNG" />-->
+<!--    <p>3、完成热卖商品模。</p>-->
+<!--    <img src="../../static/images/img_shiyan/step3.PNG" />-->
+<!--    <p>4、完成特色推荐模块 。</p>-->
+<!--    <img src="../../static/images/img_shiyan/step4.PNG" />-->
+<!--    <p>5、完成轮播广告模块。</p>-->
+<!--    <img src="../../static/images/img_shiyan/step5.PNG" />-->
+<!--    <p>6、完成footer，整合所有部分。</p>-->
+<!--    <img src="../../static/images/img_shiyan/step6.PNG" />-->
 </div>
 
 

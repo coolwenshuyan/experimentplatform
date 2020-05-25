@@ -30,7 +30,7 @@
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5" th:action="@{/studentManage/viewClass}">
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="class_name"  placeholder="请输入班级名称" autocomplete="off" class="layui-input">
+                                    <input type="text" name="class_name"  placeholder="请输入班级名称" autocomplete="off" required="required" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <input class="layui-btn" type="submit" lay-submit="" lay-filter="sreach" value="搜索"/>
@@ -64,11 +64,13 @@
                                     <td th:text="${c.classTeacher}"></td>
                                     <td th:text="${c.classIscurrent == true?'是':'否'}"></td>
                                     <td class="td-manage">
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/toEditClass/${c.classId}|}">编辑</a>
+                                        <span th:if="${c.classIscurrent == false}">
+                                            <a title="" class="layui-btn" th:href="@{|/studentManage/toEditClass/${c.classId}|}">编辑</a>
+                                        </span>
                                       <a title="" class="layui-btn" th:href="@{|/studentManage/addStudent/${c.classId}|}">管理学生</a>
-                                      <a title="" class="layui-btn" th:href="@{|/studentManage/deleteClass/${c.classId}|}">
+                                      <button  class="layui-btn" type="button" th:name="${c.classId}" onclick="del(this)">
                                           删除
-                                      </a>
+                                      </button>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -87,72 +89,18 @@
             </div>
         </div> 
     </body>
+    <script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
-      layui.use(['laydate','form'], function(){
-        var laydate = layui.laydate;
-        var form = layui.form;
-        
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
-        });
 
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
-      });
+        function del(obj) {
+            var id = obj.name;
+            var ques = confirm("确定要删除该班级吗？")
+            if(ques == true){
+                $.get("/studentManage/deleteClass/"+id,function () {
+                    location.reload()
+                })
+            }
+        }
 
-       /*用户-停用*/
-//    function member_stop(obj,id){
-//        layer.confirm('确认要停用吗？',function(index){
-//
-//            if($(obj).attr('title')=='启用'){
-//
-//              //发异步把用户状态进行更改
-//              $(obj).attr('title','停用')
-//              $(obj).find('i').html('&#xe62f;');
-//
-//              $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-//              layer.msg('已停用!',{icon: 5,time:1000});
-//
-//            }else{
-//              $(obj).attr('title','启用')
-//              $(obj).find('i').html('&#xe601;');
-//
-//              $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-//              layer.msg('已启用!',{icon: 5,time:1000});
-//            }
-//            
-//        });
-//    }
-
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
     </script>
-    <script>var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();</script>
 </html>

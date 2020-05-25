@@ -76,6 +76,10 @@ public class ExpModelServiceImpl implements ExpModelService {
         return expModelRepository.findByM_id(m_id);
     }
 
+    @Override
+    public ExpModel findExpModelsByKaoheMid(int mid) {
+        return expModelRepository.findExpModelsByKaoheMid(mid);
+    }
 
 
 }

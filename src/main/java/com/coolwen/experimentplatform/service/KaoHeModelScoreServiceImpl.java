@@ -79,4 +79,14 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
         List<KaoHeModelScore> list = kaoHeModelScoreRepository.findKaoHeModelScoreByStuId(id);
         kaoHeModelScoreRepository.deleteAll(list);
     }
+
+    @Override
+    public KaoHeModelScore findKaoHeModelScoreByStuIdAndId(int stuid, int id) {
+        return kaoHeModelScoreRepository.findKaoHeModelScoreByStuIdAndId(stuid, id);
+    }
+
+    @Override
+    public List<KaoHeModelScore> findKaoheModuleScoreByStuId(int stuid) {
+        return kaoHeModelScoreRepository.findKaoHeModelScoreByStuId(stuid);
+    }
 }

@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.DTO.StudentListDTO;
 import com.coolwen.experimentplatform.service.*;
 import com.coolwen.experimentplatform.model.ClassModel;
 import com.coolwen.experimentplatform.model.Student;
@@ -12,6 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,15 +38,14 @@ public class StudentController {
     ReportAnswerService reportAnswerService;
     @Autowired
     TotalScorePassService totalScorePassService;
+    @Autowired
+    ExpModelService expModelService;
 
     //学生列表
     @GetMapping("/list")
     public String studentList(Model model, @RequestParam(value = "pageNum",defaultValue = "0")int pageNum){
         Page<StudentVo> list = studentservice.findStudentsByStuCheckstate(pageNum);
         model.addAttribute("studentList",list);
-        for (StudentVo s : list){
-            System.out.println(s.getClassName());
-        }
         return "student/student_list";
     }
 
@@ -64,12 +68,14 @@ public class StudentController {
         reportAnswerService.deleteReportAnswerByStuId(id);
         kaoHeModelScoreService.deleteKaoheModuleScoreByStuId(id);
         Student student = studentservice.findStudentById(id);
-        ClassModel classModel = clazzService.findById(student.getClassId());
-        if(classModel.getClassIscurrent() == false){
-            //当期
-            totalScoreCurrentService.deleteTotalScoreCurrentByStuId(id);
-        }else {
-            totalScorePassService.delteTotalScorePassByStuId(id);
+        if(student.getClassId() != 0){
+            ClassModel classModel = clazzService.findById(student.getClassId());
+            if(classModel.getClassIscurrent() == false){
+                //当期
+                totalScoreCurrentService.deleteTotalScoreCurrentByStuId(id);
+            }else {
+                totalScorePassService.delteTotalScorePassByStuId(id);
+            }
         }
         studentservice.deleteStudentById(id);
         return "redirect:/studentManage/list";
@@ -78,7 +84,7 @@ public class StudentController {
     //学生编辑
     @GetMapping("/editStudent/{id}")
     public String toeditStudent(@PathVariable("id")int id,Model model){
-        StudentVo student = studentservice.findStudentVoById(id);
+        StudentListDTO student = studentservice.findStudentDTOById(id);
         List<ClassModel> classModels = clazzService.findAllClass();
         model.addAttribute("stu",student);
         model.addAttribute("class",classModels);
@@ -201,6 +207,56 @@ public class StudentController {
         clazz.setClassTeacher(class_teacher);
         clazz.setClassIscurrent(classIscurrent);
         clazzService.saveClazz(clazz);
+        if(classIscurrent == true){
+            TotalScorePass totalScorePass = null;
+            String kaoheModuleName = "";
+            String kaohe_mtestscore = "";
+            String kaohe_mreportscore = "";
+            String kaohe_mtestscore_baifengbi = "";
+            String kaohe_mreportscore_baifengbi = "";
+            String kaohe_mscale = "";
+            float test_baifenbi = 0;
+            float kaohe_baifenbi = 0;
+            List<KaoheModel> kaoheModelList = kaoheModelService.findAll();
+            //获得考核项目名字
+            for (KaoheModel k : kaoheModelList){
+                ExpModel expModel = expModelService.findExpModelsByKaoheMid(k.getM_id());
+                kaoheModuleName += expModel.getM_name()+";";
+                test_baifenbi = k.getTest_baifenbi();
+                kaohe_baifenbi = k.getKaohe_baifenbi();
+            }
+            List<Student> studentList = studentservice.findStudentByClassId(id);
+            for(Student s : studentList){
+                for(KaoheModel k : kaoheModelList){
+                    KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoHeModelScoreByStuIdAndId(s.getId(),k.getId());
+                    //模块测试分数
+                    kaohe_mtestscore += kaoHeModelScore.getmTestScore()+";";
+                    kaohe_mreportscore += kaoHeModelScore.getmReportScore()+";";
+                    kaohe_mtestscore_baifengbi += k.getM_test_baifenbi()+";";
+                    kaohe_mreportscore_baifengbi += k.getM_report_baifenbi()+";";
+                    kaohe_mscale += k.getM_scale()+";";
+                }
+                TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(s.getId());
+                totalScorePass = new TotalScorePass();
+                totalScorePass.setStuId(s.getId());
+                totalScorePass.setKaoheName(String.valueOf(kaoheModelList.size()));
+                totalScorePass.setKaoheName(kaoheModuleName);
+                totalScorePass.setKaoheMtestscore(kaohe_mtestscore);
+                totalScorePass.setKaoheMreportscore(kaohe_mreportscore);
+                totalScorePass.setKaoheMtestscoreBaifengbi(kaohe_mtestscore_baifengbi);
+                totalScorePass.setKaoheMreportscoreBaifengbi(kaohe_mreportscore_baifengbi);
+                totalScorePass.setKaoheMscale(kaohe_mscale);
+                totalScorePass.setmTotalScore(totalScoreCurrent.getmTotalScore());
+                totalScorePass.setTestScore(totalScoreCurrent.getTestScore());
+                totalScorePass.setTestBaifenbi(test_baifenbi);
+                totalScorePass.setKaoheBaifenbi(kaohe_baifenbi);
+                totalScorePass.setTotalScore(totalScoreCurrent.getTotalScore());
+                totalScorePass.setFinalDatetime(new Date());
+                totalScorePassService.save(totalScorePass);
+                totalScoreCurrentService.deleteTotalScoreCurrentByStuId(s.getId());
+            }
+
+        }
         return "redirect:/studentManage/classManage";
     }
 
@@ -208,8 +264,18 @@ public class StudentController {
     //删除班级
     @GetMapping("/deleteClass/{id}")
     public String deleteClass(@PathVariable("id")int id){
-        clazzService.deleteClazz(id);
+        ClassModel classModel = clazzService.findById(id);
         List<Student> studentList = studentservice.findStudentByClassId(id);
+        if(classModel.getClassIscurrent() == false){
+            for(Student student : studentList){
+                totalScoreCurrentService.deleteTotalScoreCurrentByStuId(student.getId());
+            }
+        }else {
+            for(Student student : studentList){
+                totalScorePassService.delteTotalScorePassByStuId(student.getId());
+            }
+        }
+        clazzService.deleteClazz(id);
         for(Student s : studentList){
             s.setClassId(0);
             studentservice.saveStudent(s);
@@ -252,6 +318,9 @@ public class StudentController {
 
     @GetMapping("/deleteStuClass/{id}")
     public String deleteStuClass(@PathVariable("id") int id){
+        totalScoreCurrentService.deleteTotalScoreCurrentByStuId(id);
+        List<KaoHeModelScore> kaoHeModelScores = kaoHeModelScoreService.findKaoheModuleScoreByStuId(id);
+        kaoHeModelScoreService.deleteAllKaohe(kaoHeModelScores);
         Student student = studentservice.findStudentById(id);
         int preClassId = student.getClassId();
         student.setClassId(0);

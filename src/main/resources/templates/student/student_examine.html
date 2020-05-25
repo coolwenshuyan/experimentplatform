@@ -38,7 +38,7 @@
                         <!--<div class="layui-card-body ">-->
                             <form class="layui-form layui-col-space5" th:action="@{/studentManage/viewReviewd}" method="get">
                                 <div class="layui-inline layui-show-xs-block" style="float: right;margin-right: 5%;margin-top: 1.7%;">
-                                    <input type="text" name="stu_xuehao"  placeholder="请输入学号" autocomplete="off" class="layui-input">
+                                    <input type="text" name="stu_xuehao"  placeholder="请输入学号" autocomplete="off" required="required" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block" style="float: right;margin-top: 1.7%;">
                                     <input class="layui-btn" type="submit"  lay-submit="" lay-filter="sreach" value="搜索"/>

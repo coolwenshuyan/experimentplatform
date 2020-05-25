@@ -76,7 +76,7 @@
 				     			<ul class="layui-nav" lay-filter="" >
 								  <li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
 								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
+								  <li class="layui-nav-item"><a th:href="${model.getM_inurl()}">进入实验</a></li>
 								  <li class="layui-nav-item">
 								    <a href="tian.html">填写报告</a>
 								  </li>
@@ -90,8 +90,8 @@
 			<div class="layui-card-body ">
 				<div class="page">
 					<div>
-						<a class="prev layui-btn" th:href="@{/expmodel/alltest(pageNum=${list.hasPrevious()}?${list.number}-1:0)}">上一页</a>
-						<a class="next layui-btn" th:href="@{/expmodel/alltest(pageNum=${list.hasNext()}?${list.number}+1:${list.number})}">下一页</a>
+						<a class="prev layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasPrevious()}?${list.number}-1:0)}">上一页</a>
+						<a class="next layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasNext()}?${list.number}+1:${list.number})}">下一页</a>
 					</div>
 				</div>
 			</div>

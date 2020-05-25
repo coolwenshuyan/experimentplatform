@@ -38,7 +38,7 @@
                                     <!--<input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">-->
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="stu_xuehao"  placeholder="请输入学号" autocomplete="off" class="layui-input">
+                                    <input type="text" name="stu_xuehao"  placeholder="请输入学号" autocomplete="off" required="required" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <input class="layui-btn" type="submit" lay-submit="" lay-filter="sreach" value="搜索"/>
@@ -78,7 +78,8 @@
                                     <td class="td-manage">
                                             <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/editStudent/${person.id}|}">编辑</a>
 
-                                            <a class="layui-btn layui-bg-red" id="del"  lay-filter="del" th:href="@{|/studentManage/deleteStudent/${person.id}|}">删除</a>
+<!--                                            <a class="layui-btn layui-bg-red" id="del"  lay-filter="del" th:href="@{|/studentManage/deleteStudent/${person.id}|}">删除</a>-->
+                                            <button class="layui-btn layui-bg-red" id="del"  type="button" th:name="${person.id}"  lay-filter="del" onclick="del(this)">删除</button>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -99,7 +100,28 @@
             </div>
         </div> 
     </body>
-    <script src="../../static/js/jquery-3.4.1.min.js.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+
+            function del(obj) {
+                var id = obj.name;
+                var ques = confirm("确定要删除该学生吗？这将会删除他的所有相关记录")
+                if(ques == true){
+                    $.get("/studentManage/deleteStudent/"+id,function () {
+                        location.reload()
+                    })
+                }
+
+            }
+
+
+
+
+
+
+
+    </script>
 
 </html>

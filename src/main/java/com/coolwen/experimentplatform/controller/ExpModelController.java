@@ -248,8 +248,10 @@ public class ExpModelController {
     public String toUpdateExpTheory(@PathVariable("id") int id,Model model){
         ExpModel expModel = expModelService.findExpModelByID(id);
         model.addAttribute("preExpModel",expModel);
-        String[] path = expModel.getM_edataurl().split(",");
-        model.addAttribute("path",path);
+        if(expModel.getM_edataurl() != null){
+            String[] path = expModel.getM_edataurl().split(",");
+            model.addAttribute("path",path);
+        }
         return "shiyan/changeTheory";
     }
 
@@ -324,7 +326,11 @@ public class ExpModelController {
         ExpModel expModel = expModelService.findExpModelByID(id);
         model.addAttribute("exp",expModel);
         String path = expModel.getM_edataurl();
-        return "home_shiyan/study";
+        if(path != null){
+            String[] paths = path.split(",");
+            model.addAttribute("path",paths);
+        }
+        return "home_shiyan/study_update";
     }
 
 

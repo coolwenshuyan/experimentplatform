@@ -1,7 +1,6 @@
 package com.coolwen.experimentplatform.model;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 /**
@@ -42,6 +41,9 @@ public class TotalScorePass {
     private String kaoheMscale;
 
     @Column(nullable = false,columnDefinition = "float default 0")
+    private float mTotalScore;
+
+    @Column(nullable = false,columnDefinition = "float default 0")
     private float testScore;
 
     @Column(nullable = false)
@@ -73,6 +75,14 @@ public class TotalScorePass {
         this.kaoheBaifenbi = kaoheBaifenbi;
         this.totalScore = totalScore;
         this.finalDatetime = finalDatetime;
+    }
+
+    public float getmTotalScore() {
+        return mTotalScore;
+    }
+
+    public void setmTotalScore(float mTotalScore) {
+        this.mTotalScore = mTotalScore;
     }
 
     public int getId() {

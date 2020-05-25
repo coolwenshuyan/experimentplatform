@@ -3,11 +3,8 @@ package com.coolwen.experimentplatform.service;
 import com.coolwen.experimentplatform.dao.ClazzRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
 import com.coolwen.experimentplatform.model.ClassModel;
-import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
-import com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO;
-import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
+import com.coolwen.experimentplatform.model.DTO.*;
 import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.model.DTO.StudentVo;
 import com.coolwen.experimentplatform.specification.SimpleSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -76,7 +73,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentVo findStudentVoById(int id) {
+    public StudentListDTO findStudentDTOById(int id) {
         return studentRepository.findStudentsById(id);
     }
 
