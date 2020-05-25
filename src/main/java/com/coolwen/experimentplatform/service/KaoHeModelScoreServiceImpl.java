@@ -73,4 +73,10 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
     public void deleteAllKaohe(List<KaoHeModelScore> kaoHeModelScores) {
         kaoHeModelScoreRepository.deleteAll(kaoHeModelScores);
     }
+
+    @Override
+    public void deleteKaoheModuleScoreByStuId(int id) {
+        List<KaoHeModelScore> list = kaoHeModelScoreRepository.findKaoHeModelScoreByStuId(id);
+        kaoHeModelScoreRepository.deleteAll(list);
+    }
 }

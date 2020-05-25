@@ -63,4 +63,10 @@ public class TotalScoreCurrentServiceImpl implements TotalScoreCurrentService {
         return totalScoreCurrentRepository.findTotalScoreCurrentByStuId(stuid);
     }
 
+    @Override
+    public void deleteTotalScoreCurrentByStuId(int id) {
+        TotalScoreCurrent totalScoreCurrent = totalScoreCurrentRepository.findTotalScoreCurrentByStuId(id);
+        totalScoreCurrentRepository.delete(totalScoreCurrent);
+    }
+
 }

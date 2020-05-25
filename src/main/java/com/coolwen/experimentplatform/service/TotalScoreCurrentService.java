@@ -29,4 +29,6 @@ public interface TotalScoreCurrentService {
     TotalScoreCurrent findTotalScoreCurrentByStuID(int stuId);
 
     TotalScoreCurrent findTotalScoreCurrentByStuId(int stuid);
+
+    void deleteTotalScoreCurrentByStuId(int id);
 }

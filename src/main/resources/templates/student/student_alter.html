@@ -17,7 +17,7 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form" th:action="@{|/student/editStudent/${stu.id}|}" method="post" th:object="${stu}">
+                <form class="layui-form" th:action="@{|/studentManage/editStudent/${stu.id}|}" method="post" th:object="${stu}">
                   <div class="layui-form-item">
                       <div class="layui-form-item">
                           <label for="phone" class="layui-form-label">
@@ -48,12 +48,13 @@
 
                   </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            <span class="x-red">*</span>班级
-                        </label>
+                        <label class="layui-form-label">班级</label>
                         <div class="layui-input-inline">
-                            <input type="text"  name="className" required=""
-                                   autocomplete="off" class="layui-input" th:value="${stu.className}">
+                            <select name="classid">
+                                <span th:each="c:${class}">
+                                <option  th:value="${c.classId}" th:text="${c.className}" th:selected="${stu.classid eq c.classId?true:false}"></option>
+                                </span>
+                            </select>
                         </div>
                     </div>
 
@@ -91,10 +92,13 @@
 
     </body>
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+
     <script>
         layui.use(['element','form'],function () {
             var form = layui.form;
         })
+
+
 
     </script>
 

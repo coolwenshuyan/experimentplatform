@@ -27,6 +27,12 @@ public class StudentController {
     KaoHeModelScoreService kaoHeModelScoreService;
     @Autowired
     TotalScoreCurrentService totalScoreCurrentService;
+    @Autowired
+    ModuleTestAnswerStuService moduleTestAnswerStuService;
+    @Autowired
+    ReportAnswerService reportAnswerService;
+    @Autowired
+    TotalScorePassService totalScorePassService;
 
     //学生列表
     @GetMapping("/list")
@@ -54,15 +60,28 @@ public class StudentController {
     //学生删除
     @GetMapping("/deleteStudent/{id}")
     public String deleteStudent(@PathVariable("id") int id){
+        moduleTestAnswerStuService.deleteModuleTestAnswerStuByStuId(id);
+        reportAnswerService.deleteReportAnswerByStuId(id);
+        kaoHeModelScoreService.deleteKaoheModuleScoreByStuId(id);
+        Student student = studentservice.findStudentById(id);
+        ClassModel classModel = clazzService.findById(student.getClassId());
+        if(classModel.getClassIscurrent() == false){
+            //当期
+            totalScoreCurrentService.deleteTotalScoreCurrentByStuId(id);
+        }else {
+            totalScorePassService.delteTotalScorePassByStuId(id);
+        }
         studentservice.deleteStudentById(id);
-        return "redirect:/student/list";
+        return "redirect:/studentManage/list";
     }
 
     //学生编辑
     @GetMapping("/editStudent/{id}")
     public String toeditStudent(@PathVariable("id")int id,Model model){
         StudentVo student = studentservice.findStudentVoById(id);
+        List<ClassModel> classModels = clazzService.findAllClass();
         model.addAttribute("stu",student);
+        model.addAttribute("class",classModels);
         return "student/student_alter";
 
     }
@@ -72,23 +91,24 @@ public class StudentController {
                               String stu_uname,
                               String stu_name,
                               String stu_xuehao,
-                              String className,
+                              int classid,
                               Boolean stuIsinschool,
                               String stu_password
                               )
     {
-        ClassModel clazz = studentservice.findClazzByClassName(className);
+//        ClassModel clazz = studentservice.findClazzByClassName(className);
         Student student = studentservice.findStudentById(id);
-        if(clazz != null){
-            student.setClassId(clazz.getClassId());
-        }
+//        if(clazz != null){
+//            student.setClassId(clazz.getClassId());
+//        }
         student.setStuUname(stu_uname);
         student.setStuName(stu_name);
         student.setStuXuehao(stu_xuehao);
         student.setStuIsinschool(stuIsinschool);
         student.setStuPassword(stu_password);
+        student.setClassId(classid);
         studentservice.saveStudent(student);
-        return "redirect:/student/list";
+        return "redirect:/studentManage/list";
     }
 
     //待审核学生
