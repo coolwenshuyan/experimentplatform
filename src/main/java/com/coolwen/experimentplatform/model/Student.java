@@ -34,7 +34,7 @@ public class Student {
     @Column(name = "stu_isinschool")
     private boolean stuIsinschool;
 
-    @Column(name = "class_id")
+    @Column(name = "class_id",columnDefinition = "int default 0")
     private int classId;
 
 

@@ -74,5 +74,11 @@ public class ReportAnswerServiceImpl implements ReportAnswerService {
         reportAnswerRepository.deleteAll(list);
     }
 
+    @Override
+    public void deleteReportAnswerByStuId(int id) {
+        List<ReportAnswer> list = reportAnswerRepository.findReportAnswerByStuId(id);
+        reportAnswerRepository.deleteAll(list);
+    }
+
 
 }

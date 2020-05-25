@@ -33,4 +33,6 @@ public interface ReportAnswerService {
 
     void deleteReportAnswerByReportId(int reportid);
 
+    void deleteReportAnswerByStuId(int id);
+
 }

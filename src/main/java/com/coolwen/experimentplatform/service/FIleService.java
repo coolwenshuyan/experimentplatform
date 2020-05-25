@@ -9,4 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface FIleService {
 
     public  String upload(HttpServletRequest request, MultipartFile file);
+
+    public  String upload(HttpServletRequest request, MultipartFile file,String fileName);
+
 }

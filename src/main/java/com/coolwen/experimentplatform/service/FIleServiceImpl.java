@@ -30,7 +30,7 @@ public class FIleServiceImpl implements FIleService {
         if(request.getRequestURI().contains("/expmodel/addExpModel")||request.getRequestURI().contains("/expmodel/updateExpModel")){
             String realPath = expModelImage;
             dir = new File(realPath + "/"+format);
-        }else if(request.getRequestURI().contains("/expmodel/addTheoryFile")){
+        }else if(request.getRequestURI().contains("/expmodel/addTheoryFile") || request.getRequestURI().contains("/expmodel/updateTheoryFile")){
             String realPath = expData;
             dir = new File(realPath+"/"+format);
         }
@@ -52,5 +52,36 @@ public class FIleServiceImpl implements FIleService {
 
         return filePath;
 
+    }
+
+    @Override
+    public String upload(HttpServletRequest request, MultipartFile file, String fileName) {
+        String filePath = null;
+        File dir = null;
+        String format = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+        format = sdf.format(new Date());
+//        String fileType = file.getContentType();
+        if(request.getRequestURI().contains("/expmodel/addTheoryFile")){
+            String realPath = expData;
+            dir = new File(realPath+"/"+format);
+        }
+        if (!dir.isDirectory()) {
+            dir.mkdirs();
+        }
+
+        try {
+//            String filename = file.getOriginalFilename();
+
+            File fileServer = new File(dir.getAbsolutePath(), fileName);
+
+            file.transferTo(fileServer);
+
+            filePath = format + fileServer.getName() ;
+        } catch (IOException e) {
+
+        }
+
+        return filePath;
     }
 }

@@ -20,7 +20,11 @@ public class StudentVo {
 
     private String className;
 
-    public StudentVo(int id, String stuUname, String stuPassword, String stuName, String stuXuehao, String stuMobile, boolean stuCheckstate, boolean stuIsinschool, String className) {
+    private int classid;
+
+
+
+    public StudentVo(int id, String stuUname, String stuPassword, String stuName, String stuXuehao, String stuMobile, boolean stuCheckstate, boolean stuIsinschool, String className, int classid) {
         this.id = id;
         this.stuUname = stuUname;
         this.stuPassword = stuPassword;
@@ -30,6 +34,15 @@ public class StudentVo {
         this.stuCheckstate = stuCheckstate;
         this.stuIsinschool = stuIsinschool;
         this.className = className;
+        this.classid = classid;
+    }
+
+    public int getClassid() {
+        return classid;
+    }
+
+    public void setClassid(int classid) {
+        this.classid = classid;
     }
 
     public int getId() {

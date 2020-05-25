@@ -120,6 +120,7 @@
 		  var $ = layui.jquery
 		  ,upload = layui.upload;
 		  var modelId =[[${session.modelId}]];
+		  var path = '';
 		  //多文件上传
 
 			var demoListView = $('#demoList')
@@ -131,6 +132,17 @@
 				,multiple: true
 				,auto: false
 				,bindAction: '#testListAction'
+				,allDone:function (obj) {
+					$.ajax({
+						url: "/expmodel/savePath/"+modelId,
+						data:{"path":path},
+						type:"post",
+						success:function () {
+							layer.msg("successful")
+							console.log(path)
+						}
+					})
+				}
 				,choose: function(obj){
 					var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
 					//读取本地文件
@@ -163,6 +175,7 @@
 				,done: function(res, index, upload){
 					if (res.code == 0){
 						files.push({"fileName":res.filename,"fileUrl":res.fileUrl,"fileSize":res.fileSize});//,"fileUrl":res.fileUrl
+						path=path+res.fileUrl+","
 						var json = JSON.stringify(files);
 						//将上传的文件信息加入到集合中并转换成json字符串
 						$("#fileJson").attr("value",json);
