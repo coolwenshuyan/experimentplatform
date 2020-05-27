@@ -40,6 +40,7 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
     @Override
     public void deleteAllByKaohemId(Integer kaohemid) {
         kaoHeModelScoreRepository.deleteByTKaohemodleId(kaohemid);
+        System.out.println("删除所有成绩记录成功!");
     }
 
 

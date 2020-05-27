@@ -48,6 +48,8 @@ public interface StudentService {
 
     List<Student> findAll();
 
+//    List<Student> findAllBy
+
     public Page<Student> findStudentPageAndXuehao(int page, String select_orderId);
 
     Page<StudentLastTestScoreDTO> listStudentLastTestAnswerDTO(int pageNum);
