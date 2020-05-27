@@ -36,4 +36,6 @@ public interface ReportRepository extends BaseRepository<Report, Integer>, JpaSp
 
     @Query("select q from ExpModel e, Report q where e.m_id =q.mId and e.m_id = ?1")
     Page<Report> findByReportPage(@Param("mid") int mid, Pageable pageable);
+
+
 }

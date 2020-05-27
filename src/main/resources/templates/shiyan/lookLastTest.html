@@ -72,7 +72,7 @@
                                 <thead>
                                   <tr>
                                     
-                                    <!--<th>问题序号</th>-->
+                                    <th>问题序号</th>
                                     <th>题目</th>
                                     <th>分值(链接)</th>
                                     <th>实验模块号</th>
@@ -82,7 +82,7 @@
                                 <tbody>
                                   <tr th:each="Quest:${termList.content}">
                                     
-                                    <!--<td th:text="${Quest.questId}">1</td>-->
+                                    <td th:text="${Quest.questOrder}">1</td>
                                     <td th:text="${Quest.questDescribe}">java</td>
                                     <td th:text="${Quest.questScore}">100</td>
                                     <td th:text="${Quest.mId}">1</td>

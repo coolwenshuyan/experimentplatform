@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/shiyan")
-@SessionAttributes("title")
+@SessionAttributes(value = {"title","questDescribe","questType","questScore","questAnswer","questOrder"})
 public class ModuleController {
 
     @Autowired
@@ -38,8 +38,6 @@ public class ModuleController {
     @Autowired
     private ReportAnswerService reportAnswerService;
 
-    @Autowired
-    private ExpModelService expModelService;
 
 
     /**
@@ -47,19 +45,53 @@ public class ModuleController {
      *
      * @return
      */
+    @GetMapping("addQuest")
+    public String addQuest(Model model, ModuleTestQuest moduleTestQuest, HttpSession session) {
 
-    @PostMapping("addTest")
-    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session, String questType, float questScore, String questAnswer, int mId) {
+        String questDescribe = (String) session.getAttribute("questDescribe");
+        System.out.println("打印题目信息~~~~~~"+questDescribe);
+
+        if (questDescribe == null || questDescribe.isEmpty() || questDescribe == "") {
+            model.addAttribute("addAnswer", new ModuleTestAnswer());
+            model.addAttribute("quest", new ModuleTestQuest());
+        } else {
+
+            int qId = (int) session.getAttribute("questId");
+            ModuleTestQuest quest = questService.findQuestByQuestId(qId);
+            List<ModuleTestAnswer> addAnswer = answerService.findAllByQuestId(qId);
+            model.addAttribute("addAnswer", addAnswer);
+            model.addAttribute("quest", quest);
+
+        }
+
+        return "shiyan/addTest";
+
+    }
+
+    @PostMapping("addQuest")
+    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session,Model model,
+                           String questDescribe, String questType, float questScore, String questAnswer,int questOrder) {
 //        在试题表添加试题信息
-        String title = (String) session.getAttribute("title");
-        moduleTestQuest = questService.findByQuestDescribe(title);
+        int id = (int) session.getAttribute("mId");
+        moduleTestQuest.setQuestDescribe(questDescribe);
         moduleTestQuest.setQuestType(questType);
         moduleTestQuest.setQuestScore(questScore);
         moduleTestQuest.setQuestAnswer(questAnswer);
-        moduleTestQuest.setmId(mId);
+        moduleTestQuest.setQuestOrder(questOrder);
+        moduleTestQuest.setmId(id);
         System.out.println(moduleTestQuest);
         questService.addModuleTestQuest(moduleTestQuest);
-        return "redirect:/shiyan/list";
+        System.out.println("添加测试题里面的questID~~~~~~"+moduleTestQuest.getQuestId());
+        session.setAttribute("questId", moduleTestQuest.getQuestId());
+
+//        数据回显
+        model.addAttribute("questDescribe",questDescribe);
+        model.addAttribute("questType",questType);
+        model.addAttribute("questScore",questScore);
+        model.addAttribute("questAnswer",questAnswer);
+        model.addAttribute("questOrder",questOrder);
+
+        return "redirect:/shiyan/addQuest";
     }
 
     //试题列表
@@ -71,19 +103,27 @@ public class ModuleController {
                        @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum,
                        Model model) {
 //        Sort sort = new Sort(Sort.Direction.DESC, "id");
-//        expModelService.findByMid(m_id);
-//        ExpModel exp = expModelService.findExpModelByID(m_id);
-//        System.out.println("get.m_id"+exp.getM_id());
+//
         Pageable pageable = PageRequest.of(pageNum, 10);
-        Page<ModuleTestQuest> pageList = questService.findByExpPage(mId,pageable);
+        Page<ModuleTestQuest> pageList = questService.findByExpPage(mId, pageable);
 
-        String title = "";
-        model.addAttribute("title", title);
-        System.out.println(session.getAttribute("title"));
+//        清理缓存
+        String questDescribe = "";
+        model.addAttribute("questDescribe", questDescribe);
+        String questScore = "";
+        model.addAttribute("questScore", questScore);
+        String questAnswer = "";
+        model.addAttribute("questAnswer", questAnswer);
+        String questOrder = "";
+        model.addAttribute("questOrder", questOrder);
+
+//        System.out.println(session.getAttribute("title"));
         System.out.println("分页信息：" + pageList);
 
 //        model.addAttribute("search", search);
         model.addAttribute("questsPage", pageList);
+        model.addAttribute("mId",mId);
+        session.setAttribute("mId", mId);
 //        model.addAttribute("quests", questService.loadAll());
         return "shiyan/lookTest";
     }
@@ -94,8 +134,9 @@ public class ModuleController {
     public String deleteQuest(@PathVariable("questId") int questId) {
         System.out.println(questId);
         System.out.println(questService.findQuestByQuestId(questId));
+        ModuleTestQuest moduleTestQuest = questService.findQuestByQuestId(questId);
         questService.deleteQuest(questId);
-        return "redirect:/shiyan/list";
+        return "redirect:/shiyan/list/" + moduleTestQuest.getmId();
     }
 
     /**
@@ -107,17 +148,17 @@ public class ModuleController {
      */
     @GetMapping("updateQuest/{questId}")
     public String updateQuest(@PathVariable("questId") int questId, Model model, HttpSession session) {
-        String title = (String) session.getAttribute("questDescribe");
-        String title1 = (String) session.getAttribute("questScore");
-        String title2 = (String) session.getAttribute("questType");
-        String title3 = (String) session.getAttribute("questAnswer");
-        String title4 = (String) session.getAttribute("mId");
+//        String title = (String) session.getAttribute("questDescribe");
+//        String title1 = (String) session.getAttribute("questScore");
+//        String title2 = (String) session.getAttribute("questType");
+//        String title3 = (String) session.getAttribute("questAnswer");
+//        String title4 = (String) session.getAttribute("questOrder");
         ModuleTestQuest quest = questService.findQuestByQuestId(questId);
-        if (title == null && title1 == null && title2 == null && title3 == null && title4 == null) {
-            model.addAttribute("UpQuest", quest);
-        }
+//        if (title == null && title1 == null && title2 == null && title3 == null && title4 == null) {
+//            model.addAttribute("UpQuest", quest);
+//        }
 
-        List<ModuleTestAnswer> UpAnswer = answerService.findAllByQuestId(quest.getQuestId());
+        List<ModuleTestAnswer> UpAnswer = answerService.findAllByQuestId(questId);
         model.addAttribute("UpQuest", quest);
         model.addAttribute("UpAnswer", UpAnswer);
         model.addAttribute("qid", questId);
@@ -134,14 +175,15 @@ public class ModuleController {
         quest1.setQuestAnswer(quest.getQuestAnswer());
         quest1.setQuestType(quest.getQuestType());
         quest1.setQuestScore(quest.getQuestScore());
-        quest1.setmId(quest.getmId());
+        quest1.setQuestOrder(quest.getQuestOrder());
+//        quest1.setmId(quest.getmId());
         model.addAttribute("UpQuest", quest1);
         model.addAttribute("qid", questId);
         questService.addModuleTestQuest(quest1);
 
         model.addAttribute("questDescribe", questDescribe);
 //        return "redirect:/shiyan/updateQuest/{questId}";
-        return "redirect:/shiyan/list";
+        return "redirect:/shiyan/list/" + quest1.getmId();
     }
 
 //    修改试题中增加选项
@@ -182,7 +224,7 @@ public class ModuleController {
                 answerService.deleteAnswer(answer.getAnswerId());
             }
         }
-        return "redirect:/shiyan/addAnswer";
+        return "redirect:/shiyan/addQuest";
     }
 
 
@@ -226,47 +268,58 @@ public class ModuleController {
 
 
     //添加选项
+
     @GetMapping("addAnswer")
     public String addAnswer(Model model, HttpSession session, ModuleTestAnswer moduleTestAnswer, ModuleTestQuest moduleTestQuest) {
-        String title = (String) session.getAttribute("title");
-        if (title == null || title.isEmpty() || title == "") {
-            model.addAttribute("addAnswer", new ModuleTestAnswer());
-            model.addAttribute("quest", new ModuleTestQuest());
-        } else {
-            System.out.println("打印else____" + questService.findByQuestDescribe(title));
-            ModuleTestQuest quest = questService.findByQuestDescribe(title);
-            List<ModuleTestAnswer> addAnswer = answerService.findAllByQuestId(quest.getQuestId());
-            System.out.println("getELSE测试选项_-__" + moduleTestAnswer);
-            System.out.println("getELSE测试题目_-__" + addAnswer);
-            model.addAttribute("addAnswer", addAnswer);
+//        String title = (String) session.getAttribute("title");
+//        if (title == null || title.isEmpty() || title == "") {
+//            model.addAttribute("addAnswer", new ModuleTestAnswer());
+//            model.addAttribute("quest", new ModuleTestQuest());
+//        } else {
+//            System.out.println("打印else____" + questService.findByQuestDescribe(title));
+//            ModuleTestQuest quest = questService.findByQuestDescribe(title);
+//            List<ModuleTestAnswer> addAnswer = answerService.findAllByQuestId(quest.getQuestId());
+//            System.out.println("getELSE测试选项_-__" + moduleTestAnswer);
+//            System.out.println("getELSE测试题目_-__" + addAnswer);
+//            model.addAttribute("addAnswer", addAnswer);
+//
+//        }
+//        System.out.println("前端显示的题目打印______" + title);
 
-        }
-        System.out.println("前端显示的题目打印______" + title);
-        return "shiyan/addTest";
+        return "shiyan/addAnswer";
     }
 
     @PostMapping("addAnswer")
-    public String addAnswer(String title, Model model, ModuleTestAnswer moduleTestAnswer, ModuleTestQuest moduleTestQuest, HttpSession session) {
+    public String addAnswer(Model model,
+//                            String title,
+                            ModuleTestAnswer moduleTestAnswer,
+//                            ModuleTestQuest moduleTestQuest,
+                            HttpSession session) {
 
-        moduleTestQuest.setQuestDescribe(title);
-        System.out.println("title:-------" + title);
-        System.out.println("测试选项————" + moduleTestAnswer);
-        System.out.println("测试题目————" + moduleTestQuest);
+//        moduleTestQuest.setQuestDescribe(title);
+//        System.out.println("title:-------" + title);
+//        System.out.println("测试选项————" + moduleTestAnswer);
+//        System.out.println("测试题目————" + moduleTestQuest);
+//
+//        String Stitle = (String) session.getAttribute("title");
+//        System.out.println("Stitle:>>>>>>>>" + Stitle);
+//        if (Stitle == null || Stitle.isEmpty() || Stitle == "") {
+//            questService.addModuleTestQuest(moduleTestQuest);
+//        }
+//
+//        moduleTestQuest = questService.findByQuestDescribe(title);
+//        System.out.println("查询后——————" + moduleTestQuest);
+//        moduleTestAnswer.setQuestId(moduleTestQuest.getQuestId());
+//        answerService.addAnswers(moduleTestAnswer);
+//
+//        model.addAttribute("title", title);
+//        System.out.println("这是post打印的题目————————" + title);
 
-        String Stitle = (String) session.getAttribute("title");
-        System.out.println("Stitle:>>>>>>>>" + Stitle);
-        if (Stitle == null || Stitle.isEmpty() || Stitle == "") {
-            questService.addModuleTestQuest(moduleTestQuest);
-        }
-
-        moduleTestQuest = questService.findByQuestDescribe(title);
-        System.out.println("查询后——————" + moduleTestQuest);
-        moduleTestAnswer.setQuestId(moduleTestQuest.getQuestId());
+        int qId = (int) session.getAttribute("questId");
+        System.out.println("qId:-------" + qId);
+        moduleTestAnswer.setQuestId(qId);
         answerService.addAnswers(moduleTestAnswer);
-
-        model.addAttribute("title", title);
-        System.out.println("这是post打印的题目————————" + title);
-        return "redirect:/shiyan/addAnswer";
+        return "redirect:/shiyan/addQuest";
     }
 
 
@@ -278,33 +331,37 @@ public class ModuleController {
 //        return "answerList";
 //    }
 
-//实验报告问题增加
+//  实验报告问题增加
 
     @GetMapping("addReport")
-    public String addReport(Model model
-    ) {
-//        Pageable pageable = PageRequest.of(pageNum, 10);
-//        Page<Report> reportList = reportService.findByReportPage(pageable);
-
-//        List<Report> addReport = reportService.loadReport();
-
-        model.addAttribute("addReport", new Report());
+    public String addReport() {
         return "shiyan/part-add";
     }
 
     @PostMapping("addReport")
-    public String addReport(Report report) {
+    public String addReport(Report report, HttpSession session,
+                            String reportDescribe, int reportOrder, String reportType, float reportScore) {
+        int id = (int) session.getAttribute("mId");
+//        Report r = new Report();
+        report.setReportOrder(reportOrder);
+        report.setReportDescribe(reportDescribe);
+        report.setReportType(reportType);
+        report.setReportScore(reportScore);
+        report.setmId(id);
         reportService.addReport(report);
-        return "redirect:/shiyan/reportList";
+//        reportService.addReport(report);
+        return "redirect:/shiyan/reportList/" + report.getmId();
     }
 
 //  删除实验报告
 
-    @RequestMapping("/deleteReport/{reportId}")
-    public String deleteReport(@PathVariable("reportId") String reportId) {
+    @RequestMapping("deleteReport/{reportId}")
+    public String deleteReport(@PathVariable("reportId") int reportId) {
         System.out.println("——————————————————" + reportId);
-        reportService.deleteReport(Integer.parseInt(reportId));
-        return "redirect:/shiyan/reportList";
+        Report report = reportService.findByReportId(reportId);
+        System.out.println("————————》" + report.getmId());
+        reportService.deleteReport(reportId);
+        return "redirect:/shiyan/reportList/" + report.getmId();
     }
 
     /**
@@ -329,9 +386,9 @@ public class ModuleController {
         r.setReportType(report.getReportType());
         r.setReportScore(report.getReportScore());
         r.setReportOrder(report.getReportOrder());
-        r.setmId(report.getmId());
+        r.setmId(r.getmId());
         reportService.addReport(r);
-        return "redirect:/shiyan/reportList";
+        return "redirect:/shiyan/reportList/" + r.getmId();
     }
 
 
@@ -339,12 +396,15 @@ public class ModuleController {
 
     @RequestMapping("reportList/{mId}")
     public String loadReport(Model model,
+                             HttpSession session,
                              @PathVariable("mId") int mId,
                              @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
 
         Pageable pageable = PageRequest.of(pageNum, 10);
-        Page<Report> reportList = reportService.findByReportPage(pageable,mId);
+        Page<Report> reportList = reportService.findByReportPage(pageable, mId);
+        session.setAttribute("mId", mId);
         model.addAttribute("reports", reportList);
+        model.addAttribute("mId",mId);
         return "shiyan/part-list";
     }
 
