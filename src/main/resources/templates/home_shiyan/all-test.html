@@ -14,11 +14,14 @@
 		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
 	</head>
 	<style type="text/css">
+		.main_con{
+			margin-left: 2%;
+		}
 		.layui-col-md4 {
 			padding: 1% 0;
 		}
 		.content{
-			width: 98%;
+			width: 89%;
 			box-shadow:2px 2px 10px #000;
 		}
 		.name{
@@ -60,7 +63,7 @@
 	</style>
 
 	<body>
-		<div class=" layui-container">
+		<div class="main_con">
 		  <div class="layui-row">
 		     <div class="layui-col-md4 " th:each="model:${list}">
 		    		<div class="content">
