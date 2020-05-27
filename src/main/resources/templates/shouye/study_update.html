@@ -52,9 +52,9 @@
 			<label class="layui-form-label">图片</label>
 			<div class="layui-upload">
 				<!--		  		<input type="file" name="file">上传图片</input>-->
-				<input type="file" name="file" value="请选择图片">
+				<input type="file" name="file" value="请选择图片" onchange="xmTanUploadImg(this)">
 				<div class="layui-upload-list">
-					<img style="width: 200px;" class="layui-upload-img" th:src="${effect.effect_imgurl}" id="demo1">
+					<img style="width: 200px;" class="layui-upload-img" id="selectImg" th:src="${effect.effect_imgurl}">
 					<p id="demoText"></p>
 				</div>
 			</div>
@@ -100,140 +100,149 @@
 </script>
 <script>
 
+	function xmTanUploadImg(obj) {
+		var file = obj.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function(e) { //成功读取文件
+			var img = document.getElementById("selectImg");
+			img.src = e.target.result;
+		};
+	}
 
 
-	layui.use('upload', function(){
-		var $ = layui.jquery
-				,upload = layui.upload;
-
-		//普通图片上传
-		var uploadInst = upload.render({
-			elem: '#test1'
-			// ,url: 'https://httpbin.org/post' //改成您自己的上传接口
-			,before: function(obj){
-				//预读本地文件示例，不支持ie8
-				obj.preview(function(index, file, result){
-					$('#demo1').attr('src', result); //图片链接（base64）
-				});
-			}
-			,done: function(res){
-				//如果上传失败
-				if(res.code > 0){
-					return layer.msg('上传失败');
-				}
-				//上传成功
-			}
-			,error: function(){
-				//演示失败状态，并实现重传
-				var demoText = $('#demoText');
-				demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-				demoText.find('.demo-reload').on('click', function(){
-					uploadInst.upload();
-				});
-			}
-		});
-
-
-
-		//多文件列表示例
-		var demoListView = $('#demoList')
-				,uploadListIns = upload.render({
-			elem: '#testList'
-			,url: 'https://httpbin.org/post' //改成您自己的上传接口
-			,accept: 'file'
-			,multiple: true
-			,auto: false
-			,bindAction: '#testListAction'
-			,choose: function(obj){
-				var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
-				//读取本地文件
-				obj.preview(function(index, file, result){
-					var tr = $(['<tr id="upload-'+ index +'">'
-						,'<td>'+ file.name +'</td>'
-						,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
-						,'<td>等待上传</td>'
-						,'<td>'
-						,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
-						,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
-						,'</td>'
-						,'</tr>'].join(''));
-
-					//单个重传
-					tr.find('.demo-reload').on('click', function(){
-						obj.upload(index, file);
-					});
-
-					//删除
-					tr.find('.demo-delete').on('click', function(){
-						delete files[index]; //删除对应的文件
-						tr.remove();
-						uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
-					});
-
-					demoListView.append(tr);
-				});
-			}
-			,done: function(res, index, upload){
-				if(res.files.file){ //上传成功
-					var tr = demoListView.find('tr#upload-'+ index)
-							,tds = tr.children();
-					tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
-					tds.eq(3).html(''); //清空操作
-					return delete this.files[index]; //删除文件队列已经上传成功的文件
-				}
-				this.error(index, upload);
-			}
-			,error: function(index, upload){
-				var tr = demoListView.find('tr#upload-'+ index)
-						,tds = tr.children();
-				tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
-				tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
-			}
-		});
-
-		//绑定原始文件域
-		upload.render({
-			elem: '#test20'
-			,url: 'https://httpbin.org/post' //改成您自己的上传接口
-			,done: function(res){
-				layer.msg('上传成功');
-				console.log(res)
-			}
-		});
-
-	});
+	// layui.use('upload', function(){
+	// 	var $ = layui.jquery
+	// 			,upload = layui.upload;
+	//
+	// 	//普通图片上传
+	// 	var uploadInst = upload.render({
+	// 		elem: '#test1'
+	// 		// ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+	// 		,before: function(obj){
+	// 			//预读本地文件示例，不支持ie8
+	// 			obj.preview(function(index, file, result){
+	// 				$('#demo1').attr('src', result); //图片链接（base64）
+	// 			});
+	// 		}
+	// 		,done: function(res){
+	// 			//如果上传失败
+	// 			if(res.code > 0){
+	// 				return layer.msg('上传失败');
+	// 			}
+	// 			//上传成功
+	// 		}
+	// 		,error: function(){
+	// 			//演示失败状态，并实现重传
+	// 			var demoText = $('#demoText');
+	// 			demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+	// 			demoText.find('.demo-reload').on('click', function(){
+	// 				uploadInst.upload();
+	// 			});
+	// 		}
+	// 	});
 
 
 
-	layui.use(['laypage', 'layer'], function(){
-		var laypage = layui.laypage
-				,layer = layui.layer;
-		//总页数大于页码总数
-		laypage.render({
-			elem: 'demo1'
-			,count: 70 //数据总数
-			,jump: function(obj){
-				console.log(obj)
-			}
-		});
-		//调用分页
-		laypage.render({
-			elem: 'demo20'
-			,count: data.length
-			,jump: function(obj){
-				//模拟渲染
-				document.getElementById('biuuu_city_list').innerHTML = function(){
-					var arr = []
-							,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-					layui.each(thisData, function(index, item){
-						arr.push('<li>'+ item +'</li>');
-					});
-					return arr.join('');
-				}();
-			}
-		});
-
-	});
+	// 	//多文件列表示例
+	// 	var demoListView = $('#demoList')
+	// 			,uploadListIns = upload.render({
+	// 		elem: '#testList'
+	// 		,url: 'https://httpbin.org/post' //改成您自己的上传接口
+	// 		,accept: 'file'
+	// 		,multiple: true
+	// 		,auto: false
+	// 		,bindAction: '#testListAction'
+	// 		,choose: function(obj){
+	// 			var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+	// 			//读取本地文件
+	// 			obj.preview(function(index, file, result){
+	// 				var tr = $(['<tr id="upload-'+ index +'">'
+	// 					,'<td>'+ file.name +'</td>'
+	// 					,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+	// 					,'<td>等待上传</td>'
+	// 					,'<td>'
+	// 					,'<button class="layui-btn layui-btn-xs demo-reload layui-hide">重传</button>'
+	// 					,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+	// 					,'</td>'
+	// 					,'</tr>'].join(''));
+	//
+	// 				//单个重传
+	// 				tr.find('.demo-reload').on('click', function(){
+	// 					obj.upload(index, file);
+	// 				});
+	//
+	// 				//删除
+	// 				tr.find('.demo-delete').on('click', function(){
+	// 					delete files[index]; //删除对应的文件
+	// 					tr.remove();
+	// 					uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+	// 				});
+	//
+	// 				demoListView.append(tr);
+	// 			});
+	// 		}
+	// 		,done: function(res, index, upload){
+	// 			if(res.files.file){ //上传成功
+	// 				var tr = demoListView.find('tr#upload-'+ index)
+	// 						,tds = tr.children();
+	// 				tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+	// 				tds.eq(3).html(''); //清空操作
+	// 				return delete this.files[index]; //删除文件队列已经上传成功的文件
+	// 			}
+	// 			this.error(index, upload);
+	// 		}
+	// 		,error: function(index, upload){
+	// 			var tr = demoListView.find('tr#upload-'+ index)
+	// 					,tds = tr.children();
+	// 			tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+	// 			tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+	// 		}
+	// 	});
+	//
+	// 	//绑定原始文件域
+	// 	upload.render({
+	// 		elem: '#test20'
+	// 		,url: 'https://httpbin.org/post' //改成您自己的上传接口
+	// 		,done: function(res){
+	// 			layer.msg('上传成功');
+	// 			console.log(res)
+	// 		}
+	// 	});
+	//
+	// });
+	//
+	//
+	//
+	// layui.use(['laypage', 'layer'], function(){
+	// 	var laypage = layui.laypage
+	// 			,layer = layui.layer;
+	// 	//总页数大于页码总数
+	// 	laypage.render({
+	// 		elem: 'demo1'
+	// 		,count: 70 //数据总数
+	// 		,jump: function(obj){
+	// 			console.log(obj)
+	// 		}
+	// 	});
+	// 	//调用分页
+	// 	laypage.render({
+	// 		elem: 'demo20'
+	// 		,count: data.length
+	// 		,jump: function(obj){
+	// 			//模拟渲染
+	// 			document.getElementById('biuuu_city_list').innerHTML = function(){
+	// 				var arr = []
+	// 						,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+	// 				layui.each(thisData, function(index, item){
+	// 					arr.push('<li>'+ item +'</li>');
+	// 				});
+	// 				return arr.join('');
+	// 			}();
+	// 		}
+	// 	});
+	//
+	// });
 
 </script>
 

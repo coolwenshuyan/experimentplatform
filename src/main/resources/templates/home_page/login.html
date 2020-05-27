@@ -136,7 +136,7 @@
 									<input style="width: 40%;height: 38px;float: left;" type="text" name="code" placeholder="请输入验证码" autocomplete="off">
 									<div style="width: 49%;float: left;height: 50px;">
 										<img  id="verifyimg" th:src="@{/verifyCode}" style="width: 60%;height: 30px;float: left;" alt="">
-										<a href="javascript:void(0)" onclick="javascript:refreshCaptcha()" style="color: coral;float: left">(看不清?换一张)</a>
+										<a onclick="refreshCaptcha()" style="color: coral;float: left">(看不清?换一张)</a>
 									</div>
 								</div>
 
@@ -168,7 +168,7 @@
 									</p>
 
 									<div class="errorInfo text-center" id="errorInfo">
-										<p th:text="${msg}" style="color: red"></p>
+										<p th:text="${msg1}" style="color: red"></p>
 
 									</div>
 								</div>
@@ -313,64 +313,64 @@
 		}
 	});
 
-	$('#submidt').click(function () {
-                    username=$("#username").val();
-                    password=$("#password").val();
-                    job=$("#job").val();
-                    // alert(job);return false;
-                    jizhu=[];
-                    $("input[name='jizhu[]']:checked").each(function(){
-                    jizhu.push($(this).val());
-                    });
-                     var jizhu=jizhu.length;
-                     $.post("/index.php/Home/Login/StudentLogin_do.html",{'stuid':username,"password":password,'jizhu':jizhu,job:job},function(data){
-                        if(data==1){
-                            if(""){
-                            location.href="";
-                            }else{
-                                
-                            location.href="/index.php/Home/Course/resource.html";
-                            }
-                        }else if(data==2){
-                            alert('账号尚未审核');
-                        }else if(data==3){
-                            alert('账号被冻结');
-                        }else if(data==5){
-                            location.href="/index.php/Admin/Index/index.html";
-
-                        }else{
-                            alert('学号不存在或密码错误！！');
-                        }
-                     })
-                 })
-                    $('#submitp').click(function () {
-                    
-                    // alert(job);return false;
-                    jizhu=[];
-                    $("input[name='jizhu[]']:checked").each(function(){
-                    jizhu.push($(this).val());
-                    });
-                     var jizhu=jizhu.length;
-                     $.post("/index.php/Home/Login/StudentLogin_do.html",{'stuid':'zhuanjia',"password":'2018pingshen',job:1},function(data){
-                        if(data==1){
-                        	if(""){
-                            location.href="";
-                            }else{
-                                
-                            location.href="/index.php/Home/Course/resource.html";
-                            }
-                        }else if(data==2){
-                            alert('账号尚未审核');
-                        }else if(data==3){
-                            alert('账号被冻结');
-                        }else if(data==5){
-                            location.href="/index.php/Admin/Index/index.html";
-
-                        }else{
-                            alert('学号不存在或密码错误！！');
-                        }
-                     })
-                 })
+	// $('#submidt').click(function () {
+    //                 username=$("#username").val();
+    //                 password=$("#password").val();
+    //                 job=$("#job").val();
+    //                 // alert(job);return false;
+    //                 jizhu=[];
+    //                 $("input[name='jizhu[]']:checked").each(function(){
+    //                 jizhu.push($(this).val());
+    //                 });
+    //                  var jizhu=jizhu.length;
+    //                  $.post("/index.php/Home/Login/StudentLogin_do.html",{'stuid':username,"password":password,'jizhu':jizhu,job:job},function(data){
+    //                     if(data==1){
+    //                         if(""){
+    //                         location.href="";
+    //                         }else{
+    //
+    //                         location.href="/index.php/Home/Course/resource.html";
+    //                         }
+    //                     }else if(data==2){
+    //                         alert('账号尚未审核');
+    //                     }else if(data==3){
+    //                         alert('账号被冻结');
+    //                     }else if(data==5){
+    //                         location.href="/index.php/Admin/Index/index.html";
+	//
+    //                     }else{
+    //                         alert('学号不存在或密码错误！！');
+    //                     }
+    //                  })
+    //              })
+    //                 $('#submitp').click(function () {
+    //
+    //                 // alert(job);return false;
+    //                 jizhu=[];
+    //                 $("input[name='jizhu[]']:checked").each(function(){
+    //                 jizhu.push($(this).val());
+    //                 });
+    //                  var jizhu=jizhu.length;
+    //                  $.post("/index.php/Home/Login/StudentLogin_do.html",{'stuid':'zhuanjia',"password":'2018pingshen',job:1},function(data){
+    //                     if(data==1){
+    //                     	if(""){
+    //                         location.href="";
+    //                         }else{
+    //
+    //                         location.href="/index.php/Home/Course/resource.html";
+    //                         }
+    //                     }else if(data==2){
+    //                         alert('账号尚未审核');
+    //                     }else if(data==3){
+    //                         alert('账号被冻结');
+    //                     }else if(data==5){
+    //                         location.href="/index.php/Admin/Index/index.html";
+	//
+    //                     }else{
+    //                         alert('学号不存在或密码错误！！');
+    //                     }
+    //                  })
+    //              })
                        
 </script>
 

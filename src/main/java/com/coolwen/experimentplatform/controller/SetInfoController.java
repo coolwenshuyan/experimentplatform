@@ -68,10 +68,10 @@ public class SetInfoController {
             setInfo1.setSet_rotateimg("1,2,3,4");
             setInfoService.add(setInfo1);
             model.addAttribute("setInfo",setInfo1);
-            return "/shouye/aboutUs";
+            return "shouye/aboutUs";
         }
         model.addAttribute("setInfo",setInfo);
-        return "/shouye/aboutUs";
+        return "shouye/aboutUs";
     }
 
     //完成设置添加
@@ -100,10 +100,10 @@ public class SetInfoController {
             setInfo1.setSet_rotateimg("1,2,3,4");
             setInfoService.add(setInfo1);
             model.addAttribute("setInfo",setInfo1);
-            return "/shouye/aboutPlatform";
+            return "shouye/aboutPlatform";
         }
         model.addAttribute("setInfo",setInfo);
-        return "/shouye/aboutPlatform";
+        return "shouye/aboutPlatform";
     }
 
     //完成设置添加
