@@ -5,6 +5,8 @@
 	<meta charset="UTF-8">
 	<title>修改理论</title>
 
+<!--	<link rel="stylesheet" type="text/css" href="../static/css/layui.css" />-->
+	<!--<script src="../js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
 	<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
 	<style type="text/css">
@@ -109,7 +111,8 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">实验步骤:</label>
 		<div class="layui-input-block">
-			<input type="text" name="m_step" lay-verify="title" autocomplete="off" placeholder="请输入实验步骤" class="layui-input" th:value="${preExpModel.m_step}">
+			<script id="editor4" name = "m_step" type="text/plain" th:utext="${preExpModel.m_step}">
+			</script>
 		</div>
 	</div>
 
@@ -138,8 +141,8 @@
 	editor.render("editor2");
 	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
 	editor.render("editor3");
-
-
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	editor.render("editor4");
 	var files = [];
 	var path = '';
 	//多文件列表示例

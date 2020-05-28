@@ -95,7 +95,9 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">实验步骤:</label>
 				<div class="layui-input-block">
-					<input type="text" name="m_step" lay-verify="title" autocomplete="off" placeholder="请输入实验步骤" class="layui-input">
+					<script id="editor4" name = "m_step" type="text/plain">
+
+					</script>
 				</div>
 			</div>
 
@@ -115,12 +117,18 @@
 		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 		<script type="text/javascript">
+
+
+
+
 			var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
 			editor.render("editor1");
 			var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
 			editor.render("editor2");
 			var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
 			editor.render("editor3");
+			var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+			editor.render("editor4");
 
 
 
