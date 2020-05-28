@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -89,7 +90,6 @@ public class ExpModelController {
 //模块删除
         @GetMapping("/deleteExpModel/{id}")
     public String delete(@PathVariable("id")int id){
-        expModelService.deleteExpModelById(id);
         //删除考核模块以及更改学生相关成绩
         KaoheModel kaoheModel = kaoheModelService.findKaoheModelByMid(id);
         if(kaoheModel != null){
@@ -118,15 +118,16 @@ public class ExpModelController {
             reportAnswerService.deleteReportAnswerByReportId(r.getReportId());
         }
         reportService.deleteReports(reports);
-
+        expModelService.deleteExpModelById(id);
         return "redirect:/expmodel/list";
     }
 //模块更新
     @GetMapping("/updateExpModel/{id}")
-    public String toUpdate(@PathVariable("id") int id,Model model,HttpServletRequest request){
+    public String toUpdate(@PathVariable("id") int id,Model model,HttpServletRequest request,HttpSession session){
         ExpModel expModel = expModelService.findExpModelByID(id);
         model.addAttribute("preExpModel",expModel);
         model.addAttribute("image",expModel.getImageurl());
+        session.setAttribute("modelId",expModel.getM_id());
         return "shiyan/changeExpModel";
     }
 
@@ -182,7 +183,7 @@ public class ExpModelController {
         expModelService.save(expModel);
         return "redirect:/expmodel/list";
     }
-//理论资料上传接口
+//理论资料添加上传接口
     @PostMapping("/addTheoryFile/{id}")
     @ResponseBody
     public String AddExpTheory(@PathVariable("id") int id,
@@ -190,7 +191,45 @@ public class ExpModelController {
                                HttpServletRequest request
     )
     {
-        System.out.println(file);
+        String pathString = null;
+        if(file!=null) {
+            String filename = file.getOriginalFilename();
+            int unixSep = filename.lastIndexOf('/');
+            int winSep = filename.lastIndexOf('\\');
+            int pos = (winSep > unixSep ? winSep:unixSep);
+            if (pos != -1)
+                filename = filename.substring(pos + 1);
+                pathString =  fIleService.upload(request,file,filename);
+        }
+        return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
+    }
+
+    @PostMapping("/savePath/{mid}")
+    @ResponseBody
+    public String savePathn(@PathVariable("mid") int id, @RequestParam("path") String path, HttpServletRequest request){
+        ExpModel expModel = expModelService.findExpModelByID(id);
+        String total = "";
+        String[] url = path.split(",");
+        for (String s : url){
+            total += request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpData/"+s+",";
+        }
+        expModel.setM_edataurl(total);
+        expModelService.save(expModel);
+        return "";
+    }
+
+
+
+    //理论资料修改上传接口
+    @PostMapping("/updateTheoryFile/{id}")
+    @ResponseBody
+    public String updateExpTheory(@PathVariable("id") int id,
+                               MultipartFile file,
+                               HttpServletRequest request
+    )
+    {
+        ExpModel expModel = expModelService.findExpModelByID(id);
+        expModel.setM_edataurl("");
         String pathString = null;
         if(file!=null) {
             String filename = file.getOriginalFilename();
@@ -201,18 +240,18 @@ public class ExpModelController {
                 filename = filename.substring(pos + 1);
             pathString =  fIleService.upload(request,file);
         }
-        ExpModel expModel = expModelService.findExpModelByID(id);
-        expModel.setM_edataurl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpData/"+pathString);
-        expModelService.save(expModel);
         return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
     }
-
 
     //理论更新
     @GetMapping("/updateExpTheory/{id}")
     public String toUpdateExpTheory(@PathVariable("id") int id,Model model){
         ExpModel expModel = expModelService.findExpModelByID(id);
         model.addAttribute("preExpModel",expModel);
+        if(expModel.getM_edataurl() != null){
+            String[] path = expModel.getM_edataurl().split(",");
+            model.addAttribute("path",path);
+        }
         return "shiyan/changeTheory";
     }
 
@@ -239,20 +278,20 @@ public class ExpModelController {
         return "redirect:/expmodel/list";
     }
 
-//理论删除
-    @GetMapping("/deleteTheory/{id}")
-    public String deleteTheory(@PathVariable("id")int id){
-        ExpModel expModel = expModelService.findExpModelByID(id);
-        expModel.setIntroduce(null);
-        expModel.setPurpose(null);
-        expModel.setPrinciple(null);
-        expModel.setM_content(null);
-        expModel.setM_edata_intro(null);
-        expModel.setM_step(null);
-        expModel.setM_edataurl(null);
-        expModelService.save(expModel);
-        return "redirect:/expmodel/list";
-    }
+////理论删除
+//    @GetMapping("/deleteTheory/{id}")
+//    public String deleteTheory(@PathVariable("id")int id){
+//        ExpModel expModel = expModelService.findExpModelByID(id);
+//        expModel.setIntroduce(null);
+//        expModel.setPurpose(null);
+//        expModel.setPrinciple(null);
+//        expModel.setM_content(null);
+//        expModel.setM_edata_intro(null);
+//        expModel.setM_step(null);
+//        expModel.setM_edataurl(null);
+//        expModelService.save(expModel);
+//        return "redirect:/expmodel/list";
+//    }
 
     @GetMapping("/viewExpModel")
     public String viewModel(@RequestParam("m_name") String m_name,Model model){
@@ -287,7 +326,11 @@ public class ExpModelController {
         ExpModel expModel = expModelService.findExpModelByID(id);
         model.addAttribute("exp",expModel);
         String path = expModel.getM_edataurl();
-        return "home_shiyan/study";
+        if(path != null){
+            String[] paths = path.split(",");
+            model.addAttribute("path",paths);
+        }
+        return "home_shiyan/study_update";
     }
 
 

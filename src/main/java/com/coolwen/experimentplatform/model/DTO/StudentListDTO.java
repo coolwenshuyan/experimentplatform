@@ -1,31 +1,28 @@
 package com.coolwen.experimentplatform.model.DTO;
 
+public class StudentListDTO {
 
-public class StudentVo {
-    private int id;
+        private int id;
 
-    private String stuUname;
+        private String stuUname;
 
-    private String stuPassword;
+        private String stuPassword;
 
-    private String stuName;
+        private String stuName;
 
-    private String stuXuehao;
+        private String stuXuehao;
 
-    private String stuMobile;
+        private String stuMobile;
 
-    private boolean stuCheckstate;
+        private boolean stuCheckstate;
 
-    private boolean stuIsinschool;
+        private boolean stuIsinschool;
 
-    private String className;
+        private String className;
 
-//    private int classid;
+        private int classid;
 
-    public StudentVo() {
-    }
-
-    public StudentVo(int id, String stuUname, String stuPassword, String stuName, String stuXuehao, String stuMobile, boolean stuCheckstate, boolean stuIsinschool, String className) {
+    public StudentListDTO(int id, String stuUname, String stuPassword, String stuName, String stuXuehao, String stuMobile, boolean stuCheckstate, boolean stuIsinschool, String className, int classid) {
         this.id = id;
         this.stuUname = stuUname;
         this.stuPassword = stuPassword;
@@ -35,15 +32,8 @@ public class StudentVo {
         this.stuCheckstate = stuCheckstate;
         this.stuIsinschool = stuIsinschool;
         this.className = className;
+        this.classid = classid;
     }
-
-//    public int getClassid() {
-//        return classid;
-//    }
-//
-//    public void setClassid(int classid) {
-//        this.classid = classid;
-//    }
 
     public int getId() {
         return id;
@@ -115,5 +105,13 @@ public class StudentVo {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public int getClassid() {
+        return classid;
+    }
+
+    public void setClassid(int classid) {
+        this.classid = classid;
     }
 }

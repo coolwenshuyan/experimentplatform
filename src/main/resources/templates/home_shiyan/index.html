@@ -13,11 +13,14 @@
 </head>
 
 <style type="text/css">
+	.main_con{
+		margin-left: 4%;
+	}
 	.layui-col-md4 {
 		padding: 1% 0;
 	}
 	.content{
-		width: 98%;
+		width: 88%;
 		box-shadow:2px 2px 10px #000;
 	}
 	.name{
@@ -34,7 +37,8 @@
 	.change .layui-nav .layui-nav-item a{
 		color: #61b577;
 		padding:0 5px ;
-		font-size: 15px;
+		font-size: 14px;
+		font-weight: bold;
 
 	}
 	.img img{
@@ -61,7 +65,7 @@
 <body>
 
 
-<div class="layui-container" style="float: none">
+<div class="main_con" style="float: none">
 	<div class="layui-row">
 		<div class="layui-col-xs4 " th:each="model:${k}">
 			<div class="content">
@@ -87,7 +91,7 @@
 						<ul class="layui-nav" lay-filter="" >
 							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
 							<li class="layui-nav-item"><a href="test.html">模块测试</a></li>
-							<li class="layui-nav-item"><a href="">进入实验</a></li>
+							<li class="layui-nav-item"><a th:href="${model.inurl}">进入实验</a></li>
 							<li class="layui-nav-item"><a href="tian.html">填写报告</a></li>
 						</ul>
 					</div>

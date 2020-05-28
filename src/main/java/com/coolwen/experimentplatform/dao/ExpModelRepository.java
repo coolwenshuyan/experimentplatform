@@ -28,5 +28,8 @@ public interface ExpModelRepository extends BaseRepository<ExpModel,Integer> {
     @Query("select e.m_id from ExpModel e where e.m_id =?1")
     int findByM_id(int m_id);
 
+    @Query("select exp from ExpModel exp,KaoheModel km where exp.m_id = km.m_id and km.m_id = ?1")
+    ExpModel findExpModelsByKaoheMid(int mid);
+
 
 }

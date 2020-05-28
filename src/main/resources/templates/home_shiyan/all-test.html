@@ -14,11 +14,14 @@
 		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
 	</head>
 	<style type="text/css">
+		.main_con{
+			margin-left: 4%;
+		}
 		.layui-col-md4 {
 			padding: 1% 0;
 		}
 		.content{
-			width: 98%;
+			width: 88%;
 			box-shadow:2px 2px 10px #000;
 		}
 		.name{
@@ -35,7 +38,8 @@
 		.change .layui-nav .layui-nav-item a{
 			color: #61b577;
 			padding:0 5px ;
-			font-size: 15px;
+			font-size: 14px;
+			font-weight: bold;
 
 		}
 		.img img{
@@ -60,7 +64,7 @@
 	</style>
 
 	<body>
-		<div class=" layui-container">
+		<div class="main_con">
 		  <div class="layui-row">
 		     <div class="layui-col-md4 " th:each="model:${list}">
 		    		<div class="content">
@@ -76,7 +80,7 @@
 				     			<ul class="layui-nav" lay-filter="" >
 								  <li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
 								  <li class="layui-nav-item "><a href="test.html">模块测试</a></li>
-								  <li class="layui-nav-item"><a href="">进入实验</a></li>
+								  <li class="layui-nav-item"><a th:href="${model.getM_inurl()}">进入实验</a></li>
 								  <li class="layui-nav-item">
 								    <a href="tian.html">填写报告</a>
 								  </li>
@@ -90,8 +94,8 @@
 			<div class="layui-card-body ">
 				<div class="page">
 					<div>
-						<a class="prev layui-btn" th:href="@{/expmodel/alltest(pageNum=${list.hasPrevious()}?${list.number}-1:0)}">上一页</a>
-						<a class="next layui-btn" th:href="@{/expmodel/alltest(pageNum=${list.hasNext()}?${list.number}+1:${list.number})}">下一页</a>
+						<a class="prev layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasPrevious()}?${list.number}-1:0)}">上一页</a>
+						<a class="next layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasNext()}?${list.number}+1:${list.number})}">下一页</a>
 					</div>
 				</div>
 			</div>

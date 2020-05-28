@@ -25,6 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
+/**
+ * @author Artell
+ * @version 2020/5/13 12:21
+ * 对考核进行编辑管理
+ */
+
 @Controller
 @RequestMapping("/kaohemodel")
 public class KaoheModelController {
@@ -44,11 +50,13 @@ public class KaoheModelController {
     @RequestMapping(value = "/allModule", method = RequestMethod.GET)
     public String loadAllModel(Model model,
                                @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
-//    public String loadAllModel(Model model) {
-
+        // 这是一个整数列表,用来存放所有的考核模块的实验模块id,在视图上用来判断此实验是否已经在考核中
         List<Integer> check = kaoheModelService.inKaoheList();
         model.addAttribute("checkList", check);
+
+        //这个是所有的实验模块
         Page<ExpModel> a = expModelService.findModelList(pageNum);
+        model.addAttribute("allKaohe", a);
 //        List <ExpModels> b = null;
 //        for (ExpModel x:a){
 //            ExpModels c = new ExpModels(x.getM_id(),
@@ -73,7 +81,6 @@ public class KaoheModelController {
 //            }
 //            b.add(c);
 //        }
-        model.addAttribute("allKaohe", a);
         return "kaohe/allModule";
     }
 
@@ -82,10 +89,13 @@ public class KaoheModelController {
      */
     @RequestMapping(value = "/checkModule", method = RequestMethod.GET)
     public String list(Model model, @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) throws JsonProcessingException {
+        // 所以的考核模块
         Pageable pageable = PageRequest.of(pageNum, 5);
         Page<KaoheModel> page = kaoheModelService.findAll(pageable);
         model.addAttribute("kaoheModelPageInfo", page);
         System.out.println("page:" + page.getTotalElements());
+
+        //分页
         ObjectMapper mapper = new ObjectMapper();
         System.out.println("json:" + mapper.writeValueAsString(page));
         return "kaohe/checkModule";
@@ -96,9 +106,10 @@ public class KaoheModelController {
      */
     @RequestMapping(value = {"/{mid}/moveIn"}, method = RequestMethod.GET)
     public String add(@PathVariable int mid, Model model) {
+        // 获得此模块的信息
         ExpModel expModel = expModelService.findExpModelByID(mid);
-        expModelService.findExpModelByID(mid);
         model.addAttribute("expInfo", expModel);
+
         model.addAttribute("moveIn", new KaoheModel());
         return "kaohe/moveIn";
     }
@@ -128,6 +139,8 @@ public class KaoheModelController {
         for (Student i : studentService.findAll()) {
             kaoHeModelScoreService.add(new KaoHeModelScore(u.getId(), i.getId(), 0, 0, u.getM_order(), u.getM_scale()));
         }
+        // 当期限定
+        // 表13 考核项目数增加
         expModelService.save(expModel);
         System.out.println(">>>>>>>>>>>>add");
         return "redirect:/kaohemodel/allModule";
@@ -172,11 +185,18 @@ public class KaoheModelController {
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable int id) {
 
+        // 遍历当期需要参加考核的学生 ,查到这个学生的,这个考核模块的成绩
+        // 更新考核额数
+
+        // 获得此考核模块的,实验模块
         int mid = kaoheModelService.findById(id).getM_id();
         ExpModel expModel = expModelService.findExpModelByID(mid);
+        // 将实验模块的考核状态设置为不考核
         expModel.setNeedKaohe(false);
         expModelService.save(expModel);
+        // 删除此考核模块
         kaoheModelService.delete(id);
+
 //        kaoHeModelScoreService.deleteAllByKaohemId(id);
         System.out.println("移出成功");
         return "redirect:/kaohemodel/checkModule";

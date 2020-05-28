@@ -59,9 +59,9 @@
 				<div class="layui-form-item">
 				    <label class="layui-form-label">实验简介图片:</label>
 				    <div class="layui-upload">
-						<input type="file" id="test1" name="m_image" value="上传图片"/>
+						<input type="file" id="test1" name="m_image" value="上传图片"  onchange="xmTanUploadImg(this)"/>
 						  <div class="layui-upload-list">
-						    <img class="layui-upload-img" id="demo1" th:src="${image}"/>
+						    <img class="layui-upload-img" id="selectImg" th:src="${image}"/>
 						    <p id="demoText"></p>
 						  </div>
 					</div>  
@@ -100,7 +100,7 @@
 				      <input class="layui-btn" lay-submit lay-filter="formDemo" value="修改" type="submit">
 				      <button type="reset" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">取消</button>
 				      	<a type="layui-btn" class="layui-btn layui-bg-green" href="" th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
-				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteTheory/${preExpModel.m_id}|}">删除理论学习</a>
+<!--				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteTheory/${preExpModel.m_id}|}">删除理论学习</a>-->
 				    </div>
 				</div>
 			</form>
@@ -108,36 +108,47 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		layui.use('upload', function(){
-		  var $ = layui.jquery
-		  ,upload = layui.upload;
-		  
-		  //普通图片上传
-		  var uploadInst = upload.render({
-		    elem: '#test1'
-		    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
-		    ,before: function(obj){
-		      //预读本地文件示例，不支持ie8
-		      obj.preview(function(index, file, result){
-		        $('#demo1').attr('src', result); //图片链接（base64）
-		      });
-		    }
-		    ,done: function(res){
-		      //如果上传失败
-		      if(res.code > 0){
-		        return layer.msg('上传失败');
-		      }
-		      //上传成功
-		    }
-		    ,error: function(){
-		      //演示失败状态，并实现重传
-		      var demoText = $('#demoText');
-		      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-		      demoText.find('.demo-reload').on('click', function(){
-		        uploadInst.upload();
-		      });
-		    }
-		  });
-		});
+
+		function xmTanUploadImg(obj) {
+			var file = obj.files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(e) { //成功读取文件
+				var img = document.getElementById("selectImg");
+				img.src = e.target.result;
+			};
+		}
+
+		// layui.use('upload', function(){
+		//   var $ = layui.jquery
+		//   ,upload = layui.upload;
+		//
+		//   //普通图片上传
+		//   var uploadInst = upload.render({
+		//     elem: '#test1'
+		//     ,url: 'https://httpbin.org/post' //改成您自己的上传接口
+		//     ,before: function(obj){
+		//       //预读本地文件示例，不支持ie8
+		//       obj.preview(function(index, file, result){
+		//         $('#demo1').attr('src', result); //图片链接（base64）
+		//       });
+		//     }
+		//     ,done: function(res){
+		//       //如果上传失败
+		//       if(res.code > 0){
+		//         return layer.msg('上传失败');
+		//       }
+		//       //上传成功
+		//     }
+		//     ,error: function(){
+		//       //演示失败状态，并实现重传
+		//       var demoText = $('#demoText');
+		//       demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+		//       demoText.find('.demo-reload').on('click', function(){
+		//         uploadInst.upload();
+		//       });
+		//     }
+		//   });
+		// });
 	</script>
 </html>

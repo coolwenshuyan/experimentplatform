@@ -51,7 +51,13 @@
                     <!--<input type="text" name="title" required lay-verify="required" placeholder="请输入题目" autocomplete="off" class="layui-input">-->
                 </div>
             </div>
-
+            <div class="layui-form-item">
+                <label class="layui-form-label">问题序号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="questOrder" th:value="${UpQuest.questOrder}" required lay-verify="required"
+                           placeholder="1" autocomplete="off" class="layui-input">
+                </div>
+            </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">分数</label>
@@ -67,13 +73,13 @@
                     <input type="radio" name="questType"  th:field="${UpQuest.questType}" value="多选" title="多选">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">实验模块</label>
-                <div class="layui-input-block">
-                    <input type="text" name="mId" th:value="${UpQuest.mId}" required lay-verify="required" placeholder="1" autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
+            <!--<div class="layui-form-item">-->
+                <!--<label class="layui-form-label">实验模块</label>-->
+                <!--<div class="layui-input-block">-->
+                    <!--<input type="text" name="mId" th:value="${UpQuest.mId}" required lay-verify="required" placeholder="1" autocomplete="off"-->
+                           <!--class="layui-input">-->
+                <!--</div>-->
+            <!--</div>-->
 
             <div class="layui-form-item">
                 <label class="layui-form-label">答案</label>
@@ -85,7 +91,7 @@
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="layui-btn" class="layui-btn layui-btn-primary">取消</button>
+                    <a th:href="@{|/shiyan/list/${UpQuest.mId}|}" type="layui-btn" class="layui-btn layui-btn-primary">取消</a>
                     <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
                 </div>
             </div>

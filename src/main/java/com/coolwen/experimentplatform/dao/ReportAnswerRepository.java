@@ -29,4 +29,6 @@ public interface ReportAnswerRepository extends BaseRepository<ReportAnswer,Inte
     @Query("select ra from ReportAnswer  ra where ra.reportId = ?1")
     List<ReportAnswer> findReportAnswerByReportId(int reportId);
 
+    @Query("select ra from ReportAnswer ra where ra.stuId = ?1")
+    List<ReportAnswer> findReportAnswerByStuId(int id);
 }

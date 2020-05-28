@@ -5,8 +5,6 @@
 	<meta charset="UTF-8">
 	<title>修改理论</title>
 
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/layui.css" />-->
-	<!--<script src="../js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
 	<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
 	<style type="text/css">
@@ -15,6 +13,17 @@
 		}
 		.layui-form-label{
 			font-weight: 900;
+			with:140px;
+		}
+
+		.layui-input-block{
+			margin-left: 160px;
+		}
+		.layui-input, .layui-textarea{
+			width: 800px;
+		}
+		.layui-table{
+			width: 800px;
 		}
 	</style>
 </head>
@@ -57,7 +66,22 @@
 		</div>
 	</div>
 	<div class="layui-form-item">
-		<label class="layui-form-label">实验资料:</label>
+		<label class="layui-form-label">当前实验资料:</label>
+		<div class="layui-input-block">
+			<table class="layui-table">
+				<tr>
+					<td>文件路径</td>
+				</tr>
+				<tr th:each="p:${path}">
+					<td>
+						<a th:href="${p}" th:text="${p}"></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">修改实验资料:</label>
 		<div class="layui-input-block">
 			<div class="layui-upload">
 				<button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
@@ -107,10 +131,17 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-	UE.getEditor('editor1');
-	UE.getEditor('editor2');
-	UE.getEditor('editor3');
+
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	editor.render("editor1");
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	editor.render("editor2");
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	editor.render("editor3");
+
+
 	var files = [];
+	var path = '';
 	//多文件列表示例
 	layui.use(['upload','element','jquery'], function(){
 		var $ = layui.jquery;
@@ -121,12 +152,23 @@
 		var demoListView = $('#demoList')
 				,uploadListIns = upload.render({
 			elem: '#testList'
-			,url: '/expmodel/addTheoryFile/'+modelId //改成您自己的上传接口
+			,url: '/expmodel/updateTheoryFile/'+modelId //改成您自己的上传接口
 			,accept:'file'
 			,filed:"files"
 			,multiple: true
 			,auto: false
 			,bindAction: '#testListAction'
+			,allDone:function (obj) {
+				$.ajax({
+					url: "/expmodel/savePath/"+modelId,
+					data:{"path":path},
+					type:"post",
+					success:function () {
+						layer.msg("successful")
+						console.log(path)
+					}
+				})
+			}
 			,choose: function(obj){
 				var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
 				//读取本地文件
@@ -160,6 +202,7 @@
 				if (res.code == 0){
 					files.push({"fileName":res.filename,"fileUrl":res.fileUrl,"fileSize":res.fileSize});//,"fileUrl":res.fileUrl
 					var json = JSON.stringify(files);
+					path=path+res.fileUrl+","
 					//将上传的文件信息加入到集合中并转换成json字符串
 					$("#fileJson").attr("value",json);
 

@@ -40,6 +40,7 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
     @Override
     public void deleteAllByKaohemId(Integer kaohemid) {
         kaoHeModelScoreRepository.deleteByTKaohemodleId(kaohemid);
+        System.out.println("删除所有成绩记录成功!");
     }
 
 
@@ -72,5 +73,21 @@ public class KaoHeModelScoreServiceImpl implements KaoHeModelScoreService {
     @Override
     public void deleteAllKaohe(List<KaoHeModelScore> kaoHeModelScores) {
         kaoHeModelScoreRepository.deleteAll(kaoHeModelScores);
+    }
+
+    @Override
+    public void deleteKaoheModuleScoreByStuId(int id) {
+        List<KaoHeModelScore> list = kaoHeModelScoreRepository.findKaoHeModelScoreByStuId(id);
+        kaoHeModelScoreRepository.deleteAll(list);
+    }
+
+    @Override
+    public KaoHeModelScore findKaoHeModelScoreByStuIdAndId(int stuid, int id) {
+        return kaoHeModelScoreRepository.findKaoHeModelScoreByStuIdAndId(stuid, id);
+    }
+
+    @Override
+    public List<KaoHeModelScore> findKaoheModuleScoreByStuId(int stuid) {
+        return kaoHeModelScoreRepository.findKaoHeModelScoreByStuId(stuid);
     }
 }

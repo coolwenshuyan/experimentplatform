@@ -15,4 +15,6 @@ public interface ModuleTestAnswerStuService {
     void add(ModuleTestAnswerStu mtastu);
 
     List<ModuleTestAnswerStu> findAllModuleTestAnswerStuByStuidAndQuestId(int Stuid,int QuestId);
+
+    void deleteModuleTestAnswerStuByStuId(int id);
 }

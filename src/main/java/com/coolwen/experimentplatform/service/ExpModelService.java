@@ -28,6 +28,8 @@ public interface ExpModelService {
 
     int findByMid(int m_id);
 
+    ExpModel findExpModelsByKaoheMid(int mid);
+
 
 
 }

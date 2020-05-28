@@ -31,5 +31,11 @@ public interface KaoHeModelScoreService {
 
     void deleteAllKaohe(List<KaoHeModelScore> kaoHeModelScores);
 
+    void deleteKaoheModuleScoreByStuId(int id);
+
+    KaoHeModelScore findKaoHeModelScoreByStuIdAndId(int stuid,int id);
+
+    List<KaoHeModelScore> findKaoheModuleScoreByStuId(int stuid);
+
 
 }

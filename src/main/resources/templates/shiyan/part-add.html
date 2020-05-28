@@ -17,7 +17,7 @@
 	</style>
 	<body>
 		   <div class="layui-col-md11">
-                	<form class="layui-form"  th:action="@{/shiyan/addReport}" method="post" th:object="${addReport}">
+                	<form class="layui-form"  th:action="@{/shiyan/addReport}" method="post">
                 		 <div class="layui-form-item">
 						    <label class="layui-form-label">报告序号：</label>
 						    <div class="layui-input-block">
@@ -31,12 +31,12 @@
 					      <textarea name="reportDescribe" placeholder="请输入内容" class="layui-textarea"></textarea>
 					    </div>
 					  </div>
-					  <div class="layui-form-item">
-						    <label class="layui-form-label">实验模块：</label>
-						    <div class="layui-input-block">
-						      <input type="text" name="mId" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
-						    </div>
-					  </div>
+					  <!--<div class="layui-form-item">-->
+						    <!--<label class="layui-form-label">实验模块：</label>-->
+						    <!--<div class="layui-input-block">-->
+						      <!--<input type="text" name="mId" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">-->
+						    <!--</div>-->
+					  <!--</div>-->
 					  <div class="layui-form-item">
 						    <label class="layui-form-label">分数：</label>
 						    <div class="layui-input-block">

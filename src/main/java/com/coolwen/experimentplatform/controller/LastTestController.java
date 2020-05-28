@@ -91,13 +91,16 @@ public class LastTestController {
      */
 
     @PostMapping("addLastTest")
-    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session, String questType, float questScore, String questAnswer) {
+    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session,
+                           String questDescribe,String questType, float questScore, String questAnswer,int questOrder) {
 //        在试题表添加试题信息
         String con = (String) session.getAttribute("con");
         moduleTestQuest = questService.findByQuestDescribe(con);
+        moduleTestQuest.setQuestDescribe(questDescribe);
         moduleTestQuest.setQuestType(questType);
         moduleTestQuest.setQuestScore(questScore);
         moduleTestQuest.setQuestAnswer(questAnswer);
+        moduleTestQuest.setQuestOrder(questOrder);
         moduleTestQuest.setmId(-1);
         System.out.println(moduleTestQuest);
         questService.addModuleTestQuest(moduleTestQuest);
