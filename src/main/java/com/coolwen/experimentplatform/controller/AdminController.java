@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.dao.AdminDao;
+import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.Admin;
 import com.coolwen.experimentplatform.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class AdminController {
     //完成添加操作
     @PostMapping(value = "/add")
     public String add(Admin admin){
+        admin.setPassword(ShiroKit.md5(admin.getPassword(), admin.getUname()));
         adminService.add(admin);
         return "redirect:/admin/list";
     }
@@ -51,6 +53,7 @@ public class AdminController {
     //完成修改
     @PostMapping(value = "/{id}/update")
     public String update(@PathVariable int id,Admin admin){
+        admin.setPassword(ShiroKit.md5(admin.getPassword(), admin.getUname()));
         adminService.add(admin);
         System.out.println("修改成功！");
         return "redirect:/admin/list";

@@ -10,7 +10,16 @@
         <link rel="stylesheet" href="../../static/css/xadmin.css">
         <script src="../../static/js/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="../../static/js/xadmin.js"></script>
+        <style>
+            .layui-table th {
+                text-align: center;
+                font-weight: 900;
+            }
+            .layui-table td {
+                text-align: center;
 
+            }
+        </style>
     </head>
     <body>
         <div class="x-nav">
@@ -36,7 +45,7 @@
                                     <input class="layui-btn" type="submit" lay-submit="" lay-filter="sreach" value="搜索"/>
                                 </div>
                             </form>
-                            <div class="layui-inline" style="margin-top: 10px">
+                            <div class="layui-inline" style="margin-top: -22px;float: right;">
                                 <a class="layui-btn" th:href="@{/studentManage/toAddClass}">添加班级</a>
                             </div>
                         </div>
@@ -45,13 +54,13 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                   <tr>
-                                    <th>ID</th>
+                                    <th width="3%">ID</th>
                                     <th>学院</th>
                                     <th>专业</th>
-                                    <th>年级</th>
-                                    <th>班级</th>
-                                    <th>负责老师</th>
-                                    <th>是否往期</th>
+                                    <th width="3%">年级</th>
+                                    <th width="3%">班级</th>
+                                    <th width="3%">负责老师</th>
+                                    <th width="3%">是否往期</th>
                                     <th>操作</th>
                                 </thead>
                                 <tbody>
