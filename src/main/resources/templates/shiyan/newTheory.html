@@ -13,6 +13,17 @@
 			}
 			.layui-form-label{
 				font-weight: 900;
+				with:140px;
+			}
+
+			.layui-input-block{
+				margin-left: 160px;
+			}
+			.layui-input, .layui-textarea{
+				width: 1400px;
+			}
+			.layui-table{
+				width: 1400px;
 			}
 		</style>
 	</head>
@@ -104,13 +115,12 @@
 		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 		<script type="text/javascript">
-			UE.getEditor('editor1');
-			UE.getEditor('editor2');
-			UE.getEditor('editor3');
-
-
-
-
+			var editor = new UE.ui.Editor({ initialFrameHeight:400,initialFrameWidth:1400 });
+			editor.render("editor1");
+			var editor = new UE.ui.Editor({ initialFrameHeight:400,initialFrameWidth:1400 });
+			editor.render("editor2");
+			var editor = new UE.ui.Editor({ initialFrameHeight:400,initialFrameWidth:1400 });
+			editor.render("editor3");
 
 
 

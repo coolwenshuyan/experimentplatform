@@ -5,8 +5,6 @@
 	<meta charset="UTF-8">
 	<title>修改理论</title>
 
-<!--	<link rel="stylesheet" type="text/css" href="../static/css/layui.css" />-->
-	<!--<script src="../js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
 	<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
 	<style type="text/css">
@@ -15,6 +13,17 @@
 		}
 		.layui-form-label{
 			font-weight: 900;
+			with:140px;
+		}
+
+		.layui-input-block{
+			margin-left: 160px;
+		}
+		.layui-input, .layui-textarea{
+			width: 1400px;
+		}
+		.layui-table{
+			width: 1400px;
 		}
 	</style>
 </head>
@@ -122,9 +131,15 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-	UE.getEditor('editor1');
-	UE.getEditor('editor2');
-	UE.getEditor('editor3');
+
+	var editor = new UE.ui.Editor({ initialFrameHeight:400,initialFrameWidth:1400 });
+	editor.render("editor1");
+	var editor = new UE.ui.Editor({ initialFrameHeight:400,initialFrameWidth:1400 });
+	editor.render("editor2");
+	var editor = new UE.ui.Editor({ initialFrameHeight:400,initialFrameWidth:1400 });
+	editor.render("editor3");
+
+
 	var files = [];
 	var path = '';
 	//多文件列表示例
