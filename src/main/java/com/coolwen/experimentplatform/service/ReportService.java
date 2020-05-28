@@ -16,7 +16,7 @@ public interface ReportService {
 
     public void addReport(Report report);
 
-    public Integer deleteReport(int reportId);
+    public int deleteReport(int reportId);
 
     public Report updateReport(int reportId);
 

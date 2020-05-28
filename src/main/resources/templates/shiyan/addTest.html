@@ -42,6 +42,9 @@
         overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
         text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
     }
+    .bt{
+        padding-left: 7.8rem;
+    }
 </style>
 
 
@@ -50,15 +53,71 @@
 <div class="layui-row layui-col-space10">
     <div class="layui-col-md6">
         <!--<form class="layui-form" action="">	-->
-        <form class="layui-form" th:action="@{/shiyan/addAnswer}" method="post" th:object="${addAnswer}">
+        <form class="layui-form" th:action="@{/shiyan/addQuest}" method="post" th:object="${quest}">
             <div class="layui-form-item">
                 <label class="layui-form-label">题目</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" th:value="${title}" required lay-verify="required" autocomplete="off"
+                    <!--<input type="text" name="title" th:value="${title}" required lay-verify="required" autocomplete="off"-->
+                           <!--class="layui-input"/>-->
+                    <input type="text" name="questDescribe" th:value="${questDescribe}" required lay-verify="required" autocomplete="off"
                            class="layui-input"/>
                     <!--<input type="text" name="title" required lay-verify="required" placeholder="请输入题目" autocomplete="off" class="layui-input">-->
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">问题序号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="questOrder" th:value="${questOrder}" required lay-verify="required" placeholder="1"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">分数</label>
+                <div class="layui-input-block">
+                    <input type="text" name="questScore" th:value="${questScore}" required lay-verify="required" placeholder="100"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <!--<div class="layui-form-item">-->
+                <!--<label class="layui-form-label">实验模块</label>-->
+                <!--<div class="layui-input-block">-->
+                    <!--<input type="text" name="mId" th:text="${newQuest.mId}" required lay-verify="required" placeholder="1" autocomplete="off"-->
+                           <!--class="layui-input">-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="questType" th:field="${quest.questType}" checked="checked" value="单选" title="单选">
+                    <input type="radio" name="questType" th:field="${quest.questType}" value="多选" title="多选">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">答案</label>
+                <div class="layui-input-block">
+                    <input type="text" name="questAnswer" th:value="${questAnswer}" required lay-verify="required" placeholder="1,2,3"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <a href="lookTest.html" th:href="@{|/shiyan/list/${quest.mId}|}" class="layui-btn layui-btn-primary">返回</a>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+
+    <div class="layui-col-md5">
+
+        <form class="layui-form" th:action="@{/shiyan/addQuest}" method="get">
+
             <div class="layui-form-item">
                 <label class="layui-form-label">选项</label>
                 <div class="layui-input-block content">
@@ -97,71 +156,12 @@
 
             </div>
 
-
-            <!--<div class="layui-form-item">-->
-                <!--<label class="layui-form-label">序号</label>-->
-                <!--<div class="layui-input-block">-->
-                    <!--<input type="text" name="answerOrder" required lay-verify="required" autocomplete="off" placeholder="1"-->
-                           <!--class="layui-input">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="layui-form-item">-->
-                <!--<label class="layui-form-label">内容</label>-->
-                <!--<div class="layui-input-block">-->
-                    <!--<textarea name="answerDescribe" required lay-verify="required" class="layui-textarea"></textarea>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <div class="layui-form-item">
-                <a class="layui-input-block" th:href="">
-                    <button class="layui-btn layui-btn-primary" lay-submit>增加选项</button>
-                </a>
+            <div class="layui-form-item  bt">
+                <!--<a class="layui-input-block">-->
+                    <a th:href="@{|/shiyan/addAnswer|}" class="layui-btn layui-btn-primary layui-bg-green" lay-submit>增加选项</a>
+                <!--</a>-->
             </div>
 
-        </form>
-
-    </div>
-
-    <div class="layui-col-md5">
-
-        <form class="layui-form" th:action="@{/shiyan/addTest}" method="post">
-            <div class="layui-form-item">
-                <label class="layui-form-label">分数</label>
-                <div class="layui-input-block">
-                    <input type="text" name="questScore" required lay-verify="required" placeholder="100"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">实验模块</label>
-                <div class="layui-input-block">
-                    <input type="text" name="mId" required lay-verify="required" placeholder="1" autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">类型</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="questType" checked="checked" value="单选" title="单选">
-                    <input type="radio" name="questType" value="多选" title="多选">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">答案</label>
-                <div class="layui-input-block">
-                    <input type="text" name="questAnswer" required lay-verify="required" placeholder="1,2,3"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <a href="lookTest.html" th:href="@{|list|}" class="layui-btn layui-btn-primary">取消</a>
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
-                </div>
-            </div>
         </form>
 
 

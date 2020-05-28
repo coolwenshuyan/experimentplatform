@@ -126,6 +126,20 @@
 
             <form class="layui-form" th:action="@{/shiyan/addLastTest}" method="post">
                 <div class="layui-form-item">
+                    <label class="layui-form-label">题目</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="questDescribe" required lay-verify="required" placeholder="100"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">问题序号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="questOrder" required lay-verify="required" placeholder="100"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">分数</label>
                     <div class="layui-input-block">
                         <input type="text" name="questScore" required lay-verify="required" placeholder="100"

@@ -47,13 +47,13 @@
                         <input type="text"  name="reportDescribe" th:value="${Upreport.reportDescribe}" required="" lay-verify="required"
                                autocomplete="off" class="layui-input"></div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">
-                        <span class="x-red">*</span>实验模块id</label>
-                    <div class="layui-input-inline">
-                        <input type="text"  name="mId" th:value="${Upreport.mId}" required="" lay-verify="required" autocomplete="off"
-                               class="layui-input"></div>
-                </div>
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">-->
+                        <!--<span class="x-red">*</span>实验模块id</label>-->
+                    <!--<div class="layui-input-inline">-->
+                        <!--<input type="text"  name="mId" th:value="${Upreport.mId}" required="" lay-verify="required" autocomplete="off"-->
+                               <!--class="layui-input"></div>-->
+                <!--</div>-->
                 <div class="layui-form-item">
                     <label for="username" class="layui-form-label">
                         <span class="x-red">*</span>实验报告分数</label>
@@ -78,7 +78,7 @@
 
                         <!--onclick="colse()"-->
                     </a>
-                    <a class="choice1" th:href="@{|addReport|}">
+                    <a class="choice1" th:href="@{|/shiyan/reportList/${Upreport.mId}|}">
                         <label   class="layui-form-label"></label>
                         <button class="layui-btn" lay-filter="add" lay-submit="" onclick="colse()"
                         >取消</button>

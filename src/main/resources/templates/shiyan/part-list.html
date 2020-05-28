@@ -79,10 +79,10 @@
                                     <p>当前 <span th:text="${reports.number}+1"></span> 页,
                                         总 <span th:text="${reports.totalPages}"></span> 页,
                                         共 <span th:text="${reports.totalElements}"></span> 条记录</p>
-                                    <a th:href="@{/shiyan/reportList}">首页</a>
-                                    <a th:href="@{/shiyan/reportList(pageNum=${reports.hasPrevious()}?${reports.number}-1:0)}">上一页</a>
-                                    <a th:href="@{/shiyan/reportList(pageNum=${reports.hasNext()}?${reports.number}+1:${reports.number})}">下一页</a>
-                                    <a th:href="@{/shiyan/reportList(pageNum=${reports.totalPages}-1)}">尾页</a>
+                                    <a th:href="@{'/shiyan/reportList/'+${mId}}">首页</a>
+                                    <a th:href="@{'/shiyan/reportList/'+${mId}(pageNum=${reports.hasPrevious()}?${reports.number}-1:0)}">上一页</a>
+                                    <a th:href="@{'/shiyan/reportList/'+${mId}(pageNum=${reports.hasNext()}?${reports.number}+1:${reports.number})}">下一页</a>
+                                    <a th:href="@{'/shiyan/reportList/'+${mId}(pageNum=${reports.totalPages}-1)}">尾页</a>
 
                                 </div>
                             </div>
