@@ -33,12 +33,27 @@
 			.thumbnail{
 				height: 300px;
 			}
-
-			.thumbnail img{
-				with:100%;
-				width: 150px;
-				/*min-height: 150px;*/
+			.div{
+				height: 150px;
+				line-height: 150px;
 			}
+			.div img{
+				width: 100%;
+				max-height: 150px;
+			}
+			.caption{
+				align-content: center;
+				width:200px; /*必须设置宽度*/
+				overflow:hidden; /*溢出隐藏*/
+				text-overflow:ellipsis; /*以省略号...显示*/
+				white-space:nowrap; /*强制不换行*/
+			}
+
+			/*.thumbnail img{*/
+				/*with:100%;*/
+				/*width: 150px;*/
+				/*!*min-height: 150px;*!*/
+			/*}*/
 		</style>
 		<div class="top visible-lg">
 			<div class="container">
@@ -153,23 +168,25 @@
 						<div th:each="teacher:${teacherPageInfo.content}" >
 							<div class="col-sm-6 col-md-3 clearfix" style="float: left">
 								<div class="thumbnail">
-									<img th:src="${teacher.image_url}" alt="..."/>
-									<div  class="caption" align="center">
+									<div class="div">
+										<img th:src="${teacher.image_url}" alt="..."/>
+									</div>
+									<div  class="caption" >
 										<h3><strong th:text="${teacher.person_name }"><a th:href="${teacher.id }" class="list_link"></a></strong></h3>
 										<p th:text="${teacher.intro}"></p>
 									</div>
 								</div>
 							</div>
-<!--							<div class="col-sm-6 col-md-3">-->
-<!--								<div class="thumbnail">-->
-<!--									<img src="../../static/images/img_home/c.jpg" alt="...">-->
-<!--									<div class="caption" align="center">-->
-<!--										<h3><strong>陈功锁</strong></h3>-->
-<!--										<p>信息与工程学院老师，职称</p>-->
-<!--										<p>荣获XXXXXXXXXXXX</p>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
+							<!--<div class="col-sm-6 col-md-3">-->
+							<!--<div class="thumbnail">-->
+								<!--<img src="../../static/images/img_home/c.jpg" alt="...">-->
+								<!--<div class="caption" align="center">-->
+									<!--<h3><strong>陈功锁</strong></h3>-->
+									<!--<p>信息与工程学院老师，职称</p>-->
+									<!--<p>荣获XXXXXXXXXXXX</p>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</div>-->
 <!--							<div class="col-sm-6 col-md-3">-->
 <!--								<div class="thumbnail">-->
 <!--									<img src="../../static/images/img_home/logo3.png" alt="...">-->
@@ -180,15 +197,17 @@
 <!--									</div>-->
 <!--								</div>-->
 <!--							</div>-->
-<!--							<div class="col-sm-6 col-md-3">-->
-<!--								<div class="thumbnail">-->
-<!--									<img src="../../static/images/img_home/logo3.png" alt="...">-->
-<!--									<div class="caption" align="center">-->
-<!--										<h3><strong>其他</strong></h3>-->
-<!--										<p>信息与工程学院老师，职称</p>-->
-<!--										<p>荣获XXXXXXXXXXXX</p>-->
-<!--									</div>-->
-<!--								</div>-->
+							<!--<div class="col-sm-6 col-md-3">-->
+								<!--<div class="thumbnail">-->
+									<!--<div class="div">-->
+										<!--<img src="../../static/images/img_home/logo.png" alt="...">-->
+									<!--</div>-->
+									<!--<div class="caption" align="center">-->
+										<!--<h3><strong>其他</strong></h3>-->
+										<!--<p>信息与工程学院老师，职称</p>-->
+										<!--<p>荣获XXXXXXXXXXXXlll</p>-->
+									<!--</div>-->
+								<!--</div>-->
 							<!--</div>-->
 
 						</div>
