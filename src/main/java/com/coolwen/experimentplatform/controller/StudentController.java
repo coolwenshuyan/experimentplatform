@@ -253,6 +253,9 @@ public class StudentController {
                 totalScorePass.setTotalScore(totalScoreCurrent.getTotalScore());
                 totalScorePass.setFinalDatetime(new Date());
                 totalScorePassService.save(totalScorePass);
+                moduleTestAnswerStuService.deleteModuleTestAnswerStuByStuId(s.getId());
+                reportAnswerService.deleteReportAnswerByStuId(s.getId());
+                kaoHeModelScoreService.deleteKaoheModuleScoreByStuId(s.getId());
                 totalScoreCurrentService.deleteTotalScoreCurrentByStuId(s.getId());
             }
 
