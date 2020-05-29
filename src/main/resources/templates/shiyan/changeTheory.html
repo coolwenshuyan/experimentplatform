@@ -35,8 +35,10 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">实验介绍:</label>
 		<div class="layui-input-block">
+			<!--			富文本编辑器的html代码开始-->
 			<script id="editor1" name = "m_introduce" type="text/plain" th:utext="${preExpModel.introduce}">
 			</script>
+			<!--			富文本编辑器的html代码结束-->
 		</div>
 	</div>
 	<div class="layui-form-item">
@@ -48,16 +50,20 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">实验原理:</label>
 		<div class="layui-input-block">
+			<!--			富文本编辑器的html代码开始-->
 			<script id="editor2" name = "m_principle" type="text/plain" th:utext="${preExpModel.principle}">
 
 			</script>
+			<!--			富文本编辑器的html代码结束-->
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">实验内容:</label>
 		<div class="layui-input-block">
+			<!--			富文本编辑器的html代码开始-->
 			<script id="editor3" name = "m_content" type="text/plain" th:utext="${preExpModel.m_content}">
 			</script>
+			<!--			富文本编辑器的html代码结束-->
 		</div>
 	</div>
 
@@ -111,8 +117,10 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">实验步骤:</label>
 		<div class="layui-input-block">
+<!--			富文本编辑器的html代码开始-->
 			<script id="editor4" name = "m_step" type="text/plain" th:utext="${preExpModel.m_step}">
 			</script>
+<!--			富文本编辑器的html代码结束-->
 		</div>
 	</div>
 
@@ -135,13 +143,13 @@
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script type="text/javascript" th:inline="javascript">
 
-	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });   //设置富文本编辑器的宽高
 	editor.render("editor1");
-	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });  //设置富文本编辑器的宽高
 	editor.render("editor2");
-	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });  //设置富文本编辑器的宽高
 	editor.render("editor3");
-	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:800 });  //设置富文本编辑器的宽高
 	editor.render("editor4");
 	var files = [];
 	var path = '';
