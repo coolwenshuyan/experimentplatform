@@ -54,9 +54,11 @@
 
 		</div>
 
+		<!--		富文本编辑器的html代码开始-->
 		<script id="editor" name="content" type="text/plain">
 
 		</script>
+		<!--		富文本编辑器的html代码结束->
 
 		<div class="layui-form-item" style="margin-top: 1%;">
 			<label class="layui-form-label">发布人</label>
@@ -93,7 +95,7 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script>
-	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:626 });
+	var editor = new UE.ui.Editor({ initialFrameHeight:300,initialFrameWidth:626 });  //设置富文本编辑器的高度和宽度
 	editor.render("editor");
 	// UE.getEditor('editor');
 </script>
