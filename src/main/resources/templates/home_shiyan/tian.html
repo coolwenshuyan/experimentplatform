@@ -43,30 +43,12 @@
 			</form>
 		</div>
 
-<!--		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
-<!--		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>-->
-<!--		<script type="text/javascript" src="../../static/js/wangEditor.js"></script>-->
-<!--	    <script type="text/javascript">-->
-<!--	        var E = window.wangEditor-->
-<!--	        var editor1 = new E('#app1');-->
-<!--	        var editor2 = new E('#app2');-->
-<!--	        var editor3 = new E('#app3');-->
-<!--			var editor4 = new E('#app4');-->
-<!--	        // 或者 var editor = new E( document.getElementById('editor') )-->
-<!--	        editor1.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片-->
-<!--	        editor2.customConfig.uploadImgShowBase64 = true-->
-<!--	        editor3.customConfig.uploadImgShowBase64 = true-->
-<!--			editor4.customConfig.uploadImgShowBase64 = true-->
-<!--	        editor1.create()-->
-<!--	        editor2.create()-->
-<!--	        editor3.create()-->
-<!--			editor4.create()-->
-<!--	    </script>-->
+<!--	    引入富文本编辑器的js-->
 		<script th:src="@{/ueditor/ueditor.config.js}"></script>
 		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 		<script th:each="YiGeTi,YiGeTiStat:${TiMuList}">
-			UE.getEditor('editor[[${YiGeTiStat.index}]]');
+			UE.getEditor('editor[[${YiGeTiStat.index}]]');   //创建富文本编辑器
 		</script>
 
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
