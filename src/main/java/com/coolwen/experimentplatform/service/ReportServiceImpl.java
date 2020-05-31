@@ -36,20 +36,20 @@ public class ReportServiceImpl implements ReportService {
         return report;
     }
 
-    @Override
-    public List<Report> loadReport() {
-        return reportRepository.findAll();
-    }
+//    @Override
+//    public List<Report> loadReport() {
+//        return reportRepository.findAll();
+//    }
 
     @Override
     public Report findByReportId(int reportId) {
         return reportRepository.findByReportId(reportId);
     }
 
-    @Override
-    public List<Report> findAllByReportId(int reportId) {
-        return reportRepository.findAllByReportId(reportId);
-    }
+//    @Override
+//    public List<Report> findAllByReportId(int reportId) {
+//        return reportRepository.findAllByReportId(reportId);
+//    }
 
     @Override
     public List<Report> findByMid(int mid) {
