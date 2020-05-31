@@ -32,7 +32,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/kaohemodel")
+@RequestMapping("giveMark")
 public class KaoheModelController {
     @Autowired
     private KaoheModelService kaoheModelService;
