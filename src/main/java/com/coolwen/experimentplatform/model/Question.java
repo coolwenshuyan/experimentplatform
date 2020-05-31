@@ -3,10 +3,15 @@ package com.coolwen.experimentplatform.model;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * 表t_question
+ *  @author yellow
+ */
 @Entity
 @Table(name = "t_question")
 public class Question {
 
+//    id自增
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE,generator = "question_id")
     @TableGenerator(name = "question_id",initialValue = 0,allocationSize = 1,table = "seq_table")

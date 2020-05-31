@@ -2,8 +2,12 @@ package com.coolwen.experimentplatform.model.DTO;
 
 import java.util.Date;
 
-public class QuestionStudentDto {
+/**
+ * 建立一个通过用户名查id的DTO
+ *  @author yellow
+ */
 
+public class QuestionStudentDto {
 
     private int id;   //t_question   id
     private int sid;  //学生id
