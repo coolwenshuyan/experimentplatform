@@ -21,6 +21,13 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+/**
+ *@Description 后台管理系统 教师评分
+ *@Author 欧天
+ *@Version 1.0
+ *@Date 2020/5/31
+ */
+
 
 @Controller
 //老师评分
@@ -72,6 +79,7 @@ public class TreportGradeController {
 //        return "kaohe/score_management ";
 //    }stuId,mid
 
+    //进入教师评分系统
     @GetMapping(value = "/{stuId}/{mid}/giveMark" )
     public String GiveAmark(Model model,
                             @PathVariable("stuId") int stuId,
@@ -85,6 +93,7 @@ public class TreportGradeController {
 
 
 
+    //教师评分
     @PostMapping(value = "/{stuId}/{mid}/giveMark" )
     public String giveamark(Model model, HttpServletRequest request,
                             @PathVariable("stuId") int stuId,
@@ -105,6 +114,7 @@ public class TreportGradeController {
         }
 
         float fs = 0;
+        //判断题目数量然后进行打分
         for (int i = 0; i <zyy.size() ; i++) {
             PScoreDto d= score.get(i);
             ReportAnswer c = reportAnswerService.findByReportByreportid(d.getReportid());
