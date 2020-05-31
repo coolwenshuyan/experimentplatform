@@ -26,9 +26,10 @@ import java.util.List;
 
 
 /**
- * @author Artell
- * @version 2020/5/13 12:21
  * 对考核进行编辑管理
+ * 列出所有模块/所有考核模块,将实验模块移入/移出考核,修改/添加考核信息
+ * @author 王雨来
+ * @version 2020/5/13 12:21
  */
 
 @Controller
@@ -45,7 +46,10 @@ public class KaoheModelController {
 
 
     /**
-     * 所有模块
+     * 列出所有模块
+     * @param model 传值
+     * @param pageNum 分页
+     * @return 列表页面
      */
     @RequestMapping(value = "/allModule", method = RequestMethod.GET)
     public String loadAllModel(Model model,
@@ -85,7 +89,11 @@ public class KaoheModelController {
     }
 
     /**
-     * 所有考核模块
+     * 所有考核模块 一下均为相同内容,不再赘述
+     * @param model 传值
+     * @param pageNum 分页
+     * @return 页面
+     * @throws JsonProcessingException
      */
     @RequestMapping(value = "/checkModule", method = RequestMethod.GET)
     public String list(Model model, @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) throws JsonProcessingException {

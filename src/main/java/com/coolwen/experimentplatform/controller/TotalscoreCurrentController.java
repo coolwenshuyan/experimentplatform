@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Page;
 
 /**
- * @author Artell
+ * 总成绩管理
+ * 列出所有的成绩
+ * @author 王雨来
  * @version 2020/5/13 12:21
  */
 
@@ -56,8 +58,15 @@ public class TotalscoreCurrentController {
 //        return "kaohe/score_manage";
 //    }
 
+    /**
+     * 列出所有成绩
+     * @param model 传值
+     * @param pageNum 分页
+     * @return 页面
+     */
     @GetMapping("/list")
     public String expModelList(Model model, @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+        //从数据库得到所有的总成绩
         Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTO(pageNum);
         model.addAttribute("pageTotalScore",totalScore);
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+totalScore);

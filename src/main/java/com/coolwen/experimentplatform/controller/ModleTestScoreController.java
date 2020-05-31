@@ -18,7 +18,9 @@ package com.coolwen.experimentplatform.controller;
         import java.util.List;
 
 /**
- * @author Artell
+ * 学生模块测试成绩管理
+ * 列出所有学生的所有的模块的测试成绩
+ * @author 王雨来
  * @version 2020/5/13 12:21
  */
 
@@ -75,14 +77,22 @@ public class ModleTestScoreController {
 //        return "kaohe/score_manage";
 //    }
 
-
+    /**
+     * 列出所有学生的所有的模块的测试成绩
+     * @param model
+     * @param select_orderId 搜索值
+     * @param pageNum 分页
+     * @return 页面
+     */
     @GetMapping(value = "/list")
     public String loadAllModel(Model model,
                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
 
+        //与[ModleTestReportController]大同小异,几乎一样,不再赘述
 //        Page<Student> c = studentService.findAll(pageNum);
         Page<Student> c = studentService.findStudentPageAndXuehao(pageNum, select_orderId);
+
 
         System.out.println(">>>>>>>>>>>>>>>>>>c"+c);
         model.addAttribute("allStu",c);
@@ -106,6 +116,14 @@ public class ModleTestScoreController {
         return "kaohe/score_manage";
     }
 
+    /**
+     *
+     * @param model
+     * @param classId
+     * @param select_orderId
+     * @param pageNum
+     * @return
+     */
     @GetMapping(value = "/{classId}/list")
     public String loadOneClassModel(Model model,
                                @PathVariable int classId,
