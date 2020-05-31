@@ -1,31 +1,28 @@
 package com.coolwen.experimentplatform.controller;
 
-import com.coolwen.experimentplatform.dao.ExpModelRepository;
+
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
-
 import com.coolwen.experimentplatform.service.*;
-
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+
+/**
+ *@Description 后台管理系统 模块信息管理
+ *@Author 张健银
+ *@Version 1.0
+ *@Date 2020/5/31
+ */
+
 
 @Controller
 @RequestMapping("/expmodel")
@@ -51,19 +48,19 @@ public class ExpModelController {
     TotalScoreCurrentService totalScoreCurrentService;
 
 
-//模块信息页面
+    //查询模块信息页面
     @GetMapping("/list")
     public String expModelList(Model model,@RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
         model.addAttribute("page",expModelService.findModelList(pageNum));
         return "shiyan/lookExpModel";
     }
 
-    //模块添加
+    //添加模块信息页面
     @GetMapping("/addExpModel")
     public String toAdd(){
         return "shiyan/newExpModel";
     }
-
+    //进行模块添加操作
     @PostMapping("/addExpModel")
     public String Add(String m_name,
                       String m_manager,
@@ -87,20 +84,24 @@ public class ExpModelController {
         session.setAttribute("modelId",expModel.getM_id());
         return "redirect:/expmodel/addTheory";
     }
-//模块删除
+        //进行模块删除
         @GetMapping("/deleteExpModel/{id}")
     public String delete(@PathVariable("id")int id){
         //删除考核模块以及更改学生相关成绩
         KaoheModel kaoheModel = kaoheModelService.findKaoheModelByMid(id);
         if(kaoheModel != null){
+            //如果该模块是考核模块
+            //根据学生条件与考核模块找到学生考核模块成绩
             List<KaoHeModelScore> kaoHeModelScores = kaoHeModelScoreService.findKaoHeModelScoreByTKaohemodleIdAndStuId(kaoheModel.getId());
             for (KaoHeModelScore k : kaoHeModelScores){
+                //更新学生在删除该考核模块后的当期总评成绩表信息
                 TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(k.getStuId());
                 totalScoreCurrent.setKaoheNum(totalScoreCurrent.getKaoheNum()-1);
                 totalScoreCurrent.setmTotalScore(totalScoreCurrent.getmTotalScore()-k.getmScore());
                 totalScoreCurrent.setTotalScore(totalScoreCurrent.getmTotalScore()*kaoheModel.getKaohe_baifenbi()+totalScoreCurrent.getTestScore()* kaoheModel.getTest_baifenbi());
                 totalScoreCurrentService.add(totalScoreCurrent);
             }
+            //删除该考核模块与模块信息
             kaoHeModelScoreService.deleteAllKaohe(kaoHeModelScores);
             kaoheModelService.deleteKaoHeModuleByMid(kaoheModel);
         }
@@ -112,7 +113,7 @@ public class ExpModelController {
             expModelService.deleteModuleTestAnswerStuByQuestId(m.getQuestId());
         }
         moduleTestQuestService.deleteAllModuleTestQuest(moduleTestQuests);
-        //删除实验模块报告
+        //删除实验模块报告与实验报告回答
         List<Report> reports = reportService.findReportByMId(id);
         for(Report r : reports){
             reportAnswerService.deleteReportAnswerByReportId(r.getReportId());
@@ -121,7 +122,7 @@ public class ExpModelController {
         expModelService.deleteExpModelById(id);
         return "redirect:/expmodel/list";
     }
-//模块更新
+    //进入模块更新
     @GetMapping("/updateExpModel/{id}")
     public String toUpdate(@PathVariable("id") int id,Model model,HttpServletRequest request,HttpSession session){
         ExpModel expModel = expModelService.findExpModelByID(id);
@@ -130,7 +131,7 @@ public class ExpModelController {
         session.setAttribute("modelId",expModel.getM_id());
         return "shiyan/changeExpModel";
     }
-
+    //进行模块更新
     @PostMapping("/updateExpModel/{id}")
     public String updateExpModedl(String m_name,
                                   String m_manager,
@@ -155,14 +156,14 @@ public class ExpModelController {
         expModelService.save(preExpModel);
         return "redirect:/expmodel/list";
     }
-//理论添加
+    //进入理论添加
     @GetMapping("/addTheory")
     public String toAddTheory(HttpSession session,Model model)
     {
         model.addAttribute("id",session.getAttribute("modelId"));
         return"shiyan/newTheory";
     }
-
+    //执行理论添加操作
     @PostMapping("/addTheory/{id}")
     public String AddExpTheory(@PathVariable("id") int id,
                                String m_introduce,
@@ -183,7 +184,7 @@ public class ExpModelController {
         expModelService.save(expModel);
         return "redirect:/expmodel/list";
     }
-//理论资料添加上传接口
+    //理论资料添加上传接口
     @PostMapping("/addTheoryFile/{id}")
     @ResponseBody
     public String AddExpTheory(@PathVariable("id") int id,
@@ -203,7 +204,7 @@ public class ExpModelController {
         }
         return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
     }
-
+    //保存理论资料路径
     @PostMapping("/savePath/{mid}")
     @ResponseBody
     public String savePathn(@PathVariable("mid") int id, @RequestParam("path") String path, HttpServletRequest request){
@@ -243,7 +244,7 @@ public class ExpModelController {
         return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
     }
 
-    //理论更新
+    //进入理论更新
     @GetMapping("/updateExpTheory/{id}")
     public String toUpdateExpTheory(@PathVariable("id") int id,Model model){
         ExpModel expModel = expModelService.findExpModelByID(id);
@@ -255,7 +256,7 @@ public class ExpModelController {
         return "shiyan/changeTheory";
     }
 
-
+    //执行理论更新操作
     @PostMapping("/updateExpTheory/{id}")
     public String updateExpTheory(@PathVariable("id") int id,
                                String m_introduce,
@@ -278,21 +279,7 @@ public class ExpModelController {
         return "redirect:/expmodel/list";
     }
 
-////理论删除
-//    @GetMapping("/deleteTheory/{id}")
-//    public String deleteTheory(@PathVariable("id")int id){
-//        ExpModel expModel = expModelService.findExpModelByID(id);
-//        expModel.setIntroduce(null);
-//        expModel.setPurpose(null);
-//        expModel.setPrinciple(null);
-//        expModel.setM_content(null);
-//        expModel.setM_edata_intro(null);
-//        expModel.setM_step(null);
-//        expModel.setM_edataurl(null);
-//        expModelService.save(expModel);
-//        return "redirect:/expmodel/list";
-//    }
-
+    //搜索模块
     @GetMapping("/viewExpModel")
     public String viewModel(@RequestParam("m_name") String m_name,Model model){
         List<ExpModel> list = expModelService.findExpModelsBym_name(m_name);
@@ -305,22 +292,22 @@ public class ExpModelController {
     }
 
 
-    //实验大厅所有模块+
-
+    //实验大厅所有模块信息
     @GetMapping("/alltestModel")
     public String alltest(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum){
         model.addAttribute("list",expModelService.finExpAll(pageNum));
         return "home_shiyan/all-test";
     }
-    //考核模块
-    @GetMapping("/kaoheModel/{id}")
-    public String kaoModelById(@PathVariable("id")int id,Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum){
-        Page<KaoHeModelStuDTO> kaohe = kaoheModelService.findKaoheModelStuDto(id,pageNum);
+    //实验大厅考核模块
+    @GetMapping("/kaoheModel")
+    public String kaoModelById(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum){
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Page<KaoHeModelStuDTO> kaohe = kaoheModelService.findKaoheModelStuDto(student.getId(),pageNum);
         model.addAttribute("k",kaohe);
         return "home_shiyan/index";
     }
 
-    //理论学习
+    //进入理论学习页面
     @GetMapping("/theoryStudy/{id}")
     public String theoryStudey(@PathVariable("id")int id,Model model){
         ExpModel expModel = expModelService.findExpModelByID(id);
@@ -332,9 +319,6 @@ public class ExpModelController {
         }
         return "home_shiyan/study_update";
     }
-
-
-
     //模块页面
     @GetMapping("/moduleList")
     public String moduleList(Model model,@RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
