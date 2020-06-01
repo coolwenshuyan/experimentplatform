@@ -31,11 +31,14 @@
             <li class="layui-nav-item">
                 <a class="iconfont icon-touxiang layui-hide-xs" href="login.html"></a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" th:if="${session.username}==null">
                 <a href="/login">用户登录</a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" th:if="${session.username}==null">
                 <a href="/register">注册用户</a>
+            </li>
+            <li class="layui-nav-item" th:if="${session.username}!=null">
+                <a th:text="|Welcome to you, ${session.username}!|"></a>
             </li>
 
             <!-- 未登入的状态 -->

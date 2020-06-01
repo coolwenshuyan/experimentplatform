@@ -70,8 +70,13 @@
 
 						<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 						<i class="fa fa-sign-out"></i>
-						<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
-						<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:if="${session.username}==null">
+							<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+							<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						</a>
+						<a th:if="${session.username}!=null">
+							<a th:text="|Welcome to you, ${session.username}!|"></a>
+						</a>
 <!--						<a style="color:#fff" href="javascript:;">后台入口</a>-->
 					</div>
 				</div>
@@ -603,7 +608,8 @@
 								});
 
 								// $('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" +[[${passpeople}]] + "</span>人");
-								$('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" );
+								$('#ooid4').html("<br/>"+"通过考核人数:<span style='color:#ff0000;font-weight:bold'>" +[[${passpeople}]] + "</span>人");
+								// $('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" );
 								myChart4.setOption({
 									title: {
 								        text: '',

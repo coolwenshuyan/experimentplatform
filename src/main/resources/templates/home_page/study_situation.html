@@ -51,8 +51,13 @@
 
 				<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 				<i class="fa fa-sign-out"></i>
-				<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
-				<a style="color:#fff" href="/register">用户注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a th:if="${session.username}==null">
+					<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+					<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</a>
+				<a th:if="${session.username}!=null">
+					<a th:text="|Welcome to you, ${session.username}!|"></a>
+				</a>
 <!--				<a style="color:#fff" href="javascript:;">后台入口</a>-->
 			</div>    </div>
 	</div>

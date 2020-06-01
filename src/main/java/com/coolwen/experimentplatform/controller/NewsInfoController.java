@@ -122,7 +122,7 @@ public class NewsInfoController {
     //后台管理系统 首页-->平台公告列表
     @GetMapping(value = "/list")
     public String list(Model model,@RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
-        Pageable pageable = PageRequest.of(pageNum,3);
+        Pageable pageable = PageRequest.of(pageNum,6);
         Page<NewsInfo> page = newsInfoRepository.findAll(pageable);
         model.addAttribute("newsPageInfo",page);
         return "shouye/notice";
