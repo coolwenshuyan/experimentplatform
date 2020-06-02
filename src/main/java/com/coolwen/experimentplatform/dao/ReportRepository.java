@@ -40,4 +40,6 @@ public interface ReportRepository extends BaseRepository<Report, Integer>, JpaSp
     Page<Report> findByReportPage(@Param("mid") int mid, Pageable pageable);
 
 
+    @Query("select r from Report r where r.mId = ?1 order by r.reportOrder")
+    List<Report> findByMidpaixu(int mid);
 }

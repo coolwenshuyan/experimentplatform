@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import javax.xml.bind.Element;
+import java.util.*;
 
 //import com.coolwen.experimentplatform.model.StudentTestScoreDTO;
 
@@ -82,17 +81,25 @@ public class writeReportController {
                             @PathVariable("mid")int mid){
 
 //        List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,2);
-        //获得所有报告
-        List<Report> reports= reportService.findByMid(mid);
+        //获得所有报告（排序）
+        List<Report> reports= reportService.findByMidpaixu(mid);
         model.addAttribute("TiMuList",reports);
         int stuId = 1;
         //测试的是id为一的学生
 
         //获得学生已有的答案,如未做过则为空
         List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
-        model.addAttribute("DaAnList",reportAnswers);
-
-        System.out.println(">>>>>>>>>>>>>>>>>>"+reports);
+        //如果为空，则给表中添加空数据（添加学生id，题目id）
+        if (reportAnswers.size() == 0){
+            for (int i = 0; i < reports.size(); i++) {
+                ReportAnswer reportAnswer = new ReportAnswer();
+                reportAnswer.setStuId(stuId);
+                reportAnswer.setReportId(reports.get(i).getReportId());
+                reportAnswerService.addReportAnswer(reportAnswer);
+            }
+        }
+        List<ReportAnswer> reportAnswers1 = reportAnswerService.findByStuId(stuId);
+        model.addAttribute("DaAnList",reportAnswers1);
         return "home_shiyan/tian";
     }
 
@@ -112,31 +119,40 @@ public class writeReportController {
                             @PathVariable("mid")int mid){
 
         //得到报告题目木
-        List<Report> reports= reportService.findByMid(mid);
+//        List<Report> reports= reportService.findByMid(mid);
+        List<Report> reports= reportService.findByMidpaixu(mid);
         model.addAttribute("TiMuList",reports);
 
         //获得学生的报告
         Enumeration em = request.getParameterNames();
+        //保存所有请求内容
         List<String> zyy = new ArrayList<>();
+
+        //保存所有请求名
+        List<String> z = new ArrayList<>();
+
+        //获得所有请求名
         while (em.hasMoreElements()) {
         String name = (String) em.nextElement();
-        String value = request.getParameter(name);
-        System.out.println("<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>value"+value);
-        zyy.add(value);
+        z.add(name);
         }
-
+        //将所有请求名排序，并获取内容添加到
+        Collections.sort(z);
+        for(String a:z){
+            String value = request.getParameter(a);
+            System.out.println("<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>value"+value);
+            zyy.add(value);
+        }
         //测试的是id为一的学生
         int stuId=1;
-
-        //获得学生的报告
-        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
-        model.addAttribute("DaAnList",reportAnswers);
 
         for (int i = 0; i <zyy.size() ; i++) {
 
             Report d= reports.get(i);
+            System.out.println("》》》》》》》》》D"+d);
             //获得学生的报告
             List<ReportAnswer> b = reportAnswerService.listByReportidAndStuID(d.getReportId(),stuId);
+            System.out.println("》》》》》》》》》》》》》b"+b);
             //如果已经有报告则更新,没有则添加
             if (b == null || b.size() ==0){
                 ReportAnswer c = new ReportAnswer();
@@ -155,6 +171,10 @@ public class writeReportController {
                 reportAnswerService.addReportAnswer(c);
             }
         }
+
+        //获得学生的报告
+        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
+        model.addAttribute("DaAnList",reportAnswers);
         return "home_shiyan/tian";
     }
 }

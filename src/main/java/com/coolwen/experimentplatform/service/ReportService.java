@@ -41,4 +41,5 @@ public interface ReportService {
 
     void deleteReports(List<Report> report);
 
+    List<Report> findByMidpaixu(int mid);
 }
