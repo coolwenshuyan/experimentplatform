@@ -148,14 +148,15 @@
             <div class="layui-inline">
                 <label class="layui-form-label">学号</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="stuXuehao" th:value="${student.stuXuehao}" lay-verify="required|xuehao"
-                           autocomplete="off" class="layui-input">
+<!--                    <input type="text" name="stuXuehao" th:value="${student.stuXuehao}" lay-verify="required|xuehao"-->
+<!--                           autocomplete="off" class="layui-input">-->
+                    <a type="text" name="stuXuehao" th:text="${student.stuXuehao}"></a>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">手机号</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="stuMobile" th:value="${student.stuMobile}" stuXuehao lay-verify="mobile"
+                    <input type="text" name="stuMobile" th:value="${student.stuMobile}" lay-verify="mobile"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -163,7 +164,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="stuPassword" lay-verify="password" placeholder="请输入密码"
+                        <input type="text" name="stuPassword" lay-verify="required|password" placeholder="修改密码"
                                autocomplete="off"
                                class="layui-input">
                     </div>
