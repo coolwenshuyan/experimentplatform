@@ -31,4 +31,7 @@ public interface ReportAnswerRepository extends BaseRepository<ReportAnswer,Inte
 
     @Query("select ra from ReportAnswer ra where ra.stuId = ?1")
     List<ReportAnswer> findReportAnswerByStuId(int id);
+
+    @Query(value="select count(*) from t_mreport,t_mreport_answer where t_mreport.m_id=? and t_mreport_answer.stu_id=? and t_mreport.report_id=t_mreport_answer.report_id",nativeQuery=true)
+    int findByStuIdModelId(int mid, int stuId);
 }

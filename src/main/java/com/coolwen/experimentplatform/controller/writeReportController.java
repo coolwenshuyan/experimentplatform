@@ -52,6 +52,9 @@ public class writeReportController {
     @Autowired
     private KaoHeModelScoreService kaoHeModelScoreService;
 
+    @Autowired
+    private ExpModelService expModelService;
+
 //    @GetMapping(value = "/add")
 //    public String loadAllModel(Model model) {
 //        List<StudentTestScoreDTO> page = studentRepository.listStudentMTestAnswerDTO();
@@ -92,11 +95,10 @@ public class writeReportController {
         int stuId = student.getId();
 
 
-        //获得学生已有的答案,如未做过则为空
-        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
-
+        //计算当前模块学生是否答题，没有答题，则计算结果为0
+        int reportAnswers = reportAnswerService.findByStuIdModelId(mid,stuId);
         //如果为空，则给表中添加空数据（添加学生id，题目id）
-        if (reportAnswers.size() == 0){
+        if (reportAnswers == 0){
             for (int i = 0; i < reports.size(); i++) {
                 ReportAnswer reportAnswer = new ReportAnswer();
                 reportAnswer.setStuId(stuId);
@@ -104,11 +106,17 @@ public class writeReportController {
                 reportAnswerService.addReportAnswer(reportAnswer);
             }
         }
+        //查出学生回答的答案
         List<ReportAnswer> reportAnswers1 = reportAnswerService.findByStuId(stuId);
         model.addAttribute("DaAnList",reportAnswers1);
 
-        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
-        model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+        //判断是否是考核模块，是考核模块则查询考核模块得分
+        Boolean isNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+        model.addAttribute("isNeedKaohe",isNeedKaohe);
+        if (isNeedKaohe){
+            KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+            model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+        }
 
         return "home_shiyan/tian";
     }
@@ -130,7 +138,7 @@ public class writeReportController {
 
         //得到报告题目木
         List<Report> reports= reportService.findByMidpaixu(mid);
-        model.addAttribute("TiMuList",reports);
+//        model.addAttribute("TiMuList",reports);
 
         //获得学生的报告
         Enumeration em = request.getParameterNames();
@@ -180,11 +188,11 @@ public class writeReportController {
         }
 
         //获得学生的报告
-        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
-        model.addAttribute("DaAnList",reportAnswers);
-
-        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
-        model.addAttribute("kaoHeModelScore",kaoHeModelScore);
-        return "home_shiyan/tian";
+//        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
+//        model.addAttribute("DaAnList",reportAnswers);
+//
+//        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+//        model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+        return "redirect:/WriteReport/"+mid+"/Timu";
     }
 }
