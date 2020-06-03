@@ -5,10 +5,12 @@ import com.coolwen.experimentplatform.dao.StudentRepository;
 import com.coolwen.experimentplatform.model.DTO.PScoreDto;
 import com.coolwen.experimentplatform.model.Report;
 import com.coolwen.experimentplatform.model.ReportAnswer;
+import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.ReportAnswerService;
 import com.coolwen.experimentplatform.service.ReportService;
 import com.coolwen.experimentplatform.service.ScoreService;
 import com.coolwen.experimentplatform.service.StudentService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,15 +82,18 @@ public class writeReportController {
     public String GiveAmark(Model model,
                             @PathVariable("mid")int mid){
 
-//        List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,2);
         //获得所有报告（排序）
         List<Report> reports= reportService.findByMidpaixu(mid);
         model.addAttribute("TiMuList",reports);
-        int stuId = 1;
-        //测试的是id为一的学生
+
+        //获取当前登录的学生id
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        int stuId = student.getId();
+
 
         //获得学生已有的答案,如未做过则为空
         List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
+
         //如果为空，则给表中添加空数据（添加学生id，题目id）
         if (reportAnswers.size() == 0){
             for (int i = 0; i < reports.size(); i++) {
@@ -119,7 +124,6 @@ public class writeReportController {
                             @PathVariable("mid")int mid){
 
         //得到报告题目木
-//        List<Report> reports= reportService.findByMid(mid);
         List<Report> reports= reportService.findByMidpaixu(mid);
         model.addAttribute("TiMuList",reports);
 
@@ -140,19 +144,17 @@ public class writeReportController {
         Collections.sort(z);
         for(String a:z){
             String value = request.getParameter(a);
-            System.out.println("<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>value"+value);
             zyy.add(value);
         }
-        //测试的是id为一的学生
-        int stuId=1;
+        //获取当前登录的学生id
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        int stuId=student.getId();
 
         for (int i = 0; i <zyy.size() ; i++) {
 
             Report d= reports.get(i);
-            System.out.println("》》》》》》》》》D"+d);
             //获得学生的报告
             List<ReportAnswer> b = reportAnswerService.listByReportidAndStuID(d.getReportId(),stuId);
-            System.out.println("》》》》》》》》》》》》》b"+b);
             //如果已经有报告则更新,没有则添加
             if (b == null || b.size() ==0){
                 ReportAnswer c = new ReportAnswer();
