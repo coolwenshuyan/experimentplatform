@@ -157,27 +157,44 @@ public class KaoShiController {
             moduleTestAnswerStuService.add(moduleTestAnswerStu);
         }
 
-        //通过模块id查询考核模块
-        KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
-        //通过模块id和学生id查询考核模块分数表
-        KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
-        System.out.println("dddddddddddd"+khs+","+khs.getId());
-        //将分数存入
-        khs.setmTestScore(fs);
+        if(mid == -1){
+            System.out.println("这是一次期末考试");
+            KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
+            List<TotalScoreCurrent> altsc = totalScoreCurrentService.findeAllBystuid(stuId);
+            if (altsc.size()==0){
+                System.out.println("出现错误!!总成绩表中没有此学生信息");
+            }
+            TotalScoreCurrent atsc = altsc.get(0);
 
-        //更新考核模块分数
-        float ms = (khs.getmReportScore()*kh.getM_report_baifenbi()+fs*kh.getM_test_baifenbi())*khs.getmScale();
-        khs.setmScore(ms);
-        khs.setmTeststate(true);
-        kaoHeModelScoreService.update(khs);
+            //将考试的值存入总分表
+            atsc.setTotalScore(fs);
+            atsc.setTotalScore(atsc.getmTotalScore() * kh.getKaohe_baifenbi() + atsc.getTestScore() * kh.getTest_baifenbi());
+            totalScoreCurrentService.update(atsc);
+        }else {
 
-        //获取原来总分
-        TotalScoreCurrent tsc = totalScoreCurrentService.findTotalScoreCurrentByStuID(stuId);
+            //通过模块id查询考核模块
+            KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
+            //通过模块id和学生id查询考核模块分数表
+            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid, stuId);
+            System.out.println("dddddddddddd" + khs + "," + khs.getId());
+            //将分数存入
+            khs.setmTestScore(fs);
 
-        //更新总分
-        tsc.setmTotalScore(tsc.getmTotalScore()+ms);
-        tsc.setTotalScore(tsc.getmTotalScore()*kh.getKaohe_baifenbi()+tsc.getTestScore()*kh.getTest_baifenbi());
-        totalScoreCurrentService.update(tsc);
+            //更新考核模块分数
+            float ms = (khs.getmReportScore() * kh.getM_report_baifenbi() + fs * kh.getM_test_baifenbi()) * khs.getmScale();
+            khs.setmScore(ms);
+            khs.setmTeststate(true);
+            kaoHeModelScoreService.update(khs);
+
+            //获取原来总分
+            TotalScoreCurrent tsc = totalScoreCurrentService.findTotalScoreCurrentByStuID(stuId);
+
+            //更新总分
+            tsc.setmTotalScore(tsc.getmTotalScore() + ms);
+            tsc.setTotalScore(tsc.getmTotalScore() * kh.getKaohe_baifenbi() + tsc.getTestScore() * kh.getTest_baifenbi());
+            totalScoreCurrentService.update(tsc);
+
+        }
         //回到成绩查看页面或者其他页面
         return "home_shiyan/CanKaoceshitest";
     }
