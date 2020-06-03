@@ -3,13 +3,11 @@ package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.dao.KaoheModelRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
 import com.coolwen.experimentplatform.model.DTO.PScoreDto;
+import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import com.coolwen.experimentplatform.model.Report;
 import com.coolwen.experimentplatform.model.ReportAnswer;
 import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.service.ReportAnswerService;
-import com.coolwen.experimentplatform.service.ReportService;
-import com.coolwen.experimentplatform.service.ScoreService;
-import com.coolwen.experimentplatform.service.StudentService;
+import com.coolwen.experimentplatform.service.*;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +48,9 @@ public class writeReportController {
 
     @Autowired
     private ReportService reportService;
+
+    @Autowired
+    private KaoHeModelScoreService kaoHeModelScoreService;
 
 //    @GetMapping(value = "/add")
 //    public String loadAllModel(Model model) {
@@ -105,6 +106,10 @@ public class writeReportController {
         }
         List<ReportAnswer> reportAnswers1 = reportAnswerService.findByStuId(stuId);
         model.addAttribute("DaAnList",reportAnswers1);
+
+        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+        model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+
         return "home_shiyan/tian";
     }
 
@@ -177,6 +182,9 @@ public class writeReportController {
         //获得学生的报告
         List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
         model.addAttribute("DaAnList",reportAnswers);
+
+        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+        model.addAttribute("kaoHeModelScore",kaoHeModelScore);
         return "home_shiyan/tian";
     }
 }

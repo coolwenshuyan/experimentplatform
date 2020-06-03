@@ -20,9 +20,12 @@
 	</div>
 
 
-		<div class="test layui-container">
+		<div class="test layui-container" th:object="${kaoHeModelScore}">
 			<h2 align="center"><strong>填写报告</strong></h2><br><br>
 
+			<div th:if="${kaoHeModelScore.ismReportstate()} eq true">
+				<a style="color: red" th:text="'成绩：'+${kaoHeModelScore.mReportScore}+'分'"></a>
+			</div>
 			<form th:method="post" class="layui-form layui-form-pane" action="">
 
 				<div th:each="YiGeTi,YiGeTiStat:${TiMuList}" class="layui-form-item layui-form-text">
@@ -35,7 +38,7 @@
 				</div>
 
 				<div class="layui-form-item">
-					<div class="layui-input-block">
+					<div class="layui-input-block" th:if="${kaoHeModelScore.mReportstate} eq false">
 						<button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
 						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>
