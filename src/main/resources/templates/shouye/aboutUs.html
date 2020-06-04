@@ -41,6 +41,7 @@
 <form method="post" action="" th:object="${setInfo}">
 	<div id="main" class="layui-container">
 		<div style="padding: 10px 0; text-align: center; color: black"><b>关于我们</b></div>
+		<div><b th:text="${msg}" style="color:red"></b></div>
 		<!--		富文本编辑器的html代码开始-->
 		<script id="editor" name="set_aboutus" th:utext="${setInfo.set_aboutus}" type="text/plain">
 		</script>

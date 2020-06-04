@@ -85,16 +85,16 @@ public class SetInfoController {
     }
 
     //完成关于我们的添加操作
-    @ResponseBody
     @PostMapping(value = "/addus")
-    public String addus(SetInfo setInfo){
+    public String addus(SetInfo setInfo,Model model){
         setInfo.setId(1);
         SetInfo setInfo1 = setInfoService.findById(1);
         setInfo.setSet_platintro(setInfo1.getSet_platintro());
         setInfo.setSet_platstep(setInfo1.getSet_platstep());
         setInfo.setSet_rotateimg(setInfo1.getSet_rotateimg());
         setInfoService.add(setInfo);
-        return "添加成功";
+        model.addAttribute("msg","更新成功");
+        return "shouye/aboutUs";
     }
 
     //进入平台概况设置页面
@@ -118,15 +118,15 @@ public class SetInfoController {
     }
 
     //完成设置添加
-    @ResponseBody
     @PostMapping(value = "/addplat")
-    public String add(SetInfo setInfo){
+    public String add(SetInfo setInfo,Model model){
         setInfo.setId(1);
         SetInfo setInfo1 = setInfoService.findById(1);
         setInfo.setSet_aboutus(setInfo1.getSet_aboutus());
         setInfo.setSet_rotateimg(setInfo1.getSet_rotateimg());
         setInfoService.add(setInfo);
-        return "添加成功";
+        model.addAttribute("msg","更新成功");
+        return "shouye/aboutPlatform";
     }
 
 
