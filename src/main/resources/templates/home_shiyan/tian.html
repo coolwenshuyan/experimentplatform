@@ -26,7 +26,7 @@
 			<div th:if="${kaoHeModelScore?.ismReportstate()} eq true">
 				<a style="color: red" th:text="'成绩：'+${kaoHeModelScore?.mReportScore}+'分'"></a>
 			</div>
-			<form th:method="post" class="layui-form layui-form-pane" action="">
+			<form th:method="post" class="layui-form layui-form-pane" action="" id="myForm">
 
 				<div th:each="YiGeTi,YiGeTiStat:${TiMuList}" class="layui-form-item layui-form-text">
 					<label th:text="${YiGeTi.getReportDescribe()}" class="layui-form-label">1.Java语言的主要特点有</label>
@@ -40,11 +40,11 @@
 				<div class="layui-form-item">
 					<div class="layui-input-block" th:if="${kaoHeModelScore?.mReportstate} eq false">
 						<button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						<button type="reset" onclick="formreset()" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 					<div class="layui-input-block" th:if="${isNeedKaohe} eq false">
 						<button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						<button type="reset" onclick="formreset()" class="layui-btn layui-btn-primary">重置</button>
 					</div>
 				</div>
 
@@ -57,6 +57,11 @@
 		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 		<script th:each="YiGeTi,YiGeTiStat:${TiMuList}">
 			UE.getEditor('editor[[${YiGeTiStat.index}]]');   //创建富文本编辑器
+			function formreset(){
+				for (let i = 0; i < [[${YiGeTiStat.size}]]; i++) {
+					UE.getEditor('editor'+i).setContent("")
+				}
+			}
 		</script>
 
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
