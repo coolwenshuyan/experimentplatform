@@ -129,6 +129,7 @@ public class SetInfoController {
         return "shouye/aboutPlatform";
     }
 
+
     //进入设置轮播页面
     @GetMapping(value = "/lunbo")
     public String addlunbo(Model model) {
