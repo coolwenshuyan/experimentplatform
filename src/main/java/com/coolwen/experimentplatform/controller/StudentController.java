@@ -94,7 +94,23 @@ public class StudentController {
     //进入学生编辑
     @GetMapping("/editStudent/{id}")
     public String toeditStudent(@PathVariable("id")int id,Model model){
-        StudentListDTO student = studentservice.findStudentDTOById(id);
+        Student s = studentservice.findStudentById(id);
+        StudentListDTO student = null;
+        if(s.getClassId() == 0){
+            student = new StudentListDTO();
+            student.setClassid(0);
+            student.setClassName(null);
+            student.setId(s.getId());
+            student.setStuCheckstate(s.isStuCheckstate());
+            student.setStuIsinschool(s.isStuIsinschool());
+            student.setStuMobile(s.getStuMobile());
+            student.setStuName(s.getStuName());
+            student.setStuPassword(s.getStuPassword());
+            student.setStuUname(s.getStuUname());
+            student.setStuXuehao(s.getStuXuehao());
+        }else {
+            student = studentservice.findStudentDTOById(id);
+        }
         List<ClassModel> classModels = clazzService.findAllClass();
         model.addAttribute("stu",student);
         model.addAttribute("class",classModels);
