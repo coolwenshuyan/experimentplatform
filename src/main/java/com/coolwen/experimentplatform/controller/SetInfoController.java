@@ -158,9 +158,8 @@ public class SetInfoController {
     }
 
     //完成轮播id存储操作
-    @ResponseBody
     @PostMapping(value = "/lunbo")
-    public String addlunbo(String id1,String id2,String id3,String id4){
+    public String addlunbo(String id1,String id2,String id3,String id4,Model model){
         SetInfo setInfo = new SetInfo();
         setInfo.setId(1);
         SetInfo setInfo1 = setInfoService.findById(1);
@@ -170,7 +169,8 @@ public class SetInfoController {
         //拼接id存储到数据库中
         setInfo.setSet_rotateimg(id1+","+id2+","+id3+","+id4);
         setInfoService.add(setInfo);
-        return "添加成功";
+        model.addAttribute("msg","更新成功");
+        return "shouye/lunbo";
     }
 
 }

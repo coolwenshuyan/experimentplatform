@@ -31,8 +31,10 @@
 <!--  				<a class="layui-btn" href="#">轮播导航</a>-->
 <!--			</span>			-->
 <!--		</div>-->
+
         <form action="/setinfo/lunbo" method="post">
 		<div id="main" class="layui-col-md8 layui-col-md-offset2">
+            <div><b th:text="${msg}" style="color:red"></b></div>
             <div id="d1" class="layui-form-item">
                 <label class="layui-form-label">轮播图id1</label>
                 <div class="layui-input-block">
