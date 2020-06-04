@@ -135,6 +135,14 @@ public class writeReportController {
                             HttpSession httpSession,
 //                            @RequestParam(required = true, defaultValue = "1") int stuId,
                             @PathVariable("mid")int mid){
+        //获取当前登录的学生id
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        int stuId=student.getId();
+
+        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+        if (kaoHeModelScore.ismReportstate()){
+            return "redirect:/WriteReport/"+mid+"/Timu";
+        }
 
         //得到报告题目木
         List<Report> reports= reportService.findByMidpaixu(mid);
@@ -159,9 +167,6 @@ public class writeReportController {
             String value = request.getParameter(a);
             zyy.add(value);
         }
-        //获取当前登录的学生id
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        int stuId=student.getId();
 
         for (int i = 0; i <zyy.size() ; i++) {
 
