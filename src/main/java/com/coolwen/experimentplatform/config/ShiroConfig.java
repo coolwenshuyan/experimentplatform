@@ -32,7 +32,7 @@ import java.util.*;
  * @author CoolWen
  * @version 2018-11-01 7:44
  */
-//@Configuration
+@Configuration
 @EnableTransactionManagement
 public class ShiroConfig {
 
@@ -99,11 +99,12 @@ public class ShiroConfig {
 //        filterChainDefinitionMap.put("/js/**", "anon");
 //        filterChainDefinitionMap.put("/js/*/*/*", "anon");
 //        filterChainDefinitionMap.put("/images/**", "anon");
-//        filterChainDefinitionMap.put("/user/**", "authc,perms[admin]");
-//        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
+
+
+////        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
 //        filterChainDefinitionMap.put("/login", "anon");
-//        filterChainDefinitionMap.put("/kaohe/allModule", "anon");
-//        filterChainDefinitionMap.put("/405", "anon");
+////        filterChainDefinitionMap.put("/kaohe/allModule", "anon");
+//        filterChainDefinitionMap.put("//405", "anon");
 //        filterChainDefinitionMap.put("/logout", "logout");
 //        filterChainDefinitionMap.put("/**", "authc");//需要登录访问的资源 , 一般将/**放在最下边
 
