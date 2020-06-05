@@ -106,6 +106,10 @@ public class NewsInfoController {
         //查询对应id的整条数据
         NewsInfo newsInfo = newsInfoService.findById(id);
         model.addAttribute("newsInfo",newsInfo);
+        //设置点击次数+1
+        newsInfo.setDic_num(newsInfo.getDic_num()+1);
+        //更新数据
+        newsInfoService.add(newsInfo);
         return "home_page/noticeDetails";
     }
 
