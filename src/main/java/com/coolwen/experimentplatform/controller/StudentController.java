@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.StudentListDTO;
 import com.coolwen.experimentplatform.service.*;
@@ -134,7 +135,7 @@ public class StudentController {
         student.setStuName(stu_name);
         student.setStuXuehao(stu_xuehao);
         student.setStuIsinschool(stuIsinschool);
-        student.setStuPassword(stu_password);
+        student.setStuPassword(ShiroKit.md5(stu_password,stu_uname));
         student.setClassId(classid);
         studentservice.saveStudent(student);
         return "redirect:/studentManage/list";
