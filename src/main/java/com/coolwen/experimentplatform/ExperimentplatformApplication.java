@@ -13,7 +13,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Import(ShiroConfig.class)
 @EnableCaching
 public class ExperimentplatformApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ExperimentplatformApplication.class, args);
     }
