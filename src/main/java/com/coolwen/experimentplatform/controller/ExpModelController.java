@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -294,16 +296,22 @@ public class ExpModelController {
 
     //实验大厅所有模块信息
     @GetMapping("/alltestModel")
-    public String alltest(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum){
+    public String alltest(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum,HttpSession session){
+        Page<ExpModel> page = expModelService.finExpAll(pageNum);
         model.addAttribute("list",expModelService.finExpAll(pageNum));
+        session.setAttribute("modulePageNum",pageNum);
+        session.setAttribute("isAllModule",true);
         return "home_shiyan/all-test";
+//        return "";
     }
     //实验大厅考核模块
     @GetMapping("/kaoheModel")
-    public String kaoModelById(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum){
+    public String kaoModelById(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum,HttpSession session){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         Page<KaoHeModelStuDTO> kaohe = kaoheModelService.findKaoheModelStuDto(student.getId(),pageNum);
         model.addAttribute("k",kaohe);
+        session.setAttribute("modulePageNum",pageNum);
+        session.setAttribute("isAllModule",false);
         return "home_shiyan/index";
     }
 
@@ -326,6 +334,18 @@ public class ExpModelController {
         return "shiyan/lookTestAndReport";
     }
 
+    //精准返回进入模块测试或填写报告，或理论学习模块所在的页面
+    @GetMapping("/moduleDispathcher")
+    public String moduleDispathcher(HttpSession session, RedirectAttributes redirectAttributes){
+        int pageNum = (int) session.getAttribute("modulePageNum");
+        boolean flag = (boolean) session.getAttribute("isAllModule");
+        redirectAttributes.addAttribute("pageNum",pageNum);
+        if(flag == true){
+            return "redirect:/expmodel/alltestModel";
+        }else {
+            return "redirect:/expmodel/kaoheModel";
+        }
+    }
 
 
 

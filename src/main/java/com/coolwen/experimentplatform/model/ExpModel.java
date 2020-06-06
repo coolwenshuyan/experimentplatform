@@ -177,4 +177,25 @@ public class ExpModel {
     public void setNeedKaohe(boolean needKaohe) {
         this.needKaohe = needKaohe;
     }
+
+    @Override
+    public String toString() {
+        return "ExpModel{" +
+                "m_id=" + m_id +
+                ", m_name='" + m_name + '\'' +
+                ", m_manager='" + m_manager + '\'' +
+                ", m_type='" + m_type + '\'' +
+                ", classhour=" + classhour +
+                ", imageurl='" + imageurl + '\'' +
+                ", introduce='" + introduce + '\'' +
+                ", purpose='" + purpose + '\'' +
+                ", principle='" + principle + '\'' +
+                ", m_content='" + m_content + '\'' +
+                ", m_edata_intro='" + m_edata_intro + '\'' +
+                ", m_edataurl='" + m_edataurl + '\'' +
+                ", m_step='" + m_step + '\'' +
+                ", m_inurl='" + m_inurl + '\'' +
+                ", needKaohe=" + needKaohe +
+                '}';
+    }
 }

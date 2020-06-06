@@ -145,7 +145,7 @@
 
 <body>
 <div id="return" class="layui-btn-container" style="margin-top: 40px;">
-    <input type="submit" class="layui-btn" value="返回上一级">
+    <a th:href="@{/expmodel/moduleDispathcher}" class="layui-btn" >返回上一级</a>
     <!--					<button type="button" class="layui-btn">删除</button>-->
 </div>
 <div class="container" style="margin-left: -6%;">
@@ -217,7 +217,7 @@
         </div>
     </div>
 </div>
-<button class="layui-btn layui-btn-radius" style="background-color: #174f37;margin-left: -6%">进入实验平台</button>
+<a class="layui-btn" style="background-color: #174f37;margin-left: -6%" th:href="${exp.m_inurl}">进入实验平台</a>
 <div class="step"  >
     <div id="title">
         <h2 align="center">实验步骤</h2>
