@@ -16,9 +16,16 @@ public interface NewsInfoRepository  extends PagingAndSortingRepository<NewsInfo
     @Query(value ="select * from t_newsinfo order by t_newsinfo.dic_datetime desc ",nativeQuery=true)
     public Page<NewsInfo> findAllorderby(Pageable pageable);
 
+    //当期考核人数
     @Query(value ="select count(*) from t_totalscore_current",nativeQuery=true)
     int findAllmodelpeople();
-
-    @Query(value = "select count(*) from t_totalscore_pass where total_score>60",nativeQuery=true)
+    //往期考核人数
+    @Query(value ="select count(*) from t_totalscore_pass",nativeQuery=true)
+    int findAllmodelpeople1();
+    //当期通过人数
+    @Query(value = "select count(*) from t_totalscore_current where total_score>60",nativeQuery=true)
     int findAllPass();
+    //往期通过人数
+    @Query(value = "select count(*) from t_totalscore_pass where total_score>60",nativeQuery=true)
+    int findAllPass1();
 }

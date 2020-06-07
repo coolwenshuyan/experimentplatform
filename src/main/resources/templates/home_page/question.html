@@ -29,7 +29,8 @@
                 <a href="/register">注册用户</a>
             </li>
             <li class="layui-nav-item" th:if="${session.username}!=null">
-                <a th:text="|Welcome to you, ${session.username}!|"></a>
+                <a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
+                <a style="color:#fff" th:href="@{/logout}">退出登录</a>
             </li>
 
 

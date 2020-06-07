@@ -125,7 +125,7 @@ public class ShiroConfig {
         //设置realm.
         securityManager.setAuthenticator(modularRealmAuthenticator());
         List<Realm> realms = new ArrayList<>();
-        realms.add(myShiroRealm());
+//        realms.add(myShiroRealm());
         realms.add(studentRealm());
         realms.add(adminRealm());
         //securityManager.setRealm(myShiroRealm());
@@ -164,6 +164,14 @@ public class ShiroConfig {
     @Bean
     public StudentRealm studentRealm(){
         StudentRealm studentRealm = new StudentRealm();
+        studentRealm.setCachingEnabled(true);
+//        studentRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+//        studentRealm.setPermissionResolver(urlPermissionResovler());
+        studentRealm.setAuthenticationCachingEnabled(true);
+        studentRealm.setAuthorizationCachingEnabled(true);
+//        studentRealm.setAuthenticationCacheName("shiro");
+//        studentRealm.setAuthorizationCacheName("shiro");
+        studentRealm.setCacheManager(ehCacheManager());
         return studentRealm;
     }
 

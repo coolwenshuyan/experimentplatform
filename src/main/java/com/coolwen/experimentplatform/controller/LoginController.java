@@ -22,16 +22,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author CoolWen
@@ -170,7 +169,25 @@ public class LoginController {
                 if (student1 != null) {
                     model.addObject("msg1", "用户名已存在");
                     model.setViewName("register");
-                } else {
+                    return model;
+                }
+                Pattern p = Pattern.compile("^[1](([3|5|8][\\d])|([4][4,5,6,7,8,9])|([6][2,5,6,7])|([7][^9])|([9][1,8,9]))[\\d]{8}$");
+                Matcher m = p.matcher(tel);
+//                Pattern p1 = Pattern.compile("/^0|[a-zA-Z0-9]{10}$/");
+                Pattern p1 = Pattern.compile("^$|^\\d{10}$");
+                Matcher m1 = p1.matcher(stu_xuehao);
+                if (m.matches() != true){
+                    model.addObject("telmsg", "请输入11位数字");
+                    model.setViewName("register");
+                    return model;
+                }
+                if (m1.matches() != true){
+                    System.out.println("gffj");
+                    model.addObject("xuehaomsg", "请输入正确的学号");
+                    model.setViewName("register");
+                    return model;
+                }
+                else {
                     Student student = new Student();
                     student.setStuIsinschool(stu_isinschool);
 //                    if (class_id != "") {
@@ -200,6 +217,12 @@ public class LoginController {
         return model;
     }
 
+    @GetMapping("/logout")
+    public String Logout(){
+        SecurityUtils.getSubject().logout();
+        System.out.println("fsdfasdasdgasdg");
+        return "redirect:/login";
+    }
 
 
     @RequestMapping(value = {"/change"}, method = RequestMethod.POST)//修改个人信息

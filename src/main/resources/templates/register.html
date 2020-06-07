@@ -29,6 +29,7 @@
                             <div class="layui-input-block">
                                 <input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
                                 <p th:text="${msg1}" style="color: red"></p>
+<!--                                <div th:errors="${student2.account}"></div>-->
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -48,6 +49,7 @@
                             <label class="layui-form-label">手机号：</label>
                             <div class="layui-input-block">
                                 <input type="text" name="tel" required  lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                                <p th:text="${telmsg}" style="color: red"></p>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -55,6 +57,7 @@
                             <div class="layui-input-block">
                                 <input type="text"  name="stu_xuehao"   lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
                                 <p style="color: darkgray">（非必填）</p>
+                                <p th:text="${xuehaomsg}" style="color: red"></p>
                             </div>
                         </div>
                         <div class="layui-form-item">
