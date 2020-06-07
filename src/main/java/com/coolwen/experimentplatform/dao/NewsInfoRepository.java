@@ -23,9 +23,18 @@ public interface NewsInfoRepository  extends PagingAndSortingRepository<NewsInfo
     @Query(value ="select count(*) from t_totalscore_pass",nativeQuery=true)
     int findAllmodelpeople1();
     //当期通过人数
-    @Query(value = "select count(*) from t_totalscore_current where total_score>60",nativeQuery=true)
+    @Query(value = "select count(*) from t_totalscore_current where total_score>=60",nativeQuery=true)
     int findAllPass();
     //往期通过人数
-    @Query(value = "select count(*) from t_totalscore_pass where total_score>60",nativeQuery=true)
+    @Query(value = "select count(*) from t_totalscore_pass where total_score>=60",nativeQuery=true)
     int findAllPass1();
+
+    @Query(value = "select count(*) from t_totalscore_pass where total_score>=85",nativeQuery=true)
+    int findExcellentpeople();
+
+    @Query(value = "select count(*) from t_totalscore_pass where total_score>=60 and total_score<85",nativeQuery=true)
+    int findQualifiedpeople();
+
+    @Query(value = "select count(*) from t_totalscore_pass where total_score<60",nativeQuery=true)
+    int findUnqualifiedpeople();
 }

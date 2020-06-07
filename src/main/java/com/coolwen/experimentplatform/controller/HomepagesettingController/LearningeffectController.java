@@ -11,6 +11,7 @@ import com.coolwen.experimentplatform.dao.EffectRepository;
 import com.coolwen.experimentplatform.model.Effect;
 import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.service.EffectService;
+import com.coolwen.experimentplatform.service.NewsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.NumberFormat;
 import java.util.Date;
 /**
 *@Description 主要为后台管理系统中首页-->学习效果 的增删改查，前端学习效果页面优秀实验报告展示
@@ -36,6 +38,8 @@ public class LearningeffectController {
     EffectRepository effectRepository;   //学习效果的dao层
     @Autowired
     EffectService effectService;        //学习效果的servi层
+    @Autowired
+    NewsInfoService newsInfoService;
 
     FileUploadController fileUploadController =new FileUploadController();  //上传文件
     /**
@@ -54,11 +58,34 @@ public class LearningeffectController {
      * @return 进入到前端前端学习效果页面
      */
     @GetMapping(value = "/learningList")
-    public String LearningList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
+    public String learningList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
         //查询全部优秀实验报告数据
         Pageable pageable = PageRequest.of(pageNum,5);
         Page<Effect> page = effectRepository.findAll(pageable);
         model.addAttribute("learningPageInfo",page);
+        //往期参与考核的全部学生
+        int allpasspeople = newsInfoService.findAllpasspeople();
+        //往期参与考核的优秀学生（85分以上）
+        int excellent = newsInfoService.findExcellentpeople();
+        //往期参与考核的优秀学生（60分-85分）
+        int qualified = newsInfoService.findQualifiedpeople();
+        //往期参与考核的优秀学生（60分以下）
+        int unqualified = newsInfoService.findUnqualifiedpeople();
+
+        if (allpasspeople == 0){
+            allpasspeople = 1;
+        }
+        // 创建一个数值格式化对象
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        // 设置精确到小数点后2位
+        numberFormat.setMaximumFractionDigits(2);
+        String excellentstu = numberFormat.format((float) excellent / (float) allpasspeople * 100) +"%";
+        String qualifiedstu = numberFormat.format((float) qualified / (float) allpasspeople * 100) +"%";
+        String unqualifiedstu = numberFormat.format((float) unqualified / (float) allpasspeople * 100) +"%";
+
+        model.addAttribute("excellentstu",excellentstu);
+        model.addAttribute("qualifiedstu",qualifiedstu);
+        model.addAttribute("unqualifiedstu",unqualifiedstu);
         return "home_page/study_situation";
     }
 

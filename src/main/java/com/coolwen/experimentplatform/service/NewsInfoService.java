@@ -12,4 +12,12 @@ public interface NewsInfoService {
     int findAllmodelpeople();
 
     int findAllPass();
+
+    int findAllpasspeople();
+
+    int findExcellentpeople();
+
+    int findQualifiedpeople();
+
+    int findUnqualifiedpeople();
 }
