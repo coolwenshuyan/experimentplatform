@@ -22,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.*;
 import java.util.Date;
 
 /**
@@ -90,8 +92,15 @@ public class NewsInfoController {
         int passpeople = newsInfoService.findAllPass();
         model.addAttribute("passpeople",passpeople);
         System.out.println(passpeople);
+
+        //访问量
+        // 获取访问量信息
+        String txtFilePath = "E://count.txt";
+        Long count = Get_Visit_Count(txtFilePath);
+        model.addAttribute("count", count);
         return "home_page/index";
     }
+
 
     //前端实验大厅入口
     @GetMapping(value = "/shiyan")
@@ -183,5 +192,49 @@ public class NewsInfoController {
     public String delete(@PathVariable int id){
         newsInfoService.delete(id);
         return "redirect:/newsinfo/list";
+    }
+
+
+    public static Long Get_Visit_Count(String txtFilePath) {
+        try {
+            File file = new File(txtFilePath);
+            if (!file.exists()){
+                file.createNewFile();
+                //写入相应的文件
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(txtFilePath),"UTF-8"));
+                Long count = Long.valueOf("0");
+                out.write(String.valueOf(count));
+                //清楚缓存
+                out.flush();
+                //关闭流
+                out.close();
+            }
+            //读取文件(字符流)
+            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(txtFilePath),"UTF-8"));
+            //循环读取数据
+            String str = null;
+            StringBuffer content = new StringBuffer();
+            while ((str = in.readLine()) != null) {
+                content.append(str);
+            }
+            //关闭流
+            in.close();
+            //System.out.println(content);
+            // 解析获取的数据
+            Long count = Long.valueOf(content.toString());
+            count ++; // 访问量加1
+            //写入相应的文件
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(txtFilePath),"UTF-8"));
+            out.write(String.valueOf(count));
+            //清楚缓存
+            out.flush();
+            //关闭流
+            out.close();
+            return count;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0L;
+        }
     }
 }
