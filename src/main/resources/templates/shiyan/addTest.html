@@ -67,14 +67,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">问题序号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questOrder" th:value="${questOrder}" required lay-verify="required" placeholder="1"
+                    <input type="text" name="questOrder" th:value="${questOrder}" required lay-verify="required|number" placeholder="1"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">分数</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questScore" th:value="${questScore}" required lay-verify="required" placeholder="100"
+                    <input type="text" name="questScore" th:value="${questScore}" required lay-verify="required|number" placeholder="100"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -97,14 +97,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">答案</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questAnswer" th:value="${questAnswer}" required lay-verify="required" placeholder="1,2,3"
+                    <input type="text" name="questAnswer" th:value="${questAnswer}" required lay-verify="required|number" placeholder="1,2,3"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <a href="lookTest.html" th:href="@{|/shiyan/list/${quest.mId}|}" class="layui-btn layui-btn-primary">返回</a>
+                    <a href="lookTest.html" th:href="@{|/shiyan/list/${mId}|}" class="layui-btn layui-btn-primary">返回</a>
                     <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
                 </div>
             </div>

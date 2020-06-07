@@ -50,10 +50,13 @@ public class ModuleController {
 //        从缓存中取到questDescribe，即题目的信息
         String questDescribe = (String) session.getAttribute("questDescribe");
         System.out.println("打印题目信息~~~~~~" + questDescribe);
+//        从缓存中取到mId
+        int mId = (int) session.getAttribute("mId");
 //      判断题目是否为空，如果为空就允许添加对象
         if (questDescribe == null || questDescribe.isEmpty() || questDescribe == "") {
             model.addAttribute("addAnswer", new ModuleTestAnswer());
             model.addAttribute("quest", new ModuleTestQuest());
+
         } else {
 //          如果题目不为空，先从session中取到在添加试题的post方法里存入的questId，即问题id
             int qId = (int) session.getAttribute("questId");
@@ -66,6 +69,7 @@ public class ModuleController {
             model.addAttribute("quest", quest);
 
         }
+        model.addAttribute("mId",mId);
 //        返回到静态资源下的shiyan/addTest.html
         return "shiyan/addTest";
     }
@@ -330,10 +334,17 @@ public class ModuleController {
 
     /**
      * 添加模块测试的实验报告
+     * @param model 与前端的数据绑定、交互
+     * @param session 数据的缓存空间
      * @return 返回静态资源下的shiyan/part-add.html
      */
     @GetMapping("addReport")
-    public String addReport() {
+    public String addReport(Model model, HttpSession session) {
+
+//        将实验报告列表中存入的mid取出，并赋值给id
+        int id = (int) session.getAttribute("mId");
+//        将mid传给前端做路径
+        model.addAttribute("mId",id);
         return "shiyan/part-add";
     }
 
