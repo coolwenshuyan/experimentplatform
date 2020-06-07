@@ -139,10 +139,15 @@ public class writeReportController {
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         int stuId=student.getId();
 
-        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
-        if (kaoHeModelScore.ismReportstate()){
-            return "redirect:/WriteReport/"+mid+"/Timu";
+        try {
+            KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+            if (kaoHeModelScore.ismReportstate()){
+                return "redirect:/WriteReport/"+mid+"/Timu";
+            }
+        }catch (Exception e){
+
         }
+
 
         //得到报告题目木
         List<Report> reports= reportService.findByMidpaixu(mid);
