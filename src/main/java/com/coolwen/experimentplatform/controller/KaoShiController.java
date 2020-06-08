@@ -10,6 +10,7 @@ import com.coolwen.experimentplatform.dao.KaoheModelRepository;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.service.*;
+import com.google.inject.internal.cglib.core.$Block;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,12 @@ public class KaoShiController {
     @Autowired
     private TotalScoreCurrentService totalScoreCurrentService; //总成绩
 
+    @Autowired
+    private ExpModelService expModelService;//实验模块
+
+    @Autowired
+    private StudentService studentService;//学生信息
+
     /**
      *返回考试题目
      * @param mid 筛选模块
@@ -68,18 +75,38 @@ public class KaoShiController {
                              Model model, HttpSession session) {
 //        type1 表示的是单选题,
 //        mid表示模型
+
+        int stuId=1;
+        //检查次模块是不是考核模块
+        boolean expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+        //检查此学生有没有考核资格
+        int stuClassId = studentService.findStudentById(stuId).getClassId();
+        boolean stuNeedKaohe = (stuClassId>=0);
+
+        //获得结论此次请求是否需要保存成绩
+        boolean needSaveScore = expModelNeedKaohe & stuNeedKaohe;
+        model.addAttribute("needSaveScore",needSaveScore);
+
+
         //获得此模块的所有单选题
         List<QuestListAnswerDto> questionsList = moduleTestQuestService.listQuestAnswerDto("单选", mid);
-        System.out.println("questionsList1:>>>>>>>>>>>>>"+questionsList);
+        for (QuestListAnswerDto i:questionsList){
+            System.out.println("questionsList1:>>>>>>>>>>>>>"+i);
+        }
         //将单选题目和模块id传入
         model.addAttribute("radioQuestionsList", questionsList);
         model.addAttribute("midd", mid);
         //返回多选题目
         List<QuestListAnswerDto> questionsList2 = moduleTestQuestService.listQuestAnswerDto("多选", mid);
-        System.out.println("questionsList2:>>>>>>>>>>>>>"+questionsList2);
+        for (QuestListAnswerDto i:questionsList2){
+            System.out.println("questionsList2:>>>>>>>>>>>>>"+i);
+        }
+
         //将多选题目传入
         model.addAttribute("checkboxQuestionsList", questionsList2);
         return "home_shiyan/CanKaoceshitest";
+
+
     }
 
 
@@ -196,6 +223,80 @@ public class KaoShiController {
 
         }
         //回到成绩查看页面或者其他页面
-        return "home_shiyan/CanKaoceshitest";
+        model.addAttribute("fs",fs);
+        //回到成绩查看页面或者其他页面
+        return "home_shiyan/viewTheScore";
     }
+
+
+//    不需要保存成绩的请求
+    @RequestMapping("/{mid}/viewTheScore")
+    public String viewTheScore(Map<String,String> map,
+                           @PathVariable("mid") Integer mid,
+                           Model model, HttpSession session, HttpServletRequest request ) {
+
+        String username = (String) session.getAttribute("username");
+        Integer taotiId = null;
+
+        //学生id,临时测试值为 1(需要从session中获得)
+        int stuId = 1;
+
+        //获得学生提交的试卷
+        Enumeration em = request.getParameterNames();
+
+        //创建学生的分数
+        float fs = 0;
+
+        //遍历所有request
+        while (em.hasMoreElements()) {
+            //得到题目编号
+            String name = (String) em.nextElement();
+            System.out.println("name<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+name);
+
+            //通过题目获得学生的所有答案
+            String[] value = request.getParameterValues(name);
+
+            //得到数据库此模块中此学生答案表
+            List<ModuleTestAnswerStu> pd = moduleTestAnswerStuService.findAllModuleTestAnswerStuByStuidAndQuestId(stuId, Integer.parseInt(name));
+
+            //初始化一个学生答案
+            ModuleTestAnswerStu moduleTestAnswerStu = new ModuleTestAnswerStu();
+
+            //如果数据库此模块学生答案表已经存在,获得这个东西的id,并且将之前初始化的id设置为此id
+            if (pd.size()>0){
+                Integer zgdxdid = pd.get(0).getId();
+                moduleTestAnswerStu.setId(zgdxdid);
+            }
+
+            //将之前初始化的学生id和问题id设置为对应的值
+            moduleTestAnswerStu.setStu_id(stuId);
+            moduleTestAnswerStu.setQuest_id(Integer.parseInt(name));
+
+            //初始化一个答案
+            String daAn = "";
+            //通过遍历得到学生答案,并且保存
+            for(String c : value){
+                ModuleTestAnswer moduleTestAnswer = moduleTestAnswerService.findByAnswerId(Integer.parseInt(c));
+                daAn+=moduleTestAnswer.getAnswerOrder();
+            }
+            moduleTestAnswerStu.setStu_quest_answer(daAn);
+
+            //得到正确答案
+            ModuleTestQuest moduleTestQuest = moduleTestQuestService.findQuestByQuestId(Integer.parseInt(name));
+            String rightDaAn = moduleTestQuest.getQuestAnswer();
+
+            //判断学生答案是否正确,并且保存
+            if (daAn.equals(rightDaAn)){
+                Integer fs1 = (int) moduleTestQuest.getQuestScore();
+                moduleTestAnswerStu.setScore(fs1);
+                fs+=fs1;
+            }
+            moduleTestAnswerStuService.add(moduleTestAnswerStu);
+        }
+
+        model.addAttribute("fs",fs);
+        //回到成绩查看页面或者其他页面
+        return "home_shiyan/viewTheScore";
+    }
+
 }
