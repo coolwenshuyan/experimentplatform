@@ -17,13 +17,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 2020/6/3
+ * 王雨来
+ * 新增总成绩考核中考试与模块总成绩权重初始化 /GreatestWeight
+ */
 
 /**
  * 对考核进行编辑管理
@@ -202,6 +203,9 @@ public class KaoheModelController {
         // 将实验模块的考核状态设置为不考核
         expModel.setNeedKaohe(false);
         expModelService.save(expModel);
+
+        //删除所有学生此模块的成绩
+        kaoheModelService.deleteByMid(mid);
         // 删除此考核模块
         kaoheModelService.delete(id);
 
@@ -209,6 +213,7 @@ public class KaoheModelController {
         System.out.println("移出成功");
         return "redirect:/kaohemodel/checkModule";
     }
+
 
 
 }

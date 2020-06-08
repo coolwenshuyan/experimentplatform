@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -47,5 +49,8 @@ public interface KaoheModelRepository extends BaseRepository<KaoheModel, Integer
     @Query("select a from KaoheModel a where a.m_id = ?1")
     KaoheModel findKaoheModelByMid(int mid);
 
-
+    @Modifying
+    @Transactional(readOnly = false)
+    @Query("update KaoheModel k set k.kaohe_baifenbi= ?1,k.test_baifenbi= ?2")
+    void updateAllGreatestWeight(float kaoheBaifenbi,float testBaifenbi);
 }

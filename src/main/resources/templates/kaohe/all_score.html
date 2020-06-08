@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../../static/css/layui.css" media="all">
 		<link rel="stylesheet" type="text/css" href="../../static/css/page.css"/>
 		<link rel="stylesheet" type="text/css" href="../../static/css/code.css"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css"/>
 		<style type="text/css">
 			* {
 				margin: 0;
@@ -138,25 +139,22 @@
 					</tr>
 					<tr>
 						<th style="padding: 0">
-							<form class="layui-form layui-col-md3" action="" >
+							<form class="layui-form layui-col-md3" th:action="@{/totalscore/GreatestWeight}" method="post">
 									<div class="layui-form-item ">
 										<label class="layui-form-label">模块占比</label>
 										<div class="layui-input-block">
-											<input type="text" name="score" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
+											<input th:value="${kaoheBaifenbi}" type="text" name="kaoheBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
 										</div>
 									</div>
-							</form>
-<!--						</th>-->
-<!--						<th colspan="6" style="padding: 0">-->
-							<form class="layui-form layui-col-md3" action="" style="margin-left: 45%;" >
 									<div class="layui-form-item ">
 										<label class="layui-form-label">理论占比</label>
 										<div class="layui-input-block">
-											<input type="text" name="score" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
+											<input th:value="${testBaifenbi}" type="text" name="testBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
 										</div>
 									</div>
-							</form>	
-							<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 167%;margin-top: -30%">修改</button>
+
+									<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 167%;margin-top: 0%">修改</button>
+							</form>
 						</th>												
 					</tr>
 
@@ -177,8 +175,8 @@
 						<th>班级</th>
 						<th>模块考核总成绩</th>
 						<th>理论测试总成绩</th>
-						<th>模块考核占比</th>
-						<th>理论测试占比</th>
+<!--						<th>模块考核占比</th>-->
+<!--						<th>理论测试占比</th>-->
 						<th>总评成绩</th>
 					</tr>
 				</thead>
@@ -189,8 +187,8 @@
 						<td><p th:text="${one.className}">18信管01</p></td>
 						<td><p th:text="${one.mTotalScore}">87</p></td>
 						<td><p th:text="${one.testScore}">87</p></td>
-						<td><p>0.3</td>
-						<td><p>0.7</td>
+<!--						<td><p>0.3</td>-->
+<!--						<td><p>0.7</td>-->
 						<td><p th:text="${one.totalScore}">78</p></td>
 
 					</tr>
@@ -204,8 +202,46 @@
 			
 		</div>
 		
-		<div style="text-align: center; margin-top: 2%;">
-			<div id="pager" class="pager clearfix">
+<!--		<div style="text-align: center; margin-top: 2%;">-->
+<!--			<div id="pager" class="pager clearfix">-->
+<!--			</div>-->
+<!--		</div>-->
+
+		
+<!--		分页-->
+		<div style="text-align: center;">
+			<!--			<div id="pager" class="pager clearfix">-->
+			<!--			</div>-->
+			<div class="modal-footer no-margin-top">
+				<ul class="pagination pull-right no-margin">
+
+					<!-- 首页 -->
+					<li>
+						<a th:href="'/totalscore/list?pageNum=0'">首页</a>
+					</li>
+
+					<!-- 上一页 -->
+					<li th:if="${pageTotalScore.hasPrevious()}">
+						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.previousPageable().getPageNumber()}" th:text="上一页"></a>
+					</li>
+
+					<!-- 中间页 -->
+					<li th:each="pageNum:${#numbers.sequence(0, pageTotalScore.getTotalPages() - 1)}">
+						<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne pageTotalScore.pageable.getPageNumber()}"></a>
+						<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq pageTotalScore.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+					</li>
+
+					<!-- 下一页 -->
+					<li th:if="${pageTotalScore.hasNext()}">
+						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.nextPageable().getPageNumber()}" th:text="下一页"></a>
+					</li>
+
+					<!-- 尾页 -->
+					<li>
+						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.getTotalPages() - 1}">尾页</a>
+					</li>
+
+				</ul>
 			</div>
 		</div>
 		
