@@ -121,6 +121,8 @@ public class KaoheModelController {
 
         model.addAttribute("moveIn", new KaoheModel());
         return "kaohe/moveIn";
+
+
     }
 
     /**
@@ -152,6 +154,7 @@ public class KaoheModelController {
         // 表13 考核项目数增加
         expModelService.save(expModel);
         System.out.println(">>>>>>>>>>>>add");
+        kaoheModelService.deleteMTestAnswerByMid(mid);
         return "redirect:/kaohemodel/allModule";
     }
 

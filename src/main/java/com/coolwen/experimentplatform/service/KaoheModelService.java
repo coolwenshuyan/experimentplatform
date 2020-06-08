@@ -41,4 +41,6 @@ public interface KaoheModelService {
     public void deleteByMid(int mid);
 
     void updateAllGreatestWeight(float kaoheBaifenbi,float testBaifenbi);
+
+    void deleteMTestAnswerByMid(int mid);
 }

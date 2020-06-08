@@ -1,14 +1,8 @@
 package com.coolwen.experimentplatform.service;
 
-import com.coolwen.experimentplatform.dao.ExpModelRepository;
-import com.coolwen.experimentplatform.dao.KaoHeModelScoreRepository;
-import com.coolwen.experimentplatform.dao.KaoheModelRepository;
-import com.coolwen.experimentplatform.dao.TotalScoreCurrentRepository;
+import com.coolwen.experimentplatform.dao.*;
+import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
-import com.coolwen.experimentplatform.model.KaoHeModelScore;
-import com.coolwen.experimentplatform.model.KaoheModel;
-import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.model.TotalScoreCurrent;
 import com.coolwen.experimentplatform.specification.SimpleSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +30,12 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Autowired
     TotalScoreCurrentRepository totalScoreCurrentRepository;
+
+    @Autowired
+    ModuleTestQuestRepository moduleTestQuestRepository;
+
+    @Autowired
+    ModuleTestAnswerStuRepository moduleTestAnswerStuRepository;
 
 
     @Override
@@ -160,6 +160,17 @@ public class KaoheModelServiceImpl implements KaoheModelService {
     @Override
     public void updateAllGreatestWeight(float kaoheBaifenbi, float testBaifenbi) {
         kaoheModelRepository.updateAllGreatestWeight(kaoheBaifenbi,testBaifenbi);
+    }
+
+    @Override
+    public void deleteMTestAnswerByMid(int mid) {
+        List<ModuleTestQuest> moduleTestQuests = moduleTestQuestRepository.findAllByMid(mid);
+
+        for(ModuleTestQuest i : moduleTestQuests){
+//            System.out.println("ModuleTestQuest>>>>>>>>>>>>>>"+i.getQuestId());
+            moduleTestAnswerStuRepository.deleteAllByQuest_id(i.getQuestId());
+        }
+
     }
 
 }
