@@ -9,7 +9,9 @@ package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.dao.AdminDao;
 import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.Admin;
+import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.AdminService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +33,12 @@ public class AdminController {
     AdminDao adminDao;
     @Autowired
     AdminService adminService;
+
+    @GetMapping("info")
+    public String admin(){
+        Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
+        return "redirect:/admin/"+admin.getId()+"/update";
+    }
 
     //查询所有数据
     @GetMapping(value = "/list")
