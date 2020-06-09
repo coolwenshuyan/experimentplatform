@@ -3,6 +3,8 @@ package com.coolwen.experimentplatform.service;
 import com.coolwen.experimentplatform.dao.*;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
+import com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO;
+import com.coolwen.experimentplatform.model.DTO.StudentVo;
 import com.coolwen.experimentplatform.specification.SimpleSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -172,5 +174,18 @@ public class KaoheModelServiceImpl implements KaoheModelService {
         }
 
     }
+
+    @Override
+    public KaoheModelAndExpInfoDTO findKaoheModelAndExpInfoDTOByKaoheid(int kaoheid) {
+        return kaoheModelRepository.findKaoheModelAndExpInfoDTOByKaoheid(kaoheid);
+    }
+
+    @Override
+    public Page<KaoheModelAndExpInfoDTO> findAllKaoheModelAndExpInfoDTO(int pageNum) {
+        Pageable pageable  = PageRequest.of(pageNum,10);
+        return kaoheModelRepository.findAllKaoheModelAndExpInfoDTO(pageable);
+    }
+
+
 
 }
