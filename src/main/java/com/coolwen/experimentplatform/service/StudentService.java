@@ -59,4 +59,7 @@ public interface StudentService {
     Student findByStuMobile(String tel);
 
     Student findByStuXuehao(String stu_xuehao);
+
+    List<Student> findStudentByNotClassId();
+
 }

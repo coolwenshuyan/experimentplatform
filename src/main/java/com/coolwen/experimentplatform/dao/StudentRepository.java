@@ -95,4 +95,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 ////    List<TreportGradeDto> ListStudentDto();
 //
 //>>>>>>> Stashed changes
+
+    @Query("select s from Student s where s.classId < 1")
+    List<Student> findStudentByNotClassId();
 }

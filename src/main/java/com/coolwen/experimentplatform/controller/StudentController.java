@@ -47,7 +47,6 @@ public class StudentController {
     TotalScorePassService totalScorePassService;
     @Autowired
     ExpModelService expModelService;
-
     //查询学生列表
     @GetMapping("/list")
     public String studentList(Model model, @RequestParam(value = "pageNum",defaultValue = "0")int pageNum){
@@ -376,6 +375,7 @@ public class StudentController {
         model.addAttribute("class",clazz);
         return "student/class_view";
     }
+
 
 
 

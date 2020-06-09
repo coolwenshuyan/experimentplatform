@@ -196,5 +196,10 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByStuXuehao(stu_xuehao);
     }
 
+    @Override
+    public List<Student> findStudentByNotClassId() {
+        return studentRepository.findStudentByNotClassId();
+    }
+
 
 }
