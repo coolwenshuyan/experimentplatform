@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.dao.ClazzRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
+import com.coolwen.experimentplatform.exception.UserException;
 import com.coolwen.experimentplatform.model.ClassModel;
 import com.coolwen.experimentplatform.model.DTO.*;
 import com.coolwen.experimentplatform.model.Student;
@@ -47,6 +48,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
+//        Student stu = studentRepository.findByStuMobile(student.getStuMobile());
+//        if (stu != null){
+//            throw new UserException("手机号已被使用");
+//        }
         return studentRepository.save(student);
     }
 
@@ -179,6 +184,16 @@ public class StudentServiceImpl implements StudentService {
     public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOBYClassID(int pageNum, int classId) {
         Pageable pager = PageRequest.of(pageNum, size);
         return studentRepository.listStudentLastTestScoreDTOByClassID(classId,pager);
+    }
+
+    @Override
+    public Student findByStuMobile(String tel) {
+        return studentRepository.findByStuMobile(tel);
+    }
+
+    @Override
+    public Student findByStuXuehao(String stu_xuehao) {
+        return studentRepository.findByStuXuehao(stu_xuehao);
     }
 
 

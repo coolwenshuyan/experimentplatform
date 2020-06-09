@@ -55,4 +55,8 @@ public interface StudentService {
     Page<StudentLastTestScoreDTO> listStudentLastTestAnswerDTO(int pageNum);
 
     Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOBYClassID(int pageNum,int classId);
+
+    Student findByStuMobile(String tel);
+
+    Student findByStuXuehao(String stu_xuehao);
 }
