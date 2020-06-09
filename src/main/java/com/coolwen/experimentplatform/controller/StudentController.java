@@ -333,20 +333,26 @@ public class StudentController {
         //分班后进行学生考核成绩表生成操作
         if(!kaoheModels.isEmpty() && kaoheModels != null){
             for(KaoheModel km : kaoheModels){
-                kaoHeModelScore = new KaoHeModelScore();
-                kaoHeModelScore.settKaohemodleId(km.getId());
-                kaoHeModelScore.setStuId(student.getId());
-                kaoHeModelScore.setmOrder(km.getM_order());
-                kaoHeModelScore.setmScale(km.getM_scale());
-                kaoHeModelScoreService.add(kaoHeModelScore);
+                KaoHeModelScore pre = kaoHeModelScoreService.findKaoheModelScoreByMid(km.getM_id(),student.getId());
+                if(pre == null){
+                    kaoHeModelScore = new KaoHeModelScore();
+                    kaoHeModelScore.settKaohemodleId(km.getId());
+                    kaoHeModelScore.setStuId(student.getId());
+                    kaoHeModelScore.setmOrder(km.getM_order());
+                    kaoHeModelScore.setmScale(km.getM_scale());
+                    kaoHeModelScoreService.add(kaoHeModelScore);
+                }
             }
         }
         //生成当期总评成绩表
-        TotalScoreCurrent totalScoreCurrent = new TotalScoreCurrent();
-        totalScoreCurrent.setStuId(student.getId());
-        int kaoheNum = kaoheModelService.findKaoheNum();
-        totalScoreCurrent.setKaoheNum(kaoheNum);
-        totalScoreCurrentService.add(totalScoreCurrent);
+        TotalScoreCurrent t = totalScoreCurrentService.findTotalScoreCurrentByStuId(student.getId());
+        if(t == null){
+            TotalScoreCurrent totalScoreCurrent = new TotalScoreCurrent();
+            totalScoreCurrent.setStuId(student.getId());
+            int kaoheNum = kaoheModelService.findKaoheNum();
+            totalScoreCurrent.setKaoheNum(kaoheNum);
+            totalScoreCurrentService.add(totalScoreCurrent);
+        }
         studentservice.saveStudent(student);
         return "redirect:/studentManage/addStudent/"+id;
     }
