@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.dao;
 
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
+import com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO;
 import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.specification.SimplePageBuilder;
 import org.springframework.data.domain.Page;
@@ -53,4 +54,23 @@ public interface KaoheModelRepository extends BaseRepository<KaoheModel, Integer
     @Transactional(readOnly = false)
     @Query("update KaoheModel k set k.kaohe_baifenbi= ?1,k.test_baifenbi= ?2")
     void updateAllGreatestWeight(float kaoheBaifenbi,float testBaifenbi);
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO " +
+            "(khm.id,khm.m_id,khm.m_order,khm.m_scale,khm.m_test_baifenbi,khm.m_report_baifenbi,em.m_name,em.classhour,em.purpose,em.m_type) " +
+            "from KaoheModel khm left join ExpModel em " +
+            "on khm.m_id = em.m_id " +
+            "where khm.id = ?1")
+    KaoheModelAndExpInfoDTO findKaoheModelAndExpInfoDTOByKaoheid(int Kaoheid);
+
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO " +
+            "(khm.id,khm.m_id,khm.m_order,khm.m_scale,khm.m_test_baifenbi,khm.m_report_baifenbi,em.m_name,em.classhour,em.purpose,em.m_type) " +
+            "from KaoheModel khm left join ExpModel em " +
+            "on khm.m_id = em.m_id ")
+    Page<KaoheModelAndExpInfoDTO> findAllKaoheModelAndExpInfoDTO(Pageable pageable);
+
+
+
+
+
 }

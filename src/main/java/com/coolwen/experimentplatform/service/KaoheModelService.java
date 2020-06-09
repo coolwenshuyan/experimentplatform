@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
+import com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO;
 import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.model.Resource;
 import org.springframework.data.domain.Page;
@@ -43,4 +44,8 @@ public interface KaoheModelService {
     void updateAllGreatestWeight(float kaoheBaifenbi,float testBaifenbi);
 
     void deleteMTestAnswerByMid(int mid);
+
+    KaoheModelAndExpInfoDTO findKaoheModelAndExpInfoDTOByKaoheid(int kaoheid);
+
+    Page<KaoheModelAndExpInfoDTO> findAllKaoheModelAndExpInfoDTO(int pageNum);
 }
