@@ -96,6 +96,6 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 //
 //>>>>>>> Stashed changes
 
-    @Query("select s from Student s where s.classId < 1")
+    @Query("select s from ClassModel c, Student s where  c.classId = s.classId and c.classIscurrent = false ")
     List<Student> findStudentByNotClassId();
 }
