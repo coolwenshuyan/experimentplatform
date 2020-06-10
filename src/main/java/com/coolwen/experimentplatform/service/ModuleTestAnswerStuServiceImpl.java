@@ -38,4 +38,10 @@ public class ModuleTestAnswerStuServiceImpl implements ModuleTestAnswerStuServic
     public ModuleTestAnswerStu findModuleTestAnswerStuByStu_idAndQuest_id(int stuid, int questid) {
         return moduleTestAnswerStuRepository.findModuleTestAnswerStuByStu_idAndQuest_id(stuid,questid);
     }
+
+    @Override
+    public void deleteByQuestId(int questid) {
+        List<ModuleTestAnswerStu> list = moduleTestAnswerStuRepository.findModuleTestAnswerStuByQuest_id(questid);
+        moduleTestAnswerStuRepository.deleteAll(list);
+    }
 }

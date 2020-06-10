@@ -25,7 +25,7 @@ import java.util.List;
 public class ModuleController {
 
     /**
-     * 注入模块测试题、测试题的选项、实验报告的service
+     * 注入模块测试题、测试题的选项、实验报告的service、学生成绩更新的和学生答题表的service、学生实验报告答题表
      */
     @Autowired
     private ModuleTestQuestService questService;
@@ -36,6 +36,14 @@ public class ModuleController {
     @Autowired
     private ReportService reportService;
 
+    @Autowired
+    private ScoreUpdateService scoreUpdateService;
+
+    @Autowired
+    private ModuleTestAnswerStuService moduleTestAnswerStuService;
+
+    @Autowired
+    private ReportAnswerService reportAnswerService;
 
     /**
      * 添加实验模块试题
@@ -174,6 +182,15 @@ public class ModuleController {
         ModuleTestQuest moduleTestQuest = questService.findQuestByQuestId(questId);
 //        调用questService中的方法删除问题id，就是问题的主键
         questService.deleteQuest(questId);
+//        删除该问题的所有选项
+        List<ModuleTestAnswer> m = answerService.findAllByQuestId(questId);
+        for (ModuleTestAnswer moduleTestAnswer : m){
+            answerService.deleteAnswer(moduleTestAnswer.getAnswerId());
+        }
+//        删除学生答题记录
+        moduleTestAnswerStuService.deleteByQuestId(questId);
+//        更新学生信息
+        scoreUpdateService.allStudentScoreUpdate();
 //        通过moduleTestQuest找到问题的mid，返回试题列表
         return "redirect:/shiyan/list/" + moduleTestQuest.getmId();
     }
@@ -223,6 +240,8 @@ public class ModuleController {
         quest1.setQuestOrder(quest.getQuestOrder());
 //        调用questService的方法更新数据
         questService.addModuleTestQuest(quest1);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
 //        返回模块测试题的列表
         return "redirect:/shiyan/list/" + quest1.getmId();
     }
@@ -267,6 +286,8 @@ public class ModuleController {
         answer.setQuestId(questId);
 //        将新增的选项存到数据库
         answerService.addAnswers(answer);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
 //        返回修改模块测试信息的页面
         return "redirect:/shiyan/updateQuest/" + questId;
     }
@@ -297,6 +318,8 @@ public class ModuleController {
         int qId = answerService.findQuestIdByAnswerId(answerId);
 //        调用answerService的方法删除选项id来删除选项
         answerService.deleteAnswer(answerId);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
 //        返回修改模块测试信息的页面
         return "redirect:/shiyan/updateQuest/" + qId;
     }
@@ -389,6 +412,11 @@ public class ModuleController {
         Report report = reportService.findByReportId(reportId);
 //        调用reportService的方法，删除实验报告的id
         reportService.deleteReport(reportId);
+
+//        删除学生填写的相应的实验报告答题记录
+        reportAnswerService.deleteReportAnswerByReportId(reportId);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
 //        返回实验报告的列表页面
         return "redirect:/shiyan/reportList/" + report.getmId();
     }

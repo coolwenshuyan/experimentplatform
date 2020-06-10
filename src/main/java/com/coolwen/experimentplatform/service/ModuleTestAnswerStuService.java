@@ -20,4 +20,6 @@ public interface ModuleTestAnswerStuService {
 
     ModuleTestAnswerStu findModuleTestAnswerStuByStu_idAndQuest_id(int stuid,int questid);
 
+    void deleteByQuestId(int questid);
+
 }
