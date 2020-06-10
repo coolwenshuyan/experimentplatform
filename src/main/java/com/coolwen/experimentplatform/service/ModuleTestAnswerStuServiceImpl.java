@@ -36,6 +36,6 @@ public class ModuleTestAnswerStuServiceImpl implements ModuleTestAnswerStuServic
 
     @Override
     public ModuleTestAnswerStu findModuleTestAnswerStuByStu_idAndQuest_id(int stuid, int questid) {
-        return findModuleTestAnswerStuByStu_idAndQuest_id(stuid,questid);
+        return moduleTestAnswerStuRepository.findModuleTestAnswerStuByStu_idAndQuest_id(stuid,questid);
     }
 }
