@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -126,19 +127,47 @@ public class StudentController {
                               int classid,
                               Boolean stuIsinschool,
                               String stu_password
-                              )
+    )
     {
         Student student = studentservice.findStudentById(id);
-
         student.setStuUname(stu_uname);
         student.setStuName(stu_name);
-        student.setStuXuehao(stu_xuehao);
+        if(stuIsinschool == true){
+            student.setStuXuehao(stu_xuehao);
+        }else {
+            student.setStuXuehao("");
+        }
         student.setStuIsinschool(stuIsinschool);
         student.setStuPassword(ShiroKit.md5(stu_password,stu_uname));
         student.setClassId(classid);
         studentservice.saveStudent(student);
         return "redirect:/studentManage/list";
     }
+
+
+    @GetMapping("/studentCheck/{stuid}")
+    @ResponseBody
+    public String studentCheck(String stu_uname,String stu_xuehao,@PathVariable("stuid")int stuid){
+        Student now = studentservice.findStudentById(stuid);
+        if(stu_uname != null){
+            Student student = studentservice.findByUname(stu_uname);
+            if(student != null){
+                if(!student.getStuUname().equals(now.getStuUname())){
+                    return "该账号已被注册";
+                }
+            }
+        }else if(stu_xuehao != null) {
+            Student student = studentservice.findByStuXuehao(stu_xuehao);
+            if (stu_xuehao.length() != 10) {
+                return "请输入正确的学号";
+            } else if (student != null) {
+                if (!student.getStuXuehao().equals(now.getStuXuehao())) {
+                    return "该学号已被注册";
+                }
+            }
+        }
+        return "Metal";
+        }
 
     //返回待审核学生列表
     @GetMapping("/toBeReviewd")
@@ -320,6 +349,8 @@ public class StudentController {
     public String toaddStudent(@PathVariable("id")int id,Model model){
         model.addAttribute("student",studentservice.findStudentByClassId(id));
         model.addAttribute("classId",id);
+        ClassModel classModel = clazzService.findById(id);
+        model.addAttribute("class",classModel);
         return "student/class_add_student";
     }
     //为班级进行添加学生操作

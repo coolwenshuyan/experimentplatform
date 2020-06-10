@@ -20,12 +20,14 @@
                 <form class="layui-form" th:action="@{|/studentManage/editStudent/${stu.id}|}" method="post" th:object="${stu}">
                   <div class="layui-form-item">
                       <div class="layui-form-item">
-                          <label for="phone" class="layui-form-label">
+                          <label for="uName" class="layui-form-label">
                               <span class="x-red">*</span>账号
                           </label>
                           <div class="layui-input-inline">
                               <input type="text"  name="stu_uname" required=""
-                                     autocomplete="off" class="layui-input" th:value="${stu.stuUname}">
+                                     autocomplete="off" class="layui-input" th:value="${stu.stuUname}" onblur="checkuName()" id="uName">
+                              <div id="msg" style="color: red;font-size:18px;width: 100%;height:5%;text-align: center"></div>
+
                           </div>
 
                       </div>
@@ -38,17 +40,19 @@
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="phone" class="layui-form-label">
+                      <label for="xuehao" class="layui-form-label">
                           <span class="x-red">*</span>学号
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="phone" name="stu_xuehao" required=""
-                          autocomplete="off" class="layui-input" th:value="${stu.stuXuehao}">
-                      </div>
+                          <input type="text" name="stu_xuehao" required=""
+                          autocomplete="off" class="layui-input" th:value="${stu.stuXuehao}" id="xuehao" onblur="checkxuehao()">
+                          <div id="msg1" style="color: red;font-size:18px;width: 100%;height:5%;text-align: center"></div>
 
-                  </div>
+                      </div>abel>
+
+                    </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">班级</label>
+                        <label class="layui-form-label">班级</l
                         <div class="layui-input-inline">
                             <select name="classid">
                                 <span th:if="${stu.classid eq 0}">
@@ -87,7 +91,7 @@
                   <div class="layui-form-item">
                       <label class="layui-form-label">
                       </label>
-                      <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="确认修改"/>
+                      <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="确认修改" id="enter"/>
                   </div>
               </form>
             </div>
@@ -95,11 +99,59 @@
 
     </body>
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-
-    <script>
+    <script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script th:inline="javascript">
+        var uname = true;
+        var xuehao = true;
+        var stuid = [[${stu.id}]]
         layui.use(['element','form'],function () {
             var form = layui.form;
         })
+
+
+        function checkuName() {
+            var stu_uname = $("#uName").val();
+            $.get("/studentManage/studentCheck/"+stuid,{"stu_uname":stu_uname},function (data) {
+                if(data != "Metal"){
+                    $("#msg").attr("display","block");
+                    $("#msg").text("");
+                    $("#msg").append(data);
+                    $("#enter").attr("type","hidden")
+                    uname = false
+                }else {
+                    $("#msg").text("");
+                    $("#msg").attr("display","none");
+                    uname = true;
+                    if(uname == true && xuehao == true){
+                        $("#enter").attr("type","submit")
+                    }
+                }
+            })
+        }
+
+        function checkxuehao() {
+            var stu_xuehao = $("#xuehao").val();
+            $.get("/studentManage/studentCheck/"+stuid,{"stu_xuehao":stu_xuehao},function (data) {
+                if(data != "Metal"){
+                    $("#msg1").attr("display","block");
+                    $("#msg1").text("");
+                    $("#msg1").append(data);
+                    $("#enter").attr("type","hidden")
+                    xuehao = false
+
+                }else {
+                    $("#msg1").text("");
+                    $("#msg1").attr("display","none");
+                    xuehao = true
+                    if(uname == true && xuehao == true){
+                        $("#enter").attr("type","submit")
+                    }
+                }
+
+            })
+        }
+
+
 
 
 
