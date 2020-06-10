@@ -63,6 +63,14 @@ public class KaoShiController {
     @Autowired
     private StudentService studentService;//学生信息
 
+    @Autowired
+    private ScoreUpdateService scoreUpdateService;
+
+
+    @Autowired
+    private ClazzService clazzService;
+
+
     /**
      *返回考试题目
      * @param mid 筛选模块
@@ -76,23 +84,61 @@ public class KaoShiController {
 //        type1 表示的是单选题,
 //        mid表示模型
 
-        int stuId=1;
+
+
+        //获得学生id
+        Student student= (Student) session.getAttribute("student");
+        int stuId = student.getId();
+        int classId = student.getClassId();
+
+
         //检查次模块是不是考核模块
         boolean expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+
         //检查此学生有没有考核资格
-        int stuClassId = studentService.findStudentById(stuId).getClassId();
-        boolean stuNeedKaohe = (stuClassId>=0);
+//        int stuClassId = studentService.findStudentById(stuId).getClassId();
+        boolean stuNeedKaohe = (classId>=0);
+
+        boolean classiscurrent = false;
+        if (stuNeedKaohe){
+            ClassModel classModel = clazzService.findById(classId);
+            classiscurrent =  classModel.getClassIscurrent();
+        }
+
+        //真为当期需要参加考核的学生,假为其它
+        boolean StudentType = false;
+
+        if(stuNeedKaohe&&!classiscurrent)
+        {
+            StudentType = true;
+        }
+
 
         //获得结论此次请求是否需要保存成绩
-        boolean needSaveScore = expModelNeedKaohe & stuNeedKaohe;
+        boolean needSaveScore = expModelNeedKaohe & StudentType;
         model.addAttribute("needSaveScore",needSaveScore);
 
 
         //获得此模块的所有单选题
         List<QuestListAnswerDto> questionsList = moduleTestQuestService.listQuestAnswerDto("单选", mid);
+        List<ModuleTestAnswerStu> moduleTestAnswerStus;
         for (QuestListAnswerDto i:questionsList){
+//            moduleTestAnswerStus.add(moduleTestAnswerStuService.findAllModuleTestAnswerStuByStuidAndQuestId(stuId,i.getQuestId()).get(0));
+
             System.out.println("questionsList1:>>>>>>>>>>>>>"+i);
         }
+        //增加学生是否已经做过次模块判断>>>>>>>>>>>
+        boolean haveDone = false;
+//        if (moduleTestAnswerStus.size()>0){
+//            haveDone=true;
+//        }
+
+
+
+
+
+
+
         //将单选题目和模块id传入
         model.addAttribute("radioQuestionsList", questionsList);
         model.addAttribute("midd", mid);
@@ -104,6 +150,9 @@ public class KaoShiController {
 
         //将多选题目传入
         model.addAttribute("checkboxQuestionsList", questionsList2);
+        if (haveDone = true){
+            return "home_shiyan/CanKaoceshitest22222222222222222222";
+        }
         return "home_shiyan/CanKaoceshitest";
 
 
@@ -129,8 +178,10 @@ public class KaoShiController {
         Integer taotiId = null;
 
         //学生id,临时测试值为 1(需要从session中获得)
-        int stuId = 1;
+//        int stuId = 1;
 
+        Student student= (Student) session.getAttribute("student");
+        int stuId = student.getId();
         //获得学生提交的试卷
         Enumeration em = request.getParameterNames();
 
@@ -184,6 +235,8 @@ public class KaoShiController {
             moduleTestAnswerStuService.add(moduleTestAnswerStu);
         }
 
+        scoreUpdateService.singleStudentScoreUpdate(stuId);
+
         if(mid == -1){
             System.out.println("这是一次期末考试");
             KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
@@ -222,6 +275,8 @@ public class KaoShiController {
             totalScoreCurrentService.update(tsc);
 
         }
+
+
         //回到成绩查看页面或者其他页面
         model.addAttribute("fs",fs);
         //回到成绩查看页面或者其他页面
@@ -239,8 +294,10 @@ public class KaoShiController {
         Integer taotiId = null;
 
         //学生id,临时测试值为 1(需要从session中获得)
-        int stuId = 1;
+//        int stuId = 1;
 
+        Student student= (Student) session.getAttribute("student");
+        int stuId = student.getId();
         //获得学生提交的试卷
         Enumeration em = request.getParameterNames();
 

@@ -1,11 +1,11 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.coolwen.experimentplatform.dao.TotalScorePassRepository;
+import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.DTO.OneModelScoreDTO;
+import com.coolwen.experimentplatform.model.DTO.PassTotalScoreDTO;
 import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
-import com.coolwen.experimentplatform.model.KaoheModel;
-import com.coolwen.experimentplatform.model.TotalScoreCurrent;
-import com.coolwen.experimentplatform.service.KaoheModelService;
-import com.coolwen.experimentplatform.service.StudentService;
-import com.coolwen.experimentplatform.service.TotalScoreCurrentService;
+import com.coolwen.experimentplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -32,10 +32,16 @@ public class TotalscorePassController {
     public TotalScoreCurrentService totalScoreCurrentService;
 
     @Autowired
+    public TotalScorePassService totalScorePassService;
+
+    @Autowired
     public StudentService studentService;
 
     @Autowired
     public KaoheModelService kaoheModelService;
+
+    @Autowired
+    public ClazzService clazzService;
 
     /**
      * 列出所有成绩
@@ -45,20 +51,19 @@ public class TotalscorePassController {
      */
     @GetMapping("/list")
     public String expModelList(Model model, @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
-        //从数据库得到所有的总成绩
-        Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTO(pageNum);
-        List<KaoheModel> toGetBaiFenBi=kaoheModelService.findAll();
-        float kaoheBaifenbi = 0;
-        float testBaifenbi = 0;
-        if (toGetBaiFenBi.size()>0){
-            kaoheBaifenbi=toGetBaiFenBi.get(0).getKaohe_baifenbi();
-            testBaifenbi=toGetBaiFenBi.get(0).getTest_baifenbi();
+        Page<TotalScorePass> totalScorePasses = totalScorePassService.findAll(pageNum);
+        for(TotalScorePass i:totalScorePasses){
+            System.out.println(i);
+
+        Student student = studentService.findStudentById(i.getStuId());
+        ClassModel classModel = clazzService.findById(student.getId());
+
+        List<OneModelScoreDTO> oneModelScoreDTOS;
+//        PassTotalScoreDTO passTotalScoreDTO = new(student.getStuXuehao(),student.getStuName(),classModel.getClassName(),oneModelScoreDTOS,i.getmTotalScore(),oneModelScoreDTOS,i.get;);
+
+
         }
-        model.addAttribute("pageTotalScore",totalScore);
-        model.addAttribute("kaoheBaifenbi",kaoheBaifenbi);
-        model.addAttribute("testBaifenbi",testBaifenbi);
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+totalScore);
-        return "kaohe/all_score";
+        return null;
     }
 
 

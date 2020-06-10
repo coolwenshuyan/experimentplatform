@@ -150,6 +150,13 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.listStuTotalScoreCurrentDTO(pager);
     }
 
+    //往期成绩查询
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScorePassDTO(int pageNum) {
+
+        return null;
+    }
+
     @Override
     public List<Student> findAll() {
         return studentRepository.findAll();

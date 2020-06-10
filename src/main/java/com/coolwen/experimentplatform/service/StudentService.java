@@ -46,6 +46,8 @@ public interface StudentService {
 
     Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum);
 
+    Page<StuTotalScoreCurrentDTO> listStuTotalScorePassDTO(int pageNum);
+
     List<Student> findAll();
 
 //    List<Student> findAllBy

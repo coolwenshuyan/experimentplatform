@@ -78,7 +78,10 @@ public class TotalscoreCurrentController {
     public String expModelList(Model model, @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
         //从数据库得到所有的总成绩
         Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTO(pageNum);
+        //获得所有考核模块的列表
         List<KaoheModel> toGetBaiFenBi=kaoheModelService.findAll();
+
+        //初始化 最后权重
         float kaoheBaifenbi = 0;
         float testBaifenbi = 0;
         if (toGetBaiFenBi.size()>0){
