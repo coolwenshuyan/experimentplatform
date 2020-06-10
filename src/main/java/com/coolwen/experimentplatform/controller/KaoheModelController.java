@@ -151,7 +151,7 @@ public class KaoheModelController {
         System.out.println(u);
         kaoheModelService.add(u);
         expModel.setNeedKaohe(true);
-        for (Student i : studentService.findAll()) {
+        for (Student i : studentService.findStudentByNotClassId()){
             kaoHeModelScoreService.add(new KaoHeModelScore(u.getId(), i.getId(), 0, 0, u.getM_order(), u.getM_scale()));
         }
         // 当期限定
