@@ -3,8 +3,10 @@ package com.coolwen.experimentplatform.dao;
 import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
 import com.coolwen.experimentplatform.model.DTO.*;
 import com.coolwen.experimentplatform.model.Student;
+import com.coolwen.experimentplatform.specification.SimpleSpecificationBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
@@ -98,4 +100,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
     @Query("select s from ClassModel c, Student s where  c.classId = s.classId and c.classIscurrent = false ")
     List<Student> findStudentByNotClassId();
+
+    @Query("select s from ClassModel c, Student s where  c.classId = s.classId and c.classIscurrent = false ")
+    Page<Student> findCurrentKaoheAllStudent(Specification classId, Pageable pager);
 }

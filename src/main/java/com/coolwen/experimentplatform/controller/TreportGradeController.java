@@ -92,7 +92,10 @@ public class TreportGradeController {
                             @PathVariable("stuId") int stuId,
                             @PathVariable("mid")int mid
     ) {
+        System.out.println(stuId+">>>>>>>>>>"+mid);
         List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,mid);
+        System.out.println(score.size());
+
         model.addAttribute("zjy",score);
         System.out.println(">>>>>>>>>>>>>>>>>>"+score);
         return "kaohe/reportGrade_ma";
