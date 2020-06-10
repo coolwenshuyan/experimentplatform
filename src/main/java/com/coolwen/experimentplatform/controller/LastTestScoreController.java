@@ -54,13 +54,15 @@ public class LastTestScoreController {
         //搜索
         model.addAttribute("selectOrderId",select_orderId);
 
+        //查询当期班级列表
         //班级列表
-        List<ClassModel> classList = classService.findAllClass();
+//        List<ClassModel> classList = classService.findAllClass();
+        List<ClassModel> classList = classService.findCurrentClass();
         model.addAttribute("classList",classList);
 
         //学生成绩DTO列表
         Page<StudentLastTestScoreDTO> a = studentService.listStudentLastTestAnswerDTO(pageNum);
-        System.out.println(a);
+        System.out.println(">>>>>>>>>>>>>>>>>"+a);
         model.addAttribute("allInfo",a);
 
         return "kaohe/lastTestScore";

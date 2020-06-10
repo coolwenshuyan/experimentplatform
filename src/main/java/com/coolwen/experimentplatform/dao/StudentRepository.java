@@ -38,7 +38,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
             "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
             "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
-            "left join ClassModel clas on clas.classId = st.classId")
+            "left join ClassModel clas on clas.classId = st.classId where clas.classIscurrent = false ")
     public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTO(Pageable page);
 
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +

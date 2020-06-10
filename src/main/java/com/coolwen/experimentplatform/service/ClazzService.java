@@ -20,4 +20,6 @@ public interface ClazzService {
 
     ClassModel findClassModelByStuId(int stuid);
 
+    List<ClassModel> findCurrentClass();
+
 }
