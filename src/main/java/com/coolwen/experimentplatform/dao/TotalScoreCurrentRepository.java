@@ -21,6 +21,7 @@ public interface TotalScoreCurrentRepository extends BaseRepository<TotalScoreCu
     @Transactional
     @Query(value = "select * from t_totalscore_current where stu_id = ?", nativeQuery = true)
     List<TotalScoreCurrent> findeAllBystuid(int uid);
+
     @Query("select new com.coolwen.experimentplatform.model.DTO.ModuleGradesDto(t3.m_id,t3.m_name,t1.mTestScore,t1.mReportScore,t1.mScore) from KaoheModel t2 left join ExpModel t3 on t2.m_id=t3.m_id left join KaoHeModelScore t1 on t2.id= t1.tKaohemodleId where t1.stuId = ?1")
     List<ModuleGradesDto> ModuleGrade(int uid);
 
@@ -29,4 +30,7 @@ public interface TotalScoreCurrentRepository extends BaseRepository<TotalScoreCu
 
     @Query("select t from TotalScoreCurrent t where t.stuId = ?1")
     TotalScoreCurrent findTotalScoreCurrentByStuId(int stuid);
+
+    List<TotalScoreCurrent> findAll();
+
 }

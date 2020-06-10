@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -113,7 +113,9 @@
 					<li>
 						<a class="menuFA" href="javascript:void(0)">实验大厅<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/kaohe',this)">考核实验</a></dt>
+							<shiro:hasRole name="isCurrent">
+								<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/kaoheModel',this)">考核实验</a></dt>
+							</shiro:hasRole>
 <!--							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>-->
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/alltestModel',this)">全部实验</a></dt>
 
@@ -122,24 +124,30 @@
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/changeExpModel.html',this)">实验模块测试</a></dt>-->
 					</li>
 
-					<li>
-						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">理论测试<i class="iconfont icon-dajiantouyou right"></i></a>
-						<dl>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../',this)">理论测试</a></dt>
-						</dl>
+					<shiro:hasRole name="inClass">
+						<li>
+							<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">理论测试<i class="iconfont icon-dajiantouyou right"></i></a>
+							<dl>
+								<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaoshi/-1/toExamPageList',this)">理论测试</a></dt>
+							</dl>
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
-					</li>
+						</li>
+					</shiro:hasRole>
+
 
 
 					<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('学生账号管理/X-admin/student_list.html',this)">学生账号管理</a></dt>-->
-					<li>
-						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">查看实验成绩<i class="iconfont icon-dajiantouyou right"></i></a>
-						<dl>
-                            <dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/score',this)">实验成绩汇总</a></dt>
+					<shiro:hasRole name="inClass">
+						<li>
+							<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">查看实验成绩<i class="iconfont icon-dajiantouyou right"></i></a>
+							<dl>
+								<dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/score',this)">实验成绩汇总</a></dt>
 
-							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
-						</dl>
-					</li>
+								<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
+							</dl>
+						</li>
+					</shiro:hasRole>
+
 
 
 					<li>

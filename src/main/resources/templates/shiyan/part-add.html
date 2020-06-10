@@ -21,14 +21,14 @@
                 		 <div class="layui-form-item">
 						    <label class="layui-form-label">报告序号：</label>
 						    <div class="layui-input-block">
-						      <input type="text" name="reportOrder" lay-verify="title" autocomplete="off" placeholder="请输入实验序号" class="layui-input">
+						      <input type="text" name="reportOrder" lay-verify="required|number" required autocomplete="off" placeholder="请输入实验序号" class="layui-input">
 						    </div>
 					  </div>
 			
 					  <div class="layui-form-item layui-form-text">
 					    <label class="layui-form-label">报告描述：</label>
 					    <div class="layui-input-block">
-					      <textarea name="reportDescribe" placeholder="请输入内容" class="layui-textarea"></textarea>
+					      <textarea name="reportDescribe" placeholder="请输入内容" required lay-verify="required" class="layui-textarea"></textarea>
 					    </div>
 					  </div>
 					  <!--<div class="layui-form-item">-->
@@ -40,7 +40,7 @@
 					  <div class="layui-form-item">
 						    <label class="layui-form-label">分数：</label>
 						    <div class="layui-input-block">
-						      <input type="text" name="reportScore" lay-verify="title" autocomplete="off" placeholder="请设定分数" class="layui-input">
+						      <input type="text" name="reportScore" required lay-verify="required|number" autocomplete="off" placeholder="请设定分数" class="layui-input">
 						    </div>
 					  </div>
 					  <div class="layui-form-item">
@@ -52,7 +52,8 @@
 					  </div>
 					  <div class="layui-form-item">
 					    <div class="layui-input-block">					    	
-					      <button class="layui-btn" lay-submit lay-filter="formDemo">添加</button>					     
+					      <button class="layui-btn" lay-submit lay-filter="formDemo">添加</button>
+							<a class="layui-btn" th:href="@{|/shiyan/reportList/${mId}|}" href="part-list.html">返回</a>
 					    </div>
 					  </div>
 					  

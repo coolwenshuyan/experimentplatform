@@ -17,4 +17,7 @@ public interface ClazzService {
     void deleteClazz(int id);
 
     List<ClassModel> findAllClass();
+
+    ClassModel findClassModelByStuId(int stuid);
+
 }

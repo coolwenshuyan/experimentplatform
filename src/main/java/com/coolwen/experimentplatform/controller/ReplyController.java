@@ -15,16 +15,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-
+/**
+ *
+ *  @author yellow
+ */
 @Controller
 @RequestMapping(value = "reply")
 public class ReplyController {
+
+//    注入
     @Autowired
     private ReplyService replyService;
 
     @Autowired
     private ReplyRepository replyRepository;
-
 
     @Autowired
     private QuestionService questionService;
@@ -38,17 +42,20 @@ public class ReplyController {
     //老师完成添加回复操作
     @PostMapping(value = "/{id}/add1")
     public String add(@PathVariable int id, Reply reply, String uploadfile, Session session) {
+
+//        回复的问题地存为qid
         reply.setQid(id);
         System.out.println("插入的回复保存为：" + id);
 
-//        Admin admin = (Admin) session.getAttribute("admin");
+//        seesion获得老师信息
         Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
 
+//        插入回复
         reply.setReply_pname(admin.getUname());//获得并存入回复名字
-//        question.setContent("alg");
         reply.setDic_datetime(new Date());
         replyService.add(reply);
         Question question = questionService.findById(id);
+//        表示已回复
         question.setIsreply(true);
         questionService.add(question);
         return "redirect:/question/" + id + "/dayiMore";//list
@@ -57,16 +64,20 @@ public class ReplyController {
     //学生回复并操作
     @PostMapping(value = "/add2/{id}")
     public String add1(@PathVariable int id, Reply reply, Session session) {
+
+//        回复的问题地存为qid
         reply.setQid(id);
         System.out.println("插入的回复保存为：" + id);
 
+//        seesion获得学生信息
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        reply.setReply_pname(student.getStuUname());
-//        question.setContent("alg");
+
+//        插入回复
+        reply.setReply_pname(student.getStuUname());//获得并存入回复名字
         reply.setDic_datetime(new Date());
         replyService.add(reply);
-//        questionService.setIsreply(true);
         Question question = questionService.findById(id);
+//      表示老师未回复
         question.setIsreply(false);
         questionService.add(question);
         return "redirect:/question/"  + "detaill/"+ id;//list
@@ -90,10 +101,12 @@ public class ReplyController {
 //        return "question_reply/update";
 //    }
 
-    //完成修改操作
+    //老师完成修改操作
     @PostMapping(value = "/{id}/update")
     public String update(@PathVariable int id, Reply reply) {
+//        先查出内容
         Reply replyupdate = replyService.findById(id);
+//        重新写入内容
         replyupdate.setContent(reply.getContent());
         replyService.add(replyupdate);
         System.out.println("修改成功");

@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Artell
+ * 学生模块报告成绩管理
+ * 列出所有学生的所有的模块的报告成绩
+ * @author 王雨来
  * @version 2020/5/13 12:21
  */
 
@@ -38,25 +40,33 @@ public class ModleTestReportController {
     public ClazzService classService;
 
 
-
+    /**
+     * 列出所有学生的所有的模块的报告成绩
+     * @param select_orderId 搜索值
+     * @param pageNum 分页
+     * @return 页面
+     */
     @GetMapping(value = "/list")
     public String loadAllModel(Model model,
                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
 
 //        Page<Student> c = studentService.findAll(pageNum);
+        //获得所有学生
         Page<Student> c = studentService.findStudentPageAndXuehao(pageNum, select_orderId);
-
         System.out.println(">>>>>>>>>>>>>>>>>>c"+c);
         model.addAttribute("allStu",c);
         model.addAttribute("selectOrderId",select_orderId);
 
+        //获得所有班级
         List<ClassModel> classList = classService.findAllClass();
         model.addAttribute("classList",classList);
 
+        //获得所有学生成绩DTO
         List<StudentTestScoreDTO> a = studentRepository.listStudentMReportAnswerDTO();
-
         System.out.println(a);
+
+        //统计所以考核模块的个数,生成自增列表,以便thymeleaf生成表头
         long modleNum = kaoheModelRepository.count();
         model.addAttribute("allInfo",a);
         model.addAttribute("num",modleNum);
@@ -69,6 +79,13 @@ public class ModleTestReportController {
         return "kaohe/score2_manage";
     }
 
+    /**
+     * 列出所有学生的所有的模块的报告成绩
+     * @param classId 班级id 用来筛选
+     * @param select_orderId 搜索值
+     * @param pageNum 分页
+     * @return 页面
+     */
     @GetMapping(value = "/{classId}/list")
     public String loadOneClassModel(Model model,
                                @PathVariable int classId,
@@ -76,6 +93,7 @@ public class ModleTestReportController {
                                @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
 
 //        Page<Student> c = studentService.findAll(pageNum);
+        //除了班级筛选,其它和上面的一模一样
         Page<Student> c = studentService.pageStudentByClassId(pageNum,classId);
 
         System.out.println(">>>>>>>>>>>>>>>>>>c"+c);

@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Fly Template v3.0，基于 layui 的极简社区页面模版</title>
+    <title>答疑室详情</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="fly,layui,前端社区">
     <meta name="description" content="四川旅游学院答疑室">
-    <link rel="stylesheet" href="../../static/css//layui.css">
+    <link rel="stylesheet" href="../../static/css/layui.css">
     <link rel="stylesheet" href="../../static/css/css_home/global.css">
     <style>
         .photos{
@@ -31,11 +31,15 @@
             <li class="layui-nav-item">
                 <a class="iconfont icon-touxiang layui-hide-xs" href="login.html"></a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" th:if="${session.username}==null">
                 <a href="/login">用户登录</a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" th:if="${session.username}==null">
                 <a href="/register">注册用户</a>
+            </li>
+            <li class="layui-nav-item" th:if="${session.username}!=null">
+                <a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
+                <a style="color:#fff" th:href="@{/logout}">退出登录</a>
             </li>
 
             <!-- 未登入的状态 -->
@@ -128,8 +132,10 @@
                     <div style="margin-top: 50px">
                         <form th:action="'/reply/'  + 'add2/' + ${question.id}" method="post">
                             进行新增回复:
+<!--                            富文本编辑器的HTML代码开始-->
                             <script id="editors" name="content" type="text/plain">
                             </script>
+<!--                            富文本编辑器的HTML代码结束-->
                             <input type="submit" value="提交回复">
                         </form>
                     </div>
@@ -145,42 +151,16 @@
 
 </div>
 
-<!--<script src="js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
 <script src="../../static/js/js_home/layui.js"></script>
 
+<!--富文本编辑器相关的js-->
 <script th:src="@{/ueditor/ueditor.config.js}"></script>
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script th:inline="javascript">
-    UE.getEditor('editors');
+    UE.getEditor('editors');  //创建富文本编辑器
 </script>
-<script>
-    layui.cache.page = 'jie';
-    layui.cache.user = {
-        username: '游客',
-        uid: -1,
-        avatar: '../../res/images/avatar/00.jpg',
-        experience: 83,
-        sex: '男'
-    };
-    layui.config({
-        version: "3.0.0",
-        base: '../../res/mods/'
-    }).extend({
-        fly: 'index'
-    }).use(['fly', 'face'], function() {
-        var $ = layui.$,
-            fly = layui.fly;
-        //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
 
-        $('.detail-body').each(function() {
-            var othis = $(this),
-                html = othis.html();
-            othis.html(fly.content(html));
-        });
-
-    });
-</script>
 
 </body>
 

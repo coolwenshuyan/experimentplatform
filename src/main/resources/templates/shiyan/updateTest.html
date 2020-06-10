@@ -54,7 +54,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">问题序号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questOrder" th:value="${UpQuest.questOrder}" required lay-verify="required"
+                    <input type="text" name="questOrder" th:value="${UpQuest.questOrder}" required lay-verify="required|number"
                            placeholder="1" autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">分数</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questScore" th:value="${UpQuest.questScore}" required lay-verify="required"
+                    <input type="text" name="questScore" th:value="${UpQuest.questScore}" required lay-verify="required|number"
                            placeholder="100" autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -85,13 +85,13 @@
                 <label class="layui-form-label">答案</label>
                 <div class="layui-input-block">
                     <input type="text" name="questAnswer" th:value="${UpQuest.questAnswer}" required
-                           lay-verify="required" autocomplete="off" class="layui-input">
+                           lay-verify="required|number" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <a th:href="@{|/shiyan/list/${UpQuest.mId}|}" type="layui-btn" class="layui-btn layui-btn-primary">取消</a>
+                    <a th:href="@{|/shiyan/list/${UpQuest.mId}|}" type="layui-btn" class="layui-btn layui-btn-primary">返回</a>
                     <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
                 </div>
             </div>
@@ -152,13 +152,13 @@
         <div class="layui-form-item">
                 <label class="layui-form-label">序号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="answerOrder" autocomplete="off" class="layui-input">
+                    <input type="text" required lay-verify="required|number" name="answerOrder" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">内容</label>
                 <div class="layui-input-block">
-                    <textarea name="answerDescribe" class="layui-textarea"></textarea>
+                    <textarea name="answerDescribe" required lay-verify="required" class="layui-textarea"></textarea>
                 </div>
             </div>
 

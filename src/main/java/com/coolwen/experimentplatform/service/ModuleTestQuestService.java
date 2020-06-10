@@ -17,40 +17,49 @@ import java.util.List;
  */
 public interface ModuleTestQuestService {
 
-    public void addModuleTestQuest(ModuleTestQuest moduleTestQuest);
+//    添加模块测试题
+    void addModuleTestQuest(ModuleTestQuest moduleTestQuest);
 
-    public void deleteQuest(int questId);
+//    删除添加模块测试题
+    void deleteQuest(int questId);
 
-    public void updateQuest(int questId);
+//    public void updateQuest(int questId);
 
-    public List<ModuleTestQuest> load(String questDescribe, int mId);
+//    通过模块测试题的题目和模块测试题的模块id查找全部模块测试题
+    List<ModuleTestQuest> load(String questDescribe, int mId);
 
-    public ModuleTestQuest findQuestByQuestId(int questId);
+//    通过问题id查找该问题的信息
+    ModuleTestQuest findQuestByQuestId(int questId);
 
-    public List<ModuleTestQuest> loadAll();
+//    public List<ModuleTestQuest> loadAll();
 
-    String findByQuestDescribes(String questDescribe);
+//    String findByQuestDescribes(String questDescribe);
 
+//    通过模块id找到所有的模块测试题
     List<ModuleTestQuest> find(int mId);
 
+//    通过问题id找到所有的模块测试题
     List<ModuleTestQuest> findAllByQuestId(int questId);
 
-    int countAllByQuestId();
+//    int countAllByQuestId();
 
+//    通过问题的题目查找该问题的信息
     ModuleTestQuest findByQuestDescribe(String questDescribe);
 
-    public Page<ModuleTestQuest> findByPage(Pageable pageable,int mId);
+//    public Page<ModuleTestQuest> findByPage(Pageable pageable,int mId);
 
     public List<QuestAnswerDto> loadQuestAnswerDto(int mId, String type);
 
     public List<QuestListAnswerDto> listQuestAnswerDto(String type, int mId);
 
-    public List<ModuleTestQuest> findAllByMId(int mId);
+//    public List<ModuleTestQuest> findAllByMId(int mId);
 
+//    以mid为条件分页
     Page<ModuleTestQuest> findByLastPage(Pageable pageable,int mId);
 
     void deleteAllModuleTestQuest(List<ModuleTestQuest> list);
 
+//    考核模块和模块测试题两张表，联合查询，通过mid分页
     Page<ModuleTestQuest> findByExpPage(int mId, Pageable pageable);
 
 }

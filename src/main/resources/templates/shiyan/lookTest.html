@@ -37,6 +37,9 @@
             overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
             text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
         }
+        .return{
+            float: right;
+        }
     </style>
     <body>
 
@@ -51,17 +54,18 @@
                                     <a type="layui-btn" th:href="@{|/shiyan/addQuest|}" class="layui-btn layui-bg-green">新建</a>
                                 <!--</a>-->
 
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="search" th:value="${search}" placeholder="请输入实验模块号" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach">
-                                        <a th:href="@{|/shiyan/list|}" class="layui-btn layui-bg-green">搜索</a></button>
-                                </div>
+                                <!--<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<input type="text" name="search" th:value="${search}" placeholder="请输入实验模块号" autocomplete="off" class="layui-input">-->
+                                <!--</div>-->
+                                <!--<div class="layui-inline layui-show-xs-block">-->
+                                    <!--<button class="layui-btn"  lay-submit="" lay-filter="sreach">-->
+                                        <!--<a th:href="@{|/shiyan/list|}" class="layui-btn layui-bg-green">搜索</a></button>-->
+                                <!--</div>-->
 
                                 <!--<div class="layui-inline layui-show-xs-block">
                                     <a class="layui-btn"  lay-submit="" title="增加" onclick="xadmin.open('增加','班级新增.html')"><i class="layui-icon"></i>增加</a>
                                 </div>-->
+                                <a type="layui-btn" th:href="@{|/expmodel/moduleList|}" class="layui-btn layui-bg-green return">返回上一级</a>
                             </form>
                         </div>
                        

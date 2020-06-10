@@ -19,27 +19,52 @@
 		<script src="../../static/js/js_home/jquery.taty.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 引入title和css -->
 	</head>
+	<!-- 修改 -->
+	<style>
+		body {
+			min-height: 1200px;
+		}
 
+		.dhbt:hover {
+			background: #ebebeb;
+		}
+		.thumbnail{
+			height: 270px;
+		}
+		.div{
+			height: 150px;
+			line-height: 170px;
+		}
+		.div img{
+			width: 100%;
+			max-height: 150px;
+			align-content: center;
+		}
+		.caption{
+			margin: 5% 0;
+			align-content: center;
+
+		}
+		.caption h3{
+			margin: 5% 0;
+			text-align: center;
+		}
+		.caption span{
+			display: block;
+			text-align: center;
+			width:170px; /*必须设置宽度*/
+			overflow:hidden; /*溢出隐藏*/
+			text-overflow:ellipsis; /*以省略号...显示*/
+			white-space:nowrap; /*强制不换行*/
+		}
+
+		/*.thumbnail img{*/
+		/*with:100%;*/
+		/*width: 150px;*/
+		/*!*min-height: 150px;*!*/
+		/*}*/
+	</style>
 	<body>
-		<!-- 引入head -->
-		<style>
-			body {
-				min-height: 1200px;
-			}
-			
-			.dhbt:hover {
-				background: #ebebeb;
-			}
-			.thumbnail{
-				max-height: 300px;
-			}
-
-			.thumbnail img{
-				with:100%;
-				/*width: 200px;*/
-				min-height: 150px;
-			}
-		</style>
 		<div class="top visible-lg">
 			<div class="container">
 				<div class="container">
@@ -50,8 +75,14 @@
 
 						<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 						<i class="fa fa-sign-out"></i>
-						<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
-						<a style="color:#fff" href="/register">用户注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:if="${session.username}==null">
+							<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+							<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						</a>
+						<a th:if="${session.username}!=null">
+							<a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
+							<a style="color:#fff" th:href="@{/logout}">退出登录</a>
+						</a>
 <!--						<a style="color:#fff" href="javascript:;">后台入口</a>-->
 					</div>
 				</div>
@@ -153,23 +184,25 @@
 						<div th:each="teacher:${teacherPageInfo.content}" >
 							<div class="col-sm-6 col-md-3 clearfix" style="float: left">
 								<div class="thumbnail">
-									<img th:src="${teacher.image_url}" alt="..."/>
-									<div  class="caption" align="center">
+									<div class="div">
+										<img th:src="${teacher.image_url}" alt="..."/>
+									</div>
+									<div  class="caption" >
 										<h3><strong th:text="${teacher.person_name }"><a th:href="${teacher.id }" class="list_link"></a></strong></h3>
-										<p th:text="${teacher.intro}"></p>
+										<span th:text="${teacher.intro}"></span>
 									</div>
 								</div>
 							</div>
-<!--							<div class="col-sm-6 col-md-3">-->
-<!--								<div class="thumbnail">-->
-<!--									<img src="../../static/images/img_home/c.jpg" alt="...">-->
-<!--									<div class="caption" align="center">-->
-<!--										<h3><strong>陈功锁</strong></h3>-->
-<!--										<p>信息与工程学院老师，职称</p>-->
-<!--										<p>荣获XXXXXXXXXXXX</p>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
+							<!--<div class="col-sm-6 col-md-3">-->
+							<!--<div class="thumbnail">-->
+								<!--<img src="../../static/images/img_home/c.jpg" alt="...">-->
+								<!--<div class="caption" align="center">-->
+									<!--<h3><strong>陈功锁</strong></h3>-->
+									<!--<p>信息与工程学院老师，职称</p>-->
+									<!--<p>荣获XXXXXXXXXXXX</p>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</div>-->
 <!--							<div class="col-sm-6 col-md-3">-->
 <!--								<div class="thumbnail">-->
 <!--									<img src="../../static/images/img_home/logo3.png" alt="...">-->
@@ -180,15 +213,17 @@
 <!--									</div>-->
 <!--								</div>-->
 <!--							</div>-->
-<!--							<div class="col-sm-6 col-md-3">-->
-<!--								<div class="thumbnail">-->
-<!--									<img src="../../static/images/img_home/logo3.png" alt="...">-->
-<!--									<div class="caption" align="center">-->
-<!--										<h3><strong>其他</strong></h3>-->
-<!--										<p>信息与工程学院老师，职称</p>-->
-<!--										<p>荣获XXXXXXXXXXXX</p>-->
-<!--									</div>-->
-<!--								</div>-->
+							<!--<div class="col-sm-6 col-md-3">-->
+								<!--<div class="thumbnail">-->
+									<!--<div class="div">-->
+										<!--<img src="../../static/images/img_home/logo.png" alt="...">-->
+									<!--</div>-->
+									<!--<div class="caption" align="center">-->
+										<!--<h3><strong>其他</strong></h3>-->
+										<!--<p>信息与工程学院老师，职称</p>-->
+										<!--<span>荣获XXXXXXXXXXXXlllaaaaaaaaaaaaaaaaaa</span>-->
+									<!--</div>-->
+								<!--</div>-->
 							<!--</div>-->
 
 						</div>

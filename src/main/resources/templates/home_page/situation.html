@@ -17,24 +17,24 @@
 
 	<script src="../../static/js/js_home/jquery.taty.js" type="text/javascript" charset="utf-8"></script>
 	<!-- 引入title和css -->
+	<!-- 修改css-->
+	<style>
+		body{
+			min-height:1200px;
+
+		}
+		.dhbt:hover{
+			background:#ebebeb;
+		}
+		.container{
+
+		}
+		p{
+			line-height: 30px;
+		}
+	</style>
 </head>
 <body >
-<!-- 引入head -->
-<style>
-	body{
-		min-height:1200px;
-
-	}
-	.dhbt:hover{
-		background:#ebebeb;
-	}
-	.container{
-
-	}
-	p{
-		line-height: 30px;
-	}
-</style>
 <div class="top visible-lg">
 	<div class="container">
 		<div class="container">
@@ -50,9 +50,15 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 				<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
-				<i class="fa fa-sign-out"></i><a style="color:#fff" href="/login">用户登录</a>
-				&nbsp;&nbsp;&nbsp;
-				&nbsp; <i class="fa fa-cog"></i><a style="color:#fff" href="/register">用户注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<i class="fa fa-sign-out"></i>
+				<a th:if="${session.username}==null">
+					<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+					<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</a>
+				<a th:if="${session.username}!=null">
+					<a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
+					<a style="color:#fff" th:href="@{/logout}">退出登录</a>
+				</a>
 <!--				<a style="color:#fff" href="javascript:;">后台入口</a>-->
 			</div>    </div>
 	</div>
@@ -206,16 +212,16 @@
 </footer>
 <!-- 引入foot -->
 <!-- 引入js -->
-<script type="text/javascript">var plugin_path = '/Public/Home/js/qt/plugins/';</script>
-<script type="text/javascript" src='/Public/Home/js/qt/plugins/jquery/jquery-2.1.4.min.js'></script>
-<script type="text/javascript" src='/Public/Home/js/qt/bootstrap.min.js'></script>
-<script type="text/javascript" src='/Public/Home/js/qt/scripts.js'></script>
+<!--<script type="text/javascript">var plugin_path = '/Public/Home/js/qt/plugins/';</script>-->
+<!--<script type="text/javascript" src='/Public/Home/js/qt/plugins/jquery/jquery-2.1.4.min.js'></script>-->
+<!--<script type="text/javascript" src='/Public/Home/js/qt/bootstrap.min.js'></script>-->
+<!--<script type="text/javascript" src='/Public/Home/js/qt/scripts.js'></script>-->
 
 
 <!-- REVOLUTION SLIDER -->
-<script type="text/javascript" src='/Public/Home/js/qt/plugins/slider.revolution/js/jquery.themepunch.tools.min.js'></script>
-<script type="text/javascript" src='/Public/Home/js/qt/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js'></script>
-<script type="text/javascript" src='/Public/Home/js/qt/revolution_slider.js'></script>
+<!--<script type="text/javascript" src='/Public/Home/js/qt/plugins/slider.revolution/js/jquery.themepunch.tools.min.js'></script>-->
+<!--<script type="text/javascript" src='/Public/Home/js/qt/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js'></script>-->
+<!--<script type="text/javascript" src='/Public/Home/js/qt/revolution_slider.js'></script>-->
 <!-- 引入js -->
 </body>
 </html>

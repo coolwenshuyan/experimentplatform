@@ -1,81 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
-		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css" />
-<!--		<link rel="stylesheet" type="text/css" href="" />-->
-	</head>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css" />
+	<!--		<link rel="stylesheet" type="text/css" href="" />-->
+</head>
 
-	<body>
-	<div class="layui-form-item">
-		<div class="layui-input-block">
-			<button type="button" class="layui-btn" lay-submit lay-filter="formDemo" style="    float: right;margin-right: 5%;">返回上一级</button>
-		</div>
+<body>
+<div class="layui-form-item">
+	<div class="layui-input-block">
+		<a type="button" href="/expmodel/alltestModel" class="layui-btn" lay-submit lay-filter="formDemo" style="    float: right;margin-right: 5%;">返回上一级</a>
 	</div>
+</div>
 
 
-		<div class="test layui-container">
-			<h2 align="center"><strong>填写报告</strong></h2><br><br>
+<div class="test layui-container" th:object="${kaoHeModelScore}">
+	<h2 align="center"><strong>填写报告</strong></h2><br><br>
 
-			<form th:method="post" class="layui-form layui-form-pane" action="">
+	<div th:if="${kaoHeModelScore?.ismReportstate()} eq true">
+		<a style="color: red" th:text="'报告总得分:'+${kaoHeModelScore?.mReportScore}+'分'"></a>
+	</div>
+	<form th:method="post" class="layui-form layui-form-pane" action="" id="myForm">
 
-				<div th:each="YiGeTi,YiGeTiStat:${TiMuList}" class="layui-form-item layui-form-text">
-					<label th:text="${YiGeTi.getReportDescribe()}" class="layui-form-label">1.Java语言的主要特点有</label>
-					<script th:utext="${daAn.getStuReportAnswer()}" th:id="|editor${YiGeTiStat.index}|" th:each="daAn,daAnStat:${DaAnList}" th:if="${YiGeTiStat.index}==${daAnStat.index}" th:name = "|LZeDA${YiGeTiStat.index}|" type="text/plain">
+		<div th:each="YiGeTi,YiGeTiStat:${TiMuList}" class="layui-form-item layui-form-text">
+			<div th:if="${kaoHeModelScore?.ismReportstate()} eq true">
+				<label class="layui-form-label">
+					[[${YiGeTi.getReportDescribe()}]]
+					<a style="color: red;display: inline" th:each="daAn,daAnStat:${DaAnList}" th:if="${YiGeTi.getReportId()}==${daAn.getReportId()}" th:text="'(本题得分:'+${daAn.getScore()}+'分)'" class="layui-form-label">1.Java语言的主要特点有</a>
+				</label>
 
-					</script>
-					<!--富文本框-->
-				</div>
+			</div>
+			<div th:if="${kaoHeModelScore?.ismReportstate()} eq false">
+				<label th:text="${YiGeTi.getReportDescribe()}" class="layui-form-label">1.Java语言的主要特点有</label>
+			</div>
+			<!--					<script th:utext="${daAn.getStuReportAnswer()}" th:id="|editor${YiGeTiStat.index}|" th:each="daAn,daAnStat:${DaAnList}" th:if="${YiGeTiStat.index}==${daAnStat.index}" th:name = "|LZeDA${YiGeTiStat.index}|" type="text/plain">-->
+			<script th:utext="${daAn.getStuReportAnswer()}" th:id="|editor${YiGeTiStat.index}|" th:each="daAn,daAnStat:${DaAnList}" th:if="${YiGeTi.getReportId()}==${daAn.getReportId()}" th:name = "|LZeDA${YiGeTiStat.index}|" type="text/plain">
 
-				<div class="layui-form-item">
-					<div class="layui-input-block">
-						<button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-					</div>
-				</div>
-
-			</form>
+			</script>
+			<!--富文本框-->
 		</div>
 
-<!--		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>-->
-<!--		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>-->
-<!--		<script type="text/javascript" src="../../static/js/wangEditor.js"></script>-->
-<!--	    <script type="text/javascript">-->
-<!--	        var E = window.wangEditor-->
-<!--	        var editor1 = new E('#app1');-->
-<!--	        var editor2 = new E('#app2');-->
-<!--	        var editor3 = new E('#app3');-->
-<!--			var editor4 = new E('#app4');-->
-<!--	        // 或者 var editor = new E( document.getElementById('editor') )-->
-<!--	        editor1.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片-->
-<!--	        editor2.customConfig.uploadImgShowBase64 = true-->
-<!--	        editor3.customConfig.uploadImgShowBase64 = true-->
-<!--			editor4.customConfig.uploadImgShowBase64 = true-->
-<!--	        editor1.create()-->
-<!--	        editor2.create()-->
-<!--	        editor3.create()-->
-<!--			editor4.create()-->
-<!--	    </script>-->
-		<script th:src="@{/ueditor/ueditor.config.js}"></script>
-		<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
-		<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
-		<script th:each="YiGeTi,YiGeTiStat:${TiMuList}">
-			UE.getEditor('editor[[${YiGeTiStat.index}]]');
-		</script>
+		<div class="layui-form-item">
+			<div class="layui-input-block" th:if="${kaoHeModelScore?.mReportstate} eq false">
+				<button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<button type="reset" onclick="formreset()" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+			<div class="layui-input-block" th:if="${isNeedKaohe} eq false">
+				<button type="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<button type="reset" onclick="formreset()" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
 
-		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-			layui.use(['element','form'],function () {
-				var form = layui.form;
-			})
+	</form>
+</div>
 
-		</script>
-	</body>
+<!--	    引入富文本编辑器的js-->
+<script th:src="@{/ueditor/ueditor.config.js}"></script>
+<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+<script th:each="YiGeTi,YiGeTiStat:${TiMuList}">
+	UE.getEditor('editor[[${YiGeTiStat.index}]]');   //创建富文本编辑器
+	function formreset(){
+		for (let i = 0; i < [[${YiGeTiStat.size}]]; i++) {
+			UE.getEditor('editor'+i).setContent("")
+		}
+	}
+</script>
+
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	layui.use(['element','form'],function () {
+		var form = layui.form;
+	})
+
+</script>
+</body>
 
 </html>

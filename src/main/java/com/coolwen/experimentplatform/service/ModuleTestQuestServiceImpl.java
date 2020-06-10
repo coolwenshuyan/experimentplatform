@@ -1,23 +1,15 @@
 package com.coolwen.experimentplatform.service;
 
-import com.coolwen.experimentplatform.dao.ExpModelRepository;
 import com.coolwen.experimentplatform.dao.ModuleTestQuestRepository;
 import com.coolwen.experimentplatform.dao.QuestListAnswerRepositoryCustom;
 import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
-import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
 
-import javax.persistence.criteria.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,11 +36,11 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
         questRepository.deleteById(questId);
     }
 
-    @Override
-    public void updateQuest(int questId) {
-        questRepository.findById(questId);
-    }
-
+//    @Override
+//    public void updateQuest(int questId) {
+//        questRepository.findById(questId);
+//    }
+//
 
     @Override
     public List<ModuleTestQuest> load(String questDescribe, int mId) {
@@ -62,15 +54,15 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
         return quest;
     }
 
-    @Override
-    public List<ModuleTestQuest> loadAll() {
-        return questRepository.findAll();
-    }
-
-    @Override
-    public String findByQuestDescribes(String questDescribe) {
-        return questRepository.findByQuestDescribes(questDescribe);
-    }
+//    @Override
+//    public List<ModuleTestQuest> loadAll() {
+//        return questRepository.findAll();
+//    }
+//
+//    @Override
+//    public String findByQuestDescribes(String questDescribe) {
+//        return questRepository.findByQuestDescribes(questDescribe);
+//    }
 
     @Override
     public List<ModuleTestQuest> find(int mId) {
@@ -82,26 +74,26 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
         return questRepository.findAllByQuestId(questId);
     }
 
-    @Override
-    public int countAllByQuestId() {
-        return questRepository.countAllByQuestId();
-    }
+//    @Override
+//    public int countAllByQuestId() {
+//        return questRepository.countAllByQuestId();
+//    }
 
     @Override
     public ModuleTestQuest findByQuestDescribe(String questDescribe) {
         return questRepository.findByQuestDescribe(questDescribe);
     }
 
-    @Override
-    public Page<ModuleTestQuest> findByPage(Pageable pageable,int mId) {
-        return questRepository.findAll(pageable);
-    }
-
-    @Override
-    public List<ModuleTestQuest> findAllByMId(int mId) {
-        return questRepository.findAllByMid(mId);
-    }
-
+//    @Override
+//    public Page<ModuleTestQuest> findByPage(Pageable pageable,int mId) {
+//        return questRepository.findAll(pageable);
+//    }
+//
+//    @Override
+//    public List<ModuleTestQuest> findAllByMId(int mId) {
+//        return questRepository.findAllByMid(mId);
+//    }
+//
 
     @Override
     public List<QuestAnswerDto> loadQuestAnswerDto(int mId, String type) {

@@ -50,14 +50,14 @@ public class StudentRealm extends AuthorizingRealm {
             roleStrlist.add("student");
             perminsStrlist.add("student");
             if (student.isStuIsinschool()==true){//判断是否在校
-                perminsStrlist.add("isSchool");
+                roleStrlist.add("isSchool");
                 if (student.getClassId()!=0){//判断是否分班
-                    perminsStrlist.add("inClass");
+                    roleStrlist.add("inClass");
                     //判断班级是否往期
                     ClassModel classModel= classService.findClassById(student.getClassId());
                     if (classModel!=null){
                         if (classModel.getClassIscurrent()==false){
-                            perminsStrlist.add("isCurrent");
+                            roleStrlist.add("isCurrent");
                         }
                     }
                 }

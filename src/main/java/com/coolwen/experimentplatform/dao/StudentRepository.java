@@ -18,6 +18,10 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
     Student findAllById(int id);
 
+    Student findByStuMobile(String tel);
+
+    Student findByStuXuehao(String xuehao);
+
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO" +
             "(st.id, st.stuName, st.classId, expm.m_name, khms.mTestScore, khms.mTeststate,khm.m_id)" +
             "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
@@ -91,4 +95,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 ////    List<TreportGradeDto> ListStudentDto();
 //
 //>>>>>>> Stashed changes
+
+    @Query("select s from ClassModel c, Student s where  c.classId = s.classId and c.classIscurrent = false ")
+    List<Student> findStudentByNotClassId();
 }

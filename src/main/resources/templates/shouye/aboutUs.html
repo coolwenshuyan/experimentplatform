@@ -41,8 +41,11 @@
 <form method="post" action="" th:object="${setInfo}">
 	<div id="main" class="layui-container">
 		<div style="padding: 10px 0; text-align: center; color: black"><b>关于我们</b></div>
+		<div><b th:text="${msg}" style="color:red"></b></div>
+		<!--		富文本编辑器的html代码开始-->
 		<script id="editor" name="set_aboutus" th:utext="${setInfo.set_aboutus}" type="text/plain">
 		</script>
+		<!--		富文本编辑器的html代码结束-->
 		<div id="d" class="layui-btn-container">
 			<input type="submit" class="layui-btn" value="确认修改">
 			<!--					<button type="button" class="layui-btn">删除</button>-->
@@ -57,7 +60,7 @@
 <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
 <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
 <script>
-	var editor1 = new UE.ui.Editor({ initialFrameHeight:300 });
+	var editor1 = new UE.ui.Editor({ initialFrameHeight:300 });  //设置富文本编辑器的高度
 	editor1.render("editor");
 	// UE.getEditor('editor');
 </script>

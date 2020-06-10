@@ -112,4 +112,18 @@ public class QuestListAnswerDto {
     public void setmId(int mId) {
         this.mId = mId;
     }
+
+    @Override
+    public String toString() {
+        return "QuestListAnswerDto{" +
+                "questId=" + questId +
+                ", questDescribe='" + questDescribe + '\'' +
+                ", questAnswer='" + questAnswer + '\'' +
+                ", questScore=" + questScore +
+                ", questType='" + questType + '\'' +
+                ", questOrder=" + questOrder +
+                ", mId=" + mId +
+                ", moduleTestAnswerList=" + moduleTestAnswerList +
+                '}';
+    }
 }

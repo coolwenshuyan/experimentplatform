@@ -1,10 +1,10 @@
 package com.coolwen.experimentplatform.service;
 
-import com.coolwen.experimentplatform.dao.ExpModelRepository;
-import com.coolwen.experimentplatform.dao.KaoHeModelScoreRepository;
-import com.coolwen.experimentplatform.dao.KaoheModelRepository;
+import com.coolwen.experimentplatform.dao.*;
+import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
-import com.coolwen.experimentplatform.model.KaoheModel;
+import com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO;
+import com.coolwen.experimentplatform.model.DTO.StudentVo;
 import com.coolwen.experimentplatform.specification.SimpleSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +29,16 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Autowired
     KaoHeModelScoreRepository kaoHeModelScoreRepository;
+
+    @Autowired
+    TotalScoreCurrentRepository totalScoreCurrentRepository;
+
+    @Autowired
+    ModuleTestQuestRepository moduleTestQuestRepository;
+
+    @Autowired
+    ModuleTestAnswerStuRepository moduleTestAnswerStuRepository;
+
 
     @Override
     public void add(KaoheModel kaoheModel) {
@@ -108,5 +118,74 @@ public class KaoheModelServiceImpl implements KaoheModelService {
     public void deleteKaoHeModuleByMid(KaoheModel kaoheModel) {
         kaoheModelRepository.delete(kaoheModel);
     }
+
+    @Override
+    public void deleteByMid(int mid) {
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+mid);
+        KaoheModel km = kaoheModelRepository.findKaoheModelByMid(mid);
+        System.out.println("km000000000"+km);
+
+        // 整体理论测试占比和模块考核成绩占比存放在-1的记录中(!!已经废除!!)
+//        KaoheModel akm = kaoheModelRepository.findKaoheModelByMid(-1);
+//        System.out.println("akm000000000"+akm);
+
+        List<KaoHeModelScore> khms = kaoHeModelScoreRepository.findKaoHeModelScoreByKaoheid(km.getId());
+
+        System.out.println("khms000000000"+khms);
+
+        // 遍历该模块所有学生的模块成绩,进行修改
+        for (KaoHeModelScore i : khms){
+            System.out.println(">>>>>>>>>"+i);
+            TotalScoreCurrent tsc = totalScoreCurrentRepository.findTotalScoreCurrentByStuId(i.getStuId());
+            System.out.println(">>>>>>>>>"+tsc);
+            tsc.setKaoheNum(tsc.getKaoheNum()-1);
+            float msc = i.getmScore();
+            float mtsc = tsc.getmTotalScore();
+            System.out.println("mtsc>>>>>>>>>>>>>>>>>>>>>>>>>>"+mtsc);
+            float newmtsc = mtsc - msc * km.getM_scale();
+            System.out.println("newmtsc>>>>>>>>>>>>>>>>>>>>>>>>>>"+newmtsc);
+            tsc.setmTotalScore(newmtsc);
+
+            float old_total_score = tsc.getTotalScore();
+            float new_total_score = old_total_score - newmtsc*km.getKaohe_baifenbi();
+            tsc.setmTotalScore(newmtsc);
+            tsc.setTotalScore(new_total_score);
+            totalScoreCurrentRepository.save(tsc);
+
+            kaoHeModelScoreRepository.delete(i);
+        }
+
+
+
+    }
+
+    @Override
+    public void updateAllGreatestWeight(float kaoheBaifenbi, float testBaifenbi) {
+        kaoheModelRepository.updateAllGreatestWeight(kaoheBaifenbi,testBaifenbi);
+    }
+
+    @Override
+    public void deleteMTestAnswerByMid(int mid) {
+        List<ModuleTestQuest> moduleTestQuests = moduleTestQuestRepository.findAllByMid(mid);
+
+        for(ModuleTestQuest i : moduleTestQuests){
+//            System.out.println("ModuleTestQuest>>>>>>>>>>>>>>"+i.getQuestId());
+            moduleTestAnswerStuRepository.deleteAllByQuest_id(i.getQuestId());
+        }
+
+    }
+
+    @Override
+    public KaoheModelAndExpInfoDTO findKaoheModelAndExpInfoDTOByKaoheid(int kaoheid) {
+        return kaoheModelRepository.findKaoheModelAndExpInfoDTOByKaoheid(kaoheid);
+    }
+
+    @Override
+    public Page<KaoheModelAndExpInfoDTO> findAllKaoheModelAndExpInfoDTO(int pageNum) {
+        Pageable pageable  = PageRequest.of(pageNum,10);
+        return kaoheModelRepository.findAllKaoheModelAndExpInfoDTO(pageable);
+    }
+
+
 
 }

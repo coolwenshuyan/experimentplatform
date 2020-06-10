@@ -17,4 +17,9 @@ public interface ModuleTestAnswerStuService {
     List<ModuleTestAnswerStu> findAllModuleTestAnswerStuByStuidAndQuestId(int Stuid,int QuestId);
 
     void deleteModuleTestAnswerStuByStuId(int id);
+
+    ModuleTestAnswerStu findModuleTestAnswerStuByStu_idAndQuest_id(int stuid,int questid);
+
+    void deleteByQuestId(int questid);
+
 }

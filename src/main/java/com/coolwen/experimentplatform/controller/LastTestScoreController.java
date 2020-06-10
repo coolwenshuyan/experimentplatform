@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Artell
+ * 期末理论测试成绩管理
+ * 把所有人的期末成绩列到一起
+ * @author 王雨来
  * @version 2020/5/13 12:21
  */
 
@@ -38,18 +40,25 @@ public class LastTestScoreController {
     @Autowired
     public ClazzService classService;
 
-
+    /**
+     * 所有列表
+     * @param model 传值
+     * @param select_orderId 搜索值
+     * @param pageNum 分页
+     * @return 页面
+     */
     @GetMapping(value = "/list")
     public String loadAllScore(Model model,
                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
-
-
+        //搜索
         model.addAttribute("selectOrderId",select_orderId);
 
+        //班级列表
         List<ClassModel> classList = classService.findAllClass();
         model.addAttribute("classList",classList);
 
+        //学生成绩DTO列表
         Page<StudentLastTestScoreDTO> a = studentService.listStudentLastTestAnswerDTO(pageNum);
         System.out.println(a);
         model.addAttribute("allInfo",a);
@@ -57,18 +66,28 @@ public class LastTestScoreController {
         return "kaohe/lastTestScore";
     }
 
+    /**
+     * 分班级查看成绩
+     * @param model 传值
+     * @param classId 班级id
+     * @param select_orderId 搜索值
+     * @param pageNum 分页
+     * @return 页面
+     */
     @GetMapping(value = "/{classId}/list")
     public String loadOneClassScore(Model model,
                                     @PathVariable int classId,
                                     @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                     @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
 
-
+        //搜索
         model.addAttribute("selectOrderId",select_orderId);
 
+        //班级列表
         List<ClassModel> classList = classService.findAllClass();
         model.addAttribute("classList",classList);
 
+        //学生成绩DTO列表
         Page<StudentLastTestScoreDTO> a = studentService.listStudentLastTestScoreDTOBYClassID(pageNum,classId);
         System.out.println(a);
         model.addAttribute("allInfo",a);

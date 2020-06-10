@@ -5,9 +5,7 @@ import com.coolwen.experimentplatform.model.ModuleTestAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author 淮南
@@ -27,20 +25,19 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
 
     @Override
     public int deleteAnswer(int answerId) {
-        System.out.println("service里面的+++++++++" + answerId);
         return answer.deleteByAnswerId(answerId);
     }
 
-    @Override
-    public ModuleTestAnswer updateAnswer(int answerId) {
-        ModuleTestAnswer moduleTestAnswer = answer.findByAnswerId(answerId);
-        return moduleTestAnswer;
-    }
-
-    @Override
-    public List<ModuleTestAnswer> answerList() {
-        return answer.findAll();
-    }
+//    @Override
+//    public ModuleTestAnswer updateAnswer(int answerId) {
+//        ModuleTestAnswer moduleTestAnswer = answer.findByAnswerId(answerId);
+//        return moduleTestAnswer;
+//    }
+//
+//    @Override
+//    public List<ModuleTestAnswer> answerList() {
+//        return answer.findAll();
+//    }
 
     @Override
     public ModuleTestAnswer findByAnswerId(int answerId) {
@@ -52,21 +49,21 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
     public List<ModuleTestAnswer> findAllByQuestId(int questId) {
         return answer.findAllByQuestId(questId);
     }
+//
+//    @Override
+//    public List<ModuleTestAnswer> findAllByAnswerId(int answerId) {
+//        return answer.findAllByAnswerId(answerId);
+//    }
+//
+//    @Override
+//    public int findAnswerId(int answerId) {
+//        return answer.findByAId(answerId);
+//    }
 
-    @Override
-    public List<ModuleTestAnswer> findAllByAnswerId(int answerId) {
-        return answer.findAllByAnswerId(answerId);
-    }
-
-    @Override
-    public int findAnswerId(int answerId) {
-        return answer.findByAId(answerId);
-    }
-
-    @Override
-    public String findByAnswerDescribe(String answerDescribe) {
-        return answer.findByAnswerDescribe(answerDescribe);
-    }
+//    @Override
+//    public String findByAnswerDescribe(String answerDescribe) {
+//        return answer.findByAnswerDescribe(answerDescribe);
+//    }
 
     @Override
     public int findQuestIdByAnswerId(int answerId) {
@@ -74,11 +71,11 @@ public class ModuleTestAnswerServiceImpl implements ModuleTestAnswerService {
 
         return a.getQuestId();
     }
-
-    @Override
-    public ModuleTestAnswer findbyAnswerid(int id) {
-        return findByAnswerId(id);
-    }
+//
+//    @Override
+//    public ModuleTestAnswer findbyAnswerid(int id) {
+//        return findByAnswerId(id);
+//    }
 
     @Override
     public void deleteAllAnswer(List<ModuleTestAnswer> moduleTestAnswers) {

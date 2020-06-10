@@ -63,15 +63,21 @@
 		<div class="top visible-lg">
 			<div class="container">
 				<div class="container">
-					<span style="position:absolute;top:10px;float: left">访问量:266</span>
+					<span style="position:absolute;top:10px;float: left">访问量:[[${count}]]</span>
 
 					<div style="float:right;color:#fff ; margin: 10px" class="top-fr">
 						Hi， 欢迎来到四川旅游学院虚拟仿真实验教学管理平台！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 						<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 						<i class="fa fa-sign-out"></i>
-						<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
-						<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:if="${session.username}==null">
+							<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+							<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						</a>
+						<a th:if="${session.username}!=null">
+							<a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
+							<a style="color:#fff" th:href="@{/logout}">退出登录</a>
+						</a>
 <!--						<a style="color:#fff" href="javascript:;">后台入口</a>-->
 					</div>
 				</div>
@@ -120,6 +126,8 @@
 			</nav>
 		</header>
 
+
+<!--		顶部轮播图-->
 		<section class="carousel slide" data-ride="carousel" id="main_banner">
 			<ol class="carousel-indicators focus ">
 				<li data-target="#main_banner" data-slide-to="0" class=""></li>
@@ -372,7 +380,7 @@
 							平台统计
 							<em></em>
 						</div>
-		
+<!--						饼图的html代码-->
 							<ul class="ipro_list">
 								<li class="col-md-6 col-sm-6 col-xs-6">
 									<div id="main1" style="width: 100%; height: 160px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative;" _echarts_instance_="ec_1588422172740">
@@ -409,7 +417,9 @@
 								
 							</ul>
 							<div class="clearfix"></div>
-						
+
+
+<!--						饼图的js代码-->
 						<script type="text/javascript">
 							// 基于准备好的dom，初始化echarts实例
 							var myChart1 = echarts.init(document.getElementById('main1'));
@@ -599,7 +609,8 @@
 								});
 
 								// $('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" +[[${passpeople}]] + "</span>人");
-								$('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" );
+								$('#ooid4').html("<br/>"+"通过考核人数:<span style='color:#ff0000;font-weight:bold'>" +[[${passpeople}]] + "</span>人");
+								// $('#ooid4').html("<br/>"+"分数占比:<span style='color:#ff0000;font-weight:bold'>" );
 								myChart4.setOption({
 									title: {
 								        text: '',

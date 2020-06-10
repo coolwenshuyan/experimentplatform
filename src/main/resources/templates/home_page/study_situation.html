@@ -51,8 +51,14 @@
 
 				<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 				<i class="fa fa-sign-out"></i>
-				<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
-				<a style="color:#fff" href="/register">用户注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a th:if="${session.username}==null">
+					<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+					<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</a>
+				<a th:if="${session.username}!=null">
+					<a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
+					<a style="color:#fff" th:href="@{/logout}">退出登录</a>
+				</a>
 <!--				<a style="color:#fff" href="javascript:;">后台入口</a>-->
 			</div>    </div>
 	</div>
@@ -137,23 +143,23 @@
 				<h1 style="font-size: 22px; margin: 1%;"><b>考核通过情况</b></h1>
 				<p style="font-size: 16px; ">高分占比：</p>
 				<div class="progress" style="width: 75%;">
-					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0% ;background-color: rgb(223,240,216);">
+					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" th:style="'width: '+*{excellentstu}+' ;background-color: rgb(223,240,216);'">
 						<span class="sr-only">0% Complete</span>
-						<p style="color: black;text-align: center;line-height: 20px;">0%</p>
+						<p style="color: black;text-align: center;line-height: 20px;">[[${excellentstu}]]</p>
 					</div>
 				</div>
 				<p style="font-size: 16px; ">中分占比：</p>
 				<div class="progress" style="width: 75%;">
-					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0% ;background-color: rgb(217,237,247);">
+					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" th:style="'width: '+*{qualifiedstu}+' ;background-color: rgb(217,237,247);'">
 						<span class="sr-only">0% Complete</span>
-						<p style="color: black;text-align: center;line-height: 20px;">0%</p>
+						<p style="color: black;text-align: center;line-height: 20px;">[[${qualifiedstu}]]</p>
 					</div>
 				</div>
 				<p style="font-size: 16px; ">低分占比：</p>
 				<div class="progress" style="width: 75%;">
-					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0% ;background-color: rgb(252,248,227);">
+					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" th:style="'width: '+*{unqualifiedstu}+' ;background-color: rgb(252,248,227);'">
 						<span class="sr-only">0% Complete</span>
-						<p style="color: black;text-align: center;line-height: 20px;">0%</p>
+						<p style="color: black;text-align: center;line-height: 20px;">[[${unqualifiedstu}]]</p>
 					</div>
 				</div>
 
@@ -239,15 +245,15 @@
 <!-- 引入foot -->
 <!-- 引入js -->
 <script type="text/javascript">var plugin_path = '../../static/js/js_home/plugins/';</script>
-<script type="text/javascript" src='../../static/js/js_home/jquery/jquery-2.1.4.min.js'></script>
+<!--<script type="text/javascript" src='../../static/js/js_home/jquery/jquery-2.1.4.min.js'></script>-->
 <script type="text/javascript" src='../../static/js/js_home/bootstrap.min.js'></script>
 <script type="text/javascript" src='../../static/js/js_home/scripts.js'></script>
 
 
 <!-- REVOLUTION SLIDER -->
-<script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.tools.min.js'></script>
-<script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.revolution.min.js'></script>
-<script type="text/javascript" src='../../static/js/js_home/revolution_slider.js'></script>
+<!--<script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.tools.min.js'></script>-->
+<!--<script type="text/javascript" src='../../static/js/js_home/jquery.themepunch.revolution.min.js'></script>-->
+<!--<script type="text/javascript" src='../../static/js/js_home/revolution_slider.js'></script>-->
 <!-- 引入js -->
 </body>
 </html>

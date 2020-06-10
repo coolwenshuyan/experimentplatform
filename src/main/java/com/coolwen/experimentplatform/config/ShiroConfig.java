@@ -32,7 +32,7 @@ import java.util.*;
  * @author CoolWen
  * @version 2018-11-01 7:44
  */
-//@Configuration
+@Configuration
 @EnableTransactionManagement
 public class ShiroConfig {
 
@@ -99,11 +99,12 @@ public class ShiroConfig {
 //        filterChainDefinitionMap.put("/js/**", "anon");
 //        filterChainDefinitionMap.put("/js/*/*/*", "anon");
 //        filterChainDefinitionMap.put("/images/**", "anon");
-//        filterChainDefinitionMap.put("/user/**", "authc,perms[admin]");
-//        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
+
+
+////        filterChainDefinitionMap.put("/admin/**", "authc,resourceCheckFilter");
 //        filterChainDefinitionMap.put("/login", "anon");
-//        filterChainDefinitionMap.put("/kaohe/allModule", "anon");
-//        filterChainDefinitionMap.put("/405", "anon");
+////        filterChainDefinitionMap.put("/kaohe/allModule", "anon");
+//        filterChainDefinitionMap.put("//405", "anon");
 //        filterChainDefinitionMap.put("/logout", "logout");
 //        filterChainDefinitionMap.put("/**", "authc");//需要登录访问的资源 , 一般将/**放在最下边
 
@@ -124,7 +125,7 @@ public class ShiroConfig {
         //设置realm.
         securityManager.setAuthenticator(modularRealmAuthenticator());
         List<Realm> realms = new ArrayList<>();
-        realms.add(myShiroRealm());
+//        realms.add(myShiroRealm());
         realms.add(studentRealm());
         realms.add(adminRealm());
         //securityManager.setRealm(myShiroRealm());
@@ -163,6 +164,14 @@ public class ShiroConfig {
     @Bean
     public StudentRealm studentRealm(){
         StudentRealm studentRealm = new StudentRealm();
+        studentRealm.setCachingEnabled(true);
+//        studentRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+//        studentRealm.setPermissionResolver(urlPermissionResovler());
+        studentRealm.setAuthenticationCachingEnabled(true);
+        studentRealm.setAuthorizationCachingEnabled(true);
+//        studentRealm.setAuthenticationCacheName("shiro");
+//        studentRealm.setAuthorizationCacheName("shiro");
+        studentRealm.setCacheManager(ehCacheManager());
         return studentRealm;
     }
 

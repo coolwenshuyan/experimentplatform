@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -93,7 +93,7 @@
 						<dl>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/list',this)">实验模块管理</a></dt>
 <!--							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>-->
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/moduleList',this)">模块测试/实验模块报告管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/moduleList',this)">模块测试/报告管理</a></dt>
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">实验模块报告管理</a></dt>-->
 
 
@@ -105,10 +105,10 @@
 						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>考核设置<i class="iconfont icon-dajiantouyou right"></i></a>
 						<dl>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohemodel/checkModule',this)">考核模块设置</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">课程理论测试管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick(' ../testScoreManage/list ',this)">模块测试成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/lastTestList',this)">课程理论测试管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../testScoreManage/list ',this)">模块测试成绩管理</a></dt>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../reportScoreManage/list ',this)">模块报告成绩管理</a></dt>
-							<dt><a href="javascript:void(0)" onclick="menuCAClick('../grade/kaohe',this)">课程理论测试成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../lastTestScoreManage/list',this)">课程理论测试成绩管理</a></dt>
 							<dt><a href="javascript:void(0)" onclick="menuCAClick('../totalscore/list',this)">学生总评成绩管理</a></dt>
 						</dl>
 							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
@@ -165,9 +165,12 @@
 				<img class="jt" src="../../static/images/top_jt.png"/>
 				<div class="topMenu">
 					<ul>
-						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-yonghu1"></i>管理员</a></li>
-						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>
-						<li><a href="login.html"><i class="iconfont icon-084tuichu"></i>注销</a></li>
+						<li>
+							<a th:if="${session.admin}!=null"><i class="iconfont icon-yonghu1"></i><span th:text="${session.admin.uname}"></span></a>
+							<a th:if="${session.admin}==null"><i class="iconfont icon-yonghu1"></i>管理员</a>
+						</li>
+						<li><a href="javascript:void(0)" onclick="menuCAClick('../admin/info',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>
+						<li><a href="/logout"><i class="iconfont icon-084tuichu"></i>注销</a></li>
 					</ul>
 				</div>
 			</div>

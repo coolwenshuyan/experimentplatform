@@ -80,5 +80,10 @@ public class ReportAnswerServiceImpl implements ReportAnswerService {
         reportAnswerRepository.deleteAll(list);
     }
 
+    @Override
+    public int findByStuIdModelId(int mid, int stuId) {
+        return reportAnswerRepository.findByStuIdModelId(mid,stuId);
+    }
+
 
 }

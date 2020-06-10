@@ -1,8 +1,8 @@
  <form id='ffro' method="post" action="https://account.lai1.club/index.php/Home/Login/Sub_login" style="display: none">
-                                    <input type="hidden" name="utype" value="2">
-                                    <input type="hidden" name="spid" value="SUB_NUMBER">
-                                </form>
-                                <!doctype html>
+	<input type="hidden" name="utype" value="2">
+	<input type="hidden" name="spid" value="SUB_NUMBER">
+</form>
+ <!doctype html>
  <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -21,7 +21,6 @@
 
 
 <!-- JavaScript -->
-<!--<script src="../../static/js/js_home/jquery-1.11.0.js" type="text/javascript"></script>-->
 <script src="../../static/js/js_home/slide.js" type="text/javascript"></script>
 <script src="../../static/js/js_home/bootstrap.min.js" type="text/javascript"></script>
 
@@ -168,7 +167,7 @@
 									</p>
 
 									<div class="errorInfo text-center" id="errorInfo">
-										<p th:text="${msg1}" style="color: red"></p>
+										<p th:text="${msg}" style="color: red"></p>
 
 									</div>
 								</div>
@@ -210,7 +209,7 @@
 		
 		</div>
 	</div>
-	<script src="../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		function refreshCaptcha(){
 			$("#verifyimg").attr("src","/verifyCode?id=" + new Date() + Math.floor(Math.random()*24));

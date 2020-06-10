@@ -28,12 +28,32 @@ public class NewsInfoServiceImpl implements NewsInfoService {
 
     @Override
     public int findAllmodelpeople() {
-        return newsInfoRepository.findAllmodelpeople();
+        return newsInfoRepository.findAllmodelpeople()+newsInfoRepository.findAllmodelpeople1();
     }
 
     @Override
     public int findAllPass() {
-        return newsInfoRepository.findAllPass();
+        return newsInfoRepository.findAllPass()+newsInfoRepository.findAllPass1();
+    }
+
+    @Override
+    public int findAllpasspeople() {
+        return newsInfoRepository.findAllmodelpeople1();
+    }
+
+    @Override
+    public int findExcellentpeople() {
+        return newsInfoRepository.findExcellentpeople();
+    }
+
+    @Override
+    public int findQualifiedpeople() {
+        return newsInfoRepository.findQualifiedpeople();
+    }
+
+    @Override
+    public int findUnqualifiedpeople() {
+        return newsInfoRepository.findUnqualifiedpeople();
     }
 
 }

@@ -20,7 +20,6 @@ public class StudentVo {
 
     private String className;
 
-//    private int classid;
 
     public StudentVo() {
     }
@@ -37,13 +36,6 @@ public class StudentVo {
         this.className = className;
     }
 
-//    public int getClassid() {
-//        return classid;
-//    }
-//
-//    public void setClassid(int classid) {
-//        this.classid = classid;
-//    }
 
     public int getId() {
         return id;

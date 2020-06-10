@@ -22,6 +22,9 @@ public class StudentListDTO {
 
         private int classid;
 
+    public StudentListDTO() {
+    }
+
     public StudentListDTO(int id, String stuUname, String stuPassword, String stuName, String stuXuehao, String stuMobile, boolean stuCheckstate, boolean stuIsinschool, String className, int classid) {
         this.id = id;
         this.stuUname = stuUname;

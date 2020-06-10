@@ -59,7 +59,7 @@
             left: 0.3rem;
             color: white;
         }
-        .container,.step p{
+        .container{
             margin-top: 1rem;
             height: 20rem;
             text-indent: 2em;
@@ -90,9 +90,9 @@
         .step{
             margin-left: -6%;
         }
-        .step p{
-            height: 7rem;
-        }
+        /*.step p{*/
+        /*    height: 7rem;*/
+        /*}*/
         button{
             position: relative;
             top: 37rem;
@@ -118,12 +118,12 @@
             margin-bottom: 2%;
             margin-left: 25%;
         }
-        .step img{
-            margin-bottom: 1%;
-            width: 70%;
-            margin-left: 5rem;
-            height: 70%;
-        }
+        /*.step img{*/
+        /*    margin-bottom: 1%;*/
+        /*    width: 70%;*/
+        /*    margin-left: 5rem;*/
+        /*    height: 70%;*/
+        /*}*/
         .data a{
             color: cornflowerblue;
         }
@@ -140,12 +140,19 @@
             width: 80%;
             text-align: left;
         }
+        .layui-btn-container .layui-btn{
+            margin-left: 80%;
+            background-color:#174f37 ;
+        }
+        #into{
+            margin: 40% 0 5% 45%;
+        }
     </style>
 </head>
 
 <body>
-<div id="return" class="layui-btn-container" style="margin-top: 40px;">
-    <input type="submit" class="layui-btn" value="返回上一级">
+<div id="return" class="layui-btn-container" style="margin-top: 10px;">
+    <a th:href="@{/expmodel/moduleDispathcher}" class="layui-btn" >返回上一级</a>
     <!--					<button type="button" class="layui-btn">删除</button>-->
 </div>
 <div class="container" style="margin-left: -6%;">
@@ -217,8 +224,8 @@
         </div>
     </div>
 </div>
-<button class="layui-btn layui-btn-radius" style="background-color: #174f37;margin-left: -6%">进入实验平台</button>
-<div class="step" >
+
+<div class="step"  >
     <div id="title">
         <h2 align="center">实验步骤</h2>
     </div>
@@ -240,9 +247,13 @@
 <!--    <img src="../../static/images/img_shiyan/step6.PNG" />-->
 </div>
 
+<a class="layui-btn" id="into" style="background-color: #174f37;" th:href="${exp.m_inurl}">进入实验平台</a>
 
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+<!--<script>-->
+<!--    document.getElementById("step").className = "";-->
+<!--</script>-->
 </body>
 
 </html>
