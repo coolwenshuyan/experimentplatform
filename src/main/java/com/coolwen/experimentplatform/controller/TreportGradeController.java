@@ -49,6 +49,9 @@ public class TreportGradeController {
     private ReportAnswerService reportAnswerService;
 
     @Autowired
+    private ScoreUpdateService scoreUpdateService;
+
+    @Autowired
     private KaoHeModelScoreService kaoHeModelScoreService;
 
     @Autowired
@@ -152,29 +155,35 @@ public class TreportGradeController {
             c.setScore(a);
             reportAnswerService.updateOne(c);
         }
-        //获取当前考核模块信息
-        KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
-        //获取当前学生考核模块分数信息
+
+        scoreUpdateService.singleStudentScoreUpdate(stuId);
         KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
-        System.out.println("dddddddddddd"+khs);
-        khs.setmReportScore(fs);
-        //计算模块总分
-        float ms = (fs*kh.getM_report_baifenbi()+khs.getmTestScore()*kh.getM_test_baifenbi())*khs.getmScale();
-        //更新前分数
-        float pkhsScore = khs.getmScore();
-        khs.setmScore(ms);
         khs.setmReportstate(true);
-        //更新模块总分
         kaoHeModelScoreService.update(khs);
-        //查询学生总成绩
-        TotalScoreCurrent tsc = totalScoreCurrentService.findTotalScoreCurrentByStuID(stuId);
-        //更新模块成绩
-        tsc.setmTotalScore(tsc.getmTotalScore()+ms-pkhsScore);
-        //更新学生总成绩
-//        tsc.setTotalScore(tsc.getmTotalScore()*kh.getKaohe_baifenbi()+tsc.getTestScore()*kh.getTest_baifenbi());
-//        System.out.println(tsc.getmTotalScore()*kh.getKaohe_baifenbi()+">>>"+tsc.getTestScore()*kh.getTest_baifenbi());
-        tsc.setTotalScore(tsc.getTotalScore()+ms-pkhsScore);
-        totalScoreCurrentService.update(tsc);
+
+//        //获取当前考核模块信息
+//        KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
+//        //获取当前学生考核模块分数信息
+//        KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
+//        System.out.println("dddddddddddd"+khs);
+//        khs.setmReportScore(fs);
+//        //计算模块总分
+//        float ms = (fs*kh.getM_report_baifenbi()+khs.getmTestScore()*kh.getM_test_baifenbi())*khs.getmScale();
+//        //更新前分数
+//        float pkhsScore = khs.getmScore();
+//        khs.setmScore(ms);
+//        khs.setmReportstate(true);
+//        //更新模块总分
+//        kaoHeModelScoreService.update(khs);
+//        //查询学生总成绩
+//        TotalScoreCurrent tsc = totalScoreCurrentService.findTotalScoreCurrentByStuID(stuId);
+//        //更新模块成绩
+//        tsc.setmTotalScore(tsc.getmTotalScore()+ms-pkhsScore);
+//        //更新学生总成绩
+////        tsc.setTotalScore(tsc.getmTotalScore()*kh.getKaohe_baifenbi()+tsc.getTestScore()*kh.getTest_baifenbi());
+////        System.out.println(tsc.getmTotalScore()*kh.getKaohe_baifenbi()+">>>"+tsc.getTestScore()*kh.getTest_baifenbi());
+//        tsc.setTotalScore(tsc.getTotalScore()+ms-pkhsScore);
+//        totalScoreCurrentService.update(tsc);
 
         return "redirect:/TreportGrade/"+stuId+'/'+mid+"/giveMark";
     }

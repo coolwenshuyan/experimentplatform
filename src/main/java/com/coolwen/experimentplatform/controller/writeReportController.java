@@ -94,7 +94,6 @@ public class writeReportController {
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         int stuId = student.getId();
 
-
         //计算当前模块学生是否答题，没有答题，则计算结果为0
         int reportAnswers = reportAnswerService.findByStuIdModelId(mid,stuId);
         //如果为空，则给表中添加空数据（添加学生id，题目id）
@@ -116,6 +115,7 @@ public class writeReportController {
         if (isNeedKaohe){
             KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
             model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+
         }
 
         return "home_shiyan/tian";

@@ -32,7 +32,7 @@ import java.util.*;
  * @author CoolWen
  * @version 2018-11-01 7:44
  */
-//@Configuration
+@Configuration
 @EnableTransactionManagement
 public class ShiroConfig {
 
