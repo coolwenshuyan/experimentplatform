@@ -375,16 +375,7 @@ public class StudentController {
         model.addAttribute("class",clazz);
         return "student/class_view";
     }
-    @Autowired
-    ScoreUpdateService scoreUpdateService;
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String test(int id){
-        scoreUpdateService.singleStudentScoreUpdate(id);
-//        scoreUpdateService.allStudentScoreUpdate();
-        return "";
-    }
 
 
 
