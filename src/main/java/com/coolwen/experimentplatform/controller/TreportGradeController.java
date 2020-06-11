@@ -116,6 +116,20 @@ public class TreportGradeController {
 
     ) {
         List<PScoreDto> score = scoreService.listScorerDTOBystudentId(stuId,mid);
+
+        //存储教师评分
+        for (PScoreDto pScoreDto1:score)
+        {
+            String value_t = request.getParameter(Integer.toString(pScoreDto1.getReportid()));
+            ReportAnswer c = reportAnswerService.findByReportidAndStuID(pScoreDto1.getReportid(),stuId);
+            Integer a = Integer.parseInt(value_t);
+            c.setScore(a);
+            reportAnswerService.updateOne(c);
+
+        }
+        //重新计算成绩
+        scoreUpdateService.singleStudentScoreUpdate(stuId);
+
 //        model.addAttribute("zjy",score);
 //        System.out.println(">>>>>>>>>>>>>>>>>>"+score);
 //        Enumeration em = request.getParameterNames();
@@ -128,41 +142,41 @@ public class TreportGradeController {
 //        zyy.add(value);
 //        }
 
-        //获得学生的报告
-        Enumeration em = request.getParameterNames();
-        //保存所有请求内容
-        List<String> zyy = new ArrayList<>();
+//        //获得学生的报告
+//        Enumeration em = request.getParameterNames();
+//        //保存所有请求内容
+//        List<String> zyy = new ArrayList<>();
+//
+//        //保存所有请求名
+//        List<String> z = new ArrayList<>();
+//
+//        //获得所有请求名
+//        while (em.hasMoreElements()) {
+//            String name = (String) em.nextElement();
+//            z.add(name);
+//        }
+//        //将所有请求名排序，并获取内容添加到
+//        Collections.sort(z);
+//        for(String a:z){
+//            String value = request.getParameter(a);
+//            zyy.add(value);
+//        }
+//
+//        //添加老师给学生的评分，fs（当前学生报告模块总分）
+//        float fs = 0;
+//        for (int i = 0; i <zyy.size() ; i++) {
+//            PScoreDto d= score.get(i);
+//            ReportAnswer c = reportAnswerService.findByReportidAndStuID(d.getReportid(),stuId);
+//            Integer a = Integer.parseInt(zyy.get(i));
+//            fs+=a;
+//            c.setScore(a);
+//            reportAnswerService.updateOne(c);
+//        }
 
-        //保存所有请求名
-        List<String> z = new ArrayList<>();
-
-        //获得所有请求名
-        while (em.hasMoreElements()) {
-            String name = (String) em.nextElement();
-            z.add(name);
-        }
-        //将所有请求名排序，并获取内容添加到
-        Collections.sort(z);
-        for(String a:z){
-            String value = request.getParameter(a);
-            zyy.add(value);
-        }
-
-        //添加老师给学生的评分，fs（当前学生报告模块总分）
-        float fs = 0;
-        for (int i = 0; i <zyy.size() ; i++) {
-            PScoreDto d= score.get(i);
-            ReportAnswer c = reportAnswerService.findByReportidAndStuID(d.getReportid(),stuId);
-            Integer a = Integer.parseInt(zyy.get(i));
-            fs+=a;
-            c.setScore(a);
-            reportAnswerService.updateOne(c);
-        }
-
-        scoreUpdateService.singleStudentScoreUpdate(stuId);
-        KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
-        khs.setmReportstate(true);
-        kaoHeModelScoreService.update(khs);
+//        scoreUpdateService.singleStudentScoreUpdate(stuId);
+//        KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
+//        khs.setmReportstate(true);
+//        kaoHeModelScoreService.update(khs);
 
 //        //获取当前考核模块信息
 //        KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
