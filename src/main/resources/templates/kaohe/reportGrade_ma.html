@@ -100,7 +100,7 @@
                                 <label class="layui-form-label">评分</label>
                                 <div class="layui-input-block">
                                     <input th:value="${markm.getScore()}" type="number"
-                                           th:name="|score${markmStat.index}|" lay-verify="title" autocomplete="off"
+                                           th:name="|${markm.getReportid()}|" lay-verify="title" autocomplete="off"
                                            placeholder="请输入成绩" class="layui-input">
 
                                 </div>

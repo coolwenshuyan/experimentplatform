@@ -93,12 +93,11 @@ public class ModleTestScoreController {
 //        Page<Student> c = studentService.findAll(pageNum);
         Page<Student> c = studentService.findStudentPageAndXuehao(pageNum, select_orderId);
 
-
-        System.out.println(">>>>>>>>>>>>>>>>>>c"+c);
         model.addAttribute("allStu",c);
         model.addAttribute("selectOrderId",select_orderId);
 
-        List<ClassModel> classList = classService.findAllClass();
+        //查询当期班级
+        List<ClassModel> classList = classService.findCurrentClass();
         model.addAttribute("classList",classList);
 
         List<StudentTestScoreDTO> a = studentRepository.listStudentMTestAnswerDTO();
@@ -137,10 +136,12 @@ public class ModleTestScoreController {
         model.addAttribute("allStu",c);
         model.addAttribute("selectOrderId",select_orderId);
 
-        List<ClassModel> classList = classService.findAllClass();
+        //查询当期班级
+        List<ClassModel> classList = classService.findCurrentClass();
         model.addAttribute("classList",classList);
 
         List<StudentTestScoreDTO> a = studentRepository.listStudentMTestAnswerDTO();
+
 
         System.out.println(a);
         long modleNum = kaoheModelRepository.count();

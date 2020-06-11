@@ -58,8 +58,8 @@ public class ModleTestReportController {
         model.addAttribute("allStu",c);
         model.addAttribute("selectOrderId",select_orderId);
 
-        //获得所有班级
-        List<ClassModel> classList = classService.findAllClass();
+        //查询当期班级
+        List<ClassModel> classList = classService.findCurrentClass();
         model.addAttribute("classList",classList);
 
         //获得所有学生成绩DTO
@@ -100,7 +100,8 @@ public class ModleTestReportController {
         model.addAttribute("allStu",c);
         model.addAttribute("selectOrderId",select_orderId);
 
-        List<ClassModel> classList = classService.findAllClass();
+        //查询当期班级
+        List<ClassModel> classList = classService.findCurrentClass();
         model.addAttribute("classList",classList);
 
         List<StudentTestScoreDTO> a = studentRepository.listStudentMReportAnswerDTO();

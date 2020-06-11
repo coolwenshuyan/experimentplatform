@@ -47,12 +47,21 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
             //循环存储，减少数据库操作
             test_baifenbi = k.getTest_baifenbi();
             kaohe_baifenbi = k.getKaohe_baifenbi();
-            //模块题目比对获取分数
-            mTestScore = moduleTestScore(k.getM_id(),id);
-            //模块报告分数获取
-            mReportScore = moduleReportScore(k.getM_id(),id);
+
             //找到该考生在该模块的考核模块成绩表
             KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(k.getM_id(),id);
+
+            //模块测试没有做，不进行统计
+            if (kaoHeModelScore.ismTeststate()){
+                //模块题目比对获取分数
+                mTestScore = moduleTestScore(k.getM_id(),id);
+            }
+            //模块报告没有做，不进行统计
+            if (kaoHeModelScore.ismReportstate()){
+                //模块报告分数获取
+                mReportScore = moduleReportScore(k.getM_id(),id);
+            }
+
             //更新模块测试分数
             kaoHeModelScore.setmTestScore(mTestScore);
             //更新模块报告分数
@@ -69,6 +78,7 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
         TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(id);
         //更新整体模块成绩
         totalScoreCurrent.setmTotalScore(mTotalScore);
+
         //更新整体测试成绩
         totalScoreCurrent.setTestScore(moduleTestScore(-1,id));
         //更新总成绩
@@ -92,13 +102,16 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
         List<ModuleTestQuest> moduleTestQuestList = moduleTestQuestService.find(mid);
         for (ModuleTestQuest m : moduleTestQuestList){
             ModuleTestAnswerStu moduleTestAnswerStu = moduleTestAnswerStuService.findModuleTestAnswerStuByStu_idAndQuest_id(stuid,m.getQuestId());
-            if(moduleTestAnswerStu.getStu_quest_answer().equals(m.getQuestAnswer())){
-                mTestScore += m.getQuestScore();
-                moduleTestAnswerStu.setScore((int) m.getQuestScore());
-            }else {
-                moduleTestAnswerStu.setScore(0);
+            //如果没有答题记录，则不进行统计
+            if (moduleTestAnswerStu != null){
+                if(moduleTestAnswerStu.getStu_quest_answer().equals(m.getQuestAnswer())){
+                    mTestScore += m.getQuestScore();
+                    moduleTestAnswerStu.setScore((int) m.getQuestScore());
+                }else {
+                    moduleTestAnswerStu.setScore(0);
+                }
+                moduleTestAnswerStuService.add(moduleTestAnswerStu);
             }
-            moduleTestAnswerStuService.add(moduleTestAnswerStu);
         }
         return mTestScore;
     }

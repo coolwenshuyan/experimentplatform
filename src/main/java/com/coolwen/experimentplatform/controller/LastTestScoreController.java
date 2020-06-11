@@ -85,8 +85,8 @@ public class LastTestScoreController {
         //搜索
         model.addAttribute("selectOrderId",select_orderId);
 
-        //班级列表
-        List<ClassModel> classList = classService.findAllClass();
+        //查询班级列表
+        List<ClassModel> classList = classService.findCurrentClass();
         model.addAttribute("classList",classList);
 
         //学生成绩DTO列表

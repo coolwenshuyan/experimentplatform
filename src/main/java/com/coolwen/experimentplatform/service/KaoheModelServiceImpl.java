@@ -121,39 +121,52 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Override
     public void deleteByMid(int mid) {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+mid);
+
         KaoheModel km = kaoheModelRepository.findKaoheModelByMid(mid);
-        System.out.println("km000000000"+km);
-
-        // 整体理论测试占比和模块考核成绩占比存放在-1的记录中(!!已经废除!!)
-//        KaoheModel akm = kaoheModelRepository.findKaoheModelByMid(-1);
-//        System.out.println("akm000000000"+akm);
-
         List<KaoHeModelScore> khms = kaoHeModelScoreRepository.findKaoHeModelScoreByKaoheid(km.getId());
-
-        System.out.println("khms000000000"+khms);
-
-        // 遍历该模块所有学生的模块成绩,进行修改
+        // 移除模块时，删除表12中该模块学生成绩记录，更新13模块数量
         for (KaoHeModelScore i : khms){
-            System.out.println(">>>>>>>>>"+i);
             TotalScoreCurrent tsc = totalScoreCurrentRepository.findTotalScoreCurrentByStuId(i.getStuId());
-            System.out.println(">>>>>>>>>"+tsc);
             tsc.setKaoheNum(tsc.getKaoheNum()-1);
-            float msc = i.getmScore();
-            float mtsc = tsc.getmTotalScore();
-            System.out.println("mtsc>>>>>>>>>>>>>>>>>>>>>>>>>>"+mtsc);
-            float newmtsc = mtsc - msc * km.getM_scale();
-            System.out.println("newmtsc>>>>>>>>>>>>>>>>>>>>>>>>>>"+newmtsc);
-            tsc.setmTotalScore(newmtsc);
-
-            float old_total_score = tsc.getTotalScore();
-            float new_total_score = old_total_score - newmtsc*km.getKaohe_baifenbi();
-            tsc.setmTotalScore(newmtsc);
-            tsc.setTotalScore(new_total_score);
             totalScoreCurrentRepository.save(tsc);
-
             kaoHeModelScoreRepository.delete(i);
         }
+
+
+
+//        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+mid);
+//        KaoheModel km = kaoheModelRepository.findKaoheModelByMid(mid);
+//        System.out.println("km000000000"+km);
+//
+//        // 整体理论测试占比和模块考核成绩占比存放在-1的记录中(!!已经废除!!)
+////        KaoheModel akm = kaoheModelRepository.findKaoheModelByMid(-1);
+////        System.out.println("akm000000000"+akm);
+//
+//        List<KaoHeModelScore> khms = kaoHeModelScoreRepository.findKaoHeModelScoreByKaoheid(km.getId());
+//
+//        System.out.println("khms000000000"+khms);
+//
+//        // 遍历该模块所有学生的模块成绩,进行修改
+//        for (KaoHeModelScore i : khms){
+//            System.out.println(">>>>>>>>>"+i);
+//            TotalScoreCurrent tsc = totalScoreCurrentRepository.findTotalScoreCurrentByStuId(i.getStuId());
+//            System.out.println(">>>>>>>>>"+tsc);
+//            tsc.setKaoheNum(tsc.getKaoheNum()-1);
+//            float msc = i.getmScore();
+//            float mtsc = tsc.getmTotalScore();
+//            System.out.println("mtsc>>>>>>>>>>>>>>>>>>>>>>>>>>"+mtsc);
+//            float newmtsc = mtsc - msc * km.getM_scale();
+//            System.out.println("newmtsc>>>>>>>>>>>>>>>>>>>>>>>>>>"+newmtsc);
+//            tsc.setmTotalScore(newmtsc);
+//
+//            float old_total_score = tsc.getTotalScore();
+//            float new_total_score = old_total_score - newmtsc*km.getKaohe_baifenbi();
+//            tsc.setmTotalScore(newmtsc);
+//            tsc.setTotalScore(new_total_score);
+//            totalScoreCurrentRepository.save(tsc);
+//
+//            kaoHeModelScoreRepository.delete(i);
+//        }
 
 
 
