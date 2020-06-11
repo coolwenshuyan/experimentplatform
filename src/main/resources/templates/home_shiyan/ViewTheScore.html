@@ -51,9 +51,9 @@
 <div class="test layui-col-xs8 layui-col-xs-offset2">
     <h2 align="center"><strong>答案</strong></h2><br><br>
     <h2>本次测试总分:</h2>
-    <h2 th:text="${fs}">本次测试总分</h2>
+    <h2 th:text="${fs2}">本次测试总分</h2>
     <form class="layui-form layui-form-pane" th:action="@{|/kaoshi/${midd}/postExam|}" >
-        <h3>单选题(共六十分)</h3><br>
+        <h3>单选题</h3><br>
 
         <div class="layui-form-item layui-form-text" th:each="m,iterStat:${radioQuestionsList}">
             <label class="layui-form-label"
@@ -71,7 +71,7 @@
         </div>
 
 
-        <h3>多选题(共四十分)</h3><br>
+        <h3>多选题</h3><br>
 
         <div class="layui-form-item layui-form-text" th:each="m1,iterStat:${checkboxQuestionsList}">
             <label class="layui-form-label"

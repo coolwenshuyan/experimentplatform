@@ -51,7 +51,7 @@
 <div class="test layui-col-xs8 layui-col-xs-offset2">
     <h2 align="center"><strong>测试检验</strong></h2><br><br>
 
-    <form class="layui-form layui-form-pane" th:action="@{|/kaoshi/${midd}/postExam|}" th:if="${needSaveScore}">
+    <form class="layui-form layui-form-pane" th:action="@{|/kaoshi/${midd}/postExam|}" >
         <h3>单选题(共六十分)</h3><br>
 
         <div class="layui-form-item layui-form-text" th:each="m,iterStat:${radioQuestionsList}">
@@ -81,37 +81,7 @@
             </div>
         </div>
     </form>
-<!--    如果不需要保存答案-->
-    <form class="layui-form layui-form-pane" th:action="@{|/kaoshi/${midd}/viewTheScore|}" th:if="${not needSaveScore}">
-        <h3>单选题(共六十分)</h3><br>
 
-        <div class="layui-form-item layui-form-text" th:each="m,iterStat:${radioQuestionsList}">
-            <label class="layui-form-label"
-                   th:text="${iterStat.index+1}+'.'+ ${m.questDescribe}+'('+${m.questScore}+'分)'">1.下述概念中不属于面向对象方法的是(20分)</label>
-            <div class="layui-input-block" th:each="n:${m.moduleTestAnswerList}">
-                <input type="radio" th:name="${m.questId}" th:value="${n.answerId}" th:text="${n.answerDescribe}">
-                <!--                <input type="radio" name="1" value="对象、消息   " title="对象、消息   ">-->
-            </div>
-        </div>
-
-
-        <h3>多选题(共四十分)</h3><br>
-
-        <div class="layui-form-item layui-form-text" th:each="m1,iterStat:${checkboxQuestionsList}">
-            <label class="layui-form-label"
-                   th:text="${iterStat.index+1}+'.'+ ${m1.questDescribe}+'('+${m1.questScore}+'分)'">1.在Java接口中，下列选项中有效的方法声明是？(20分)</label>
-            <div class="layui-input-block" th:each="n1:${m1.moduleTestAnswerList}">
-                <input type="checkbox" th:name="${m1.questId}" th:title="${n1.answerDescribe}" th:value="${n1.answerId}" lay-skin="primary">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <input class="layui-btn" lay-filter="formDemo" type="submit" value="立即查看分数"/>
-                <!--                <button  lay-submit >立即提交</button>-->
-                <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
-            </div>
-        </div>
-    </form>
 </div>
 
 

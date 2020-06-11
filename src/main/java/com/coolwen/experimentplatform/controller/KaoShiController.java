@@ -89,51 +89,20 @@ public class KaoShiController {
         //获得学生id
         Student student= (Student) session.getAttribute("student");
         int stuId = student.getId();
-//        int classId = student.getClassId();
 
-        //检查此模块是不是考核模块
-//        boolean expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
-
-
-////        int stuClassId = studentService.findStudentById(stuId).getClassId();
-//        boolean stuNeedKaohe = (classId>=0);
-//        boolean classiscurrent = false;
-//        if (stuNeedKaohe){
-//            ClassModel classModel = clazzService.findById(classId);
-//            classiscurrent =  classModel.getClassIscurrent();
-//        }
-//        //真为当期需要参加考核的学生,假为其它
-//        boolean StudentType = false;
-//
-//        if(stuNeedKaohe&&!classiscurrent)
-//        {
-//            StudentType = true;
-//        }
-
-
-        //获得结论此次请求是否需要更新成绩
-//        boolean needSaveScore = expModelNeedKaohe & stuNeedkaohe;
-//        model.addAttribute("needSaveScore",needSaveScore);
-
-
+        //获取此学生此模块已经提交的答案
         List<ModuleTestAnswerStu> moduleTestAnswerStus = moduleTestAnswerStuService.findStudentAnswbyStuidAndMid(stuId ,mid);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~"+moduleTestAnswerStus.size());
-        //        统计此学生此题的答题记录条数,如果>0 表示此学生以前做过此模块的题
+
+        //统计此学生此题的答题记录条数,如果>0 表示此学生以前做过此模块的题
         if (moduleTestAnswerStus.size()>0){
             System.out.println("此学生已经做过此模块");
-
-            String res = "redirect:/kaoshi/"+mid+"/ViewTheScore";
-            return res;
-
+            return "redirect:/kaoshi/"+mid+"/ViewTheScore";
         }
         //获得此模块的所有单选题
         List<QuestListAnswerDto> questionsList = moduleTestQuestService.listQuestAnswerDto("单选", mid);
-
-
         for (QuestListAnswerDto i:questionsList){
             System.out.println(i);
         }
-
 
         //将单选题目和模块id传入
         model.addAttribute("radioQuestionsList", questionsList);
@@ -144,12 +113,7 @@ public class KaoShiController {
         //将多选题目传入
         model.addAttribute("checkboxQuestionsList", questionsList2);
 
-        for (QuestListAnswerDto i:questionsList2){
-            System.out.println(i);
-        }
-
         return "home_shiyan/CanKaoceshitest";
-
 
     }
 
@@ -171,33 +135,20 @@ public class KaoShiController {
                            @PathVariable("mid") Integer mid,
                            Model model, HttpSession session, HttpServletRequest request ) {
 
-//        String username = (String) session.getAttribute("username");
-//        Integer taotiId = null;
-
         Student student= (Student) session.getAttribute("student");
         int stuId = student.getId();
 
-        //检查次模块是不是考核模块
-        boolean expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+        //判断是否需要进行后续更新成绩
+        boolean expModelNeedKaohe = false;
+        if (mid == -1){
+            expModelNeedKaohe = true;
+        }else {
+            //检查次模块是不是考核模块
+            expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+        }
 
         //检查此学生有没有考核资格
         List<Student> studentOne = studentService.findStudentIsCurrentkaoheByStuid(stuId);
-
-//        System.out.println(studentOne.size());
-
-
-
-        //存储教师评分
-//        for (PScoreDto pScoreDto1:score)
-//        {
-//            String value_t = request.getParameter(Integer.toString(pScoreDto1.getReportid()));
-//            ReportAnswer c = reportAnswerService.findByReportidAndStuID(pScoreDto1.getReportid(),stuId);
-//            Integer a = Integer.parseInt(value_t);
-//            c.setScore(a);
-//            reportAnswerService.updateOne(c);
-//
-//        }
-
 
         //获得学生提交的试卷
         Enumeration em = request.getParameterNames();
@@ -266,7 +217,7 @@ public class KaoShiController {
         }
 
 //        更新此学生成绩,此操作现在整合下面这一大段
-        if(studentOne.size()>0){
+        if(studentOne.size()>0 & expModelNeedKaohe){
             scoreUpdateService.singleStudentScoreUpdate(stuId);
         }
 
@@ -310,40 +261,30 @@ public class KaoShiController {
 //
 //        }
 
-
         //返回此次得分
         model.addAttribute("fs",fs);
-        //回到成绩查看页面或者其他页面
-        String res = "redirect:/kaoshi/"+mid+"/ViewTheScore";
-        return res;
+        //回到成绩查看页面
+        return "redirect:/kaoshi/"+mid+"/ViewTheScore";
     }
 
     @RequestMapping("/{mid}/ViewTheScore")
     public String ViewTheScore(@PathVariable("mid") Integer mid,
                                Model model, HttpSession session) {
-        System.out.println("进入成绩查看");
 
         //获得学生id
         Student student= (Student) session.getAttribute("student");
         int stuId = student.getId();
-//        int classId = student.getClassId();
 
-//        float fs = (float) model.getAttribute("fs");
-//        System.out.println(fs);
-
-
-
-        float fs = 0;
+        //计算此模块总得分
+        float fs2 = 0;
         //获得此模块的所有单选题
         List<QuestListAnswerAndStuScoreDto> questionsList = moduleTestQuestService.listQuestListAnswerAndStuScoreDto("单选", mid,stuId);
-        List<ModuleTestAnswerStu> moduleTestAnswerStus;
+//        List<ModuleTestAnswerStu> moduleTestAnswerStus;
 
-
-
+        //计算单选题得分
         for (QuestListAnswerAndStuScoreDto i:questionsList){
-            fs+=i.getQuestScore();
+            fs2+=i.getOneQuestScore();
         }
-
 
         //将单选题目和模块id传入
         model.addAttribute("radioQuestionsList", questionsList);
@@ -352,19 +293,17 @@ public class KaoShiController {
         //返回多选题目
         List<QuestListAnswerAndStuScoreDto> questionsList2 = moduleTestQuestService.listQuestListAnswerAndStuScoreDto("多选", mid,stuId);
 
+        //计算多选题得分
         for (QuestListAnswerAndStuScoreDto i:questionsList2){
-            fs+=i.getQuestScore();
-//            System.out.println("questionsList2:>>>>>>>>>>>>>"+i);
+            fs2+=i.getOneQuestScore();
         }
 
         //将多选题目传入
         model.addAttribute("checkboxQuestionsList", questionsList2);
 
-
-        model.addAttribute("fs",fs);
+        //此模块总得分
+        model.addAttribute("fs2",fs2);
         return "home_shiyan/ViewTheScore";
-
-
     }
 
 
