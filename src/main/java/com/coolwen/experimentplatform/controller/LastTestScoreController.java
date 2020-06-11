@@ -51,7 +51,11 @@ public class LastTestScoreController {
     public String loadAllScore(Model model,
                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
-        //搜索
+
+        Page<Student> c = studentService.findStudentPageAndXuehao(pageNum, select_orderId);
+//        //搜索
+        System.out.println("c>>>>>>"+c.getSize());
+        model.addAttribute("allStu",c);
         model.addAttribute("selectOrderId",select_orderId);
 
         //查询当期班级列表
@@ -81,8 +85,9 @@ public class LastTestScoreController {
                                     @PathVariable int classId,
                                     @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                     @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
-
+        Page<Student> c = studentService.pageStudentByClassId(pageNum,classId);
         //搜索
+        model.addAttribute("allStu",c);
         model.addAttribute("selectOrderId",select_orderId);
 
         //查询班级列表

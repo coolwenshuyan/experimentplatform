@@ -147,13 +147,30 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="a:${allInfo}">
-						<td th:text="${a.getXuehao()}">12345678</td>
-						<td th:text="${a.getsName()}">张三</td>
-						<td th:text="${a.getsClassName()}">18信管01</td>
-						<td th:text="${a.getmScore()}">86</td>
-					</tr>
+<!--					<tr th:each="a:${allInfo}">-->
+<!--						<td th:text="${a.getXuehao()}">12345678</td>-->
+<!--						<td th:text="${a.getsName()}">张三</td>-->
+<!--						<td th:text="${a.getsClassName()}">18信管01</td>-->
+<!--						<td th:text="${a.getmScore()}">86</td>-->
+<!--					</tr>-->
+
+
+					<div th:each="class:${classList}">
+						<tr th:each="one:${allStu}" th:if="${one.getClassId()} == ${class.getClassId()}">
+							<td ><p th:text="${one.getStuXuehao()}" style="margin-left: -50%;">12345678</p></td>
+							<td ><p th:text="${one.getStuName()}">12345678</p></td>
+							<td ><p th:text="${one.getClassId()}">12345678</p></td>
+							<div th:each="stuInfo,stat:${allInfo}" th:if="${stuInfo.getXuehao()} == ${one.getStuXuehao()}">
+
+								<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmScore()}">12345678</p></td>
+
+
+							</div>
+						</tr>
+					</div>
 				</tbody>
+
+
 			</table>
 		</div>
 		<div style="text-align: center;">

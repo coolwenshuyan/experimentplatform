@@ -37,6 +37,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMReportAnswerDTO();
 
+    //只处理当期班级的学生成绩
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
             "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
             "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
