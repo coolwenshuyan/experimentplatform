@@ -27,17 +27,16 @@
 </head>
 <body>
 <div class="layui-container">
-    <button type="button" class="layui-btn layui-btn-primary">返回上一级</button>
+    <button type="button" onclick="Javascript:history.back(-1);" href="#" class="layui-btn layui-btn-primary">返回上一级</button>
     <div class="fly-panel">
         <div class="fly-none">
             <h2><img src="../static/images/error.png" class="layui-col-xs12" style=" width: 350px;"></h2>
             <p>页面数据丢失...</p>
+            <p th:text="${error}"></p>
+            <p th:text="${status}"></p>
+            <p th:text="${message}"></p>
         </div>
     </div>
 </div>
-
-<p th:text="${error}"></p>
-<p th:text="${status}"></p>
-<p th:text="${message}"></p>
 </body>
 </html>

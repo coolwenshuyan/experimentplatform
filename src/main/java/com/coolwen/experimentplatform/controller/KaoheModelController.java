@@ -1,16 +1,10 @@
 package com.coolwen.experimentplatform.controller;
 
 
+import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
 import com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO;
-import com.coolwen.experimentplatform.model.ExpModel;
-import com.coolwen.experimentplatform.model.KaoHeModelScore;
-import com.coolwen.experimentplatform.model.KaoheModel;
-import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.service.ExpModelService;
-import com.coolwen.experimentplatform.service.KaoHeModelScoreService;
-import com.coolwen.experimentplatform.service.KaoheModelService;
-import com.coolwen.experimentplatform.service.StudentService;
+import com.coolwen.experimentplatform.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +40,10 @@ public class KaoheModelController {
     private StudentService studentService;
     @Autowired
     private KaoHeModelScoreService kaoHeModelScoreService;
+    @Autowired
+    private TotalScoreCurrentService totalScoreCurrentService; //处理表13中考核模块数量
+    @Autowired
+    private ScoreUpdateService scoreUpdateService;   //移除模块后，批量更新学生成绩
 
 
     /**
@@ -151,11 +149,17 @@ public class KaoheModelController {
         System.out.println(u);
         kaoheModelService.add(u);
         expModel.setNeedKaohe(true);
+        //学生考核模块成绩记录表，只处理当期有考核权限的学生
         for (Student i : studentService.findStudentByNotClassId()){
             kaoHeModelScoreService.add(new KaoHeModelScore(u.getId(), i.getId(), 0, 0, u.getM_order(), u.getM_scale()));
+            //更新表13中学生总表记录中考核模块数
+            TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(i.getId());
+            totalScoreCurrent.setKaoheNum(totalScoreCurrent.getKaoheNum()+1);
+            totalScoreCurrentService.add(totalScoreCurrent);
         }
         // 当期限定
         // 表13 考核项目数增加
+
         expModelService.save(expModel);
         System.out.println(">>>>>>>>>>>>add");
         kaoheModelService.deleteMTestAnswerByMid(mid);
@@ -181,10 +185,10 @@ public class KaoheModelController {
      */
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String update(@PathVariable int id, KaoheModel kaoheModel) {
-        KaoheModel u = new KaoheModel();
-        u = kaoheModelService.findById(id);
+        KaoheModel u = kaoheModelService.findById(id);
 //        u.setClass_hour(kaoheModel.getClass_hour());
-        u.setM_id(kaoheModel.getM_id());
+        //模块id，从查询记录中得到
+        u.setM_id(u.getM_id());
 //        u.setExperiment_name(kaoheModel.getExperiment_name());
         u.setM_order(kaoheModel.getM_order());
         u.setM_scale(kaoheModel.getM_scale());
@@ -193,6 +197,8 @@ public class KaoheModelController {
         u.setKaohe_baifenbi(kaoheModel.getKaohe_baifenbi());
         u.setTest_baifenbi(kaoheModel.getTest_baifenbi());
         kaoheModelService.add(u);
+        //批量更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/kaohemodel/checkModule";
     }
 
@@ -214,9 +220,10 @@ public class KaoheModelController {
 
         //删除所有学生此模块的成绩
         kaoheModelService.deleteByMid(mid);
-        // 删除此考核模块
+        // 删除表11中该考核模块
         kaoheModelService.delete(id);
-
+        //批量更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
 //        kaoHeModelScoreService.deleteAllByKaohemId(id);
         System.out.println("移出成功");
         return "redirect:/kaohemodel/checkModule";
