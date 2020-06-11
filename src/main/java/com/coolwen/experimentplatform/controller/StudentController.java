@@ -319,6 +319,18 @@ public class StudentController {
         return "redirect:/studentManage/classManage";
     }
 
+    @GetMapping("/checkClassName/{classid}")
+    @ResponseBody
+    public String checkClassName(@PathVariable("classid") int classid,String className){
+        ClassModel now = clazzService.findById(classid);
+        if(clazzService.findClassModelByClassName(className) != null){
+            if(!className.equals(now.getClassName())){
+                return "该班级名已存在";
+            }
+        }
+        return "Metal";
+    }
+
 
     //删除班级操作
     @GetMapping("/deleteClass/{id}")

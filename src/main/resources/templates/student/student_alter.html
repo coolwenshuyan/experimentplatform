@@ -48,15 +48,15 @@
                           autocomplete="off" class="layui-input" th:value="${stu.stuXuehao}" id="xuehao" onblur="checkxuehao()">
                           <div id="msg1" style="color: red;font-size:18px;width: 100%;height:5%;text-align: center"></div>
 
-                      </div>abel>
+                      </div>
 
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">班级</l
+                        <label class="layui-form-label">班级</label>
                         <div class="layui-input-inline">
                             <select name="classid">
                                 <span th:if="${stu.classid eq 0}">
-                                      <option value="0">该学生暂未分班</option>
+                                      <option disabled="disabled" value="0"  selected="selected" >该学生暂未分班</option>
                                 </span>
                                 <span th:each="c:${class}" th:if="${stu.classid ne 0}">
                                 <option  th:value="${c.classId}" th:text="${c.className}" th:selected="${stu.classid eq c.classId?true:false}"></option>

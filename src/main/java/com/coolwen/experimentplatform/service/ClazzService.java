@@ -22,4 +22,7 @@ public interface ClazzService {
 
     List<ClassModel> findCurrentClass();
 
+    ClassModel findClassModelByClassName(String className);
+
+
 }
