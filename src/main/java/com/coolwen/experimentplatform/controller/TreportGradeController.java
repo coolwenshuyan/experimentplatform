@@ -130,6 +130,10 @@ public class TreportGradeController {
         //重新计算成绩
         scoreUpdateService.singleStudentScoreUpdate(stuId);
 
+        KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
+        khs.setmReportteacherstate(true);
+        kaoHeModelScoreService.update(khs);
+
 //        model.addAttribute("zjy",score);
 //        System.out.println(">>>>>>>>>>>>>>>>>>"+score);
 //        Enumeration em = request.getParameterNames();

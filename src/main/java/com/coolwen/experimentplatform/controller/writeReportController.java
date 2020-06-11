@@ -141,7 +141,7 @@ public class writeReportController {
 
         try {
             KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
-            if (kaoHeModelScore.ismReportstate()){
+            if (kaoHeModelScore.ismReportteacherstate()){
                 return "redirect:/WriteReport/"+mid+"/Timu";
             }
         }catch (Exception e){
@@ -196,6 +196,15 @@ public class writeReportController {
                 reportAnswerService.addReportAnswer(c);
             }
         }
+
+        try {
+            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
+            khs.setmReportstate(true);
+            kaoHeModelScoreService.update(khs);
+        }catch(Exception e){
+
+        }
+
 
         //获得学生的报告
 //        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
