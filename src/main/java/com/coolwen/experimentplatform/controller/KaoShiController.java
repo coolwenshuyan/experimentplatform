@@ -8,6 +8,8 @@ package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.dao.KaoheModelRepository;
 import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.DTO.PScoreDto;
+import com.coolwen.experimentplatform.model.DTO.QuestListAnswerAndStuScoreDto;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.service.*;
 import com.google.inject.internal.cglib.core.$Block;
@@ -78,65 +80,59 @@ public class KaoShiController {
      * @param session 获得学生id
      * @return 返回到考试页面
      */
+
     @RequestMapping("/{mid}/toExamPageList")
     public String toExamPage(@PathVariable("mid") Integer mid,
                              Model model, HttpSession session) {
-//        type1 表示的是单选题,
-//        mid表示模型
-
 
 
         //获得学生id
         Student student= (Student) session.getAttribute("student");
         int stuId = student.getId();
-        int classId = student.getClassId();
+//        int classId = student.getClassId();
+
+        //检查此模块是不是考核模块
+//        boolean expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
 
 
-        //检查次模块是不是考核模块
-        boolean expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
-
-        //检查此学生有没有考核资格
-//        int stuClassId = studentService.findStudentById(stuId).getClassId();
-        boolean stuNeedKaohe = (classId>=0);
-
-        boolean classiscurrent = false;
-        if (stuNeedKaohe){
-            ClassModel classModel = clazzService.findById(classId);
-            classiscurrent =  classModel.getClassIscurrent();
-        }
-
-        //真为当期需要参加考核的学生,假为其它
-        boolean StudentType = false;
-
-        if(stuNeedKaohe&&!classiscurrent)
-        {
-            StudentType = true;
-        }
-
-
-        //获得结论此次请求是否需要保存成绩
-        boolean needSaveScore = expModelNeedKaohe & StudentType;
-        model.addAttribute("needSaveScore",needSaveScore);
-
-
-        //获得此模块的所有单选题
-        List<QuestListAnswerDto> questionsList = moduleTestQuestService.listQuestAnswerDto("单选", mid);
-        List<ModuleTestAnswerStu> moduleTestAnswerStus;
-        for (QuestListAnswerDto i:questionsList){
-//            moduleTestAnswerStus.add(moduleTestAnswerStuService.findAllModuleTestAnswerStuByStuidAndQuestId(stuId,i.getQuestId()).get(0));
-
-            System.out.println("questionsList1:>>>>>>>>>>>>>"+i);
-        }
-        //增加学生是否已经做过次模块判断>>>>>>>>>>>
-        boolean haveDone = false;
-//        if (moduleTestAnswerStus.size()>0){
-//            haveDone=true;
+////        int stuClassId = studentService.findStudentById(stuId).getClassId();
+//        boolean stuNeedKaohe = (classId>=0);
+//        boolean classiscurrent = false;
+//        if (stuNeedKaohe){
+//            ClassModel classModel = clazzService.findById(classId);
+//            classiscurrent =  classModel.getClassIscurrent();
+//        }
+//        //真为当期需要参加考核的学生,假为其它
+//        boolean StudentType = false;
+//
+//        if(stuNeedKaohe&&!classiscurrent)
+//        {
+//            StudentType = true;
 //        }
 
 
+        //获得结论此次请求是否需要更新成绩
+//        boolean needSaveScore = expModelNeedKaohe & stuNeedkaohe;
+//        model.addAttribute("needSaveScore",needSaveScore);
 
 
+        List<ModuleTestAnswerStu> moduleTestAnswerStus = moduleTestAnswerStuService.findStudentAnswbyStuidAndMid(stuId ,mid);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~"+moduleTestAnswerStus.size());
+        //        统计此学生此题的答题记录条数,如果>0 表示此学生以前做过此模块的题
+        if (moduleTestAnswerStus.size()>0){
+            System.out.println("此学生已经做过此模块");
 
+            String res = "redirect:/kaoshi/"+mid+"/ViewTheScore";
+            return res;
+
+        }
+        //获得此模块的所有单选题
+        List<QuestListAnswerDto> questionsList = moduleTestQuestService.listQuestAnswerDto("单选", mid);
+
+
+        for (QuestListAnswerDto i:questionsList){
+            System.out.println(i);
+        }
 
 
         //将单选题目和模块id传入
@@ -144,19 +140,20 @@ public class KaoShiController {
         model.addAttribute("midd", mid);
         //返回多选题目
         List<QuestListAnswerDto> questionsList2 = moduleTestQuestService.listQuestAnswerDto("多选", mid);
-        for (QuestListAnswerDto i:questionsList2){
-            System.out.println("questionsList2:>>>>>>>>>>>>>"+i);
-        }
 
         //将多选题目传入
         model.addAttribute("checkboxQuestionsList", questionsList2);
-        if (haveDone = true){
-            return "home_shiyan/CanKaoceshitest22222222222222222222";
+
+        for (QuestListAnswerDto i:questionsList2){
+            System.out.println(i);
         }
+
         return "home_shiyan/CanKaoceshitest";
 
 
     }
+
+
 
 
     /**
@@ -174,16 +171,42 @@ public class KaoShiController {
                            @PathVariable("mid") Integer mid,
                            Model model, HttpSession session, HttpServletRequest request ) {
 
-        String username = (String) session.getAttribute("username");
-        Integer taotiId = null;
-
-        //学生id,临时测试值为 1(需要从session中获得)
-//        int stuId = 1;
+//        String username = (String) session.getAttribute("username");
+//        Integer taotiId = null;
 
         Student student= (Student) session.getAttribute("student");
         int stuId = student.getId();
+
+        //检查次模块是不是考核模块
+        boolean expModelNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+
+        //检查此学生有没有考核资格
+        List<Student> studentOne = studentService.findStudentIsCurrentkaoheByStuid(stuId);
+
+//        System.out.println(studentOne.size());
+
+
+
+        //存储教师评分
+//        for (PScoreDto pScoreDto1:score)
+//        {
+//            String value_t = request.getParameter(Integer.toString(pScoreDto1.getReportid()));
+//            ReportAnswer c = reportAnswerService.findByReportidAndStuID(pScoreDto1.getReportid(),stuId);
+//            Integer a = Integer.parseInt(value_t);
+//            c.setScore(a);
+//            reportAnswerService.updateOne(c);
+//
+//        }
+
+
         //获得学生提交的试卷
         Enumeration em = request.getParameterNames();
+
+        //检查此学生有没有考核资格
+        //获得所有需要考核的学生
+        List<Student> studentList = studentService.findStudentByNotClassId();
+
+        boolean stuNeedkaohe = studentList.contains(student);
 
         //创建学生的分数
         float fs = 0;
@@ -217,9 +240,16 @@ public class KaoShiController {
             String daAn = "";
             //通过遍历得到学生答案,并且保存
             for(String c : value){
+                System.out.println("学生答案cccccccccccccccccccccc"+c);
                 ModuleTestAnswer moduleTestAnswer = moduleTestAnswerService.findByAnswerId(Integer.parseInt(c));
-                daAn+=moduleTestAnswer.getAnswerOrder();
+                daAn += moduleTestAnswer.getAnswerOrder()+",";
             }
+
+            if (daAn.length()>0){
+                daAn = daAn.substring(0, daAn.length()-1);
+            }
+            System.out.println("答案"+daAn);
+
             moduleTestAnswerStu.setStu_quest_answer(daAn);
 
             //得到正确答案
@@ -235,57 +265,111 @@ public class KaoShiController {
             moduleTestAnswerStuService.add(moduleTestAnswerStu);
         }
 
-        scoreUpdateService.singleStudentScoreUpdate(stuId);
-
-        if(mid == -1){
-            System.out.println("这是一次期末考试");
-            KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
-            List<TotalScoreCurrent> altsc = totalScoreCurrentService.findeAllBystuid(stuId);
-            if (altsc.size()==0){
-                System.out.println("出现错误!!总成绩表中没有此学生信息");
-            }
-            TotalScoreCurrent atsc = altsc.get(0);
-
-            //将考试的值存入总分表
-            atsc.setTotalScore(fs);
-            atsc.setTotalScore(atsc.getmTotalScore() * kh.getKaohe_baifenbi() + atsc.getTestScore() * kh.getTest_baifenbi());
-            totalScoreCurrentService.update(atsc);
-        }else {
-
-            //通过模块id查询考核模块
-            KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
-            //通过模块id和学生id查询考核模块分数表
-            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid, stuId);
-            System.out.println("dddddddddddd" + khs + "," + khs.getId());
-            //将分数存入
-            khs.setmTestScore(fs);
-
-            //更新考核模块分数
-            float ms = (khs.getmReportScore() * kh.getM_report_baifenbi() + fs * kh.getM_test_baifenbi()) * khs.getmScale();
-            khs.setmScore(ms);
-            khs.setmTeststate(true);
-            kaoHeModelScoreService.update(khs);
-
-            //获取原来总分
-            TotalScoreCurrent tsc = totalScoreCurrentService.findTotalScoreCurrentByStuID(stuId);
-
-            //更新总分
-            tsc.setmTotalScore(tsc.getmTotalScore() + ms);
-            tsc.setTotalScore(tsc.getmTotalScore() * kh.getKaohe_baifenbi() + tsc.getTestScore() * kh.getTest_baifenbi());
-            totalScoreCurrentService.update(tsc);
-
+//        更新此学生成绩,此操作现在整合下面这一大段
+        if(studentOne.size()>0){
+            scoreUpdateService.singleStudentScoreUpdate(stuId);
         }
 
 
-        //回到成绩查看页面或者其他页面
+//        if(mid == -1){
+//            System.out.println("这是一次期末考试");
+//            KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
+//            List<TotalScoreCurrent> altsc = totalScoreCurrentService.findeAllBystuid(stuId);
+//            if (altsc.size()==0){
+//                System.out.println("出现错误!!总成绩表中没有此学生信息");
+//            }
+//            TotalScoreCurrent atsc = altsc.get(0);
+//
+//            //将考试的值存入总分表
+//            atsc.setTotalScore(fs);
+//            atsc.setTotalScore(atsc.getmTotalScore() * kh.getKaohe_baifenbi() + atsc.getTestScore() * kh.getTest_baifenbi());
+//            totalScoreCurrentService.update(atsc);
+//        }else {
+//
+//            //通过模块id查询考核模块
+//            KaoheModel kh = kaoheModelService.findKaoheModelByMid(mid);
+//            //通过模块id和学生id查询考核模块分数表
+//            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid, stuId);
+//            System.out.println("dddddddddddd" + khs + "," + khs.getId());
+//            //将分数存入
+//            khs.setmTestScore(fs);
+//
+//            //更新考核模块分数
+//            float ms = (khs.getmReportScore() * kh.getM_report_baifenbi() + fs * kh.getM_test_baifenbi()) * khs.getmScale();
+//            khs.setmScore(ms);
+//            khs.setmTeststate(true);
+//            kaoHeModelScoreService.update(khs);
+//
+//            //获取原来总分
+//            TotalScoreCurrent tsc = totalScoreCurrentService.findTotalScoreCurrentByStuID(stuId);
+//
+//            //更新总分
+//            tsc.setmTotalScore(tsc.getmTotalScore() + ms);
+//            tsc.setTotalScore(tsc.getmTotalScore() * kh.getKaohe_baifenbi() + tsc.getTestScore() * kh.getTest_baifenbi());
+//            totalScoreCurrentService.update(tsc);
+//
+//        }
+
+
+        //返回此次得分
         model.addAttribute("fs",fs);
         //回到成绩查看页面或者其他页面
-        return "home_shiyan/viewTheScore";
+        String res = "redirect:/kaoshi/"+mid+"/ViewTheScore";
+        return res;
+    }
+
+    @RequestMapping("/{mid}/ViewTheScore")
+    public String ViewTheScore(@PathVariable("mid") Integer mid,
+                               Model model, HttpSession session) {
+        System.out.println("进入成绩查看");
+
+        //获得学生id
+        Student student= (Student) session.getAttribute("student");
+        int stuId = student.getId();
+//        int classId = student.getClassId();
+
+//        float fs = (float) model.getAttribute("fs");
+//        System.out.println(fs);
+
+
+
+        float fs = 0;
+        //获得此模块的所有单选题
+        List<QuestListAnswerAndStuScoreDto> questionsList = moduleTestQuestService.listQuestListAnswerAndStuScoreDto("单选", mid,stuId);
+        List<ModuleTestAnswerStu> moduleTestAnswerStus;
+
+
+
+        for (QuestListAnswerAndStuScoreDto i:questionsList){
+            fs+=i.getQuestScore();
+        }
+
+
+        //将单选题目和模块id传入
+        model.addAttribute("radioQuestionsList", questionsList);
+        model.addAttribute("midd", mid);
+
+        //返回多选题目
+        List<QuestListAnswerAndStuScoreDto> questionsList2 = moduleTestQuestService.listQuestListAnswerAndStuScoreDto("多选", mid,stuId);
+
+        for (QuestListAnswerAndStuScoreDto i:questionsList2){
+            fs+=i.getQuestScore();
+//            System.out.println("questionsList2:>>>>>>>>>>>>>"+i);
+        }
+
+        //将多选题目传入
+        model.addAttribute("checkboxQuestionsList", questionsList2);
+
+
+        model.addAttribute("fs",fs);
+        return "home_shiyan/ViewTheScore";
+
+
     }
 
 
-//    不需要保存成绩的请求
-    @RequestMapping("/{mid}/viewTheScore")
+
+/*    @RequestMapping("/{mid}/viewTheScore")
     public String viewTheScore(Map<String,String> map,
                            @PathVariable("mid") Integer mid,
                            Model model, HttpSession session, HttpServletRequest request ) {
@@ -354,6 +438,6 @@ public class KaoShiController {
         model.addAttribute("fs",fs);
         //回到成绩查看页面或者其他页面
         return "home_shiyan/viewTheScore";
-    }
+    }*/
 
 }

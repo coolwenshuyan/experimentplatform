@@ -22,4 +22,6 @@ public interface ModuleTestAnswerStuService {
 
     void deleteByQuestId(int questid);
 
+
+    List<ModuleTestAnswerStu> findStudentAnswbyStuidAndMid(int stuId, Integer mid);
 }

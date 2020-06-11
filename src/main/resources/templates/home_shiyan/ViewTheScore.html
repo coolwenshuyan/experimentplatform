@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+    <link rel="stylesheet" type="text/css" href=""/>
+</head>
+<script type="text/javascript">
+
+    // 将多选checkbox提交的数据拼接成字符串格式提交
+    var checkstr = "";
+    $("input[type='checkbox']:checked").each(function (i) {
+        if (i != 0) {    //将所选的各项记录的id形成字符串，并以“，”分割
+            checkstr += ",";
+        }
+        checkstr += $(this).val();
+        alert(checkstr);
+        document.getElementById("checkbox1").value = checkstr
+        $("#checkbox1").attr("value", checkstr)
+    });
+
+</script>
+<body>
+
+<!--<div id="nav_crumb" class="layui-col-xs10 layui-col-xs-offset2">-->
+<!--		<span class="layui-breadcrumb layui-col-xs3">-->
+<!--			  <a href="/">首页</a>-->
+<!--            &lt;!&ndash;<a href="/demo/">演示</a>&ndash;&gt;-->
+<!--			  <a>理论测试</a>-->
+<!--			  <a><cite>测试界面</cite></a>-->
+<!--		</span>-->
+<!--    <span class="information layui-col-xs2  layui-col-xs-offset5">-->
+<!--			<a href="lilunceshi.html">返回上一级</a>-->
+<!--		</span>-->
+<!--    <span class="information layui-col-xs2">-->
+<!--			<p class="layui-col-xs7">test</p>-->
+<!--			<a href="change.html">-->
+<!--				<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">-->
+<!--			</a>-->
+<!--		</span>-->
+<!--</div>-->
+<!--<hr>-->
+
+
+<div class="test layui-col-xs8 layui-col-xs-offset2">
+    <h2 align="center"><strong>答案</strong></h2><br><br>
+    <h2>本次测试总分:</h2>
+    <h2 th:text="${fs}">本次测试总分</h2>
+    <form class="layui-form layui-form-pane" th:action="@{|/kaoshi/${midd}/postExam|}" >
+        <h3>单选题(共六十分)</h3><br>
+
+        <div class="layui-form-item layui-form-text" th:each="m,iterStat:${radioQuestionsList}">
+            <label class="layui-form-label"
+                   th:text="${iterStat.index+1}+'.'+ ${m.questDescribe}+'('+${m.questScore}+'分)'">1.下述概念中不属于面向对象方法的是(20分)</label>
+            <div class="layui-input-block" th:each="n:${m.moduleTestAnswerList}">
+                <p type="radio" th:name="${m.questId}" th:value="${n.answerId}" th:text="${n.answerDescribe}"></p>
+<!--                <input type="radio" name="1" value="对象、消息   " title="对象、消息   ">-->
+            </div>
+            <p>正确答案:</p>
+            <p th:text="${m.questAnswer}">正确答案</p>
+            <p>我的答案:</p>
+            <p th:text="${m.stuAnswer}">我的答案</p>
+            <p>本题得分:</p>
+            <p th:text="${m.oneQuestScore}">本题得分</p>
+        </div>
+
+
+        <h3>多选题(共四十分)</h3><br>
+
+        <div class="layui-form-item layui-form-text" th:each="m1,iterStat:${checkboxQuestionsList}">
+            <label class="layui-form-label"
+                   th:text="${iterStat.index+1}+'.'+ ${m1.questDescribe}+'('+${m1.questScore}+'分)'">1.在Java接口中，下列选项中有效的方法声明是？(20分)</label>
+            <div class="layui-input-block" th:each="n1:${m1.moduleTestAnswerList}">
+                <p type="checkbox" th:name="${m1.questId}" th:text="${n1.answerDescribe}" th:value="${n1.answerId}" lay-skin="primary"></p>
+            </div>
+            <p>正确答案:</p>
+            <p th:text="${m1.questAnswer}">正确答案</p>
+            <p>我的答案:</p>
+            <p th:text="${m1.stuAnswer}">我的答案</p>
+            <p>本题得分:</p>
+            <p th:text="${m1.oneQuestScore}">本题得分</p>
+        </div>
+<!--        <div class="layui-form-item">-->
+<!--            <div class="layui-input-block">-->
+<!--                <input class="layui-btn" lay-filter="formDemo" type="submit" value="立即提交"/>-->
+<!--&lt;!&ndash;                <button  lay-submit >立即提交</button>&ndash;&gt;-->
+<!--                &lt;!&ndash;<button type="reset" class="layui-btn layui-btn-primary">重置</button>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+    </form>
+
+</div>
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

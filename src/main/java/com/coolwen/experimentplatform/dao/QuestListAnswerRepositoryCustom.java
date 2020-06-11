@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.dao;
 
+import com.coolwen.experimentplatform.model.DTO.QuestListAnswerAndStuScoreDto;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface QuestListAnswerRepositoryCustom {
      * @return
      */
     public List<QuestListAnswerDto> listQuestAnswerDto(String type, int mId);
+
+    public List<QuestListAnswerAndStuScoreDto> listQuestListAnswerAndStuScoreDto(String type, int mId, int stuId);
+
+
 }
