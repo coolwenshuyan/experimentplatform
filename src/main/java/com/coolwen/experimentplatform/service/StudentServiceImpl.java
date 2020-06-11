@@ -208,5 +208,11 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findStudentByNotClassId();
     }
 
+    @Override
+    public List<Student> findStudentIsCurrentkaoheByStuid(int stuId) {
+
+        return studentRepository.findStudentIsCurrentkaoheByStuid(stuId);
+    }
+
 
 }

@@ -104,4 +104,7 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
 
     @Query("select s from ClassModel c, Student s where  c.classId = s.classId and c.classIscurrent = false ")
     Page<Student> findCurrentKaoheAllStudent(Specification classId, Pageable pager);
+
+    @Query("select s from ClassModel c, Student s where  s.classId>0 and c.classId = s.classId and c.classIscurrent = false and s.id = ?1")
+    List<Student> findStudentIsCurrentkaoheByStuid(int stuId);
 }

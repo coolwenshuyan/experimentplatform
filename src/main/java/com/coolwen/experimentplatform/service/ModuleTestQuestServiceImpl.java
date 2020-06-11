@@ -3,6 +3,7 @@ package com.coolwen.experimentplatform.service;
 import com.coolwen.experimentplatform.dao.ModuleTestQuestRepository;
 import com.coolwen.experimentplatform.dao.QuestListAnswerRepositoryCustom;
 import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
+import com.coolwen.experimentplatform.model.DTO.QuestListAnswerAndStuScoreDto;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,6 +120,12 @@ public class ModuleTestQuestServiceImpl implements ModuleTestQuestService {
     @Override
     public Page<ModuleTestQuest> findByExpPage(int mId, Pageable pageable) {
         return questRepository.findByExpPage(mId,pageable);
+    }
+
+    @Override
+    public List<QuestListAnswerAndStuScoreDto> listQuestListAnswerAndStuScoreDto(String type, int mId, int stuId) {
+
+        return questListAnswerRepositoryCustom.listQuestListAnswerAndStuScoreDto(type, mId,stuId);
     }
 
 }

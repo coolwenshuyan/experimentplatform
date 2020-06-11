@@ -64,4 +64,5 @@ public interface StudentService {
 
     List<Student> findStudentByNotClassId();
 
+    List<Student> findStudentIsCurrentkaoheByStuid(int stuId);
 }
