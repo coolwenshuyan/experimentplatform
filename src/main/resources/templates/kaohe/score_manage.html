@@ -154,7 +154,7 @@
 <!--				th:each="one:${allInfo}"-->
 					<div th:each="class:${classList}">
 						<tr th:each="one:${allStu}" th:if="${one.getClassId()} == ${class.getClassId()}">
-							<td ><p th:text="${one.getStuXuehao()}">12345678</p></td>
+							<td ><p th:text="${one.getStuXuehao()}" style="margin-left: -50%;">12345678</p></td>
 							<td ><p th:text="${one.getStuName()}">12345678</p></td>
 							<td ><p th:text="${one.getClassId()}">12345678</p></td>
 							<div th:each="stuInfo,stat:${allInfo}" th:if="${stuInfo.getSid()} == ${one.getId()}">
