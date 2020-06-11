@@ -24,4 +24,7 @@ public interface ModuleTestAnswerStuService {
 
 
     List<ModuleTestAnswerStu> findStudentAnswbyStuidAndMid(int stuId, Integer mid);
+
+
+    ModuleTestAnswerStu findByQuest_id(int questid);
 }

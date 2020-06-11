@@ -49,4 +49,9 @@ public class ModuleTestAnswerStuServiceImpl implements ModuleTestAnswerStuServic
     public List<ModuleTestAnswerStu> findStudentAnswbyStuidAndMid(int stuId, Integer mid) {
         return moduleTestAnswerStuRepository.findStudentAnswbyStuidAndMid(stuId ,mid);
     }
+
+    @Override
+    public ModuleTestAnswerStu findByQuest_id(int questid) {
+        return moduleTestAnswerStuRepository.findByQuest_id(questid);
+    }
 }

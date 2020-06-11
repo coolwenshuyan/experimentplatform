@@ -47,7 +47,7 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <a href="addLastTest.html" th:href="@{|addLastAnswer|}">
+                        <a href="addLastTest.html" th:href="@{|addLastQuest|}">
                             <button type="layui-btn" class="layui-btn layui-bg-green" id="new">新建</button>
                         </a>
                         <div class="layui-card-body ">
@@ -60,6 +60,11 @@
                                     <!--<button class="layui-btn"  lay-submit="" lay-filter="sreach">-->
                                         <!--<i class="layui-icon">搜索</i></button>-->
                                 <!--</div>-->
+
+                                <div class="layui-inline layui-show-xs-block">
+                                    <p th:text="${session.msg2020612}"></p>
+                                </div>
+
                                 <!---->
                                 <!--<div class="layui-inline layui-show-xs-block">
                                     <a class="layui-btn"  lay-submit="" title="增加" onclick="xadmin.open('增加','班级新增.html')"><i class="layui-icon"></i>增加</a>
