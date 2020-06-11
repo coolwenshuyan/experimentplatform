@@ -144,24 +144,32 @@
 						</th>						
 					</tr>
 					<tr>
-						<th style="padding: 0">
-							<form class="layui-form layui-col-md3" th:action="@{/totalscore/GreatestWeight}" method="post">
-									<div class="layui-form-item ">
-										<label class="layui-form-label">模块占比</label>
-										<div class="layui-input-block">
-											<input th:value="${kaoheBaifenbi}" type="text" name="kaoheBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
-										</div>
+						<form class="layui-form layui-col-md12" th:action="@{/totalscore/GreatestWeight}" method="post">
+							<th style="padding: 0">
+								<div class="layui-form-item ">
+									<label class="layui-form-label">模块占比</label>
+									<div class="layui-input-block">
+										<input th:value="${kaoheBaifenbi}" type="text" name="kaoheBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
 									</div>
-									<div class="layui-form-item ">
-										<label class="layui-form-label">理论占比</label>
-										<div class="layui-input-block">
-											<input th:value="${testBaifenbi}" type="text" name="testBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
-										</div>
+								</div>
+							</th>
+							<th>
+								<div class="layui-form-item">
+									<label class="layui-form-label">理论占比</label>
+									<div class="layui-input-block">
+										<input th:value="${testBaifenbi}" type="text" name="testBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
 									</div>
+								</div>
+							</th>
+							<th>
+								<div class="layui-form-item">
+									<label class="layui-form-label">
+										<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1">修改</button>
+									</label>
+								</div>
+							</th>
 
-									<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 167%;margin-top: 0%">修改</button>
-							</form>
-						</th>												
+						</form>
 					</tr>
 
 			</table>
