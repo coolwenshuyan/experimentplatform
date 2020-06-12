@@ -1,7 +1,11 @@
 package com.coolwen.experimentplatform.controller;
 
-import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.ModuleTestAnswer;
+import com.coolwen.experimentplatform.model.ModuleTestAnswerStu;
+import com.coolwen.experimentplatform.model.ModuleTestQuest;
+import com.coolwen.experimentplatform.model.Report;
 import com.coolwen.experimentplatform.service.*;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,51 +53,80 @@ public class ModuleController {
     /**
      * 添加实验模块试题
      *
-     * @param model 绑定参数给前端thymeleaf传值
+     * @param model   绑定参数给前端thymeleaf传值
      * @param session 存储、获取一些需要的值
      * @return 返回到静态资源下的shiyan/addTest.html
      */
     @GetMapping("addQuest")
-    public String addQuest(Model model, HttpSession session) {
+    public String addQuest(Model model, HttpSession session ) {
+
 
 //        从缓存中取到questDescribe，即题目的信息
         String questDescribe = (String) session.getAttribute("questDescribe");
         System.out.println("打印题目信息~~~~~~" + questDescribe);
 //        从缓存中取到mId
         int mId = (int) session.getAttribute("mId");
-//      判断题目是否为空，如果为空就允许添加对象
-        if (questDescribe == null || questDescribe.isEmpty() || questDescribe == "") {
-            model.addAttribute("addAnswer", new ModuleTestAnswer());
-            model.addAttribute("quest", new ModuleTestQuest());
 
+//        开始拦截，即学生已作答的模块不允许添加试题
+//        找到当前模块的所有试题
+        List<ModuleTestQuest> questList = questService.find(mId);
+        List<ModuleTestAnswerStu> stuList = new ArrayList();
+//        遍历试题
+        for (ModuleTestQuest q : questList) {
+//            找到对应问题的学生答题记录
+            ModuleTestAnswerStu stu = moduleTestAnswerStuService.findByQuest_id(q.getQuestId());
+//            如果记录不为空，stuList列表
+            if (stu != null) {
+                stuList.add(stu);
+                System.out.println("————————————stuList" + stuList);
+            }
+        }
+//        如果stuList列表为空
+        if (stuList == null || stuList.isEmpty() || CollectionUtils.isEmpty(stuList)) {
+//            判断题目是否为空，如果为空就允许添加对象
+            if (questDescribe == null || questDescribe.isEmpty() || questDescribe == "") {
+                model.addAttribute("addAnswer", new ModuleTestAnswer());
+                model.addAttribute("quest", new ModuleTestQuest());
+
+            } else {
+
+//                如果题目不为空，先从session中取到在添加试题的post方法里存入的questId，即问题id
+                int qId = (int) session.getAttribute("questId");
+//                定义一个quest对象，并以当前缓存的questId查找这个题目的所有信息赋值给quest
+                ModuleTestQuest quest = questService.findQuestByQuestId(qId);
+//                再用那个questId查找对应题目的选项，并存入ModuleTestAnswer的list里面
+                List<ModuleTestAnswer> addAnswer = answerService.findAllByQuestId(qId);
+//                传递查出来的参数，将数据和前端绑定
+                model.addAttribute("addAnswer", addAnswer);
+                model.addAttribute("quest", quest);
+            }
+
+            model.addAttribute("mId", mId);
+//            返回到静态资源下的shiyan/addTest.html
+            return "shiyan/addTest";
         } else {
-//          如果题目不为空，先从session中取到在添加试题的post方法里存入的questId，即问题id
-            int qId = (int) session.getAttribute("questId");
-//          定义一个quest对象，并以当前缓存的questId查找这个题目的所有信息赋值给quest
-            ModuleTestQuest quest = questService.findQuestByQuestId(qId);
-//          再用那个questId查找对应题目的选项，并存入ModuleTestAnswer的list里面
-            List<ModuleTestAnswer> addAnswer = answerService.findAllByQuestId(qId);
-//          传递查出来的参数，将数据和前端绑定
-            model.addAttribute("addAnswer", addAnswer);
-            model.addAttribute("quest", quest);
+
+//            如果列表不为空，就返回信息
+            System.out.println("不允许作答————————");
+            String message = "学生已作答，不允许添加试题";
+            session.setAttribute("msg2020612", message);
+            return "redirect:/shiyan/list/" + mId;
 
         }
-        model.addAttribute("mId",mId);
-//        返回到静态资源下的shiyan/addTest.html
-        return "shiyan/addTest";
     }
 
 
     /**
      * 添加实验模块试题的post方法
+     *
      * @param moduleTestQuest 题目信息
-     * @param session 存储、获取一些需要的值
-     * @param model 绑定参数给前端thymeleaf传值
-     * @param questDescribe 题目
-     * @param questType 题目类型
-     * @param questScore 题目分数
-     * @param questAnswer 题目答案
-     * @param questOrder 题目序号
+     * @param session         存储、获取一些需要的值
+     * @param model           绑定参数给前端thymeleaf传值
+     * @param questDescribe   题目
+     * @param questType       题目类型
+     * @param questScore      题目分数
+     * @param questAnswer     题目答案
+     * @param questOrder      题目序号
      * @return 返回当前添加试题页面
      */
     @PostMapping("addQuest")
@@ -132,10 +166,11 @@ public class ModuleController {
 
     /**
      * 模块测试题的试题列表
+     *
      * @param session 存储、获取一些需要的值
-     * @param mId 从实验模块管理页面传来的参数，模块id——mid
+     * @param mId     从实验模块管理页面传来的参数，模块id——mid
      * @param pageNum 分页信息
-     * @param model 与前端的数据绑定、交互
+     * @param model   与前端的数据绑定、交互
      * @return 返回静态资源下的shiyan/lookTest.html
      */
     @RequestMapping("list/{mId}")
@@ -158,6 +193,7 @@ public class ModuleController {
         String questOrder = "";
         model.addAttribute("questOrder", questOrder);
 
+
 //        将分页信息存到model传给前端
         model.addAttribute("questsPage", pageList);
 //        将这个页面传来的参数存到model传给前端进行分页的页面路径绑定
@@ -171,6 +207,7 @@ public class ModuleController {
 
     /**
      * 删除模块测试题
+     *
      * @param questId 需要删除的问题id
      * @return 返回模块测试题的试题列表
      */
@@ -180,15 +217,15 @@ public class ModuleController {
         System.out.println(questService.findQuestByQuestId(questId));
 //        将通过问题id查找到的那个问题存入moduleTestQuest对象中，为后面返回试题列表传递mid
         ModuleTestQuest moduleTestQuest = questService.findQuestByQuestId(questId);
-//        调用questService中的方法删除问题id，就是问题的主键
-        questService.deleteQuest(questId);
-//        删除该问题的所有选项
-        List<ModuleTestAnswer> m = answerService.findAllByQuestId(questId);
-        for (ModuleTestAnswer moduleTestAnswer : m){
-            answerService.deleteAnswer(moduleTestAnswer.getAnswerId());
-        }
 //        删除学生答题记录
         moduleTestAnswerStuService.deleteByQuestId(questId);
+//        删除该问题的所有选项
+        List<ModuleTestAnswer> m = answerService.findAllByQuestId(questId);
+        for (ModuleTestAnswer moduleTestAnswer : m) {
+            answerService.deleteAnswer(moduleTestAnswer.getAnswerId());
+        }
+//        调用questService中的方法删除问题id，就是问题的主键
+        questService.deleteQuest(questId);
 //        更新学生信息
         scoreUpdateService.allStudentScoreUpdate();
 //        通过moduleTestQuest找到问题的mid，返回试题列表
@@ -197,8 +234,9 @@ public class ModuleController {
 
     /**
      * 修改模块测试的信息
+     *
      * @param questId 获取需要修改的问题id，并传入修改路径
-     * @param model 与前端的数据绑定、交互
+     * @param model   与前端的数据绑定、交互
      * @return 返回静态资源下的shiyan/updateTest.html
      */
     @GetMapping("updateQuest/{questId}")
@@ -219,8 +257,9 @@ public class ModuleController {
 
     /**
      * 修改模块测试信息的post方法
+     *
      * @param questId 获取需要修改的问题id，并传入修改路径
-     * @param quest ModuleTestQuest的对象
+     * @param quest   ModuleTestQuest的对象
      * @return 返回模块测试题的列表
      */
     @PostMapping("updateQuest/{questId}")
@@ -248,7 +287,8 @@ public class ModuleController {
 
     /**
      * 修改模块测试题中的选项
-     * @param model 与前端的数据绑定、交互
+     *
+     * @param model   与前端的数据绑定、交互
      * @param questId 获取需要修改的问题id，并传入修改路径
      * @return 返回修改模块测试信息的页面
      */
@@ -266,9 +306,10 @@ public class ModuleController {
 
     /**
      * 修改模块测试题中选项修改的post方法
-     * @param questId 获取需要修改的问题id，并传入修改路径
+     *
+     * @param questId        获取需要修改的问题id，并传入修改路径
      * @param answerDescribe 选项内容
-     * @param answerOrder 选项序号
+     * @param answerOrder    选项序号
      * @return 返回修改模块测试信息的页面
      */
     @PostMapping("upAnswer/{questId}")
@@ -286,8 +327,6 @@ public class ModuleController {
         answer.setQuestId(questId);
 //        将新增的选项存到数据库
         answerService.addAnswers(answer);
-//        更新学生成绩
-        scoreUpdateService.allStudentScoreUpdate();
 //        返回修改模块测试信息的页面
         return "redirect:/shiyan/updateQuest/" + questId;
     }
@@ -295,6 +334,7 @@ public class ModuleController {
 
     /**
      * 删除添加模块测试题中的选项
+     *
      * @param answerId 需要删除的选项id
      * @return 返回添加模块测试题的页面
      */
@@ -309,6 +349,7 @@ public class ModuleController {
 
     /**
      * 删除修改模块测试题中的选项
+     *
      * @param answerId answerId 需要删除的选项id
      * @return 返回修改模块测试信息的页面
      */
@@ -318,8 +359,6 @@ public class ModuleController {
         int qId = answerService.findQuestIdByAnswerId(answerId);
 //        调用answerService的方法删除选项id来删除选项
         answerService.deleteAnswer(answerId);
-//        更新学生成绩
-        scoreUpdateService.allStudentScoreUpdate();
 //        返回修改模块测试信息的页面
         return "redirect:/shiyan/updateQuest/" + qId;
     }
@@ -327,6 +366,7 @@ public class ModuleController {
 
     /**
      * 在添加模块测试题中添加选项
+     *
      * @return 返回静态资源下的shiyan/addAnswer.html
      */
     @GetMapping("addAnswer")
@@ -337,12 +377,13 @@ public class ModuleController {
 
     /**
      * 在添加模块测试题中添加选项的post方法
+     *
      * @param moduleTestAnswer 模块测试题的选项对象
-     * @param session 数据的缓存空间
+     * @param session          数据的缓存空间
      * @return 返回添加模块测试题页面
      */
     @PostMapping("addAnswer")
-    public String addAnswer(ModuleTestAnswer moduleTestAnswer,HttpSession session) {
+    public String addAnswer(ModuleTestAnswer moduleTestAnswer, HttpSession session) {
 //        从添加模块测试题post方法中存入的问题id取出来，并赋值给qId
         int qId = (int) session.getAttribute("questId");
 //        控制台打印获取的问题id
@@ -357,7 +398,8 @@ public class ModuleController {
 
     /**
      * 添加模块测试的实验报告
-     * @param model 与前端的数据绑定、交互
+     *
+     * @param model   与前端的数据绑定、交互
      * @param session 数据的缓存空间
      * @return 返回静态资源下的shiyan/part-add.html
      */
@@ -367,18 +409,19 @@ public class ModuleController {
 //        将实验报告列表中存入的mid取出，并赋值给id
         int id = (int) session.getAttribute("mId");
 //        将mid传给前端做路径
-        model.addAttribute("mId",id);
+        model.addAttribute("mId", id);
         return "shiyan/part-add";
     }
 
     /**
      * 添加模块测试的实验报告的post方法
-     * @param report 实验报告对象
-     * @param session 数据的缓存空间
+     *
+     * @param report         实验报告对象
+     * @param session        数据的缓存空间
      * @param reportDescribe 实验报告的题目
-     * @param reportOrder 实验报告的序号
-     * @param reportType 实验报告的类型
-     * @param reportScore 实验报告的分数
+     * @param reportOrder    实验报告的序号
+     * @param reportType     实验报告的类型
+     * @param reportScore    实验报告的分数
      * @return 返回实验报告的列表
      */
     @PostMapping("addReport")
@@ -401,6 +444,7 @@ public class ModuleController {
 
     /**
      * 删除实验报告
+     *
      * @param reportId 传入要删除的实验报告的id
      * @return 返回实验报告的列表页面
      */
@@ -423,8 +467,9 @@ public class ModuleController {
 
     /**
      * 修改实验报告信息
+     *
      * @param reportId 传入要修改的实验报告的id
-     * @param model 与前端的数据绑定、交互
+     * @param model    与前端的数据绑定、交互
      * @return 返回静态资源下的shiyan/updatePart.html
      */
     @GetMapping("updateReport/{reportId}")
@@ -439,8 +484,9 @@ public class ModuleController {
 
     /**
      * 修改实验报告信息的post方法
+     *
      * @param reportId 传入要修改的实验报告的id
-     * @param report 实验报告对象
+     * @param report   实验报告对象
      * @return 返回实验报告列表
      */
     @PostMapping("updateReport/{reportId}")
@@ -460,9 +506,10 @@ public class ModuleController {
 
     /**
      * 查询当前模块测试的实验报告
-     * @param model 与前端的数据绑定、交互
+     *
+     * @param model   与前端的数据绑定、交互
      * @param session 数据的缓存空间
-     * @param mId 传入当前模块id
+     * @param mId     传入当前模块id
      * @param pageNum 分页信息
      * @return 返回静态资源下的shiyan/part-list.html
      */

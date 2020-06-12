@@ -278,8 +278,21 @@ public class StudentController {
                 test_baifenbi = k.getTest_baifenbi();
                 kaohe_baifenbi = k.getKaohe_baifenbi();
             }
+
+            //拼接之后，如果有数据要去除最后一个分号，
+            if(kaoheModuleName.length() > 0)
+            {
+                kaoheModuleName = kaoheModuleName.substring(0,kaoheModuleName.length()-1);
+            }
             List<Student> studentList = studentservice.findStudentByClassId(id);
             for(Student s : studentList){
+                //拼接之前要初始化
+                kaohe_mtestscore = "";
+                kaohe_mreportscore = "";
+                kaohe_mtestscore_baifengbi = "";
+                kaohe_mreportscore_baifengbi = "";
+                kaohe_mscale = "";
+
                 for(KaoheModel k : kaoheModelList){
                     //获取该班级下学生每个考核模块信息
                     KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoHeModelScoreByStuIdAndId(s.getId(),k.getId());
@@ -290,6 +303,17 @@ public class StudentController {
                     kaohe_mreportscore_baifengbi += k.getM_report_baifenbi()+";";
                     kaohe_mscale += k.getM_scale()+";";
                 }
+
+                //拼接之后，如果有数据要去除最后一个分号
+                if(kaohe_mtestscore.length() > 0)
+                {
+                    kaohe_mtestscore = kaohe_mtestscore.substring(0,kaohe_mtestscore.length()-1);
+                    kaohe_mreportscore = kaohe_mreportscore.substring(0,kaohe_mreportscore.length()-1);
+                    kaohe_mtestscore_baifengbi = kaohe_mtestscore_baifengbi.substring(0,kaohe_mtestscore_baifengbi.length()-1);
+                    kaohe_mreportscore_baifengbi = kaohe_mreportscore_baifengbi.substring(0,kaohe_mreportscore_baifengbi.length()-1);
+                    kaohe_mscale = kaohe_mscale.substring(0,kaohe_mscale.length()-1);
+                }
+
                 TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(s.getId());
                 //进行成绩固化操作
                 totalScorePass = new TotalScorePass();

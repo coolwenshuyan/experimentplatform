@@ -48,6 +48,8 @@ public class ExpModelController {
     KaoHeModelScoreService kaoHeModelScoreService;
     @Autowired
     TotalScoreCurrentService totalScoreCurrentService;
+    @Autowired
+    ClazzService clazzService;
 
 
     //查询模块信息页面
@@ -329,8 +331,12 @@ public class ExpModelController {
     }
     //模块测试和实验报告汇总页面
     @GetMapping("/moduleList")
-    public String moduleList(Model model,@RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+    public String moduleList(Model model,HttpSession session,
+                             @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
         model.addAttribute("page1",expModelService.findModelList(pageNum));
+
+        session.removeAttribute("msg2020612");
+
         return "shiyan/lookTestAndReport";
     }
 
@@ -344,6 +350,57 @@ public class ExpModelController {
             return "redirect:/expmodel/alltestModel";
         }else {
             return "redirect:/expmodel/kaoheModel";
+        }
+    }
+
+
+    //首页跳转过来的模块
+    @GetMapping("/home_exp/{id}")
+    public String homeExp(@PathVariable("id") int id,Model model){
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        ClassModel classModel = clazzService.findById(student.getClassId());
+        if(classModel != null){
+            if(classModel.getClassIscurrent() == false){
+                //具备考核资格并且为当期
+                if(kaoheModelService.findKaoheModelByMid(id) != null){
+                    //考核模块
+                    KaoHeModelStuDTO kaoHeModelStuDTO = kaoheModelService.findKaoHeModelStuDTOByStuId(student.getId(),id);
+                    model.addAttribute("k",kaoHeModelStuDTO);
+                    return "home_shiyan/kaohe_copy";
+                }else {
+                    //普通实验
+                    ExpModel expModel = expModelService.findExpModelByID(id);
+                    model.addAttribute("exp",expModel);
+                    return "home_shiyan/all-test_copy";
+                }
+            }else {
+                //具备考核资格但为往期
+                ExpModel expModel = expModelService.findExpModelByID(id);
+                model.addAttribute("exp",expModel);
+                return "home_shiyan/all-test_copy";
+            }
+        }else {
+            //不具备考核资格
+            ExpModel expModel = expModelService.findExpModelByID(id);
+            model.addAttribute("exp",expModel);
+            return "home_shiyan/all-test_copy";
+        }
+    }
+
+    //继续学习
+    @GetMapping("/contiuneStudy")
+    public String contiunrStudy(){
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        ClassModel classModel = clazzService.findById(student.getClassId());
+        if(classModel != null){
+            if(classModel.getClassIscurrent() == false){
+                return "redirect:/expmodel/kaoheModel";
+            }else {
+                return "redirect:/expmodel/alltestModel";
+            }
+        }else {
+            return "redirect:/expmodel/alltestModel";
+
         }
     }
 

@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TotalScorePassServiceImpl implements TotalScorePassService {
     @Autowired
@@ -39,5 +41,10 @@ public class TotalScorePassServiceImpl implements TotalScorePassService {
     @Override
     public Page<TotalScorePass> findAllByClassId(int classId) {
         return null;
+    }
+
+    @Override
+    public List<TotalScorePass> findByStuId(int stuId) {
+        return totalScorePassRepository.findByStuId(stuId);
     }
 }

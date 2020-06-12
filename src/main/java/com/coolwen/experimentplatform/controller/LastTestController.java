@@ -1,9 +1,13 @@
 package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.model.ModuleTestAnswer;
+import com.coolwen.experimentplatform.model.ModuleTestAnswerStu;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
 import com.coolwen.experimentplatform.service.ModuleTestAnswerService;
+import com.coolwen.experimentplatform.service.ModuleTestAnswerStuService;
 import com.coolwen.experimentplatform.service.ModuleTestQuestService;
+import com.coolwen.experimentplatform.service.ScoreUpdateService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +28,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/shiyan")
 //设置模块测试题题目的数据回显
-@SessionAttributes("con")
+@SessionAttributes(value = {"questDescribe", "questType", "questScore", "questAnswer", "questOrder"})
 public class LastTestController {
 
     /**
@@ -35,87 +40,88 @@ public class LastTestController {
     @Autowired
     private ModuleTestAnswerService answerService;
 
-    /**
-     * 添加整体模块测试题的选项，先添加题目和选项，在添加剩下的题目信息
-     * @param model 绑定参数给前端thymeleaf传值
-     * @param session 存储、获取一些需要的值
-     * @return 返回到静态资源下的shiyan/addLastTest.html
-     */
-    @GetMapping("addLastAnswer")
-    public String addLastAnswer(Model model, HttpSession session) {
-//        从session中取到题目内容，即con
-        String con = (String) session.getAttribute("con");
-//        判断con是否为空，为空，则绑定新的ModuleTestAnswer和ModuleTestQuest对象到前端，即还没有开始添加
-        if (con == null || con.isEmpty() || con == "") {
-            model.addAttribute("addLastAnswer", new ModuleTestAnswer());
-            model.addAttribute("Lastquest", new ModuleTestQuest());
+    @Autowired
+    private ScoreUpdateService scoreUpdateService;
+
+    @Autowired
+    private ModuleTestAnswerStuService moduleTestAnswerStuService;
+
+
+    @GetMapping("addLastQuest")
+    public String addQuest(Model model, HttpSession session) {
+
+//        从缓存中取到questDescribe，即题目的信息
+        String questDescribe = (String) session.getAttribute("questDescribe");
+        System.out.println("打印题目信息~~~~~~" + questDescribe);
+
+        int mId = -1;
+//        开始拦截，即学生已作答的模块不允许添加试题
+//        找到当前模块的所有试题
+        List<ModuleTestQuest> questList = questService.find(mId);
+        List<ModuleTestAnswerStu> stuList = new ArrayList();
+//        遍历试题
+        for (ModuleTestQuest q : questList) {
+//            找到对应问题的学生答题记录
+            ModuleTestAnswerStu stu = moduleTestAnswerStuService.findByQuest_id(q.getQuestId());
+//            如果记录不为空，stuList列表
+            if (stu != null) {
+                stuList.add(stu);
+//                System.out.println("————————————stuList" + stuList);
+            }
+        }
+
+//        如果stuList列表为空
+
+        if (stuList == null || stuList.isEmpty() || CollectionUtils.isEmpty(stuList)) {
+//            判断题目是否为空，如果为空就允许添加对象
+            if (questDescribe == null || questDescribe.isEmpty() || questDescribe == "") {
+                model.addAttribute("addLastAnswer", new ModuleTestAnswer());
+                model.addAttribute("Lastquest", new ModuleTestQuest());
+
+            } else {
+//                如果题目不为空，先从session中取到在添加试题的post方法里存入的questId，即问题id
+                int qId = (int) session.getAttribute("questId");
+//                定义一个quest对象，并以当前缓存的questId查找这个题目的所有信息赋值给quest
+                ModuleTestQuest quest = questService.findQuestByQuestId(qId);
+//                再用那个questId查找对应题目的选项，并存入ModuleTestAnswer的list里面
+                List<ModuleTestAnswer> addAnswer = answerService.findAllByQuestId(qId);
+//                传递查出来的参数，将数据和前端绑定
+                model.addAttribute("addLastAnswer", addAnswer);
+                model.addAttribute("Lastquest", quest);
+            }
+            model.addAttribute("mId", mId);
+//            返回到静态资源下的shiyan/addTest.html
+            return "shiyan/addLastTest";
         } else {
-//            不为空，则通过模块测试题的题目找到整条试题的信息
-            ModuleTestQuest Lastquest = questService.findByQuestDescribe(con);
-//            调用answerService的方法通过问题id找到所以问题选项，存入list
-            List<ModuleTestAnswer> addLastAnswer = answerService.findAllByQuestId(Lastquest.getQuestId());
-//            将选项list传给前端
-            model.addAttribute("addLastAnswer", addLastAnswer);
-
+//            如果列表不为空，就返回信息
+            System.out.println("不允许作答————————");
+            String message = "学生已作答，不允许添加试题";
+            session.setAttribute("msg2020612", message);
+            return "redirect:/shiyan/lastTestList";
         }
-//        返回到静态资源下的shiyan/addLastTest.html
-        return "shiyan/addLastTest";
-    }
-
-    /**
-     * 添加整体模块测试题的选项的post方法
-     * @param con 整体测试题的题目
-     * @param model 绑定参数给前端传值
-     * @param moduleTestAnswer 问题选项对象
-     * @param moduleTestQuest 问题对象
-     * @param session 数据的缓存
-     * @return 返回添加整体模块测试题的选项页面
-     */
-    @PostMapping("addLastAnswer")
-    public String addLastAnswer(String con, Model model, ModuleTestAnswer moduleTestAnswer,
-                                ModuleTestQuest moduleTestQuest, HttpSession session) {
-//        将问题的题目存入数据库
-        moduleTestQuest.setQuestDescribe(con);
-//        从session中得到问题的题目
-        String Stitle = (String) session.getAttribute("con");
-//        如果题目为空，就是还没有开始添加
-        if (Stitle == null || Stitle.isEmpty() || Stitle == "") {
-//            就允许添加题目信息
-            questService.addModuleTestQuest(moduleTestQuest);
-        }
-//        通过题目找到该条测试题的信息，并赋值给ModuleTestQuest对象
-        moduleTestQuest = questService.findByQuestDescribe(con);
-//        通过ModuleTestQuest对象找到问题id，并赋值给ModuleTestAnswer问题选项对象
-        moduleTestAnswer.setQuestId(moduleTestQuest.getQuestId());
-//        将ModuleTestAnswer对象中的数据添加到数据库
-        answerService.addAnswers(moduleTestAnswer);
-//        将题目传给前端
-        model.addAttribute("con", con);
-        return "redirect:/shiyan/addLastAnswer";
     }
 
 
     /**
      * 添加整体模块测试题的post方法
+     *
      * @param moduleTestQuest 问题对象
-     * @param session 数据的缓存
-     * @param questType 整体测试题的类型
-     * @param questScore 整体测试题的分数
-     * @param questAnswer 整体测试题的答案
-     * @param questOrder 整体测试题的序号
+     * @param session         数据的缓存
+     * @param questType       整体测试题的类型
+     * @param questScore      整体测试题的分数
+     * @param questAnswer     整体测试题的答案
+     * @param questOrder      整体测试题的序号
      * @return 返回整体测试题列表
      */
-    @PostMapping("addLastTest")
-    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session,
+    @PostMapping("addLastQuest")
+    public String addQuest(ModuleTestQuest moduleTestQuest, HttpSession session, Model model,
+                           String questDescribe,
                            String questType, float questScore,
-                           String questAnswer,int questOrder) {
+                           String questAnswer, int questOrder) {
+        System.out.println("开始添加++++++——————————");
 //        在试题表添加试题信息
-//        从session中取到题目内容，即con，在添加选项时先添加的题目，所以此时题目已存在
-        String con = (String) session.getAttribute("con");
 //        通过模块测试题的题目找到整条试题的信息
-        moduleTestQuest = questService.findByQuestDescribe(con);
-//        这里做更新操作，将该整体测试题的其他信息更新到ModuleTestQuest对象
-        moduleTestQuest.setQuestDescribe(con);
+        moduleTestQuest.setQuestDescribe(questDescribe);
         moduleTestQuest.setQuestType(questType);
         moduleTestQuest.setQuestScore(questScore);
         moduleTestQuest.setQuestAnswer(questAnswer);
@@ -126,49 +132,111 @@ public class LastTestController {
         System.out.println(moduleTestQuest);
 //        把ModuleTestQuest对象的数据更新到数据库
         questService.addModuleTestQuest(moduleTestQuest);
-        return "redirect:/shiyan/lastTestList";
+
+//        将这个问题id存入session
+        session.setAttribute("questId", moduleTestQuest.getQuestId());
+
+//        利用model绑定数据到前端，实现数据回显
+        model.addAttribute("questDescribe", questDescribe);
+        model.addAttribute("questType", questType);
+        model.addAttribute("questScore", questScore);
+        model.addAttribute("questAnswer", questAnswer);
+        model.addAttribute("questOrder", questOrder);
+
+        return "redirect:/shiyan/addLastQuest";
     }
 
     /**
+     * 在添加模块测试题中添加选项
+     *
+     * @return 返回静态资源下的shiyan/addAnswer.html
+     */
+    @GetMapping("addLastAnswer")
+    public String addAnswer() {
+//       返回静态资源下的shiyan/addLastAnswer.html
+        return "shiyan/addLastAnswer";
+    }
+
+    /**
+     * 在添加模块测试题中添加选项的post方法
+     *
+     * @param moduleTestAnswer 模块测试题的选项对象
+     * @param session          数据的缓存空间
+     * @return 返回添加模块测试题页面
+     */
+    @PostMapping("addLastAnswer")
+    public String addAnswer(ModuleTestAnswer moduleTestAnswer, HttpSession session) {
+//        从添加模块测试题post方法中存入的问题id取出来，并赋值给qId
+        int qId = (int) session.getAttribute("questId");
+//        控制台打印获取的问题id
+        System.out.println("qId:-------" + qId);
+//        将问题id存入moduleTestAnswer对象，以便每次添加选项的问题id都是该问题的问题id
+        moduleTestAnswer.setQuestId(qId);
+//        将添加的ModuleTestAnswer数据存入数据库
+        answerService.addAnswers(moduleTestAnswer);
+//        返回添加模块测试题页面
+        return "redirect:/shiyan/addLastQuest";
+    }
+
+
+    /**
      * 整体模块测试题题目列表
-     * @param session  数据的缓存
-     * @param page 分页信息
-     * @param model 绑定参数给前端传值
+     *
+     * @param session 数据的缓存
+     * @param page    分页信息
+     * @param model   绑定参数给前端传值
      * @return 返回到静态资源下的shiyan/lookLastTest.html
      */
     @RequestMapping("lastTestList")
     public String list(HttpSession session,
-                       @RequestParam(value = "page", defaultValue = "0", required=true) Integer page,
+                       @RequestParam(value = "page", defaultValue = "0", required = true) Integer page,
                        Model model) {
 //        分页数据的条数为10，即没10条数据进行分页
-        Pageable pageable = PageRequest.of(page,10);
+        Pageable pageable = PageRequest.of(page, 10);
 //        分页的条件是以模块id，即mid为条件分页
-        Page<ModuleTestQuest> termList = questService.findByLastPage(pageable,-1);
+        Page<ModuleTestQuest> termList = questService.findByLastPage(pageable, -1);
 //        清理添加模块测试题数据回显的缓存，以便下次点击添加时时干净的页面
-        String con = "";
-        model.addAttribute("con",con);
+        String questDescribe = "";
+        model.addAttribute("questDescribe", questDescribe);
+        String questScore = "";
+        model.addAttribute("questScore", questScore);
+        String questAnswer = "";
+        model.addAttribute("questAnswer", questAnswer);
+        String questOrder = "";
+        model.addAttribute("questOrder", questOrder);
 //        将分页信息传给前端
-        model.addAttribute("termList",termList);
+        model.addAttribute("termList", termList);
         return "shiyan/lookLastTest";
     }
 
 
     /**
      * 删除整体模块测试题
+     *
      * @param questId 需要删除的模块测试题的问题id
      * @return 返回整体测试题列表
      */
     @RequestMapping("deleteLastQuest/{questId}")
     public String deleteQuest(@PathVariable("questId") int questId) {
+//        删除学生答题记录
+        moduleTestAnswerStuService.deleteByQuestId(questId);
+//        删除该问题的所有选项
+        List<ModuleTestAnswer> m = answerService.findAllByQuestId(questId);
+        for (ModuleTestAnswer moduleTestAnswer : m) {
+            answerService.deleteAnswer(moduleTestAnswer.getAnswerId());
+        }
 //        删除整体模块测试题的问题id
         questService.deleteQuest(questId);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/shiyan/lastTestList";
     }
 
     /**
      * 修改整体测试题的试题信息
+     *
      * @param questId 需要修改的模块测试题的问题id
-     * @param model 绑定参数给前端传值
+     * @param model   绑定参数给前端传值
      * @return 返回到静态资源下的shiyan/updateLastTest.html
      */
     @GetMapping("updateLastQuest/{questId}")
@@ -188,9 +256,10 @@ public class LastTestController {
 
     /**
      * 修改整体测试题的试题信息的post方法
-     * @param questId 需要修改的模块测试题的问题id
-     * @param quest ModuleTestQuest对象
-     * @param model 绑定参数给前端传值
+     *
+     * @param questId       需要修改的模块测试题的问题id
+     * @param quest         ModuleTestQuest对象
+     * @param model         绑定参数给前端传值
      * @param questDescribe 题目内容
      * @return 返回整体测试题列表
      */
@@ -207,12 +276,15 @@ public class LastTestController {
         quest1.setQuestScore(quest.getQuestScore());
 //        调用questService的方法更新数据
         questService.addModuleTestQuest(quest1);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/shiyan/lastTestList";
     }
 
     /**
      * 在修改整体模块测试题中增加选项
-     * @param model 绑定参数给前端传值
+     *
+     * @param model   绑定参数给前端传值
      * @param questId 需要修改的模块测试题的问题id
      * @return 返回修改整体测试题的试题信息页面
      */
@@ -229,9 +301,10 @@ public class LastTestController {
 
     /**
      * 在修改整体模块测试题中增加选项的post方法
-     * @param questId 需要修改的模块测试题的问题id
+     *
+     * @param questId        需要修改的模块测试题的问题id
      * @param answerDescribe 问题选项内容
-     * @param answerOrder 问题选项序号
+     * @param answerOrder    问题选项序号
      * @return 返回修改整体测试题的试题信息页面
      */
     @PostMapping("upLastAnswer/{questId}")
@@ -246,11 +319,14 @@ public class LastTestController {
         answer.setQuestId(questId);
 //        将新增的选项存到数据库
         answerService.addAnswers(answer);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/shiyan/updateLastQuest/" + questId;
     }
 
     /**
      * 删除添加整体模块测试题页面的选项
+     *
      * @param answerId 需要删除的模块测试题的问题id
      * @return 返回添加整体测试题息页面
      */
@@ -258,11 +334,12 @@ public class LastTestController {
     public String deleteAnswer(@PathVariable("answerId") int answerId) {
 //        调用answerService的方法删除选项id来删除选项
         answerService.deleteAnswer(answerId);
-        return "redirect:/shiyan/addLastAnswer";
+        return "redirect:/shiyan/addLastQuest";
     }
 
     /**
      * 删除修改整体模块测试题页面的选项
+     *
      * @param answerId 需要删除的模块测试题的问题id
      * @return 返回添加整体测试题息页面
      */
@@ -272,6 +349,8 @@ public class LastTestController {
         int qId = answerService.findQuestIdByAnswerId(answerId);
 //        调用answerService的方法删除选项id来删除选项
         answerService.deleteAnswer(answerId);
+//        更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/shiyan/updateLastQuest/" + qId;
     }
 
