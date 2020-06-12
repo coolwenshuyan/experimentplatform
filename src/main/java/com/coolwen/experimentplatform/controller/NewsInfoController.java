@@ -104,7 +104,8 @@ public class NewsInfoController {
 
     //前端实验大厅入口
     @GetMapping(value = "/shiyan")
-    public String model(){
+    public String model(Model model){
+        model.addAttribute("disMid",false);
         return "kuangjia/shiyan";
     }
 

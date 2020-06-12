@@ -86,9 +86,11 @@ public class ExpGradeController {
                             i+1,
                             kaohename[i],
                             Float.parseFloat(kaohetest[i]),
+                            Float.parseFloat(kaohetestbaifenbi[i]),
                             Float.parseFloat(kaohereport[i]),
-                            Float.parseFloat(kaohetest[i])*Float.parseFloat(kaohetestbaifenbi[i]) +
-                                    Float.parseFloat(kaohereport[i])*Float.parseFloat(kaohereportbaifenbi[i]));
+                            Float.parseFloat(kaohereportbaifenbi[i]),
+                            Float.parseFloat(String.format("%.1f",Float.parseFloat(kaohetest[i])*Float.parseFloat(kaohetestbaifenbi[i]) +
+                                    Float.parseFloat(kaohereport[i])*Float.parseFloat(kaohereportbaifenbi[i]))));
 //                    System.out.println(Float.parseFloat(kaohetest[i])+">>>"+Float.parseFloat(kaohetestbaifenbi[i]) +
 //                            ">>>"+Float.parseFloat(kaohereport[i])+">>>"+Float.parseFloat(kaohereportbaifenbi[i]));
 //                    System.out.println(moduleGrades[i].getM_score());
