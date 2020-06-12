@@ -155,12 +155,14 @@ public class KaoShiController {
 
         //检查此学生有没有考核资格
         //获得所有需要考核的学生
-        List<Student> studentList = studentService.findStudentByNotClassId();
-
-        boolean stuNeedkaohe = studentList.contains(student);
+        //这里没用就删除了
+//        List<Student> studentList = studentService.findStudentByNotClassId();
+//
+//        boolean stuNeedkaohe = studentList.contains(student);
 
         //创建学生的分数
-        float fs = 0;
+        //这个不需要了
+        //float fs = 0;
 
         //遍历所有request
         while (em.hasMoreElements()) {
@@ -211,13 +213,20 @@ public class KaoShiController {
             if (daAn.equals(rightDaAn)){
                 Integer fs1 = (int) moduleTestQuest.getQuestScore();
                 moduleTestAnswerStu.setScore(fs1);
-                fs+=fs1;
+                //这里不需要了
+                //fs+=fs1;
             }
             moduleTestAnswerStuService.add(moduleTestAnswerStu);
         }
 
+
+
 //        更新此学生成绩,此操作现在整合下面这一大段
         if(studentOne.size()>0 & expModelNeedKaohe){
+            //更新学生测试状态
+            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid, stuId);
+            khs.setmTeststate(true);
+            kaoHeModelScoreService.update(khs);
             scoreUpdateService.singleStudentScoreUpdate(stuId);
         }
 
@@ -261,8 +270,8 @@ public class KaoShiController {
 //
 //        }
 
-        //返回此次得分
-        model.addAttribute("fs",fs);
+        //返回此次得分,这里不需要了
+        //model.addAttribute("fs",fs);
         //回到成绩查看页面
         return "redirect:/kaoshi/"+mid+"/ViewTheScore";
     }

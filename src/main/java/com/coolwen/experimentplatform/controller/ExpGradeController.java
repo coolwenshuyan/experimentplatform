@@ -9,6 +9,7 @@ package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.model.DTO.ModuleGradesDto;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.model.TotalScoreCurrent;
+import com.coolwen.experimentplatform.service.StudentService;
 import com.coolwen.experimentplatform.service.TotalScoreCurrentService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class ExpGradeController {
     @Autowired
     TotalScoreCurrentService totalScoreCurrentService;  //考核成绩查询的service层
 
+    @Autowired
+    StudentService studentService; //注入学生班级查询
+
     /**
      * 学生查询模块成绩和总成绩
      * @param model 存储成绩数据，将数据展示到对应页面
@@ -40,13 +44,30 @@ public class ExpGradeController {
     public String totalscore(Model model){
         //获取学生的登录信息
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-//        System.out.println(">>>>>>>>>>>>>>>>grade>>>>>...."+student);
-        //查询该学生的考核实验模块成绩
-        List<TotalScoreCurrent> totalScoreCurrents = totalScoreCurrentService.findeAllBystuid(student.getId());
-        model.addAttribute("totalScoreCurrents",totalScoreCurrents);
-        //查询该学生的考核模块和理论成绩的总评成绩
-        List<ModuleGradesDto> ModuleGrades = totalScoreCurrentService.ModuleGrade(student.getId());
-        model.addAttribute("ModuleGrades",ModuleGrades);
+        int stuId = student.getId();
+
+        if(student.getClassId()>0) {
+            //检查此学生有没有考核资格
+            List<Student> studentOne = studentService.findStudentIsCurrentkaoheByStuid(stuId);
+
+            if(studentOne.size()>0) {
+                //查询该学生的考核实验模块成绩
+                List<TotalScoreCurrent> totalScoreCurrents = totalScoreCurrentService.findeAllBystuid(student.getId());
+                model.addAttribute("totalScoreCurrents", totalScoreCurrents);
+                //查询该学生的考核模块和理论成绩的总评成绩
+                List<ModuleGradesDto> ModuleGrades = totalScoreCurrentService.ModuleGrade(student.getId());
+                model.addAttribute("ModuleGrades", ModuleGrades);
+            }
+            else
+            {
+                //这里要改，还未完成
+                List<TotalScoreCurrent> totalScoreCurrents = totalScoreCurrentService.findeAllBystuid(student.getId());
+                model.addAttribute("totalScoreCurrents", totalScoreCurrents);
+                //查询该学生的考核模块和理论成绩的总评成绩
+                List<ModuleGradesDto> ModuleGrades = totalScoreCurrentService.ModuleGrade(student.getId());
+                model.addAttribute("ModuleGrades", ModuleGrades);
+            }
+        }
         return "home_shiyan/grade";
     }
 
