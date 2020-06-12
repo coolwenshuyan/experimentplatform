@@ -379,13 +379,15 @@ public class ExpModelController {
     }
 
     //继续学习
-    @GetMapping("/contiuneStudy")
-    public String contiunrStudy(){
+    @GetMapping("/contiuneStudy/{id}")
+    public String contiunrStudy(@PathVariable("id")int id){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         if(student.getClassId() != 0) {
             ClassModel classModel = clazzService.findById(student.getClassId());
             if (classModel.getClassIscurrent() == false) {
-                return "redirect:/expmodel/kaoheModel";
+                if(kaoheModelService.findKaoheModelByMid(id) != null){
+                    return "redirect:/expmodel/kaoheModel";
+                }
             }
         }
         return "redirect:/expmodel/alltestModel";
