@@ -393,6 +393,9 @@ public class StudentController {
     @PostMapping("/viewAddStudent/{id}")
     public String addStudent(@RequestParam("stu_xuehao")String xuehao, @PathVariable("id") int id){
         Student student = studentservice.findclassStudentByStuXuehao(xuehao);//分班的学生必须是审核过了
+        if(student == null){
+            return "redirect:/studentManage/addStudent/"+id;
+        }
         student.setClassId(id);
         List<KaoheModel> kaoheModels = kaoheModelService.findAll();
         KaoHeModelScore kaoHeModelScore = null;
@@ -439,8 +442,11 @@ public class StudentController {
     @GetMapping("/viewClass")
     public String viewClass(@RequestParam("class_name") String class_name,Model model){
         ClassModel clazz = studentservice.findClazzByClassName(class_name);
-        model.addAttribute("class",clazz);
-        return "student/class_view";
+        if(clazz != null){
+            model.addAttribute("class",clazz);
+            return "student/class_view";
+        }
+        return "redirect:/studentManage/classManage";
     }
 
 
