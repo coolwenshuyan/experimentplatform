@@ -354,8 +354,8 @@ public class ExpModelController {
     @GetMapping("/home_exp/{id}")
     public String homeExp(@PathVariable("id") int id,Model model){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        ClassModel classModel = clazzService.findById(student.getClassId());
-        if(classModel != null){
+        if(student.getClassId() != 0){
+            ClassModel classModel = clazzService.findById(student.getClassId());
             if(classModel.getClassIscurrent() == false){
                 //具备考核资格并且为当期
                 if(kaoheModelService.findKaoheModelByMid(id) != null){
@@ -387,8 +387,8 @@ public class ExpModelController {
     @GetMapping("/contiuneStudy")
     public String contiunrStudy(){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        ClassModel classModel = clazzService.findById(student.getClassId());
-        if(classModel != null){
+        if(student.getClassId() != 0){
+            ClassModel classModel = clazzService.findById(student.getClassId());
             if(classModel.getClassIscurrent() == false){
                 return "redirect:/expmodel/kaoheModel";
             }else {
@@ -396,10 +396,6 @@ public class ExpModelController {
             }
         }else {
             return "redirect:/expmodel/alltestModel";
-
         }
     }
-
-
-
 }
