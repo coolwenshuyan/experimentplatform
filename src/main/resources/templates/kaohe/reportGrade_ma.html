@@ -34,7 +34,7 @@
 
         .layui-form-label {
             font-weight: 900;
-            width: 100px;
+            width: 50px;
             padding: 10px 0px;
             float: left;
         }
@@ -123,7 +123,7 @@
                             <h3 th:text="${markm.getReportdescribe()}" class="layui-col-md2">第一题:</h3>
                             <p th:text="${markm.getReportscore()}" class="layui-col-md2">总分：20分</p>
                             <div class="layui-form-item ">
-                                <label class="layui-form-label">评分</label>
+                                <label class="layui-form-label">评分:</label>
                                 <div class="layui-input-block">
                                     <input th:value="${markm.getScore()}" type="number"
                                            th:name="|${markm.getReportid()}|" lay-verify="title" autocomplete="off"
