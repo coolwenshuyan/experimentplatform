@@ -66,7 +66,7 @@ public class LastTestController {
 //            如果记录不为空，stuList列表
             if (stu != null) {
                 stuList.add(stu);
-                System.out.println("————————————stuList" + stuList);
+//                System.out.println("————————————stuList" + stuList);
             }
         }
 

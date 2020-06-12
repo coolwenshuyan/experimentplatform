@@ -331,8 +331,12 @@ public class ExpModelController {
     }
     //模块测试和实验报告汇总页面
     @GetMapping("/moduleList")
-    public String moduleList(Model model,@RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+    public String moduleList(Model model,HttpSession session,
+                             @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
         model.addAttribute("page1",expModelService.findModelList(pageNum));
+
+        session.removeAttribute("msg2020612");
+
         return "shiyan/lookTestAndReport";
     }
 
