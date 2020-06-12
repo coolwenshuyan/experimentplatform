@@ -279,7 +279,7 @@ public class StudentController {
                 kaohe_baifenbi = k.getKaohe_baifenbi();
             }
 
-            //拼接之后，如果有数据要去除最后一个分号
+            //拼接之后，如果有数据要去除最后一个分号，
             if(kaoheModuleName.length() > 0)
             {
                 kaoheModuleName = kaoheModuleName.substring(0,kaoheModuleName.length()-1);

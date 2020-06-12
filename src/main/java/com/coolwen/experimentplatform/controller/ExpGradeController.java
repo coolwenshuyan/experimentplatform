@@ -60,7 +60,7 @@ public class ExpGradeController {
             }
             else
             {
-                //这里要改，还未完成
+                //这里要改，还未完成,没完成
                 List<TotalScoreCurrent> totalScoreCurrents = totalScoreCurrentService.findeAllBystuid(student.getId());
                 model.addAttribute("totalScoreCurrents", totalScoreCurrents);
                 //查询该学生的考核模块和理论成绩的总评成绩

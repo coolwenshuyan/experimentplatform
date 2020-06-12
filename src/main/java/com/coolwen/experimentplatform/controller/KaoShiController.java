@@ -221,7 +221,7 @@ public class KaoShiController {
 
 
 
-//        更新此学生成绩,此操作现在整合下面这一大段
+//        更新此学生成绩,此操作现在整合下面这一大段，这里又修改了
         if(studentOne.size()>0 & expModelNeedKaohe){
             //更新学生测试状态
             KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid, stuId);
