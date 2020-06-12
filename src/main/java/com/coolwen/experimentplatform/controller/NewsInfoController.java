@@ -73,9 +73,14 @@ public class NewsInfoController {
         for (int i = 0; i < sid.length ; i++) {
 //            String imgurl = setInfoService.findexpimg(Integer.parseInt(sid[i]));
 //            String imgurl = expModelRepository.findexpimg(Integer.parseInt(sid[i]));
-            ExpModel expModel = expModelRepository.findById(Integer.parseInt(sid[i])).get();
-            model.addAttribute("img"+String.valueOf(i),expModel.getImageurl());
-            model.addAttribute("mid"+String.valueOf(i),expModel.getM_id());
+            try {
+                ExpModel expModel = expModelRepository.findById(Integer.parseInt(sid[i])).get();
+                model.addAttribute("img"+String.valueOf(i),expModel.getImageurl());
+                model.addAttribute("mid"+String.valueOf(i),expModel.getM_id());
+            }catch (Exception e){
+
+            }
+
         }
         //平台统计
         //查询实验模块总数
