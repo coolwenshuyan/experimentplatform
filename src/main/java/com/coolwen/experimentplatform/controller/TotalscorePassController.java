@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,7 +46,7 @@ public class TotalscorePassController {
      * @param pageNum 分页
      * @return 页面
      */
-    @GetMapping("/list")
+/*    @GetMapping("/list")
     public String expModelList(Model model, @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
         Page<TotalScorePass> totalScorePasses = totalScorePassService.findAll(pageNum);
         for(TotalScorePass i:totalScorePasses){
@@ -64,6 +61,43 @@ public class TotalscorePassController {
 
         }
         return null;
+    }*/
+
+    @GetMapping("/list")
+    public String expModelList(Model model,
+                               @RequestParam(required = true, defaultValue = "")String select_orderId ,
+                               @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+        //从数据库得到所有的总成绩
+
+        Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTOOfPass(pageNum,select_orderId);
+        model.addAttribute("selectOrderId",select_orderId);
+
+        //获得所有往期班级
+        List<ClassModel> classList = clazzService.findPassClass();
+        model.addAttribute("classList",classList);
+
+        model.addAttribute("pageTotalScore",totalScore);
+//        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+totalScore);
+        return "kaohe/all_score_pass";
+    }
+
+    @GetMapping("/{classId}/list")
+    public String getTotalScoreCirrentByGroupId(Model model,
+                                                @PathVariable int classId,
+                                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
+                                                @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+        //从数据库得到所有的总成绩
+        Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTOOfPassByClassId(pageNum,select_orderId,classId);
+
+
+        //获得所有往期班级
+        List<ClassModel> classList = clazzService.findPassClass();
+        model.addAttribute("classList",classList);
+        model.addAttribute("classId",classId);
+
+        model.addAttribute("pageTotalScore",totalScore);
+//        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+totalScore);
+        return "kaohe/all_score_pass";
     }
 
 

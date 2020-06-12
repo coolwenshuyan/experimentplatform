@@ -318,7 +318,8 @@ public class StudentController {
                 //进行成绩固化操作
                 totalScorePass = new TotalScorePass();
                 totalScorePass.setStuId(s.getId());
-                totalScorePass.setKaoheName(String.valueOf(kaoheModelList.size()));
+                //存入考核模块数目
+                totalScorePass.setKaoheNum(kaoheModelList.size());
                 totalScorePass.setKaoheName(kaoheModuleName);
                 totalScorePass.setKaoheMtestscore(kaohe_mtestscore);
                 totalScorePass.setKaoheMreportscore(kaohe_mreportscore);

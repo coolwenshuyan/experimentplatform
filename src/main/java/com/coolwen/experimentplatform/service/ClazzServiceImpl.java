@@ -57,5 +57,10 @@ public class ClazzServiceImpl implements ClazzService {
         return clazzRepository.findClazzByClass_name(className);
     }
 
+    @Override
+    public List<ClassModel> findPassClass() {
+        return clazzRepository.findPassClass();
+    }
+
 
 }

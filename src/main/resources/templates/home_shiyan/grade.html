@@ -27,19 +27,23 @@
 			</ul>
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show" >
-					<table border="1"   width="500"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
+					<table border="1"   width="900"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
 						<tr align="center" >
 							<td>序号</td>
 							<td>考核实验名称</td>
-							<td>实验模块测试成绩<br>(50%)</td>
-							<td>实验模块报告成绩<br>(50%)</td>
+							<td>实验模块测试成绩</td>
+							<td>实验模块测试占比</td>
+							<td>实验模块报告成绩</td>
+							<td>实验模块报告占比</td>
 							<td>实验模块总成绩</td>
 						</tr>
 						<tr align="center" th:each="moduleGrade:${ModuleGrades}">
 							<td th:text="${moduleGrade.m_id}">1</td>
 							<td th:text="${moduleGrade.m_name}">考核实验模块1</td>
 							<td th:text="${moduleGrade.m_test_score}">76</td>
+							<td th:text="${moduleGrade.m_test_baifenbi}">76</td>
 							<td th:text="${moduleGrade.m_report_score}">87</td>
+							<td th:text="${moduleGrade.m_report_baifenbi}">87</td>
 							<td th:text="${moduleGrade.m_score}">78</td>
 						</tr>
 <!--						<tr align="center">-->
@@ -61,11 +65,11 @@
 					<p style="color: grey;">注：考核实验模块成绩：考核实验模块测试成绩*比例+考核实验模块报告成绩*比例=考核实验模块成绩。</p>
 				</div>
 				<div class="layui-tab-item" >
-					<table border="1"   width="500"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
+					<table border="1"   width="900"  bordercolor="#d8d8d8" bgcolor="#f4f4f4">
 						<tr align="center">
 							<td>序号</td>
-							<td>考核实验模块成绩<br>(50%)</td>
-							<td>理论测试成绩<br>(50%)</td>
+							<td>考核实验模块成绩</td>
+							<td>理论测试成绩</td>
 							<td>总评成绩</td>
 						</tr>
 						<tr align="center" th:each="totalScore:${totalScoreCurrents}">
