@@ -45,11 +45,19 @@
     .bt{
         padding-left: 7.8rem;
     }
+    .p1{
+        color: #009688;
+        margin-top: 1rem;
+        font-size: 16px;
+        margin-left: 7rem;
+        font-weight: 600;
+    }
 </style>
 
 
 <body>
-<!--<h2>添加模块测试题</h2>-->
+<h2>添加理论测试题</h2>
+<p class="p1">先添加题目再添加选项</p>
 <div class="layui-row layui-col-space10">
     <div class="layui-col-md6">
         <!--<form class="layui-form" action="">	-->
@@ -105,7 +113,8 @@
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <a href="lookTest.html" th:href="@{|/shiyan/lastTestList|}" class="layui-btn layui-btn-primary">返回</a>
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">确定</button>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">添加题目</button>
+                    <a href="lookTest.html" th:href="@{|/shiyan/lastTestList|}" class="layui-btn layui-bg-green">添加完成</a>
                 </div>
             </div>
 

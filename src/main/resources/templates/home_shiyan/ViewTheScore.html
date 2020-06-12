@@ -11,6 +11,22 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
     <link rel="stylesheet" type="text/css" href=""/>
 </head>
+<style>
+    .p0{
+        margin: 22px 0px;
+        font-size: 15px;
+    }
+    .span0{
+        margin-left: 20px;
+    }
+    .xuan0{
+        font-size: 15px;
+        margin-top: 20px;
+    }
+    .h30{
+        font-weight: bold;
+    }
+</style>
 <script type="text/javascript">
 
     // 将多选checkbox提交的数据拼接成字符串格式提交
@@ -50,41 +66,53 @@
 
 <div class="test layui-col-xs8 layui-col-xs-offset2">
     <h2 align="center"><strong>答案</strong></h2><br><br>
-    <h2>本次测试总分:</h2>
-    <h2 th:text="${fs2}">本次测试总分</h2>
+    <h2 style="margin-bottom: 20px">本次测试总分:<span style="margin-left: 20px" th:text="${fs2}">本次测试总分</span></h2>
+<!--    <h2 th:text="${fs2}">本次测试总分</h2>-->
     <form class="layui-form layui-form-pane" th:action="@{|/kaoshi/${midd}/postExam|}" >
-        <h3>单选题</h3><br>
+        <h3 class="h30">单选题</h3><br>
 
         <div class="layui-form-item layui-form-text" th:each="m,iterStat:${radioQuestionsList}">
             <label class="layui-form-label"
                    th:text="${iterStat.index+1}+'.'+ ${m.questDescribe}+'('+${m.questScore}+'分)'">1.下述概念中不属于面向对象方法的是(20分)</label>
             <div class="layui-input-block" th:each="n:${m.moduleTestAnswerList}">
-                <p type="radio" th:name="${m.questId}" th:value="${n.answerId}" th:text="${n.answerDescribe}"></p>
+                <p class="xuan0" type="radio" th:name="${m.questId}" th:value="${n.answerId}" th:text="${n.answerDescribe}"></p>
 <!--                <input type="radio" name="1" value="对象、消息   " title="对象、消息   ">-->
             </div>
-            <p>正确答案:</p>
-            <p th:text="${m.questAnswer}">正确答案</p>
-            <p>我的答案:</p>
-            <p th:text="${m.stuAnswer}">我的答案</p>
-            <p>本题得分:</p>
-            <p th:text="${m.oneQuestScore}">本题得分</p>
+            <p class="p0">
+                正确答案:<span class="span0" th:text="${m.questAnswer}">正确答案</span>
+            </p>
+<!--            <p class="p0" th:text="${m.questAnswer}">正确答案</p>-->
+            <p class="p0">
+                我的答案:<span class="span0" th:text="${m.stuAnswer}">我的答案</span>
+            </p>
+<!--            <p class="p0" th:text="${m.stuAnswer}">我的答案</p>-->
+            <p class="p0">
+                本题得分:<span class="span0" th:text="${m.oneQuestScore}">本题得分</span>
+            </p>
+<!--            <p class="p0" th:text="${m.oneQuestScore}">本题得分</p>-->
         </div>
 
 
-        <h3>多选题</h3><br>
+        <h3 class="h30">多选题</h3><br>
 
         <div class="layui-form-item layui-form-text" th:each="m1,iterStat:${checkboxQuestionsList}">
             <label class="layui-form-label"
                    th:text="${iterStat.index+1}+'.'+ ${m1.questDescribe}+'('+${m1.questScore}+'分)'">1.在Java接口中，下列选项中有效的方法声明是？(20分)</label>
             <div class="layui-input-block" th:each="n1:${m1.moduleTestAnswerList}">
-                <p type="checkbox" th:name="${m1.questId}" th:text="${n1.answerDescribe}" th:value="${n1.answerId}" lay-skin="primary"></p>
+                <p class="xuan0" type="checkbox" th:name="${m1.questId}" th:text="${n1.answerDescribe}" th:value="${n1.answerId}" lay-skin="primary"></p>
             </div>
-            <p>正确答案:</p>
-            <p th:text="${m1.questAnswer}">正确答案</p>
-            <p>我的答案:</p>
-            <p th:text="${m1.stuAnswer}">我的答案</p>
-            <p>本题得分:</p>
-            <p th:text="${m1.oneQuestScore}">本题得分</p>
+            <p class="p0">
+                正确答案:<span class="span0" th:text="${m1.questAnswer}">正确答案</span>
+            </p>
+<!--            <p class="p0" th:text="${m1.questAnswer}">正确答案</p>-->
+            <p class="p0">
+                我的答案:<span class="span0" th:text="${m1.stuAnswer}">我的答案</span>
+            </p>
+<!--            <p class="p0" th:text="${m1.stuAnswer}">我的答案</p>-->
+            <p class="p0">
+                本题得分:<span class="span0" th:text="${m1.oneQuestScore}">本题得分</span>
+            </p>
+<!--            <p class="p0" th:text="${m1.oneQuestScore}">本题得分</p>-->
         </div>
 <!--        <div class="layui-form-item">-->
 <!--            <div class="layui-input-block">-->

@@ -1,6 +1,9 @@
 package com.coolwen.experimentplatform.controller;
 
-import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.ModuleTestAnswer;
+import com.coolwen.experimentplatform.model.ModuleTestAnswerStu;
+import com.coolwen.experimentplatform.model.ModuleTestQuest;
+import com.coolwen.experimentplatform.model.Report;
 import com.coolwen.experimentplatform.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +58,8 @@ public class ModuleController {
      * @return 返回到静态资源下的shiyan/addTest.html
      */
     @GetMapping("addQuest")
-    public String addQuest(Model model, HttpSession session) {
+    public String addQuest(Model model, HttpSession session ) {
+
 
 //        从缓存中取到questDescribe，即题目的信息
         String questDescribe = (String) session.getAttribute("questDescribe");
@@ -96,14 +100,15 @@ public class ModuleController {
                 model.addAttribute("addAnswer", addAnswer);
                 model.addAttribute("quest", quest);
             }
+
             model.addAttribute("mId", mId);
 //            返回到静态资源下的shiyan/addTest.html
             return "shiyan/addTest";
         } else {
+
 //            如果列表不为空，就返回信息
             System.out.println("不允许作答————————");
             String message = "学生已作答，不允许添加试题";
-//            model.addAttribute("msg2020612", message);
             session.setAttribute("msg2020612", message);
             return "redirect:/shiyan/list/" + mId;
 
@@ -187,6 +192,7 @@ public class ModuleController {
         model.addAttribute("questAnswer", questAnswer);
         String questOrder = "";
         model.addAttribute("questOrder", questOrder);
+
 
 //        将分页信息存到model传给前端
         model.addAttribute("questsPage", pageList);
