@@ -145,9 +145,30 @@ public class StudentServiceImpl implements StudentService {
 //    }
 
     @Override
-    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum) {
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum,String select_orderId) {
         Pageable pager = PageRequest.of(pageNum, size);
-        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage;
+        if (select_orderId == "" || select_orderId.equals("")){
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTO(pager);
+        }else {
+            select_orderId = "%"+select_orderId+"%";
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTO(select_orderId, pager);
+        }
+
+       return listStuTotalScoreCurrentDTOPage;
+    }
+
+
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOByClassId(int pageNum, String select_orderId, int classId) {
+        Pageable pager = PageRequest.of(pageNum, size);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage;
+        listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOByClassId(classId, pager);
+
+
+        return listStuTotalScoreCurrentDTOPage;
     }
 
     //往期成绩查询
@@ -212,6 +233,36 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findStudentIsCurrentkaoheByStuid(int stuId) {
 
         return studentRepository.findStudentIsCurrentkaoheByStuid(stuId);
+    }
+
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPass(int pageNum, String select_orderId) {
+        Pageable pager = PageRequest.of(pageNum, size);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage;
+        if (select_orderId == "" || select_orderId.equals("")){
+            System.out.println("不筛选");
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOOfPass(pager);
+        }else {
+            System.out.println("筛选");
+            select_orderId = "%"+select_orderId+"%";
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOOfPassSelect(select_orderId, pager);
+        }
+
+        for(StuTotalScoreCurrentDTO i:listStuTotalScoreCurrentDTOPage){
+            System.out.println("listStuTotalScoreCurrentDTOPage!!!"+i);
+        }
+
+        return listStuTotalScoreCurrentDTOPage;
+    }
+
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPassByClassId(int pageNum, String select_orderId, int classId) {
+        Pageable pager = PageRequest.of(pageNum, size);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOOfPassByClassId(classId, pager);
+
+        return listStuTotalScoreCurrentDTOPage;
     }
 
 

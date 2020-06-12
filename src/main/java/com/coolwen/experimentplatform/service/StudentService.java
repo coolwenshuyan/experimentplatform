@@ -44,7 +44,9 @@ public interface StudentService {
 
     Page<Student> pageStudentByClassId(int class_id,int classid);
 
-    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum);
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum,String select_orderId);
+
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOByClassId(int pageNum,String select_orderId,int classId);
 
     Page<StuTotalScoreCurrentDTO> listStuTotalScorePassDTO(int pageNum);
 
@@ -65,4 +67,9 @@ public interface StudentService {
     List<Student> findStudentByNotClassId();
 
     List<Student> findStudentIsCurrentkaoheByStuid(int stuId);
+
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPass(int pageNum, String select_orderId);
+
+
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPassByClassId(int pageNum, String select_orderId, int classId);
 }

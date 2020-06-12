@@ -19,4 +19,6 @@ public interface ClazzRepository extends BaseRepository<ClassModel,Integer> {
     @Query("select c from ClassModel c where c.classIscurrent = false")
     List<ClassModel> findCurrentClass();
 
+    @Query("select c from ClassModel c where c.classIscurrent = true ")
+    List<ClassModel> findPassClass();
 }

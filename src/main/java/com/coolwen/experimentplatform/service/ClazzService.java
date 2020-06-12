@@ -25,4 +25,6 @@ public interface ClazzService {
     ClassModel findClassModelByClassName(String className);
 
 
+    List<ClassModel> findPassClass();
+
 }
