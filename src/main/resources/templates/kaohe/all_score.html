@@ -227,8 +227,9 @@
 				</tbody>
 			</table>
 			</div>
-			<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 72%;margin-top: 2%;">将当期成绩全部存入往期成绩</button>
-		
+			<a th:href="@{/totalscore/GuHuaAll}">
+				<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 72%;margin-top: 2%;">将当期成绩全部存入往期成绩</button>
+			</a>
 			
 		</div>
 		
@@ -239,7 +240,7 @@
 
 		
 <!--		分页-->
-		<div style="text-align: center;">
+		<div style="text-align: center;" th:if="${totalScore}">
 			<!--			<div id="pager" class="pager clearfix">-->
 			<!--			</div>-->
 			<div class="modal-footer no-margin-top">
