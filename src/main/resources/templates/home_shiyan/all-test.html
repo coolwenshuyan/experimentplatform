@@ -66,7 +66,7 @@
 	<body>
 		<div class="main_con">
 		  <div class="layui-row">
-		     <div class="layui-col-md4 " th:each="model:${list}">
+		     <div class="layui-col-md4 clearfix" th:each="model:${list}">
 		    		<div class="content">
 		    			 <div class="img" >
 		     				<img src="../../static/images/img_shiyan/5.jpg" th:src="${model.getImageurl()}" width="100%"/>
