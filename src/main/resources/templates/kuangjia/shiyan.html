@@ -83,7 +83,9 @@
 	</head>
 
 	<body>
+
 		<!-- 左侧菜单 - 开始 -->
+
 		<div class="frameMenu">
 		    <div class="logo">
 		        <img src="../../static/images/logo.png"/>
@@ -209,6 +211,18 @@
 			</div>
 			<!-- 核心区域 - 结束 -->
 		</div>
+		<script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script th:inline="javascript">
+			(function (arg) {
+				var disMid = [[${disMid}]]
+				if(disMid == false){
+					$("#mainIframe").attr("src","/expmodel/alltestModel");
+				}else {
+					$("#mainIframe").attr("src","/expmodel/home_exp/"+disMid);
+				}
+			})(jQuery);
+
+		</script>
 	</body>
 
 </html>

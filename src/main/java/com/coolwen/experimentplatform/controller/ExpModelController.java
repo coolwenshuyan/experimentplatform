@@ -4,6 +4,7 @@ package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
 import com.coolwen.experimentplatform.service.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -388,5 +389,12 @@ public class ExpModelController {
             }
         }
         return "redirect:/expmodel/alltestModel";
+    }
+
+    //中转站
+    @GetMapping("/homeExpDispatcher/{id}")
+    public String homeExpDispatcher(@PathVariable("id") int id, Model model){
+        model.addAttribute("disMid",id);
+        return "kuangjia/shiyan";
     }
 }
