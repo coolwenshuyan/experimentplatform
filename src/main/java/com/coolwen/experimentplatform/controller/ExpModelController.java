@@ -358,48 +358,35 @@ public class ExpModelController {
     @GetMapping("/home_exp/{id}")
     public String homeExp(@PathVariable("id") int id,Model model){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        if(student.getClassId() != 0){
+        if(student.getClassId() != 0) {
             ClassModel classModel = clazzService.findById(student.getClassId());
-            if(classModel.getClassIscurrent() == false){
+            if (classModel.getClassIscurrent() == false) {
                 //具备考核资格并且为当期
-                if(kaoheModelService.findKaoheModelByMid(id) != null){
+                if (kaoheModelService.findKaoheModelByMid(id) != null) {
                     //考核模块
-                    KaoHeModelStuDTO kaoHeModelStuDTO = kaoheModelService.findKaoHeModelStuDTOByStuId(student.getId(),id);
-                    model.addAttribute("k",kaoHeModelStuDTO);
+                    KaoHeModelStuDTO kaoHeModelStuDTO = kaoheModelService.findKaoHeModelStuDTOByStuId(student.getId(), id);
+                    model.addAttribute("k", kaoHeModelStuDTO);
                     return "home_shiyan/kaohe_copy";
-                }else {
-                    //普通实验
-                    ExpModel expModel = expModelService.findExpModelByID(id);
-                    model.addAttribute("exp",expModel);
-                    return "home_shiyan/all-test_copy";
                 }
-            }else {
-                //具备考核资格但为往期
-                ExpModel expModel = expModelService.findExpModelByID(id);
-                model.addAttribute("exp",expModel);
-                return "home_shiyan/all-test_copy";
             }
-        }else {
-            //不具备考核资格
-            ExpModel expModel = expModelService.findExpModelByID(id);
-            model.addAttribute("exp",expModel);
-            return "home_shiyan/all-test_copy";
         }
+        //不具备考核资格
+        ExpModel expModel = expModelService.findExpModelByID(id);
+        model.addAttribute("exp",expModel);
+        return "home_shiyan/all-test_copy";
+
     }
 
     //继续学习
     @GetMapping("/contiuneStudy")
     public String contiunrStudy(){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        if(student.getClassId() != 0){
+        if(student.getClassId() != 0) {
             ClassModel classModel = clazzService.findById(student.getClassId());
-            if(classModel.getClassIscurrent() == false){
+            if (classModel.getClassIscurrent() == false) {
                 return "redirect:/expmodel/kaoheModel";
-            }else {
-                return "redirect:/expmodel/alltestModel";
             }
-        }else {
-            return "redirect:/expmodel/alltestModel";
         }
+        return "redirect:/expmodel/alltestModel";
     }
 }
