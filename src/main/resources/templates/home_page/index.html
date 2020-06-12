@@ -188,14 +188,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr role="row" class="odd" th:each="exp:${allexp.content}">
+									<tr role="row" class="odd" th:each="exp:${allexp}">
 										<td style="text-align: center;" class="sorting_1"><span th:text="${exp.m_id}">1</span></td>
 										<td><span th:text="${exp.m_name}">Java框架实验1</span></td>
 										<td style="text-align: center;"><span th:text="${exp.m_manager}">温佐承</span></td>
 										<td><span th:text="${exp.purpose}">熟练运用java框架，并对spring有所了解</span></td>
 										<td style="text-align: center;"><span th:text="${exp.classhour}">2</span></td>
 										<td style="text-align: center;">
-											<a target="view_frame" th:href="@{|${exp.m_id}/list|}"><button type="button" class="btn btn-primary">开始实验</button></a>
+											<a target="view_frame" th:href="@{|/expmodel/home_exp/${exp.m_id}|}"><button type="button" class="btn btn-primary">开始实验</button></a>
 										</td>
 									</tr>
 <!--									<tr role="row" class="even">-->

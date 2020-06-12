@@ -68,32 +68,32 @@
 
 <div class="main_con" style="float: none">
 	<div class="layui-row">
-		<div class="layui-col-xs4 " th:each="model:${k}">
+		<div class="layui-col-xs4 " th:object="${k}">
 			<div class="content">
 				<div class="img" >
-					<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${model.m_imageurl}"/>
+					<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${k.m_imageurl}"/>
 				</div>
 				<div class="intro">
 					<div class="name" >
-						<h3 th:text="${model.m_name}"></h3>
+						<h3 th:text="${k.m_name}"></h3>
 						<br>
 						<!--								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>-->
 						<!--								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>-->
 						<!--								<h3>得分:<span th:text="${model.m_score}"></span></h3>-->
 						<!--								<h3>权重：<span th:text="${model.m_scale}"></span></h3>-->
 
-						<h5 class="fir_h5" style="float: left;">模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h5>
-						<h5 class="fir_h5">填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h5><br>
-						<h5 class="fir_h5" style="float: left;">得分:<span th:text="${model.m_score}"></span></h5>
-						<h5 class="fir_h5">权重:<span th:text="${model.m_scale}"></span></h5>
+						<h5 class="fir_h5" style="float: left;">模块测试:<span th:text="${k.m_teststate == false }?'未完成':'已完成'"></span></h5>
+						<h5 class="fir_h5">填写报告:<span th:text="${k.m_reportstate == false }?'未完成':'已完成'"></span></h5><br>
+						<h5 class="fir_h5" style="float: left;">得分:<span th:text="${k.m_score}"></span></h5>
+						<h5 class="fir_h5">权重:<span th:text="${k.m_scale}"></span></h5>
 
 					</div>
 					<div class="change" >
 						<ul class="layui-nav" lay-filter="" >
-							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
-							<li class="layui-nav-item"><a th:href="@{|/kaoshi/${model.m_id}/toExamPageList|}">模块测试</a></li>
-							<li class="layui-nav-item"><a th:href="${model.inurl}">进入实验</a></li>
-							<li class="layui-nav-item"><a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a></li>
+							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${k.m_id}|}">理论学习</a></li>
+							<li class="layui-nav-item"><a th:href="@{|/kaoshi/${k.m_id}/toExamPageList|}">模块测试</a></li>
+							<li class="layui-nav-item"><a th:href="${k.inurl}">进入实验</a></li>
+							<li class="layui-nav-item"><a th:href="@{|/WriteReport/${k.m_id}/Timu|}">填写报告</a></li>
 						</ul>
 					</div>
 				</div>
@@ -106,7 +106,7 @@
 <div class="layui-card-body ">
 	<div class="page">
 		<div>
-			<a class="layui-btn" >继续学习</a>
+			<a class="layui-btn" th:href="@{|/expmodel/contiuneStudy|}">继续学习</a>
 		</div>
 	</div>
 </div>

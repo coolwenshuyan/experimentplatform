@@ -68,22 +68,22 @@
 		<div class="main_con">
 		  <div class="layui-row">
 		     <div class="layui-col-md4 ">
-		    		<div class="content">
+		    		<div class="content" th:object="${exp}">
 		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/5.jpg" th:src="${model.getImageurl()}" width="100%"/>
+		     				<img src="../../static/images/img_shiyan/5.jpg" th:src="${exp.getImageurl()}" width="100%"/>
 				     	</div>
 				     	<div class="intro">
 				     		<div class="name" >
-				     			<h3 th:text="${model.m_name}">JAVA实验二(已完成，90分)</h3><br>
+				     			<h3 th:text="${exp.m_name}">JAVA实验二(已完成，90分)</h3><br>
 <!--				     			<h3>权重 10%</h3>-->
 				     		</div>
 				     		<div class="change" >
 				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
-								  <li class="layui-nav-item "><a th:href="@{|/kaoshi/${model.m_id}/toExamPageList|}">模块测试</a></li>
-								  <li class="layui-nav-item"><a th:href="${model.getM_inurl()}">进入实验</a></li>
+								  <li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${exp.m_id}|}">理论学习</a></li>
+								  <li class="layui-nav-item "><a th:href="@{|/kaoshi/${exp.m_id}/toExamPageList|}">模块测试</a></li>
+								  <li class="layui-nav-item"><a th:href="${exp.getM_inurl()}">进入实验</a></li>
 								  <li class="layui-nav-item">
-								    <a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a>
+								    <a th:href="@{|/WriteReport/${exp.m_id}/Timu|}">填写报告</a>
 								  </li>
 								  
 								</ul>
@@ -95,7 +95,7 @@
 			<div class="layui-card-body ">
 				<div class="page">
 					<div>
-						<a class="layui-btn" >继续学习</a>
+						<a class="layui-btn" th:href="@{|/expmodel/contiuneStudy|}">继续学习</a>
 					</div>
 				</div>
 			</div>

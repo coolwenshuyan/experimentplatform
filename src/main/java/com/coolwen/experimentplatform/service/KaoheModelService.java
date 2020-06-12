@@ -35,6 +35,9 @@ public interface KaoheModelService {
 
     Page<KaoHeModelStuDTO> findKaoheModelStuDto(int stu_id,int pageNum);
 
+    KaoHeModelStuDTO findKaoHeModelStuDTOByStuId (int stu_id,int mid);
+
+
     KaoheModel findKaoheModelByMid(int mid);
 
     void deleteKaoHeModuleByMid(KaoheModel kaoheModel);
