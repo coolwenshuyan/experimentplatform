@@ -8,15 +8,21 @@ public class ModuleGradesDto {
 
     private float m_test_score;
 
+    private float m_test_baifenbi;
+
     private float m_report_score;
+
+    private float m_report_baifenbi;
 
     private float m_score;
 
-    public ModuleGradesDto(int m_id, String m_name, float m_test_score, float m_report_score, float m_score) {
+    public ModuleGradesDto(int m_id, String m_name, float m_test_score, float m_test_baifenbi, float m_report_score, float m_report_baifenbi, float m_score) {
         this.m_id = m_id;
         this.m_name = m_name;
         this.m_test_score = m_test_score;
+        this.m_test_baifenbi = m_test_baifenbi;
         this.m_report_score = m_report_score;
+        this.m_report_baifenbi = m_report_baifenbi;
         this.m_score = m_score;
     }
 
@@ -44,12 +50,28 @@ public class ModuleGradesDto {
         this.m_test_score = m_test_score;
     }
 
+    public float getM_test_baifenbi() {
+        return m_test_baifenbi;
+    }
+
+    public void setM_test_baifenbi(float m_test_baifenbi) {
+        this.m_test_baifenbi = m_test_baifenbi;
+    }
+
     public float getM_report_score() {
         return m_report_score;
     }
 
     public void setM_report_score(float m_report_score) {
         this.m_report_score = m_report_score;
+    }
+
+    public float getM_report_baifenbi() {
+        return m_report_baifenbi;
+    }
+
+    public void setM_report_baifenbi(float m_report_baifenbi) {
+        this.m_report_baifenbi = m_report_baifenbi;
     }
 
     public float getM_score() {
