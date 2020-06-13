@@ -396,6 +396,13 @@ public class ExpModelController {
     //中转站
     @GetMapping("/homeExpDispatcher/{id}")
     public String homeExpDispatcher(@PathVariable("id") int id, Model model){
+
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //暂时做了修改，如果没有登录，跳转到登录页
+        if(student == null){
+            return "home_page/login";
+        }
+
         model.addAttribute("disMid",id);
         return "kuangjia/shiyan";
     }

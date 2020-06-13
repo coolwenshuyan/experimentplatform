@@ -13,8 +13,10 @@ import com.coolwen.experimentplatform.dao.TeacherRepository;
 import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.model.SetInfo;
+import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.NewsInfoService;
 import com.coolwen.experimentplatform.service.SetInfoService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -112,6 +114,13 @@ public class NewsInfoController {
     //前端实验大厅入口
     @GetMapping(value = "/shiyan")
     public String model(Model model){
+
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //暂时做了修改，如果没有登录，跳转到登录页
+        if(student == null){
+            return "home_page/login";
+        }
+
         model.addAttribute("disMid",false);
         return "kuangjia/shiyan";
     }
