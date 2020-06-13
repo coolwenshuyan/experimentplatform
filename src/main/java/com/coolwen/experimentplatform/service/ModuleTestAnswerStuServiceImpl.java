@@ -51,7 +51,7 @@ public class ModuleTestAnswerStuServiceImpl implements ModuleTestAnswerStuServic
     }
 
     @Override
-    public ModuleTestAnswerStu findByQuest_id(int questid) {
+    public List<ModuleTestAnswerStu> findByQuest_id(int questid) {
         return moduleTestAnswerStuRepository.findByQuest_id(questid);
     }
 }

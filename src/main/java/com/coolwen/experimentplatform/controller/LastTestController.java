@@ -62,12 +62,12 @@ public class LastTestController {
 //        遍历试题
         for (ModuleTestQuest q : questList) {
 //            找到对应问题的学生答题记录
-            ModuleTestAnswerStu stu = moduleTestAnswerStuService.findByQuest_id(q.getQuestId());
+            stuList = moduleTestAnswerStuService.findByQuest_id(q.getQuestId());
 //            如果记录不为空，stuList列表
-            if (stu != null) {
-                stuList.add(stu);
-//                System.out.println("————————————stuList" + stuList);
-            }
+//            if (stu != null) {
+//                stuList.add(stu);
+////                System.out.println("————————————stuList" + stuList);
+//            }
         }
 
 //        如果stuList列表为空
