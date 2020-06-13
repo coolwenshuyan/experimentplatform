@@ -88,6 +88,8 @@ public class LastTestController {
 //                传递查出来的参数，将数据和前端绑定
                 model.addAttribute("addLastAnswer", addAnswer);
                 model.addAttribute("Lastquest", quest);
+//                清除提示缓存
+                session.removeAttribute("errorInformation");
             }
             model.addAttribute("mId", mId);
 //            返回到静态资源下的shiyan/addTest.html
@@ -130,8 +132,24 @@ public class LastTestController {
         moduleTestQuest.setmId(-1);
 //        控制台打印ModuleTestQuest对象
         System.out.println(moduleTestQuest);
-//        把ModuleTestQuest对象的数据更新到数据库
-        questService.addModuleTestQuest(moduleTestQuest);
+
+        String a = moduleTestQuest.getQuestType();
+        String b = moduleTestQuest.getQuestAnswer();
+        if (a.equals("单选")){
+            try {
+                Integer.parseInt(b);
+                questService.addModuleTestQuest(moduleTestQuest);
+            }
+            catch (Exception e)
+            {
+                session.setAttribute("errorInformation","单选答案必须是数字");
+                return "redirect:/shiyan/addLastQuest";
+            }
+        }else{
+
+//            利用questService里的保存方法，将数据存到数据库
+            questService.addModuleTestQuest(moduleTestQuest);
+        }
 
 //        将这个问题id存入session
         session.setAttribute("questId", moduleTestQuest.getQuestId());
@@ -204,6 +222,7 @@ public class LastTestController {
         model.addAttribute("questAnswer", questAnswer);
         String questOrder = "";
         model.addAttribute("questOrder", questOrder);
+
 //        将分页信息传给前端
         model.addAttribute("termList", termList);
         return "shiyan/lookLastTest";
@@ -260,13 +279,12 @@ public class LastTestController {
      * @param questId       需要修改的模块测试题的问题id
      * @param quest         ModuleTestQuest对象
      * @param model         绑定参数给前端传值
-     * @param questDescribe 题目内容
      * @return 返回整体测试题列表
      */
     @PostMapping("updateLastQuest/{questId}")
     public String updateQuest(@PathVariable("questId") int questId,
-                              ModuleTestQuest quest,
-                              Model model, String questDescribe) {
+                              ModuleTestQuest quest,HttpSession session,
+                              Model model) {
 //        通过问题id找到这个问题并存入ModuleTestQuest对象
         ModuleTestQuest quest1 = questService.findQuestByQuestId(questId);
 //        先获取修改模块测试信息get方法中修改的内容，再将修改好的题目信息更新到ModuleTestQuest对象
@@ -274,8 +292,23 @@ public class LastTestController {
         quest1.setQuestAnswer(quest.getQuestAnswer());
         quest1.setQuestType(quest.getQuestType());
         quest1.setQuestScore(quest.getQuestScore());
-//        调用questService的方法更新数据
-        questService.addModuleTestQuest(quest1);
+
+        String a = quest1.getQuestType();
+        String b = quest1.getQuestAnswer();
+        if (a.equals("单选")){
+            try {
+                Integer.parseInt(b);
+                questService.addModuleTestQuest(quest1);
+            }
+            catch (Exception e)
+            {
+                session.setAttribute("errorInformation","单选答案必须是数字");
+                return "redirect:/shiyan/updateLastQuest/"+questId;
+            }
+        }else{
+//            利用questService里的保存方法，将数据存到数据库
+            questService.addModuleTestQuest(quest1);
+        }
 //        更新学生成绩
         scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/shiyan/lastTestList";
@@ -309,7 +342,8 @@ public class LastTestController {
      */
     @PostMapping("upLastAnswer/{questId}")
     public String upAnswer(@PathVariable("questId") int questId,
-                           String answerDescribe, int answerOrder) {
+                           String answerDescribe, int answerOrder,
+                           HttpSession session) {
 //        实例化一个ModuleTestAnswer对象
         ModuleTestAnswer answer = new ModuleTestAnswer();
 //        添加问题选项的信息到ModuleTestAnswer对象
@@ -319,6 +353,8 @@ public class LastTestController {
         answer.setQuestId(questId);
 //        将新增的选项存到数据库
         answerService.addAnswers(answer);
+//        清除提示缓存
+        session.removeAttribute("errorInformation");
 //        更新学生成绩
         scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/shiyan/updateLastQuest/" + questId;

@@ -119,10 +119,10 @@
                                     <p>当前 <span th:text="${termList.number}+1"></span> 页,
                                         总 <span th:text="${termList.totalPages}"></span> 页,
                                         共 <span th:text="${termList.totalElements}"></span> 条记录</p>
-                                    <a th:href="@{/shiyan/list}">首页</a>
-                                    <a th:href="@{/shiyan/list(page=${termList.hasPrevious()}?${termList.number}-1:0)}">上一页</a>
-                                    <a th:href="@{/shiyan/list(page=${termList.hasNext()}?${termList.number}+1:${termList.number})}">下一页</a>
-                                    <a th:href="@{/shiyan/list(page=${termList.totalPages}-1)}">尾页</a>
+                                    <a th:href="@{/shiyan/lastTestList}">首页</a>
+                                    <a th:href="@{/shiyan/lastTestList(page=${termList.hasPrevious()}?${termList.number}-1:0)}">上一页</a>
+                                    <a th:href="@{/shiyan/lastTestList(page=${termList.hasNext()}?${termList.number}+1:${termList.number})}">下一页</a>
+                                    <a th:href="@{/shiyan/lastTestList(page=${termList.totalPages}-1)}">尾页</a>
 
                                 </div>
                             </div>
