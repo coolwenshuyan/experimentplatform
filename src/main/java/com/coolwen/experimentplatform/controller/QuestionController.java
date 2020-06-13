@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.dao.*;
+import com.coolwen.experimentplatform.exception.UserException;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.QuestionStudentDto;
 import com.coolwen.experimentplatform.service.QuestionService;
@@ -47,6 +48,12 @@ public class QuestionController {
     public String add(Question question, Session session) {
 //        从seesion拿到student的内容
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+
+        //暂时做了修改
+        if (student == null){
+            throw new UserException("请先登录后再来提问!");
+        }
+
 //        插入数据到数据库
         question.setSid(student.getId());
         question.setIsreply(false);
