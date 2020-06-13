@@ -1,20 +1,16 @@
 package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.dao.StudentRepository;
+import com.coolwen.experimentplatform.model.ClassModel;
 import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
 import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import com.coolwen.experimentplatform.model.KaoheModel;
 import com.coolwen.experimentplatform.model.TotalScoreCurrent;
-import com.coolwen.experimentplatform.service.KaoheModelService;
-import com.coolwen.experimentplatform.service.StudentService;
-import com.coolwen.experimentplatform.service.TotalScoreCurrentService;
+import com.coolwen.experimentplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -38,6 +34,9 @@ public class TotalscoreCurrentController {
 
     @Autowired
     public KaoheModelService kaoheModelService;
+
+    @Autowired
+    public ClazzService clazzService;
 //    @GetMapping("/test")
 //    public String hello() {
 //        return "AllModel";
@@ -75,11 +74,44 @@ public class TotalscoreCurrentController {
      * @return 页面
      */
     @GetMapping("/list")
-    public String expModelList(Model model, @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+    public String expModelList(Model model,
+                               @RequestParam(required = true, defaultValue = "")String select_orderId ,
+                               @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
         //从数据库得到所有的总成绩
-        Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTO(pageNum);
+        Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTO(pageNum,select_orderId);
+        model.addAttribute("selectOrderId",select_orderId);
         //获得所有考核模块的列表
         List<KaoheModel> toGetBaiFenBi=kaoheModelService.findAll();
+
+        List<ClassModel> classList = clazzService.findCurrentClass();
+        model.addAttribute("classList",classList);
+
+        //初始化 最后权重
+        float kaoheBaifenbi = 0;
+        float testBaifenbi = 0;
+        if (toGetBaiFenBi.size()>0){
+            kaoheBaifenbi=toGetBaiFenBi.get(0).getKaohe_baifenbi();
+            testBaifenbi=toGetBaiFenBi.get(0).getTest_baifenbi();
+        }
+        model.addAttribute("pageTotalScore",totalScore);
+        model.addAttribute("kaoheBaifenbi",kaoheBaifenbi);
+        model.addAttribute("testBaifenbi",testBaifenbi);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+totalScore);
+        return "kaohe/all_score";
+    }
+
+    @GetMapping("/{classId}/list")
+    public String getTotalScoreCirrentByGroupId(Model model,
+                                                @PathVariable int classId,
+                                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
+                                                @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
+        //从数据库得到所有的总成绩
+        Page<StuTotalScoreCurrentDTO> totalScore= studentService.listStuTotalScoreCurrentDTOByClassId(pageNum,select_orderId,classId);
+        //获得所有考核模块的列表
+        List<KaoheModel> toGetBaiFenBi=kaoheModelService.findAll();
+
+        List<ClassModel> classList = clazzService.findCurrentClass();
+        model.addAttribute("classList",classList);
 
         //初始化 最后权重
         float kaoheBaifenbi = 0;

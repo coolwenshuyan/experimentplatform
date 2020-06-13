@@ -208,7 +208,7 @@ public class StudentController {
     @GetMapping("/toEditClass/{id}")
     public String editClass(@PathVariable("id")int id,Model model){
         model.addAttribute("class",clazzService.findById(id));
-        return "/student/class_alter";
+        return "student/class_alter";
     }
     //进入班级添加
     @GetMapping("/toAddClass")
@@ -318,7 +318,8 @@ public class StudentController {
                 //进行成绩固化操作
                 totalScorePass = new TotalScorePass();
                 totalScorePass.setStuId(s.getId());
-                totalScorePass.setKaoheName(String.valueOf(kaoheModelList.size()));
+                //存入考核模块数目
+                totalScorePass.setKaoheNum(kaoheModelList.size());
                 totalScorePass.setKaoheName(kaoheModuleName);
                 totalScorePass.setKaoheMtestscore(kaohe_mtestscore);
                 totalScorePass.setKaoheMreportscore(kaohe_mreportscore);
@@ -393,6 +394,9 @@ public class StudentController {
     @PostMapping("/viewAddStudent/{id}")
     public String addStudent(@RequestParam("stu_xuehao")String xuehao, @PathVariable("id") int id){
         Student student = studentservice.findclassStudentByStuXuehao(xuehao);//分班的学生必须是审核过了
+        if(student == null){
+            return "redirect:/studentManage/addStudent/"+id;
+        }
         student.setClassId(id);
         List<KaoheModel> kaoheModels = kaoheModelService.findAll();
         KaoHeModelScore kaoHeModelScore = null;
@@ -439,8 +443,11 @@ public class StudentController {
     @GetMapping("/viewClass")
     public String viewClass(@RequestParam("class_name") String class_name,Model model){
         ClassModel clazz = studentservice.findClazzByClassName(class_name);
-        model.addAttribute("class",clazz);
-        return "student/class_view";
+        if(clazz != null){
+            model.addAttribute("class",clazz);
+            return "student/class_view";
+        }
+        return "redirect:/studentManage/classManage";
     }
 
 

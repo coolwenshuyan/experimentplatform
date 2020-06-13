@@ -52,6 +52,9 @@
         margin-left: 7rem;
         font-weight: 600;
     }
+    .P2{
+        margin: 1rem auto 1rem 7rem;
+    }
 </style>
 
 
@@ -105,10 +108,12 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">答案</label>
                 <div class="layui-input-block">
-                    <input type="text" name="questAnswer" th:value="${questAnswer}" required lay-verify="required|number" placeholder="1,2,3"
+                    <input type="text" name="questAnswer" th:value="${questAnswer}" required lay-verify="required" placeholder="1,2,3"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
+
+            <p class="p1 P2" th:text="${session.errorInformation}"></p>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">

@@ -71,12 +71,29 @@ public class ExpGradeController {
 
                 //查询该学生的考核实验模块成绩
                 ModuleGradesDto[] moduleGrades = new ModuleGradesDto[totalScorePass.get(0).getKaoheNum()];
+                //考核模块名
                 String[] kaohename =  totalScorePass.get(0).getKaoheName().split(";");
+                //考核模块测试分数
                 String[] kaohetest =  totalScorePass.get(0).getKaoheMtestscore().split(";");
+                //考核模块测试百分比
+                String[] kaohetestbaifenbi =  totalScorePass.get(0).getKaoheMtestscoreBaifengbi().split(";");
+                //考核模块报告分数
                 String[] kaohereport =  totalScorePass.get(0).getKaoheMreportscore().split(";");
+                //考核模块报告百分比
+                String[] kaohereportbaifenbi =  totalScorePass.get(0).getKaoheMreportscoreBaifengbi().split(";");
                 for (int i = 0; i < totalScorePass.get(0).getKaoheNum(); i++) {
-                    moduleGrades[i] = new ModuleGradesDto(i+1,kaohename[i],Float.parseFloat(kaohetest[i]),Float.parseFloat(kaohereport[i]),i);
-                    System.out.println(moduleGrades[i]);
+                    moduleGrades[i] = new ModuleGradesDto(
+                            i+1,
+                            kaohename[i],
+                            Float.parseFloat(kaohetest[i]),
+                            Float.parseFloat(kaohetestbaifenbi[i]),
+                            Float.parseFloat(kaohereport[i]),
+                            Float.parseFloat(kaohereportbaifenbi[i]),
+                            Float.parseFloat(String.format("%.1f",Float.parseFloat(kaohetest[i])*Float.parseFloat(kaohetestbaifenbi[i]) +
+                                    Float.parseFloat(kaohereport[i])*Float.parseFloat(kaohereportbaifenbi[i]))));
+//                    System.out.println(Float.parseFloat(kaohetest[i])+">>>"+Float.parseFloat(kaohetestbaifenbi[i]) +
+//                            ">>>"+Float.parseFloat(kaohereport[i])+">>>"+Float.parseFloat(kaohereportbaifenbi[i]));
+//                    System.out.println(moduleGrades[i].getM_score());
                 }
                 model.addAttribute("ModuleGrades", moduleGrades);
             }

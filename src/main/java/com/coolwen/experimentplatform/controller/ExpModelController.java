@@ -4,6 +4,7 @@ package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
 import com.coolwen.experimentplatform.service.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -358,52 +359,51 @@ public class ExpModelController {
     @GetMapping("/home_exp/{id}")
     public String homeExp(@PathVariable("id") int id,Model model){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        ClassModel classModel = clazzService.findById(student.getClassId());
-        if(classModel != null){
-            if(classModel.getClassIscurrent() == false){
+        if(student.getClassId() != 0) {
+            ClassModel classModel = clazzService.findById(student.getClassId());
+            if (classModel.getClassIscurrent() == false) {
                 //具备考核资格并且为当期
-                if(kaoheModelService.findKaoheModelByMid(id) != null){
+                if (kaoheModelService.findKaoheModelByMid(id) != null) {
                     //考核模块
-                    KaoHeModelStuDTO kaoHeModelStuDTO = kaoheModelService.findKaoHeModelStuDTOByStuId(student.getId(),id);
-                    model.addAttribute("k",kaoHeModelStuDTO);
+                    KaoHeModelStuDTO kaoHeModelStuDTO = kaoheModelService.findKaoHeModelStuDTOByStuId(student.getId(), id);
+                    model.addAttribute("k", kaoHeModelStuDTO);
                     return "home_shiyan/kaohe_copy";
-                }else {
-                    //普通实验
-                    ExpModel expModel = expModelService.findExpModelByID(id);
-                    model.addAttribute("exp",expModel);
-                    return "home_shiyan/all-test_copy";
                 }
-            }else {
-                //具备考核资格但为往期
-                ExpModel expModel = expModelService.findExpModelByID(id);
-                model.addAttribute("exp",expModel);
-                return "home_shiyan/all-test_copy";
             }
-        }else {
-            //不具备考核资格
-            ExpModel expModel = expModelService.findExpModelByID(id);
-            model.addAttribute("exp",expModel);
-            return "home_shiyan/all-test_copy";
         }
+        //不具备考核资格
+        ExpModel expModel = expModelService.findExpModelByID(id);
+        model.addAttribute("exp",expModel);
+        return "home_shiyan/all-test_copy";
+
     }
 
     //继续学习
-    @GetMapping("/contiuneStudy")
-    public String contiunrStudy(){
+    @GetMapping("/contiuneStudy/{id}")
+    public String contiunrStudy(@PathVariable("id")int id){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-        ClassModel classModel = clazzService.findById(student.getClassId());
-        if(classModel != null){
-            if(classModel.getClassIscurrent() == false){
-                return "redirect:/expmodel/kaoheModel";
-            }else {
-                return "redirect:/expmodel/alltestModel";
+        if(student.getClassId() != 0) {
+            ClassModel classModel = clazzService.findById(student.getClassId());
+            if (classModel.getClassIscurrent() == false) {
+                if(kaoheModelService.findKaoheModelByMid(id) != null){
+                    return "redirect:/expmodel/kaoheModel";
+                }
             }
-        }else {
-            return "redirect:/expmodel/alltestModel";
-
         }
+        return "redirect:/expmodel/alltestModel";
     }
 
+    //中转站
+    @GetMapping("/homeExpDispatcher/{id}")
+    public String homeExpDispatcher(@PathVariable("id") int id, Model model){
 
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //暂时做了修改，如果没有登录，跳转到登录页
+        if(student == null){
+            return "home_page/login";
+        }
 
+        model.addAttribute("disMid",id);
+        return "kuangjia/shiyan";
+    }
 }

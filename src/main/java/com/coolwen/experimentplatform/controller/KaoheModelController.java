@@ -132,6 +132,7 @@ public class KaoheModelController {
      */
     @RequestMapping(value = {"/{mid}/moveIn"}, method = RequestMethod.POST)
     public String add(@PathVariable int mid, KaoheModel moveIn) {
+
         System.out.println(">>>>>>>>>>>>" + moveIn);
         KaoheModel u = new KaoheModel();
         ExpModel expModel = expModelService.findExpModelByID(mid);
@@ -144,9 +145,17 @@ public class KaoheModelController {
 //        u.setShiyan_Types(expModel.getM_type());
         u.setM_test_baifenbi(moveIn.getM_test_baifenbi());
         u.setM_report_baifenbi(moveIn.getM_report_baifenbi());
-        u.setKaohe_baifenbi(moveIn.getKaohe_baifenbi());
-        u.setTest_baifenbi(moveIn.getTest_baifenbi());
-        System.out.println(u);
+
+        //从考核模块中取出整体测试百分比
+        List<KaoheModel> kaoheModels = kaoheModelService.findAll();
+        if (kaoheModels.size()>0){
+            u.setKaohe_baifenbi(kaoheModels.get(0).getKaohe_baifenbi());
+            u.setTest_baifenbi(kaoheModels.get(0).getTest_baifenbi());
+        }else {
+            u.setKaohe_baifenbi(0);
+            u.setTest_baifenbi(0);
+        }
+//        System.out.println(u);
         kaoheModelService.add(u);
         expModel.setNeedKaohe(true);
         //学生考核模块成绩记录表，只处理当期有考核权限的学生

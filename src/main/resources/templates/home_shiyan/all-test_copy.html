@@ -47,8 +47,7 @@
 		}
 		.page{
 			margin: 0 auto;
-			width: 80%;
-			margin-top: 30px;
+			width: 22%;
 		}
 
 		.fir_h5{
@@ -85,7 +84,7 @@
 								  <li class="layui-nav-item">
 								    <a th:href="@{|/WriteReport/${exp.m_id}/Timu|}">填写报告</a>
 								  </li>
-								  
+
 								</ul>
 				     		</div>
 				     	</div>
@@ -95,11 +94,11 @@
 			<div class="layui-card-body ">
 				<div class="page">
 					<div>
-						<a class="layui-btn" th:href="@{|/expmodel/contiuneStudy|}">继续学习</a>
+						<a class="layui-btn" th:href="@{|/expmodel/contiuneStudy/${exp.m_id}|}">继续学习</a>
 					</div>
 				</div>
 			</div>
-		
+
 		</div>
 
 		

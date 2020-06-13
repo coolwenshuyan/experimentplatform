@@ -75,4 +75,16 @@ public class StuTotalScoreCurrentDTO {
     public void setTotalScore(float totalScore) {
         this.totalScore = totalScore;
     }
+
+    @Override
+    public String toString() {
+        return "StuTotalScoreCurrentDTO{" +
+                "xuehao='" + xuehao + '\'' +
+                ", sName='" + sName + '\'' +
+                ", className='" + className + '\'' +
+                ", mTotalScore=" + mTotalScore +
+                ", testScore=" + testScore +
+                ", totalScore=" + totalScore +
+                '}';
+    }
 }

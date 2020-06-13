@@ -106,9 +106,9 @@
 <!--											<option value="1">往期</option>-->
 <!--											-->
 <!--										</select>-->
-<!--									<p>当期</p>-->
-										<a href="/totalscore/list"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #ffffff;background: #009688">当期</button></a>
-										<a href="/passTotalscore/list"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">往期</button></a>
+<!--									<p>往期</p>-->
+										<a href="/totalscore/list"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #174f37;">当期</button></a>
+										<a href="/passTotalscore/list"><button type="button" class="layui-btn layui-btn-primary" style="border-color: #174f37;color: #ffffff;background: #009688">往期</button></a>
 
 <!--									</div>-->
 
@@ -125,7 +125,7 @@
 										<select name="interest" lay-filter="aihao" onchange="window.open(this.options[this.selectedIndex].value,target='_self')" style="margin-top: 13px;">
 											<option>请选择</option>
 											<div th:each="clazz:${classList}" >
-												<option th:value="|/totalscore/${clazz.getClassId()}/list|"  th:text="${clazz.getClassName()}">18信管01</option>
+												<option th:value="|/passTotalscore/${clazz.getClassId()}/list|"  th:text="${clazz.getClassName()}">18信管01</option>
 											</div>
 										</select>
 									</div>
@@ -137,7 +137,7 @@
 						<th  style="padding:0 10px;width: 18%;">
 
 							<li>
-								<form th:action="@{/totalscore/list}">
+								<form th:action="@{/passTotalscore/list}">
 							<li>
 								<div class="layui-input-block ak" style="float: left; position: relative;">
 									<label class="layui-form-label">学号搜索</label>
@@ -160,32 +160,7 @@
 						</th>						
 					</tr>
 					<tr>
-						<form class="layui-form layui-col-md12" th:action="@{/totalscore/GreatestWeight}" method="post">
-							<th style="padding: 0">
-								<div class="layui-form-item ">
-									<label class="layui-form-label">模块占比</label>
-									<div class="layui-input-block">
-										<input th:value="${kaoheBaifenbi}" type="text" name="kaoheBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
-									</div>
-								</div>
-							</th>
-							<th>
-								<div class="layui-form-item">
-									<label class="layui-form-label">理论占比</label>
-									<div class="layui-input-block">
-										<input th:value="${testBaifenbi}" type="text" name="testBaifenbi" lay-verify="title" autocomplete="off" placeholder="成绩" class="layui-input" style="width: 62px;" title="请输入0-1之间的数" pattern="^(1|(0(.\d{1,10})?))$">
-									</div>
-								</div>
-							</th>
-							<th>
-								<div class="layui-form-item">
-									<label class="layui-form-label">
-										<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1">修改</button>
-									</label>
-								</div>
-							</th>
 
-						</form>
 					</tr>
 
 			</table>
@@ -227,7 +202,7 @@
 				</tbody>
 			</table>
 			</div>
-			<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 72%;margin-top: 2%;">将当期成绩全部存入往期成绩</button>
+<!--			<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 72%;margin-top: 2%;">将当期成绩全部存入往期成绩</button>-->
 		
 			
 		</div>
@@ -247,28 +222,28 @@
 
 					<!-- 首页 -->
 					<li>
-						<a th:href="'/totalscore/list?pageNum=0'">首页</a>
+						<a th:href="'/passTotalscore/list?pageNum=0'">首页</a>
 					</li>
 
 					<!-- 上一页 -->
 					<li th:if="${pageTotalScore.hasPrevious()}">
-						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.previousPageable().getPageNumber()}" th:text="上一页"></a>
+						<a th:href="'/passTotalscore/list?pageNum=' + ${pageTotalScore.previousPageable().getPageNumber()}" th:text="上一页"></a>
 					</li>
 
 					<!-- 中间页 -->
 					<li th:each="pageNum:${#numbers.sequence(0, pageTotalScore.getTotalPages() - 1)}">
-						<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne pageTotalScore.pageable.getPageNumber()}"></a>
-						<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq pageTotalScore.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+						<a th:href="'/passTotalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne pageTotalScore.pageable.getPageNumber()}"></a>
+						<a th:href="'/passTotalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq pageTotalScore.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
 					</li>
 
 					<!-- 下一页 -->
 					<li th:if="${pageTotalScore.hasNext()}">
-						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.nextPageable().getPageNumber()}" th:text="下一页"></a>
+						<a th:href="'/passTotalscore/list?pageNum=' + ${pageTotalScore.nextPageable().getPageNumber()}" th:text="下一页"></a>
 					</li>
 
 					<!-- 尾页 -->
 					<li>
-						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.getTotalPages() - 1}">尾页</a>
+						<a th:href="'/passTotalscore/list?pageNum=' + ${pageTotalScore.getTotalPages() - 1}">尾页</a>
 					</li>
 
 				</ul>

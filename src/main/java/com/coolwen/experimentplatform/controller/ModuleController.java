@@ -74,12 +74,12 @@ public class ModuleController {
 //        遍历试题
         for (ModuleTestQuest q : questList) {
 //            找到对应问题的学生答题记录
-            ModuleTestAnswerStu stu = moduleTestAnswerStuService.findByQuest_id(q.getQuestId());
+            stuList = moduleTestAnswerStuService.findByQuest_id(q.getQuestId());
 //            如果记录不为空，stuList列表
-            if (stu != null) {
-                stuList.add(stu);
-                System.out.println("————————————stuList" + stuList);
-            }
+//            if (stu != null) {
+//                stuList.add(stu);
+//                System.out.println("————————————stuList" + stuList);
+//            }
         }
 //        如果stuList列表为空
         if (stuList == null || stuList.isEmpty() || CollectionUtils.isEmpty(stuList)) {
@@ -99,6 +99,7 @@ public class ModuleController {
 //                传递查出来的参数，将数据和前端绑定
                 model.addAttribute("addAnswer", addAnswer);
                 model.addAttribute("quest", quest);
+                session.removeAttribute("errorInformation");
             }
 
             model.addAttribute("mId", mId);
@@ -146,8 +147,24 @@ public class ModuleController {
         moduleTestQuest.setmId(id);
 //        在控制台打印得到的这个moduleTestQuest对象
         System.out.println(moduleTestQuest);
-//        利用questService里的保存方法，将数据存到数据库
-        questService.addModuleTestQuest(moduleTestQuest);
+
+        String a = moduleTestQuest.getQuestType();
+        String b = moduleTestQuest.getQuestAnswer();
+        if (a.equals("单选")){
+            try {
+                Integer.parseInt(b);
+                questService.addModuleTestQuest(moduleTestQuest);
+            }
+            catch (Exception e)
+            {
+                session.setAttribute("errorInformation","单选答案必须是数字");
+                return "redirect:/shiyan/addQuest";
+            }
+        }else{
+//            利用questService里的保存方法，将数据存到数据库
+            questService.addModuleTestQuest(moduleTestQuest);
+        }
+
 //        控制台打印看添加进去的问题id是多少
         System.out.println("添加测试题里面的questID~~~~~~" + moduleTestQuest.getQuestId());
 //        将这个问题id存入session
@@ -192,7 +209,8 @@ public class ModuleController {
         model.addAttribute("questAnswer", questAnswer);
         String questOrder = "";
         model.addAttribute("questOrder", questOrder);
-
+//        清除提示缓存
+        session.removeAttribute("errorInformation");
 
 //        将分页信息存到model传给前端
         model.addAttribute("questsPage", pageList);
@@ -240,7 +258,8 @@ public class ModuleController {
      * @return 返回静态资源下的shiyan/updateTest.html
      */
     @GetMapping("updateQuest/{questId}")
-    public String updateQuest(@PathVariable("questId") int questId, Model model) {
+    public String updateQuest(@PathVariable("questId") int questId, Model model,
+                              HttpSession session) {
 //        通过问题id找到这个问题并存入ModuleTestQuest对象
         ModuleTestQuest quest = questService.findQuestByQuestId(questId);
 //        通过问题id找到问题的选项，并存入list中，主要用来绑定数据到前端显示
@@ -251,6 +270,7 @@ public class ModuleController {
         model.addAttribute("UpAnswer", UpAnswer);
 //        用model绑定问题id，传给前端
         model.addAttribute("qid", questId);
+
 //        返回静态资源下的shiyan/updateTest.html
         return "shiyan/updateTest";
     }
@@ -264,7 +284,7 @@ public class ModuleController {
      */
     @PostMapping("updateQuest/{questId}")
     public String updateQuest(@PathVariable("questId") int questId,
-                              ModuleTestQuest quest) {
+                              ModuleTestQuest quest,HttpSession session) {
 //        通过问题id找到这个问题并存入ModuleTestQuest对象
         ModuleTestQuest quest1 = questService.findQuestByQuestId(questId);
 //        先获取修改模块测试信息get方法中修改的内容，再将修改好的题目更新到ModuleTestQuest对象
@@ -277,8 +297,24 @@ public class ModuleController {
         quest1.setQuestScore(quest.getQuestScore());
 //        先获取修改模块测试信息get方法中修改的内容，再将修改好的题目序号更新到ModuleTestQuest对象
         quest1.setQuestOrder(quest.getQuestOrder());
-//        调用questService的方法更新数据
-        questService.addModuleTestQuest(quest1);
+
+        String a = quest1.getQuestType();
+        String b = quest1.getQuestAnswer();
+        if (a.equals("单选")){
+            try {
+                Integer.parseInt(b);
+                questService.addModuleTestQuest(quest1);
+            }
+            catch (Exception e)
+            {
+                session.setAttribute("errorInformation","单选答案必须是数字");
+                return "redirect:/shiyan/updateQuest/"+questId;
+            }
+        }else{
+//            利用questService里的保存方法，将数据存到数据库
+            questService.addModuleTestQuest(quest1);
+        }
+
 //        更新学生成绩
         scoreUpdateService.allStudentScoreUpdate();
 //        返回模块测试题的列表
@@ -313,7 +349,7 @@ public class ModuleController {
      * @return 返回修改模块测试信息的页面
      */
     @PostMapping("upAnswer/{questId}")
-    public String upAnswer(@PathVariable("questId") int questId,
+    public String upAnswer(@PathVariable("questId") int questId,HttpSession session,
                            String answerDescribe, int answerOrder) {
 //        在控制台打印传入的参数问题id
         System.out.println(questId);
@@ -327,6 +363,9 @@ public class ModuleController {
         answer.setQuestId(questId);
 //        将新增的选项存到数据库
         answerService.addAnswers(answer);
+
+//        清除提示缓存
+        session.removeAttribute("errorInformation");
 //        返回修改模块测试信息的页面
         return "redirect:/shiyan/updateQuest/" + questId;
     }
