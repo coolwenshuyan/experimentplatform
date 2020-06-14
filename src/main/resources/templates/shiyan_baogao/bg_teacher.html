@@ -92,9 +92,47 @@
             /*position: absolute;*/
         }
         #baogao{
+            /*margin-top: -10%;*/
             border: #fff 1px solid;
             border-bottom: 1px #000 solid;
 
+        }
+        .footer{
+
+            border-top: 1px #000 solid;
+
+        }
+        .talk{
+            padding-top: 30px;
+            margin-left: 20px;
+            border: 1px #fff solid;
+            border-right: 1px #000 solid;
+            width: 70%;
+        }
+        .goal{
+            width: 28.5%;
+            /*border-bottom: 1px #000 solid;*/
+
+            float: right;
+            margin-top: -33%;
+            margin-left: 2%;
+        }
+        .goal_{
+            border-bottom: 1px #000 solid;
+            height: 40px;
+            font-size: 18px;
+            margin-bottom:3%;
+            /*margin-left: 2%;*/
+        }
+        span{
+            font-size: 18px;
+            margin: 30px 0 0 20px;
+        }
+        .score_ input{
+            /*height: 50px;*/
+            margin-left: 1%;
+            border:1px #fff solid;
+            /*margin-top: -10px;*/
         }
        
 
@@ -110,7 +148,7 @@
     </div>
 
     <div class="tit">
-        <input type="text" id="baogao">
+        <input type="text" id="baogao" placeholder="请输入课程名称">
         实验报告</div>
 
     <div class="layui-row ming">
@@ -172,24 +210,35 @@
 
         </div>
     </div>
-    <div class="box">
-        <div class="mudi">五、教师评语</div>
 
-        <div class="note">
-            <!--		富文本编辑器的html代码开始-->
-            <script id="editor1"   type="text/plain">
-            </script>
-            <!--		富文本编辑器的html代码结束-->
+    <div class="footer">
+        <div class="talk">
+            <div class="mudi">五、教师评语</div>
+
+            <div class="note">
+                <!--		富文本编辑器的html代码开始-->
+                <script id="editor1"   type="text/plain">
+                </script>
+                <!--		富文本编辑器的html代码结束-->
+            </div>
+
         </div>
+        <div class="goal">
+            <div class="goal_">
+                <span>成绩</span>
+            </div>
+            <div class="score_">
+                <input type="text" id="score">
+            </div>
+
+
+        </div>
+
+
+
     </div>
 
-    <div class="box a">
-        <div class="score">得分:</div>
-        <div class="score_">
-            <input type="text" id="score">
-        </div>
 
-    </div>
 
 </div>
 <div  onclick="mycheck()">
