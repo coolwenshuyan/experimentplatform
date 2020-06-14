@@ -38,10 +38,10 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">图片</label>
-            <img name="image_url" th:src="${teacher.image_url}" class="form-control" id="selectImg" />
+            <img name="image_url" th:src="@{'/upload/'+${teacher.image_url}}" class="form-control" id="selectImg" />
 <!--            <br/>-->
             <!--            <div class="layui-upload">-->
-                <input type="file" name="file" value="更换图片" onchange="xmTanUploadImg(this)">
+                <input type="file" name="attachs" value="更换图片" onchange="xmTanUploadImg(this)">
                 <div class="layui-upload-list">
                     <img class="layui-upload-img" id="demo1">
                     <p id="demoText"></p>
