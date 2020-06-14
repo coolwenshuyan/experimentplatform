@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -105,7 +106,7 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Override
     public Page<KaoHeModelStuDTO> findKaoheModelStuDto(int stu_id, int pageNum) {
-        PageRequest pageRequest = PageRequest.of(pageNum, 6);
+        PageRequest pageRequest = PageRequest.of(pageNum, 6, Sort.Direction.ASC,"m_id");
         return kaoHeModelScoreRepository.findKaoHeModelStuDTOByStuId(stu_id, pageRequest);
     }
 

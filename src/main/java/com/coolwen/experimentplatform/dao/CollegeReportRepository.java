@@ -6,6 +6,8 @@ import com.coolwen.experimentplatform.model.DTO.CollegeReportStuExpDto;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface CollegeReportRepository extends BaseRepository<CollegeReport, Integer>, JpaSpecificationExecutor<CollegeReport> {
 
     @Query("select c from CollegeReport c where c.stuid = ?1 and c.mid = ?2")
@@ -20,4 +22,7 @@ public interface CollegeReportRepository extends BaseRepository<CollegeReport, I
             "left join ExpModel expm on cr.mid = expm.m_id " +
             "where st.id = ?1 and expm.m_id = ?2")
     CollegeReportStuExpDto findByStuidMid(int stuid, int mid);
+
+    @Query("select c from CollegeReport c where c.mid = ?1")
+    List<CollegeReport> findCollegeReportsByMid(int mid);
 }

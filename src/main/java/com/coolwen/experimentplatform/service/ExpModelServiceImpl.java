@@ -6,10 +6,12 @@ import com.coolwen.experimentplatform.dao.ModuleTestQuestRepository;
 import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.ModuleTestAnswerStu;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,7 +58,7 @@ public class ExpModelServiceImpl implements ExpModelService {
 
     @Override
     public Page<ExpModel> finExpAll(int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum,6);
+        Pageable pageable = PageRequest.of(pageNum,6,Sort.Direction.ASC,"m_id");
         return expModelRepository.findAll(pageable);
     }
 
