@@ -97,26 +97,7 @@
             border-bottom: 1px #000 solid;
 
         }
-        .footer{
 
-            border-top: 1px #000 solid;
-
-        }
-        .talk{
-            padding-top: 30px;
-            margin-left: 20px;
-            border: 1px #fff solid;
-            border-right: 1px #000 solid;
-            width: 70%;
-        }
-        .goal{
-            width: 28%;
-            /*border-bottom: 1px #000 solid;*/
-
-            float: right;
-            margin-top: -44%;
-            margin-left: 2%;
-        }
         .goal_{
             border-bottom: 1px #000 solid;
             height: 40px;
@@ -134,7 +115,27 @@
             border:1px #fff solid;
             /*margin-top: -10px;*/
         }
-       
+        .layui-container{
+            width: 1136px;
+            padding: 0;
+            border-top: 1px #000 solid;
+        }
+        .layui-row{
+
+        }
+        .layui-col-md9{
+            /*margin: 2%;*/
+            border-right: 1px #000 solid;
+        }
+        .mu{
+            margin: 2%;
+            font-size: 18px;
+        }
+        .layui-col-md3{
+            margin-top: 2%;
+
+        }
+
 
     </style>
 </head>
@@ -211,32 +212,58 @@
         </div>
     </div>
 
-    <div class="footer">
-        <div class="talk">
-            <div class="mudi">五、教师评语</div>
 
-            <div class="note">
+    <div class="layui-container">
+
+        <div class="layui-row">
+            <div class="layui-col-md9">
+                <div class="mu">五、教师评语</div>
+
+                <div class="note">
                 <!--		富文本编辑器的html代码开始-->
                 <script id="editor1"   type="text/plain">
                 </script>
                 <!--		富文本编辑器的html代码结束-->
+                </div>
             </div>
-
-        </div>
-        <div class="goal">
-            <div class="goal_">
+            <div class="layui-col-md3">
+                <div class="goal_">
                 <span>成绩</span>
+                </div>
+                <div class="score_">
+                <input type="text" id="score" type="number" placeholder="请输入0-100的成绩">
+                </div>
             </div>
-            <div class="score_">
-                <input type="text" id="score">
-            </div>
-
-
         </div>
-
-
-
     </div>
+
+    <!--<div class="footer">-->
+        <!--<div class="talk">-->
+            <!--<div class="mudi">五、教师评语</div>-->
+
+            <!--<div class="note">-->
+                <!--&lt;!&ndash;		富文本编辑器的html代码开始&ndash;&gt;-->
+                <!--<script id="editor1"   type="text/plain">-->
+                <!--</script>-->
+                <!--&lt;!&ndash;		富文本编辑器的html代码结束&ndash;&gt;-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <!--<div class="goal">-->
+            <!--<div class="goal_">-->
+                <!--<span>成绩</span>-->
+            <!--</div>-->
+            <!--<div class="score_">-->
+                <!--<input type="text" id="score" type="number">-->
+            <!--</div>-->
+
+
+        <!--</div>-->
+
+
+
+    <!--</div>-->
+
 
 
 
