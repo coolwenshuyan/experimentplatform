@@ -49,7 +49,17 @@
 				width:83%;
 				margin:0 auto
 			}
-
+			.b{
+				margin-bottom: 20px;
+			}
+			.p_last{
+				display: block;
+				text-align: center;
+				width: 170px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
 		</style>
 	</head>
 
@@ -72,12 +82,12 @@
 			</div>
 			<div class="fir_tit2">带队老师：</div>
 			<div class="layui-row  sec_con">
-				<div class="layui-col-xs3" th:each="teacher:${teacherPageInfo.content}">
+				<div class="layui-col-xs3 clearfix b" th:each="teacher:${teacherPageInfo.content}">
 					<div class="thumbnail">
 					     <div class="t_img"><img th:src="${teacher.image_url}" alt="..."></div>
 					    <div class="caption" align="center">
 					    	<h3><strong th:text="${teacher.person_name }">温佐承</strong></h3>
-					        <p th:text="${teacher.intro}">信息与工程学院老师，职称</p>
+					        <p class="p_last" th:text="${teacher.intro}">信息与工程学院老师，职称</p>
 
 					    </div>
 					</div>
