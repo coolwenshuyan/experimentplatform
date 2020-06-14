@@ -205,8 +205,8 @@
             </div>
             <div class="layui-col-md3">
                 <div class="goal">
-                    <div class="goal_">成绩</div>
-                    <div class="score_" th:text="${collegeReport.getCrScore()}"></div>
+                    <div class="goal_" style="float: left">成绩</div>
+                    <div class="score_" style="float: left" th:text="${collegeReport.getCrScore()}"></div>
 
                 </div>
             </div>
@@ -220,7 +220,8 @@
 
 </div>
 <div>
-    <button type="button" class="layui-btn next">导出实验报告</button>
+    <a type="button" th:if="${!collegeReport.getCrTcState()}" th:href="@{|/collegereport/info/${collegeReport.getMid()}|}" class="layui-btn next">修改</a>
+    <button type="button" th:if="${collegeReport.getCrTcState()}" class="layui-btn next">导出实验报告</button>
 </div>
 
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
