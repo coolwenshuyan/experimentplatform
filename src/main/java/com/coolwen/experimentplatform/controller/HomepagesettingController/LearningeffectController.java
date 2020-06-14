@@ -12,6 +12,9 @@ import com.coolwen.experimentplatform.model.Effect;
 import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.service.EffectService;
 import com.coolwen.experimentplatform.service.NewsInfoService;
+import com.coolwen.experimentplatform.utils.FileUploadUtil;
+import com.coolwen.experimentplatform.utils.GetServerRealPathUnit;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Date;
 /**
@@ -131,18 +136,35 @@ public class LearningeffectController {
     /**
      * 学习效果添加页面，完成添加操作
      * @param effect 从前端返回的参数（effect_content,effect_name,effect_person）
-     * @param file  从前端返回的图片文件
+     * @param attachs  从前端返回的图片文件
      * @param req  返回的文件信息
      * @return 重定向到学习效果页面
      */
     @PostMapping(value = "/add")
-    public String add(Effect effect, MultipartFile file, HttpServletRequest req){
+    public String add(Effect effect, @RequestParam("attachs") MultipartFile[] attachs, HttpServletRequest req){
         //设置点击次数和创建时间
         effect.setDic_num(0);
         effect.setDic_datetime(new Date());
-        //完成图片添加和存储图片路径
-        String url = fileUploadController.upload(file,req);
-        effect.setEffect_imgurl(url);
+        //储存图片，并将图片路径储存到数据库
+        String realpath = GetServerRealPathUnit.getPath("static/upload/");
+//       System.out.println("realPath:" + realpath);
+        for (MultipartFile attach : attachs) {
+            if (attach.isEmpty()) {
+                continue;
+            }
+            //图片验证重命名
+            String picName = FileUploadUtil.picRename(attach.getContentType());
+            String path = realpath + "/" + picName;
+//            System.out.println(path);
+            File f = new File(path);
+//            user.setImg(picName);
+            effect.setEffect_imgurl(picName);
+            try {
+                FileUtils.copyInputStreamToFile(attach.getInputStream(), f);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         //将信息储存到数据库
         effectService.add(effect);
         return "redirect:/learning/list";
@@ -166,22 +188,35 @@ public class LearningeffectController {
      * 完成修改操作
      * @param id 被修改数据的id
      * @param effect 被修改的数据参数（effect_content,effect_name,effect_person）
-     * @param file 修改的图片文件
+     * @param attachs 修改的图片文件
      * @param req 返回的文件信息
      * @return 重定向到学习效果页面
      */
     @PostMapping(value = "/{id}/update")
-    public String update(@PathVariable int id,Effect effect,MultipartFile file, HttpServletRequest req){
+    public String update(@PathVariable int id,Effect effect,@RequestParam("attachs") MultipartFile[] attachs, HttpServletRequest req){
         effect.setId(id);
         effect.setDic_datetime(new Date());
-        //如果上传图片，则保存该图片路径，否则保存之前的图片路径
-        String url = fileUploadController.upload(file,req);
-        if (url !=null){
-            effect.setEffect_imgurl(url);
-        }else {
-            effect.setEffect_imgurl(effectService.findById(id).getEffect_imgurl());
+        //储存图片，并将图片路径储存到数据库
+        String realpath = GetServerRealPathUnit.getPath("static/upload/");
+//       System.out.println("realPath:" + realpath);
+        for (MultipartFile attach : attachs) {
+            if (attach.isEmpty()) {
+                effect.setEffect_imgurl(effectService.findById(id).getEffect_imgurl());
+                continue;
+            }
+            //图片验证重命名
+            String picName = FileUploadUtil.picRename(attach.getContentType());
+            String path = realpath + "/" + picName;
+//            System.out.println(path);
+            File f = new File(path);
+//            user.setImg(picName);
+            effect.setEffect_imgurl(picName);
+            try {
+                FileUtils.copyInputStreamToFile(attach.getInputStream(), f);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        effect.setDic_num(effectService.findById(id).getDic_num());
         //将信息储存到数据库
         effectService.add(effect);
         System.out.println(effectService.findById(id).toString());

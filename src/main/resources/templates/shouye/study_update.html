@@ -52,9 +52,9 @@
 			<label class="layui-form-label">图片</label>
 			<div class="layui-upload">
 				<!--		  		<input type="file" name="file">上传图片</input>-->
-				<input type="file" name="file" value="请选择图片" onchange="xmTanUploadImg(this)">
+				<input type="file" name="attachs" value="请选择图片" onchange="xmTanUploadImg(this)">
 				<div class="layui-upload-list">
-					<img style="width: 200px;" class="layui-upload-img" id="selectImg" th:src="${effect.effect_imgurl}">
+					<img style="width: 200px;" class="layui-upload-img" id="selectImg" th:src="@{'/upload/'+${effect.effect_imgurl}}">
 					<p id="demoText"></p>
 				</div>
 			</div>
