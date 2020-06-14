@@ -49,12 +49,12 @@ public class CollegeReport {
     @Column(name = "cr_tc_comment",columnDefinition = "text")
     //教师评语
     private String crTcComment;
-    @Column(name = "cr_score",columnDefinition = "int default 0")
+    @Column(name = "cr_score",nullable = false,columnDefinition = "float default 0")
     //报告成绩
-    private Float crScore;
-    @Column(name = "cr_tc_state",columnDefinition = "int default 0")
+    private float crScore;
+    @Column(name = "cr_tc_state",nullable = false,columnDefinition = "bit default 0")
     //教师评分状态，0未评分，1已经评分
-    private Boolean crTcState;
+    private boolean crTcState;
 
     public int getId() {
         return id;

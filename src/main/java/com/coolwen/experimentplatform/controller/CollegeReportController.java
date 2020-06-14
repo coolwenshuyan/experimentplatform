@@ -2,8 +2,10 @@ package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.model.CollegeReport;
 import com.coolwen.experimentplatform.model.DTO.CollegeReportStuExpDto;
+import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.CollegeReportService;
+import com.coolwen.experimentplatform.service.KaoHeModelScoreService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class CollegeReportController {
     @Autowired
     CollegeReportService collegeReportService;
 
+    @Autowired
+    KaoHeModelScoreService kaoHeModelScoreService;
+
     /**
      * 进入填写实验目的页面
      * @param mid  模块id号
@@ -41,10 +46,12 @@ public class CollegeReportController {
             collegeReport1.setStuid(student.getId());
             collegeReport1.setMid(mid);
             collegeReportService.addCollegeReport(collegeReport1);
-        }else {
-            CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
-            model.addAttribute("collegeReport",collegeReportStuExpDto);
         }
+        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
+        if (collegeReportStuExpDto.getCrTcState()){
+            return "redirect:/collegereport/allreport/"+mid;
+        }
+        model.addAttribute("collegeReport",collegeReportStuExpDto);
         return "shiyan_baogao/bg_top";
     }
 
@@ -162,6 +169,14 @@ public class CollegeReportController {
         CollegeReport collegeReport1 = collegeReportService.findStuidAndMid(student.getId(),mid);
         collegeReport1.setCrExpSummary(collegeReport.getCrExpSummary());
         collegeReportService.addCollegeReport(collegeReport1);
+
+        //如果是考核模块，改变学生填写报告状态为true
+        try {
+            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,student.getId());
+            khs.setmReportstate(true);
+            kaoHeModelScoreService.update(khs);
+        }catch(Exception e){
+        }
         //查询到报告信息
         CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
         model.addAttribute("collegeReport",collegeReportStuExpDto);
@@ -169,7 +184,7 @@ public class CollegeReportController {
     }
 
     @GetMapping("/allreport/{mid}")
-    public String allreport(@PathVariable int mid,CollegeReport collegeReport,Model model){
+    public String allreport(@PathVariable int mid,Model model){
         //获取学生的登录信息
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         //查询到报告信息
@@ -177,4 +192,25 @@ public class CollegeReportController {
         model.addAttribute("collegeReport",collegeReportStuExpDto);
         return "shiyan_baogao/bg_student";
     }
+
+    @GetMapping("/mark/{mid}/{stuid}")
+    public String mark(@PathVariable("mid") int mid,@PathVariable("stuid") int stuid,Model model){
+        //查询到报告信息
+        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(stuid,mid);
+        model.addAttribute("collegeReport",collegeReportStuExpDto);
+        model.addAttribute("stuid",stuid);
+        return "shiyan_baogao/bg_teacher";
+    }
+
+    @PostMapping("/mark/{mid}/{stuid}")
+    public String mark(@PathVariable("mid") int mid,@PathVariable("stuid") int stuid,CollegeReport collegeReport){
+        CollegeReport collegeReport1 = collegeReportService.findStuidAndMid(stuid,mid);
+        collegeReport1.setCrTcComment(collegeReport.getCrTcComment());
+        System.out.println(collegeReport.getCrTcComment());
+        collegeReport1.setCrScore(collegeReport.getCrScore());
+        collegeReport1.setCrTcState(true);
+        collegeReportService.addCollegeReport(collegeReport1);
+        return "redirect:/collegereport/mark/"+mid+"/"+stuid;
+    }
+
 }
