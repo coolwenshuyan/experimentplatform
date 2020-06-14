@@ -9,7 +9,6 @@
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
 		<link rel="stylesheet" href="../../static/css/font.css">
-		<link rel="stylesheet" href="../../static/css/layui.css">
 		<link rel="stylesheet" href="../../static/css/xadmin.css">
 		
 	</head>
@@ -48,6 +47,9 @@
 				width: 100%;
 				max-height: 100%;
 			}
+            .layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select{
+                display: none;
+            }
 		</style>
 	<body>
 
@@ -99,15 +101,13 @@
 				      <input type="text" name="m_inurl" required="required" lay-verify="title" autocomplete="off" placeholder="请输入实验平台链接" class="layui-input">
 				    </div>
 				</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">实验报告类型：</label>
-						<div class="layui-input-block">
-							<input type="radio" name="report_type" value="1" title="学院版">
-							<input type="radio" name="report_type" value="0" title="自定义版">
-						</div>
-					</div>
-
-
+                <div class="layui-form-item">
+                    <label class="layui-form-label">实验报告类型：</label>
+                    <div class="layui-input-block">
+                        <input type="radio"  name="report_type" value="1" title="学院版"/>
+                        <input type="radio" name="report_type" value="0" title="自定义版"/>
+                    </div>
+                </div>
 				 
 				<div class="layui-form-item">
 				    <div class="layui-input-block">
@@ -119,6 +119,8 @@
 			</div>
 		</div>
 	</body>
+
+    <script src="../../static/js/layui.all.js"></script>
 	<script type="text/javascript">
 		layui.use(['element','form'],function () {
 			var form = layui.form;
