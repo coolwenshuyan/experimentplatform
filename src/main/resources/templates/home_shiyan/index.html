@@ -60,6 +60,12 @@
 	.layui-nav {
 		padding: 0 13px;
 	}
+	.tit{
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 </style>
 
 <body>
@@ -67,14 +73,14 @@
 
 <div class="main_con" style="float: none">
 	<div class="layui-row">
-		<div class="layui-col-xs4 " th:each="model:${k}">
+		<div class="layui-col-xs4 clearfix" th:each="model:${k}">
 			<div class="content">
 				<div class="img" >
 					<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${model.m_imageurl}"/>
 				</div>
 				<div class="intro">
 					<div class="name" >
-						<h3 th:text="${model.m_name}"></h3>
+						<h3 class="tit" th:text="${model.m_name}"></h3>
 						<br>
 						<!--								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>-->
 						<!--								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>-->

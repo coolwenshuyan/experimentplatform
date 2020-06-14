@@ -56,10 +56,43 @@ public class ExpModel {
     //是否需要考核
     @Column(nullable = false,columnDefinition = "bit default 0")
     private boolean needKaohe;
+    //模块报告类型
+    @Column(nullable = false,columnDefinition = "bit default 0")
+    private boolean report_type;
 
+
+    @Override
+    public String toString() {
+        return "ExpModel{" +
+                "m_id=" + m_id +
+                ", m_name='" + m_name + '\'' +
+                ", m_manager='" + m_manager + '\'' +
+                ", m_type='" + m_type + '\'' +
+                ", classhour=" + classhour +
+                ", imageurl='" + imageurl + '\'' +
+                ", introduce='" + introduce + '\'' +
+                ", purpose='" + purpose + '\'' +
+                ", principle='" + principle + '\'' +
+                ", m_content='" + m_content + '\'' +
+                ", m_edata_intro='" + m_edata_intro + '\'' +
+                ", m_edataurl='" + m_edataurl + '\'' +
+                ", m_step='" + m_step + '\'' +
+                ", m_inurl='" + m_inurl + '\'' +
+                ", needKaohe=" + needKaohe +
+                ", report_type=" + report_type +
+                '}';
+    }
 
     public int getM_id() {
         return m_id;
+    }
+
+    public boolean isReport_type() {
+        return report_type;
+    }
+
+    public void setReport_type(boolean report_type) {
+        this.report_type = report_type;
     }
 
     public void setM_id(int m_id) {
@@ -178,24 +211,4 @@ public class ExpModel {
         this.needKaohe = needKaohe;
     }
 
-    @Override
-    public String toString() {
-        return "ExpModel{" +
-                "m_id=" + m_id +
-                ", m_name='" + m_name + '\'' +
-                ", m_manager='" + m_manager + '\'' +
-                ", m_type='" + m_type + '\'' +
-                ", classhour=" + classhour +
-                ", imageurl='" + imageurl + '\'' +
-                ", introduce='" + introduce + '\'' +
-                ", purpose='" + purpose + '\'' +
-                ", principle='" + principle + '\'' +
-                ", m_content='" + m_content + '\'' +
-                ", m_edata_intro='" + m_edata_intro + '\'' +
-                ", m_edataurl='" + m_edataurl + '\'' +
-                ", m_step='" + m_step + '\'' +
-                ", m_inurl='" + m_inurl + '\'' +
-                ", needKaohe=" + needKaohe +
-                '}';
-    }
 }

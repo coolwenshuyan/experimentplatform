@@ -33,6 +33,6 @@ public interface ModuleTestAnswerStuRepository extends BaseRepository<ModuleTest
     List<ModuleTestAnswerStu> findStudentAnswbyStuidAndMid(int stuId, Integer mid);
 
     @Query("select m from ModuleTestAnswerStu m where m.quest_id = ?1")
-    ModuleTestAnswerStu findByQuest_id(int questid);
+    List<ModuleTestAnswerStu> findByQuest_id(int questid);
 
 }

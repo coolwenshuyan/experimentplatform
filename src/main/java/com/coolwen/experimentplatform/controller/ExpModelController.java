@@ -379,13 +379,15 @@ public class ExpModelController {
     }
 
     //继续学习
-    @GetMapping("/contiuneStudy")
-    public String contiunrStudy(){
+    @GetMapping("/contiuneStudy/{id}")
+    public String contiunrStudy(@PathVariable("id")int id){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         if(student.getClassId() != 0) {
             ClassModel classModel = clazzService.findById(student.getClassId());
             if (classModel.getClassIscurrent() == false) {
-                return "redirect:/expmodel/kaoheModel";
+                if(kaoheModelService.findKaoheModelByMid(id) != null){
+                    return "redirect:/expmodel/kaoheModel";
+                }
             }
         }
         return "redirect:/expmodel/alltestModel";
@@ -394,6 +396,13 @@ public class ExpModelController {
     //中转站
     @GetMapping("/homeExpDispatcher/{id}")
     public String homeExpDispatcher(@PathVariable("id") int id, Model model){
+
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //暂时做了修改，如果没有登录，跳转到登录页
+        if(student == null){
+            return "home_page/login";
+        }
+
         model.addAttribute("disMid",id);
         return "kuangjia/shiyan";
     }

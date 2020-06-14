@@ -199,20 +199,29 @@ public class LoginController {
                     student.setStuUname(username);
                     student.setStuPassword(ShiroKit.md5(password, username));
                     if (stu_isinschool && stu_xuehao == ""){
-                        throw new UserException("在校学生须填写学号!");
+//                        throw new UserException("在校学生须填写学号!");
+                        model.addObject("xuehaomsg","在校学生须填写学号!");
+                        model.setViewName("register");
+                        return model;
                     }
                     if (stu_xuehao != "") {
                         Student student2 = studentService.findByStuXuehao(stu_xuehao);
                         if (student2 != null){
-                            throw new UserException("学号已经被使用!");
+//                            throw new UserException("学号已经被使用!");
+                            model.addObject("xuehaomsg","学号已经被使用!");
+                            model.setViewName("register");
+                            return model;
                         }
                         student.setStuXuehao(stu_xuehao);
                     }
                     student.setStuName(name);
                     Student stu = studentService.findByStuMobile(tel);
                     if (stu != null){
-                        throw new UserException("手机号已被使用!");
+//                        throw new UserException("手机号已被使用!");
 //                        throw new Exception("发生错误");
+                        model.addObject("telmsg","手机号已被使用!");
+                        model.setViewName("register");
+                        return model;
                     }
                     System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+stu);
                     student.setStuMobile(tel);

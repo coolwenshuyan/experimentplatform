@@ -13,8 +13,10 @@ import com.coolwen.experimentplatform.dao.TeacherRepository;
 import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.model.SetInfo;
+import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.NewsInfoService;
 import com.coolwen.experimentplatform.service.SetInfoService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,8 +74,15 @@ public class NewsInfoController {
         String[] sid =ids.split(",");
         for (int i = 0; i < sid.length ; i++) {
 //            String imgurl = setInfoService.findexpimg(Integer.parseInt(sid[i]));
-            String imgurl = expModelRepository.findexpimg(Integer.parseInt(sid[i]));
-            model.addAttribute("img"+String.valueOf(i),imgurl);
+//            String imgurl = expModelRepository.findexpimg(Integer.parseInt(sid[i]));
+            try {
+                ExpModel expModel = expModelRepository.findById(Integer.parseInt(sid[i])).get();
+                model.addAttribute("img"+String.valueOf(i),expModel.getImageurl());
+                model.addAttribute("mid"+String.valueOf(i),expModel.getM_id());
+            }catch (Exception e){
+
+            }
+
         }
         //平台统计
         //查询实验模块总数
@@ -105,6 +114,13 @@ public class NewsInfoController {
     //前端实验大厅入口
     @GetMapping(value = "/shiyan")
     public String model(Model model){
+
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //暂时做了修改，如果没有登录，跳转到登录页
+        if(student == null){
+            return "home_page/login";
+        }
+
         model.addAttribute("disMid",false);
         return "kuangjia/shiyan";
     }

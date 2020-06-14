@@ -208,7 +208,7 @@ public class StudentController {
     @GetMapping("/toEditClass/{id}")
     public String editClass(@PathVariable("id")int id,Model model){
         model.addAttribute("class",clazzService.findById(id));
-        return "/student/class_alter";
+        return "student/class_alter";
     }
     //进入班级添加
     @GetMapping("/toAddClass")
