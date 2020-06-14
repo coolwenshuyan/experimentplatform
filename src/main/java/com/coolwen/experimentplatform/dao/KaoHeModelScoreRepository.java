@@ -23,7 +23,7 @@ public interface KaoHeModelScoreRepository extends BaseRepository<KaoHeModelScor
     @Query("delete from KaoHeModelScore khms where khms.tKaohemodleId = ?1 ")
     void deleteByTKaohemodleId(int tkid);
 
-    @Query("select new com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO(kh.m_id,khs.stuId,khs.mTeststate,khs.mReportstate,khs.mScale,khs.mScore,e.m_name,e.imageurl,e.m_inurl,e.report_type) from KaoheModel kh left join ExpModel e on kh.m_id = e.m_id left join KaoHeModelScore khs on khs.tKaohemodleId = kh.id where khs.stuId = ?1")
+    @Query("select new com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO(kh.m_id,khs.stuId,khs.mTeststate,khs.mReportstate,khs.mScale,khs.mScore,e.m_name,e.imageurl,e.m_inurl,e.report_type) from KaoheModel kh left join ExpModel e on kh.m_id = e.m_id left join KaoHeModelScore khs on khs.tKaohemodleId = kh.id where khs.stuId = ?1 order by kh.m_id")
     Page<KaoHeModelStuDTO> findKaoHeModelStuDTOByStuId (int stu_id, PageRequest pageRequest);
 
     @Query("select new com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO(kh.m_id,khs.stuId,khs.mTeststate,khs.mReportstate,khs.mScale,khs.mScore,e.m_name,e.imageurl,e.m_inurl,e.report_type) from KaoheModel kh left join ExpModel e on kh.m_id = e.m_id left join KaoHeModelScore khs on khs.tKaohemodleId = kh.id where khs.stuId = ?1 and e.m_id = ?2")

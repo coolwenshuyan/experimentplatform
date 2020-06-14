@@ -58,8 +58,8 @@ public class ExpModelServiceImpl implements ExpModelService {
 
     @Override
     public Page<ExpModel> finExpAll(int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum,6,Sort.Direction.ASC,"m_id");
-        return expModelRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of(pageNum,6);
+        return expModelRepository.findExpModels(pageable);
     }
 
     @Override
@@ -82,6 +82,8 @@ public class ExpModelServiceImpl implements ExpModelService {
     public ExpModel findExpModelsByKaoheMid(int mid) {
         return expModelRepository.findExpModelsByKaoheMid(mid);
     }
+
+
 
 
 }

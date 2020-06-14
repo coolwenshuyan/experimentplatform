@@ -106,7 +106,7 @@ public class KaoheModelServiceImpl implements KaoheModelService {
 
     @Override
     public Page<KaoHeModelStuDTO> findKaoheModelStuDto(int stu_id, int pageNum) {
-        PageRequest pageRequest = PageRequest.of(pageNum, 6, Sort.Direction.ASC,"m_id");
+        PageRequest pageRequest = PageRequest.of(pageNum, 6);
         return kaoHeModelScoreRepository.findKaoHeModelStuDTOByStuId(stu_id, pageRequest);
     }
 
