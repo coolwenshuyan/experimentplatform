@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生浏览界面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+    <style>
+        .big{
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid black;
+            margin-top: 30px;
+        }
+        .t_img div{
+            width: 100%;
+            text-align: center;
+        }
+        .tit{
+            text-align: center;
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .ming{
+            font-size: 18px;
+            font-family: "宋体";
+            margin-top: 25px;
+        }
+        .t_table{
+            margin-top: 15px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .t_table td{
+            border: 1px solid black;
+            padding: 7px;
+            letter-spacing: 2px;
+        }
+        .tab_tit{
+            width: 8%;
+            padding-left: 11px;
+        }
+        /*输入框设置*/
+        .layui-input-block{
+            margin-left: 0px;
+        }
+        .layui-input, .layui-textarea{
+            border: none;
+            padding-left: 0px;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+        .box{
+            margin: 30px 20px;
+            /*margin-left: 23px;*/
+        }
+        .mudi{
+
+            font-size: 18px;
+
+        }
+        .content{
+            width:95%;
+            overflow:auto;
+           /*margin: auto;*/
+            margin: 30px auto;
+            height: 300px;
+            border: #ccc 1px solid;
+        }
+
+        .score{
+            font-size: 18px;
+        }
+      .a{
+          width: 50%;
+          padding: 50px 0 50px 30px;
+          position: relative;
+      }
+        .b{
+            margin: -3% 20% 5% 0;
+            float: right;
+        }
+        .next{
+            margin: 2% 0% 2% 88%;
+            /*float: right;*/
+            /*position: absolute;*/
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="big">
+    <div class="layui-row">
+        <div class="layui-col-xs12 t_img">
+            <div><img  src="../../static/images/LOGO2.png" alt=""></div>
+        </div>
+    </div>
+
+    <div class="tit">实验报告</div>
+
+    <div class="layui-row ming">
+        <div class="layui-col-xs4 layui-col-xs-offset1">实验序号：7</div>
+        <div class="layui-col-xs5 layui-col-xs-offset2">实验名称：长文档编辑</div>
+    </div>
+
+    <div>
+        <table class="t_table">
+            <tr>
+                <td class="tab_tit">学号</td>
+                <td >1806101040</td>
+                <td class="tab_tit">姓名</td>
+                <td>李娟</td>
+                <td class="tab_tit">班级</td>
+                <td>信管03</td>
+            </tr>
+            <tr>
+                <td class="tab_tit">地点</td>
+                <td>
+                    <div class="layui-input-block">
+                        <input type="text"   placeholder="请输入地点" class="layui-input">
+                    </div>
+                </td>
+                <td class="tab_tit">时间</td>
+                <td>
+                    <div class="layui-input-block">
+                        <input type="text"   placeholder="请输入时间" class="layui-input">
+                    </div>
+                </td>
+                <td class="tab_tit">教师</td>
+                <td>
+                    <div class="layui-input-block">
+                        <input type="text"   placeholder="请输入教师名字" class="layui-input">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box">
+        <div class="mudi">一、实验目的</div>
+
+        <div class="content">
+        </div>
+    </div>
+    <div class="box">
+        <div class="mudi">二、实验环境</div>
+
+        <div class="content">
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="mudi">三、实验内容和步骤</div>
+
+        <div class="content">
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="mudi">四、实验心得和总结</div>
+
+        <div class="content">
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="mudi">五、教师评语</div>
+
+        <div class="content">
+
+        </div>
+    </div>
+
+    <div class="box a">
+        <div class="score">得分:</div>
+        <div class="score_"></div>
+
+    </div>
+    <div class="box b">
+        <div class="score">教师签名:</div>
+        <div class="score_"></div>
+
+
+    </div>
+
+
+</div>
+<div>
+    <button type="button" class="layui-btn next">导出实验报告</button>
+</div>
+
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+
+
+</body>
+</html>
