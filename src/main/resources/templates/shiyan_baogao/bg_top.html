@@ -102,7 +102,7 @@
                     <td class="tab_tit">时间</td>
                     <td>
                         <div class="layui-input-block">
-                            <input type="text" name="crDate" th:value="${collegeReport.getCrDate()}" placeholder="请输入时间" class="layui-input">
+                            <input type="text" name="crDate" th:value="${#dates.format(collegeReport.getCrDate(),'yyyy/MM/dd')}" placeholder="时间格式：yyyy/MM/dd" class="layui-input">
                         </div>
                     </td>
                     <td class="tab_tit">教师</td>

@@ -91,7 +91,7 @@
                 <td class="tab_tit">地点</td>
                 <td th:text="${collegeReport.getCrDress()}"></td>
                 <td class="tab_tit">时间</td>
-                <td th:text="${collegeReport.getCrDate()}"></td>
+                <td th:text="${#dates.format(collegeReport.getCrDate(),'yyyy/MM/dd')}"></td>
                 <td class="tab_tit">教师</td>
                 <td th:text="${collegeReport.getCrTeacher()}"></td>
             </tr>

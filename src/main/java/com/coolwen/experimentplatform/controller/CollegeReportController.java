@@ -47,6 +47,15 @@ public class CollegeReportController {
             collegeReport1.setMid(mid);
             collegeReportService.addCollegeReport(collegeReport1);
         }
+        //如果是考核模块，并填写状态为完成，直接跳转到查看页面
+        try {
+            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,student.getId());
+            if (khs.ismReportstate()){
+                return "redirect:/collegereport/allreport/"+mid;
+            }
+        }catch(Exception e){
+        }
+        //如果教师已经评分，直接进入查看页面
         CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
         if (collegeReportStuExpDto.getCrTcState()){
             return "redirect:/collegereport/allreport/"+mid;
@@ -177,9 +186,9 @@ public class CollegeReportController {
             kaoHeModelScoreService.update(khs);
         }catch(Exception e){
         }
-        //查询到报告信息
-        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
-        model.addAttribute("collegeReport",collegeReportStuExpDto);
+//        //查询到报告信息
+//        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
+//        model.addAttribute("collegeReport",collegeReportStuExpDto);
         return "redirect:/collegereport/allreport/"+mid;
     }
 
@@ -207,6 +216,7 @@ public class CollegeReportController {
         CollegeReport collegeReport1 = collegeReportService.findStuidAndMid(stuid,mid);
         collegeReport1.setCrTcComment(collegeReport.getCrTcComment());
         System.out.println(collegeReport.getCrTcComment());
+        collegeReport1.setCrClassName(collegeReport.getCrClassName());
         collegeReport1.setCrScore(collegeReport.getCrScore());
         collegeReport1.setCrTcState(true);
         collegeReportService.addCollegeReport(collegeReport1);
