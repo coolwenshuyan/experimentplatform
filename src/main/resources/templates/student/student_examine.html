@@ -73,9 +73,7 @@
                                     <td th:text="${student.isStuIsinschool()==true?'是':'否'}"></td>
                                     <td th:text="${student.stuMobile}"></td>
                                       <td class="td-manage">
-                                          <a href="class_alter.html">
-                                              <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/passReviewd/${student.id}|}">通过</a>
-                                          </a>
+                                          <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/passReviewd/${student.id}|}">通过</a>
                                           <a class="layui-btn layui-bg-red" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/deleteReviewd/${student.id}|}">删除</a>
                                       </td>
                                 </tr>
