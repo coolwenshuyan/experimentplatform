@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.Date;
 
@@ -117,9 +118,9 @@ public class NewsInfoController {
 
     //前端实验大厅入口
     @GetMapping(value = "/shiyan")
-    public String model(Model model){
+    public String model(Model model, HttpSession session){
 
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         //暂时做了修改，如果没有登录，跳转到登录页
         if(student == null){
             return "home_page/login";

@@ -416,9 +416,9 @@ public class ExpModelController {
 
     //中转站
     @GetMapping("/homeExpDispatcher/{id}")
-    public String homeExpDispatcher(@PathVariable("id") int id, Model model){
+    public String homeExpDispatcher(@PathVariable("id") int id, Model model,HttpSession session){
 
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         //暂时做了修改，如果没有登录，跳转到登录页
         if(student == null){
             return "home_page/login";
