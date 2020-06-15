@@ -89,7 +89,12 @@
 								  <li class="layui-nav-item "><a th:href="@{|/kaoshi/${model.m_id}/toExamPageList|}">模块测试</a></li>
 								  <li class="layui-nav-item"><a th:href="${model.getM_inurl()}">进入实验</a></li>
 								  <li class="layui-nav-item">
-								    <a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a>
+									  <span th:if="${model.report_type == false}">
+										  <a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a>
+									  </span>
+									  <span th:if="${model.report_type == true}">
+										  <a th:href="@{|/collegereport/info/${model.m_id}|}">填写报告</a>
+									  </span>
 								  </li>
 								  
 								</ul>

@@ -51,6 +51,8 @@ public class ExpModelController {
     TotalScoreCurrentService totalScoreCurrentService;
     @Autowired
     ClazzService clazzService;
+    @Autowired
+    CollegeReportService collegeReportService;
 
 
     //查询模块信息页面
@@ -73,6 +75,7 @@ public class ExpModelController {
                       int m_classhour,
                       String m_inurl,
                       MultipartFile m_image,
+                      boolean report_type,
                       HttpServletRequest request,
                       HttpSession session
                       )
@@ -85,6 +88,7 @@ public class ExpModelController {
         expModel.setClasshour(m_classhour);
         expModel.setM_inurl(m_inurl);
         expModel.setImageurl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpModelImage/"+file);
+        expModel.setReport_type(report_type);
         expModelService.save(expModel);
         session.setAttribute("modelId",expModel.getM_id());
         return "redirect:/expmodel/addTheory";
@@ -120,8 +124,14 @@ public class ExpModelController {
         moduleTestQuestService.deleteAllModuleTestQuest(moduleTestQuests);
         //删除实验模块报告与实验报告回答
         List<Report> reports = reportService.findReportByMId(id);
-        for(Report r : reports){
-            reportAnswerService.deleteReportAnswerByReportId(r.getReportId());
+        if(reports != null && !reports.isEmpty()){
+            for(Report r : reports){
+                reportAnswerService.deleteReportAnswerByReportId(r.getReportId());
+            }
+        }
+        List<CollegeReport> collegeReportList = collegeReportService.findCollegeReportByMid(id);
+        if(collegeReportList != null && !collegeReportList.isEmpty()){
+            collegeReportService.deleteCollegeList(collegeReportList);
         }
         reportService.deleteReports(reports);
         expModelService.deleteExpModelById(id);
@@ -144,6 +154,7 @@ public class ExpModelController {
                                   int m_classhour,
                                   String m_inurl,
                                   MultipartFile m_image,
+                                  boolean report_type,
                                   HttpServletRequest request,
                                   @PathVariable("id") int id
                                   )
@@ -154,9 +165,19 @@ public class ExpModelController {
         preExpModel.setM_type(m_type);
         preExpModel.setClasshour(m_classhour);
         preExpModel.setM_inurl(m_inurl);
+        preExpModel.setReport_type(report_type);
         String path = fIleService.upload(request,m_image);
         if(path != null){
             preExpModel.setImageurl(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/ExperimentPlatform/ExpModelImage/"+path);
+        }
+        if(report_type == false){
+            //修改为自定义版删学院版答题记录
+            collegeReportService.deleteCollege(id);
+        }else {
+            List<Report> reportList = reportService.findReportByMId(id);
+            for (Report r : reportList){
+                reportAnswerService.deleteReportAnswerByReportId(r.getReportId());
+            }
         }
         expModelService.save(preExpModel);
         return "redirect:/expmodel/list";

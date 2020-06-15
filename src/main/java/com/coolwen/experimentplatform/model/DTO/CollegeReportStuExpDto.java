@@ -1,75 +1,65 @@
-package com.coolwen.experimentplatform.model;
+package com.coolwen.experimentplatform.model.DTO;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
  * @author 朱治汶
- * @version 1.0
- * @date 2020/6/13 22:06
+ * @date 2020/6/14 0:41
  **/
-@Entity
-@Table(name = "t_college_report")
-public class CollegeReport {
-    @Id //自动获取id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "admin_id")
-    @TableGenerator(name = "admin_id", initialValue = 0, allocationSize = 1, table = "seq_table")
-    @Column(name = "id")
-    private int id;
-    @Column(name = "stu_id")
-    //学生ID
-    private int stuid;
-    @Column(name = "m_id")
-    //模块ID
+public class CollegeReportStuExpDto {
     private int mid;
-    @Column(name = "cr_classname")
     //课程名称
     private String crClassName;
-    @Column(name = "cr_dress")
     //实验地点
     private String crDress;
-    @Column(name = "cr_date")
     //报告地点
     private Date crDate;
-    @Column(name = "cr_teacher")
     //指导教师
     private String crTeacher;
-    @Column(name = "cr_exp_purpose",columnDefinition = "text")
     //实验目的
     private String crExpPurpose;
-    @Column(name = "cr_exp_evr",columnDefinition = "text")
     //实验环境
     private String crExpEvr;
-    @Column(name = "cr_exp_content",columnDefinition = "longtext")
     //实验内容和步骤
     private String crExpContent;
-    @Column(name = "cr_exp_summary",columnDefinition = "text")
     //实验心得和总结
     private String crExpSummary;
-    @Column(name = "cr_tc_comment",columnDefinition = "text")
     //教师评语
     private String crTcComment;
-    @Column(name = "cr_score",nullable = false,columnDefinition = "float default 0")
     //报告成绩
-    private float crScore;
-    @Column(name = "cr_tc_state",nullable = false,columnDefinition = "bit default 0")
+    private Float crScore;
     //教师评分状态，0未评分，1已经评分
-    private boolean crTcState;
+    private Boolean crTcState;
+    //学生姓名
+    private String stuName;
+    //学号
+    private String stuXuehao;
+    //班级名字
+    private String className;
+    //模块名称
+    private String mname;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getStuid() {
-        return stuid;
-    }
-
-    public void setStuid(int stuid) {
-        this.stuid = stuid;
+    public CollegeReportStuExpDto(int mid, String crClassName, String crDress, Date crDate, String crTeacher,
+                                  String crExpPurpose, String crExpEvr, String crExpContent, String crExpSummary,
+                                  String crTcComment, Float crScore, Boolean crTcState, String stuName, String stuXuehao,
+                                  String className, String mname) {
+        this.mid = mid;
+        this.crClassName = crClassName;
+        this.crDress = crDress;
+        this.crDate = crDate;
+        this.crTeacher = crTeacher;
+        this.crExpPurpose = crExpPurpose;
+        this.crExpEvr = crExpEvr;
+        this.crExpContent = crExpContent;
+        this.crExpSummary = crExpSummary;
+        this.crTcComment = crTcComment;
+        this.crScore = crScore;
+        this.crTcState = crTcState;
+        this.stuName = stuName;
+        this.stuXuehao = stuXuehao;
+        this.className = className;
+        this.mname = mname;
     }
 
     public int getMid() {
@@ -166,5 +156,37 @@ public class CollegeReport {
 
     public void setCrTcState(Boolean crTcState) {
         this.crTcState = crTcState;
+    }
+
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    public String getStuXuehao() {
+        return stuXuehao;
+    }
+
+    public void setStuXuehao(String stuXuehao) {
+        this.stuXuehao = stuXuehao;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getMname() {
+        return mname;
+    }
+
+    public void setMname(String mname) {
+        this.mname = mname;
     }
 }

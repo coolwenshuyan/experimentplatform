@@ -12,6 +12,7 @@ public class ExpModel {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "exp_model_id")
     @TableGenerator(name = "exp_model_id", initialValue = 0, allocationSize = 1,table = "seq_table")
+    @Column(name = "m_id")
     //模块id
     private int m_id;
     //模块名称

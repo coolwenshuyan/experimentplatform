@@ -76,7 +76,7 @@
             <tbody>
             <tr th:each="effect:${learningPageInfo.content}">
                 <td th:text="${effect.effect_name}">贤心</td>
-                <td ><img th:src="${effect.effect_imgurl}"></td>
+                <td ><img th:src="@{'/upload/'+${effect.effect_imgurl}}"></td>
                 <td th:text="${effect.effect_person}">人生</td>
                 <td th:text="${effect.effect_content}">人生就像是一场修行</td>
                 <td th:text="${effect.dic_datetime}">2020-5-29</td>
