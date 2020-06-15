@@ -47,19 +47,19 @@ public class CollegeReportController {
             collegeReport1.setMid(mid);
             collegeReportService.addCollegeReport(collegeReport1);
         }
-        //如果是考核模块，并填写状态为完成，直接跳转到查看页面
+        //如果是考核模块，并教师已经评分，直接跳转到查看页面
         try {
             KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,student.getId());
-            if (khs.ismReportstate()){
+            if (khs.ismReportteacherstate()){
                 return "redirect:/collegereport/allreport/"+mid;
             }
         }catch(Exception e){
         }
+        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(), mid);
         //如果教师已经评分，直接进入查看页面
-        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
-        if (collegeReportStuExpDto.getCrTcState()){
-            return "redirect:/collegereport/allreport/"+mid;
-        }
+//        if (collegeReportStuExpDto.getCrTcState()){
+//            return "redirect:/collegereport/allreport/"+mid;
+//        }
         model.addAttribute("collegeReport",collegeReportStuExpDto);
         return "shiyan_baogao/bg_top";
     }
