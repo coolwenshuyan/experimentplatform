@@ -1,19 +1,25 @@
 package com.coolwen.experimentplatform.controller;
 
+        import cn.afterturn.easypoi.excel.ExcelExportUtil;
+        import cn.afterturn.easypoi.excel.entity.ExportParams;
         import com.coolwen.experimentplatform.dao.KaoheModelRepository;
         import com.coolwen.experimentplatform.dao.StudentRepository;
+        import com.coolwen.experimentplatform.filter.FileExcelUtil;
         import com.coolwen.experimentplatform.model.ClassModel;
         import com.coolwen.experimentplatform.model.Student;
         import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
         import com.coolwen.experimentplatform.service.ClassService;
         import com.coolwen.experimentplatform.service.ClazzService;
         import com.coolwen.experimentplatform.service.StudentService;
+        import org.apache.poi.ss.usermodel.Workbook;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.data.domain.Page;
         import org.springframework.stereotype.Controller;
         import org.springframework.ui.Model;
         import org.springframework.web.bind.annotation.*;
 
+        import javax.servlet.http.HttpServletResponse;
+        import java.io.IOException;
         import java.util.ArrayList;
         import java.util.List;
 
@@ -89,7 +95,7 @@ public class ModleTestScoreController {
                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum) {
 
-        //与[ModleTestReportController]大同小异,几乎一样,不再赘述
+        //与[ModleTestReportController]大同小异
 //        Page<Student> c = studentService.findAll(pageNum);
         Page<Student> c = studentService.findStudentPageAndXuehao(pageNum, select_orderId);
 
@@ -156,5 +162,24 @@ public class ModleTestScoreController {
         return "kaohe/score_manage";
     }
 
+    //测试用导出
+    @RequestMapping("/exportExcel")
+    public void exportExcel(HttpServletResponse response) {
+        List<StudentTestScoreDTO> a = studentRepository.listStudentMTestAnswerDTO();
+//        List<Student> b = studentRepository.findAll();
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+a);
+        // 设置响应输出的头类型(设置响应类型)
+        response.setHeader("content-Type", "application/vnd.ms-excel");
+        // 下载文件的默认名称(设置下载文件的默认名称)
+        response.setHeader("Content-Disposition", "attachment;filename=address.xls");
+        //导出操作
+//        try {
+//            Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("客户地址","1"),User.class,addresses);
+//            workbook.write(response.getOutputStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        FileExcelUtil.exportExcel(a, "用户详细信息", "用户表", StudentTestScoreDTO.class, "用户信息.xls", response);
+    }
 
 }

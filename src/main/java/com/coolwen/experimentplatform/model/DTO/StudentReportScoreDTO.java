@@ -1,7 +1,6 @@
 package com.coolwen.experimentplatform.model.DTO;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
-import com.google.inject.internal.cglib.core.$ProcessArrayCallback;
 
 /**
  * @author Artell
@@ -9,7 +8,7 @@ import com.google.inject.internal.cglib.core.$ProcessArrayCallback;
  */
 
 
-public class StudentTestScoreDTO {
+public class StudentReportScoreDTO {
 //    学生id
     @Excel(name = "学生id", orderNum = "0")
     private int sid;
@@ -30,7 +29,9 @@ public class StudentTestScoreDTO {
 
     private int mid;
 
-    public StudentTestScoreDTO(int sid, String sName, int sClass, String mName, float mScore, boolean done, int mid) {
+    private boolean reportType;
+
+    public StudentReportScoreDTO(int sid, String sName, int sClass, String mName, float mScore, boolean done, int mid) {
         this.sid = sid;
         this.sName = sName;
         this.sClass = sClass;
@@ -40,6 +41,16 @@ public class StudentTestScoreDTO {
         this.mid = mid;
     }
 
+    public StudentReportScoreDTO(int sid, String sName, int sClass, String mName, float mScore, boolean done, int mid, boolean reportType) {
+        this.sid = sid;
+        this.sName = sName;
+        this.sClass = sClass;
+        this.mName = mName;
+        this.mScore = mScore;
+        Done = done;
+        this.mid = mid;
+        this.reportType = reportType;
+    }
 
     public int getSid() {
         return sid;
@@ -95,6 +106,14 @@ public class StudentTestScoreDTO {
 
     public void setMid(int mid) {
         this.mid = mid;
+    }
+
+    public boolean isReportType() {
+        return reportType;
+    }
+
+    public void setReportType(boolean reportType) {
+        this.reportType = reportType;
     }
 
     @Override

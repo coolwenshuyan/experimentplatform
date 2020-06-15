@@ -265,5 +265,10 @@ public class StudentServiceImpl implements StudentService {
         return listStuTotalScoreCurrentDTOPage;
     }
 
+    @Override
+    public List<StuTotalScoreCurrentDTO> listAllStuTotalScoreCurrentDTOOfPass() {
+        return studentRepository.listAllStuTotalScoreCurrentDTOOfPass();
+    }
+
 
 }
