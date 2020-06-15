@@ -21,6 +21,7 @@
 
 
 <div class="test layui-container" th:object="${kaoHeModelScore}">
+	<div style="color: red" th:text="${msg}"></div>
 	<h2 align="center"><strong>填写报告</strong></h2><br><br>
 
 	<div th:if="${kaoHeModelScore?.ismReportteacherstate()} eq true">

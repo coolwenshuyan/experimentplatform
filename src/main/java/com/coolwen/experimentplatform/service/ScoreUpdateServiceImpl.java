@@ -27,6 +27,12 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
     @Autowired
     ClazzService clazzService;
 
+    @Autowired
+    ExpModelService expModelService; //模块服务
+
+    @Autowired
+    CollegeReportService collegeReportService; //学院报告服务
+
     @Override
     public void singleStudentScoreUpdate(int id) {
         //判断学生班级是否往期
@@ -119,10 +125,19 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
     //模块报告分数获取
     public float moduleReportScore(int mid,int stuid){
         float mReportScore = 0;
-        List<Report> reportList = reportService.findReportByMId(mid);
-        for(Report r : reportList){
-            ReportAnswer reportAnswer = reportAnswerService.findByReportidAndStuID(r.getReportId(),stuid);
-            mReportScore += reportAnswer.getScore();
+        //根据模块的报告类型，如果是学院报告，就从学院报告表中查询，如果是自定义报告，就从自定义报告中查询
+        ExpModel model1 = expModelService.findExpModelByID(mid);
+//        System.out.println(model1.isReport_type());
+//        System.out.println("mid:"+mid);
+        if(model1.isReport_type()) {
+            CollegeReport collegeReport1 = collegeReportService.findStuidAndMid(stuid,mid);
+            mReportScore = collegeReport1.getCrScore();
+        } else {
+            List<Report> reportList = reportService.findReportByMId(mid);
+            for (Report r : reportList) {
+                ReportAnswer reportAnswer = reportAnswerService.findByReportidAndStuID(r.getReportId(), stuid);
+                mReportScore += reportAnswer.getScore();
+            }
         }
         return mReportScore;
     }

@@ -219,6 +219,13 @@ public class CollegeReportController {
         collegeReport1.setCrClassName(collegeReport.getCrClassName());
         collegeReport1.setCrScore(collegeReport.getCrScore());
         collegeReport1.setCrTcState(true);
+        //如果是考核模块，改变学生填写报告状态为true
+        try {
+            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuid);
+            khs.setmReportteacherstate(true);
+            kaoHeModelScoreService.update(khs);
+        }catch(Exception e){
+        }
         collegeReportService.addCollegeReport(collegeReport1);
         return "redirect:/collegereport/mark/"+mid+"/"+stuid;
     }
