@@ -27,4 +27,6 @@ public interface ModuleTestAnswerStuService {
 
 
     List<ModuleTestAnswerStu> findByQuest_id(int questid);
+
+    void deleteByStuIdModelId(int m_id, int id);
 }

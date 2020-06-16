@@ -37,4 +37,7 @@ public interface ReportAnswerService {
 
     int findByStuIdModelId(int mid, int stuId);
 
+    void deleteReportAnswerByMid(int mid);
+
+    void deleteByStuIdModelId(int m_id, int id);
 }

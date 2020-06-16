@@ -54,6 +54,10 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
             test_baifenbi = k.getTest_baifenbi();
             kaohe_baifenbi = k.getKaohe_baifenbi();
 
+            //循环前，每个模块测试成绩和报告成绩设置为0
+            mTestScore = 0;
+            mReportScore = 0;
+
             //找到该考生在该模块的考核模块成绩表
             KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(k.getM_id(),id);
 
@@ -85,8 +89,10 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
         //更新整体模块成绩
         totalScoreCurrent.setmTotalScore(mTotalScore);
 
+        //计算课程整体测试成绩
+        testScore = moduleTestScore(-1,id);
         //更新整体测试成绩
-        totalScoreCurrent.setTestScore(moduleTestScore(-1,id));
+        totalScoreCurrent.setTestScore(testScore);
         //更新总成绩
         totalScoreCurrent.setTotalScore(mTotalScore * kaohe_baifenbi + testScore * test_baifenbi);
         totalScoreCurrentService.add(totalScoreCurrent);

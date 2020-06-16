@@ -48,6 +48,8 @@ public class StudentController {
     TotalScorePassService totalScorePassService;
     @Autowired
     ExpModelService expModelService;
+    @Autowired
+    CollegeReportService collegeReportService;
     //查询学生列表
     @GetMapping("/list")
     public String studentList(Model model, @RequestParam(value = "pageNum",defaultValue = "0")int pageNum){
@@ -366,6 +368,8 @@ public class StudentController {
         if(classModel.getClassIscurrent() == false){
             for(Student student : studentList){
                 totalScoreCurrentService.deleteTotalScoreCurrentByStuId(student.getId());
+                //删除学生考核模块成绩记录
+                kaoHeModelScoreService.deleteKaoheModuleScoreByStuId(student.getId());
             }
         }else {
             for(Student student : studentList){
@@ -403,6 +407,10 @@ public class StudentController {
         //分班后进行学生考核成绩表生成操作
         if(!kaoheModels.isEmpty() && kaoheModels != null){
             for(KaoheModel km : kaoheModels){
+                //学生添加进班级时，删除该学生考核模块相关测试答题记录
+                reportAnswerService.deleteByStuIdModelId(km.getM_id(),student.getId());
+                moduleTestAnswerStuService.deleteByStuIdModelId(km.getM_id(),student.getId());
+                collegeReportService.deleteByStuIdModelId(km.getM_id(),student.getId());
                 KaoHeModelScore pre = kaoHeModelScoreService.findKaoheModelScoreByMid(km.getM_id(),student.getId());
                 if(pre == null){
                     kaoHeModelScore = new KaoHeModelScore();
@@ -424,6 +432,7 @@ public class StudentController {
             totalScoreCurrentService.add(totalScoreCurrent);
         }
         studentservice.saveStudent(student);
+
         return "redirect:/studentManage/addStudent/"+id;
     }
     //班级学生移除操作

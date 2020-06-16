@@ -4,7 +4,9 @@ import com.coolwen.experimentplatform.dao.basedao.BaseRepository;
 import com.coolwen.experimentplatform.model.CollegeReport;
 import com.coolwen.experimentplatform.model.DTO.CollegeReportStuExpDto;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,4 +27,9 @@ public interface CollegeReportRepository extends BaseRepository<CollegeReport, I
 
     @Query("select c from CollegeReport c where c.mid = ?1")
     List<CollegeReport> findCollegeReportsByMid(int mid);
+
+    @Modifying
+    @Transactional
+    @Query(value="DELETE t_college_report FROM t_college_report WHERE t_college_report.m_id = ? and t_college_report.stu_id=?",nativeQuery=true)
+    void deleteByStuIdModelId(int m_id, int id);
 }

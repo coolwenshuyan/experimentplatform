@@ -54,4 +54,9 @@ public class ModuleTestAnswerStuServiceImpl implements ModuleTestAnswerStuServic
     public List<ModuleTestAnswerStu> findByQuest_id(int questid) {
         return moduleTestAnswerStuRepository.findByQuest_id(questid);
     }
+
+    @Override
+    public void deleteByStuIdModelId(int m_id, int id) {
+        moduleTestAnswerStuRepository.deleteByStuIdModelId(m_id,id);
+    }
 }

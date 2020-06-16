@@ -6,6 +6,7 @@ import com.coolwen.experimentplatform.model.KaoHeModelScore;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.CollegeReportService;
 import com.coolwen.experimentplatform.service.KaoHeModelScoreService;
+import com.coolwen.experimentplatform.service.ScoreUpdateService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,9 @@ public class CollegeReportController {
 
     @Autowired
     KaoHeModelScoreService kaoHeModelScoreService;
+
+    @Autowired
+    ScoreUpdateService scoreUpdateService;
 
     /**
      * 进入填写实验目的页面
@@ -227,6 +231,8 @@ public class CollegeReportController {
         }catch(Exception e){
         }
         collegeReportService.addCollegeReport(collegeReport1);
+        //更新成绩
+        scoreUpdateService.singleStudentScoreUpdate(stuid);
         return "redirect:/collegereport/mark/"+mid+"/"+stuid;
     }
 

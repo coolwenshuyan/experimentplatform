@@ -44,6 +44,10 @@ public class KaoheModelController {
     private TotalScoreCurrentService totalScoreCurrentService; //处理表13中考核模块数量
     @Autowired
     private ScoreUpdateService scoreUpdateService;   //移除模块后，批量更新学生成绩
+    @Autowired
+    private CollegeReportService collegeReportService;  //学院报告服务
+    @Autowired
+    private ReportAnswerService reportAnswerService;   //自定义报告
 
 
     /**
@@ -139,6 +143,7 @@ public class KaoheModelController {
         u.setM_id(expModel.getM_id());
 //        u.setExperiment_name(expModel.getM_name());
 //        u.setClass_hour(expModel.getClasshour());
+        System.out.println(">>>>>>>>>>>>>>>>>>>>"+moveIn.getM_order());
         u.setM_order(moveIn.getM_order());
         u.setM_scale(moveIn.getM_scale());
 //        u.setShiyan_Purpose(expModel.getPurpose());
@@ -173,6 +178,9 @@ public class KaoheModelController {
         expModelService.save(expModel);
         System.out.println(">>>>>>>>>>>>add");
         kaoheModelService.deleteMTestAnswerByMid(mid);
+
+        collegeReportService.deleteCollege(mid);
+        reportAnswerService.deleteReportAnswerByMid(mid);
         return "redirect:/kaohemodel/allModule";
     }
 
