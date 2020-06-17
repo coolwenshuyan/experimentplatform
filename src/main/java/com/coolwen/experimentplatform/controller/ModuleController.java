@@ -1,9 +1,6 @@
 package com.coolwen.experimentplatform.controller;
 
-import com.coolwen.experimentplatform.model.ModuleTestAnswer;
-import com.coolwen.experimentplatform.model.ModuleTestAnswerStu;
-import com.coolwen.experimentplatform.model.ModuleTestQuest;
-import com.coolwen.experimentplatform.model.Report;
+import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,8 @@ import java.util.List;
 //设置数据回显
 @SessionAttributes(value = {"title", "questDescribe", "questType", "questScore", "questAnswer", "questOrder"})
 public class ModuleController {
+    @Autowired
+    ExpModelService expModelService;
 
     /**
      * 注入模块测试题、测试题的选项、实验报告的service、学生成绩更新的和学生答题表的service、学生实验报告答题表
@@ -557,6 +556,13 @@ public class ModuleController {
                              HttpSession session,
                              @PathVariable("mId") int mId,
                              @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) {
+        ExpModel expModel = expModelService.findExpModelByID(mId);
+        if (expModel.isReport_type()){
+            model.addAttribute("page1",expModelService.findModelList(pageNum));
+            session.removeAttribute("msg2020612");
+            model.addAttribute("msg1","学院版实验报告不需要添加题目!");
+            return "shiyan/lookTestAndReport";
+        }
 //        分页数据条数为10
         Pageable pageable = PageRequest.of(pageNum, 10);
 //        根据mid为条件进行分页
