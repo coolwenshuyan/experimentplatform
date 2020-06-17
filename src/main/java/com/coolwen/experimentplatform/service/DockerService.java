@@ -10,6 +10,8 @@ public interface DockerService {
     Docker findDockerByDc_url(String url);
 
     void addDocker(Docker docker);
+    Docker findDockerByStu_id(int stuid);
+
 
 
 }

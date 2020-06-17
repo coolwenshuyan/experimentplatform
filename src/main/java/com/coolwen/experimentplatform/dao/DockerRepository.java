@@ -15,4 +15,7 @@ public interface DockerRepository extends BaseRepository<Docker, Integer>, JpaSp
 
     @Query("select d from Docker d where d.dc_url = ?1")
     Docker findDockerByDc_url(String url);
+
+    @Query("select d from Docker d where d.stu_id = ?1")
+    Docker findDockerByStu_id(int stuid);
 }

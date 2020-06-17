@@ -26,4 +26,9 @@ public class DockerServiceImpl implements DockerService {
     public void addDocker(Docker docker) {
         dockerRepository.save(docker);
     }
+
+    @Override
+    public Docker findDockerByStu_id(int stuid) {
+        return dockerRepository.findDockerByStu_id(stuid);
+    }
 }
