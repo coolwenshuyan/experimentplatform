@@ -17,7 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -189,7 +190,7 @@ public class StudentController {
     public String passReview(@PathVariable("id") int id){
         Student student = studentservice.findStudentById(id);
         student.setStuCheckstate(true);
-//        studentservice.saveStudent(student);
+        studentservice.saveStudent(student);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data",student);
         return String.valueOf(jsonObject);
@@ -202,6 +203,27 @@ public class StudentController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data",list);
         return String.valueOf(jsonObject);
+    }
+
+    @PostMapping("/giveDocker/{id}")
+    public String giveDocker(@PathVariable("id")int id, String dc_url,String dc_start_datetime,String dc_end_datetime){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date starsDate = null;
+        Date endDate = null;
+        try {
+            starsDate = simpleDateFormat.parse(dc_start_datetime);
+            endDate = simpleDateFormat.parse(dc_end_datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Student student = studentservice.findStudentById(id);
+        Docker docker = dockerService.findDockerByDc_url(dc_url);
+        docker.setStu_id(student.getId());
+        docker.setDc_state(true);
+        docker.setDc_start_datetime(starsDate);
+        docker.setDc_end_datetime(endDate);
+        dockerService.addDocker(docker);
+        return "redirect:/studentManage/toBeReviewd";
     }
 
 
