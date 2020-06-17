@@ -3,6 +3,7 @@ package com.coolwen.experimentplatform.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.DTO.StuDocker;
 import com.coolwen.experimentplatform.model.DTO.StudentListDTO;
 import com.coolwen.experimentplatform.service.*;
 import com.coolwen.experimentplatform.model.ClassModel;
@@ -216,15 +217,67 @@ public class StudentController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Student student = studentservice.findStudentById(id);
         Docker docker = dockerService.findDockerByDc_url(dc_url);
-        docker.setStu_id(student.getId());
+        docker.setStu_id(id);
         docker.setDc_state(true);
         docker.setDc_start_datetime(starsDate);
         docker.setDc_end_datetime(endDate);
         dockerService.addDocker(docker);
         return "redirect:/studentManage/toBeReviewd";
     }
+
+
+    @GetMapping("/updateStuDocker/{id}")
+    @ResponseBody
+    public String updateStuDocker(@PathVariable("id")int id){
+        Student student = studentservice.findStudentById(id);
+        Docker docker = dockerService.findDockerByStu_id(id);
+        JSONObject jsonObject = new JSONObject();
+        StuDocker stuDocker = new StuDocker();
+        stuDocker.setStuName(student.getStuName());
+        stuDocker.setStuXuehao(student.getStuXuehao());
+        if(docker != null){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            stuDocker.setDc_url(docker.getDc_url());
+            stuDocker.setDc_start_datetime(simpleDateFormat.format(docker.getDc_start_datetime()));
+            stuDocker.setDc_end_datetime(simpleDateFormat.format(docker.getDc_end_datetime()));
+        }
+        jsonObject.put("docker",stuDocker);
+        return String.valueOf(jsonObject);
+    }
+
+    @PostMapping("/updateStuDocker/{id}")
+    public String doUpdateStuDocker(@PathVariable("id")int id, String dc_url,String dc_start_datetime,String dc_end_datetime){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date starsDate = null;
+        Date endDate = null;
+        try {
+            starsDate = simpleDateFormat.parse(dc_start_datetime);
+            endDate = simpleDateFormat.parse(dc_end_datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Docker preDocker = dockerService.findDockerByStu_id(id);
+        if(dc_url.equals("metal")){
+            preDocker.setDc_start_datetime(starsDate);
+            preDocker.setDc_end_datetime(endDate);
+            dockerService.addDocker(preDocker);
+            return "redirect:/studentManage/list";
+        }
+        Docker nexDocker = dockerService.findDockerByDc_url(dc_url);
+        preDocker.setDc_end_datetime(null);
+        preDocker.setDc_start_datetime(null);
+        preDocker.setStu_id(0);
+        preDocker.setDc_state(false);
+        dockerService.addDocker(preDocker);
+        nexDocker.setDc_state(true);
+        nexDocker.setStu_id(id);
+        nexDocker.setDc_start_datetime(starsDate);
+        nexDocker.setDc_end_datetime(endDate);
+        dockerService.addDocker(nexDocker);
+        return "redirect:/studentManage/list";
+    }
+
 
 
     //驳回学生审核
@@ -499,6 +552,7 @@ public class StudentController {
         }
         return "redirect:/studentManage/classManage";
     }
+
 
 
 
