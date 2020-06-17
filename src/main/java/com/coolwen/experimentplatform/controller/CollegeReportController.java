@@ -92,15 +92,15 @@ public class CollegeReportController {
         return "shiyan_baogao/bg_mudi";
     }
 
-//    @GetMapping("/purpose/{mid}")
-//    public String purpose(@PathVariable int mid,CollegeReport collegeReport,Model model){
-//        //获取学生的登录信息
-//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-//        //查询到报告信息
-//        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
-//        model.addAttribute("collegeReport",collegeReportStuExpDto);
-//        return "shiyan_baogao/bg_mudi";
-//    }
+    @GetMapping("/purpose/{mid}")
+    public String purpose(@PathVariable int mid,Model model){
+        //获取学生的登录信息
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //查询到报告信息
+        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
+        model.addAttribute("collegeReport",collegeReportStuExpDto);
+        return "shiyan_baogao/bg_mudi";
+    }
 
     @PostMapping("/purpose/{mid}")
     public String purpose1(@PathVariable int mid,CollegeReport collegeReport,Model model){
@@ -116,15 +116,15 @@ public class CollegeReportController {
         return "shiyan_baogao/bg_huanjing";
     }
 
-//    @GetMapping("/env/{mid}")
-//    public String addenv(@PathVariable int mid,CollegeReport collegeReport,Model model){
-//        //获取学生的登录信息
-//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-//        //查询到报告信息
-//        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
-//        model.addAttribute("collegeReport",collegeReportStuExpDto);
-//        return "";
-//    }
+    @GetMapping("/env/{mid}")
+    public String addenv(@PathVariable int mid,Model model){
+        //获取学生的登录信息
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //查询到报告信息
+        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
+        model.addAttribute("collegeReport",collegeReportStuExpDto);
+        return "shiyan_baogao/bg_huanjing";
+    }
 
     @PostMapping("/env/{mid}")
     public String addenv1(@PathVariable int mid,CollegeReport collegeReport,Model model){
@@ -140,15 +140,15 @@ public class CollegeReportController {
         return "shiyan_baogao/bg_neirong";
     }
 
-//    @GetMapping("/content/{mid}")
-//    public String content(@PathVariable int mid,CollegeReport collegeReport,Model model){
-//        //获取学生的登录信息
-//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-//        //查询到报告信息
-//        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
-//        model.addAttribute("collegeReport",collegeReportStuExpDto);
-//        return "";
-//    }
+    @GetMapping("/content/{mid}")
+    public String content(@PathVariable int mid,Model model){
+        //获取学生的登录信息
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //查询到报告信息
+        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
+        model.addAttribute("collegeReport",collegeReportStuExpDto);
+        return "shiyan_baogao/bg_neirong";
+    }
 
     @PostMapping("/content/{mid}")
     public String content1(@PathVariable int mid,CollegeReport collegeReport,Model model){
@@ -164,15 +164,15 @@ public class CollegeReportController {
         return "shiyan_baogao/bg_xinde";
     }
 
-//    @GetMapping("/summary/{mid}")
-//    public String summary(@PathVariable int mid,CollegeReport collegeReport,Model model){
-//        //获取学生的登录信息
-//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
-//        //查询到报告信息
-//        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
-//        model.addAttribute("collegeReport",collegeReportStuExpDto);
-//        return "";
-//    }
+    @GetMapping("/summary/{mid}")
+    public String summary(@PathVariable int mid,Model model){
+        //获取学生的登录信息
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        //查询到报告信息
+        CollegeReportStuExpDto collegeReportStuExpDto = collegeReportService.findByStuidMid(student.getId(),mid);
+        model.addAttribute("collegeReport",collegeReportStuExpDto);
+        return "shiyan_baogao/bg_xinde";
+    }
 
     @PostMapping("/summary/{mid}")
     public String summary1(@PathVariable int mid,CollegeReport collegeReport,Model model){
