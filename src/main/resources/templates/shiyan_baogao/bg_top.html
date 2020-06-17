@@ -102,7 +102,8 @@
                     <td class="tab_tit">时间</td>
                     <td>
                         <div class="layui-input-block">
-                            <input type="text" name="crDate" th:value="${#dates.format(collegeReport.getCrDate(),'yyyy/MM/dd')}" placeholder="时间格式：yyyy/MM/dd" class="layui-input">
+                            <input id="test1" type="text" name="crDate" th:value="${#dates.format(collegeReport.getCrDate(),'yyyy/MM/dd')}" class="layui-input">
+<!--                            <input id="test1" type="text" name="crDate" th:value="${collegeReport.getCrDate()}" class="layui-input">-->
                         </div>
                     </td>
                     <td class="tab_tit">教师</td>
@@ -119,9 +120,15 @@
         </div>
     </form>
 </div>
-
+<!--    <script src="/static/js/laydate/laydate.js"></script>-->
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#test1' //指定元素
+        ,format: 'yyyy/MM/dd'
+    });
+</script>
 </body>
 </html>
