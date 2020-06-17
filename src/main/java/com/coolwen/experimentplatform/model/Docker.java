@@ -11,7 +11,7 @@ public class Docker {
     @TableGenerator(name = "docker_id", initialValue = 0, allocationSize = 1, table = "seq_table")
     private int id;
     //学生id
-    @Column(name = "stu_id")
+    @Column(name = "stu_id",columnDefinition = "int default 0")
     private int stu_id;
     //docker地址
     @Column(name = "dc_url",nullable = false)
@@ -72,5 +72,17 @@ public class Docker {
 
     public void setDc_state(boolean dc_state) {
         this.dc_state = dc_state;
+    }
+
+    @Override
+    public String toString() {
+        return "Docker{" +
+                "id=" + id +
+                ", stu_id=" + stu_id +
+                ", dc_url='" + dc_url + '\'' +
+                ", dc_start_datetime=" + dc_start_datetime +
+                ", dc_end_datetime=" + dc_end_datetime +
+                ", dc_state=" + dc_state +
+                '}';
     }
 }

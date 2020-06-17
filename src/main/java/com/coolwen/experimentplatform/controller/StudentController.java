@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.StudentListDTO;
@@ -16,9 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.servlet.http.HttpSession;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *@Description 后台管理系统 学生管理页面
@@ -50,6 +53,8 @@ public class StudentController {
     ExpModelService expModelService;
     @Autowired
     CollegeReportService collegeReportService;
+    @Autowired
+    DockerService dockerService;
     //查询学生列表
     @GetMapping("/list")
     public String studentList(Model model, @RequestParam(value = "pageNum",defaultValue = "0")int pageNum){
@@ -180,12 +185,26 @@ public class StudentController {
 
     //通过审核操作
     @GetMapping("/passReviewd/{id}")
+    @ResponseBody
     public String passReview(@PathVariable("id") int id){
         Student student = studentservice.findStudentById(id);
         student.setStuCheckstate(true);
-        studentservice.saveStudent(student);
-        return "redirect:/studentManage/toBeReviewd";
+//        studentservice.saveStudent(student);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",student);
+        return String.valueOf(jsonObject);
     }
+
+    @GetMapping("/dockerUrl")
+    @ResponseBody
+    public String dockerUrl(){
+        List<Docker> list = dockerService.findDockersByTenData();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",list);
+        return String.valueOf(jsonObject);
+    }
+
+
     //驳回学生审核
     @GetMapping("/deleteReviewd/{id}")
     public String deleteReviewd(@PathVariable("id") int id){
