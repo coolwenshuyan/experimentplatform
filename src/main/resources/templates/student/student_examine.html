@@ -113,8 +113,8 @@
 
                                 <div class="layui-form-item" pane="" style="margin-left: 10%">
                                     <div class="layui-input-block">
-                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm " lay-filter="doSubmit" lay-submit="">分配</button>
-                                        <button type="button" class="layui-btn layui-btn-warm layui-btn-sm " lay-filter="noSubmit" lay-submit="">不分配</button>
+                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm " lay-filter="doSubmit" lay-submit="">通过</button>
+                                        <button type="button" class="layui-btn layui-btn-warm layui-btn-sm " lay-filter="noSubmit" lay-submit="">取消</button>
                                     </div>
                                 </div>
                             </form>
@@ -143,12 +143,12 @@
                 var layer = layui.layer;
                 var $ = layui.jquery;
                 let index;
-                let s;
+                let s = $("#pass").attr("name");
+
 
 
 
                 form.on('submit(formDemo)',function () {
-                    s = $("#pass").attr("name")
                     studentPass(s)
                     docker();
 
@@ -156,7 +156,11 @@
                 function studentPass(metal) {
                     $.get("/studentManage/passReviewd/"+metal,function (data) {
                         $.each(JSON.parse(data),function (k,v) {
-                            $("#stuXuehao").val(v.stuXuehao);
+                            if(v.stuXuehao == ''){
+                                $("#stuXuehao").val("该生为校外学生");
+                            }else {
+                                $("#stuXuehao").val(v.stuXuehao);
+                            }
                             $("#stuName").val(v.stuName)
                         })
                     });
@@ -178,7 +182,7 @@
                             $.get("/studentManage/dockerUrl",function (data) {
                                 $.each(JSON.parse(data),function (k,v) {
                                     $.each(v,function (i,t) {
-                                        var options = "<option value='" + t.id + "'>" + t.dc_url + "</option>";
+                                        var options = "<option value='" + t.dc_url + "'>" + t.dc_url + "</option>";
                                         $("#url").append(options)
                                         form.render('select');
                                     })
@@ -194,16 +198,22 @@
 
                 form.on('submit(doSubmit)',function (obj) {
                     let parm = $("#dataform").serialize();
-
+                    $.post("/studentManage/giveDocker/"+s,parm,function (obj) {
+                        layer.close(index)
+                        window.location.reload();
+                    })
                 })
 
                 laydate.render({
                     elem:"#beginTime",
+                    type: 'datetime',
                     value:new Date()
                 })
 
                 laydate.render({
-                    elem:"#endTime"
+                    elem:"#endTime",
+                    type: 'datetime',
+
                 })
 
 

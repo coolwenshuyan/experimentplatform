@@ -53,6 +53,8 @@ public class ExpModelController {
     ClazzService clazzService;
     @Autowired
     CollegeReportService collegeReportService;
+    @Autowired
+    DockerService dockerService;
 
 
     //查询模块信息页面
@@ -322,16 +324,28 @@ public class ExpModelController {
     @GetMapping("/alltestModel")
     public String alltest(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum,HttpSession session){
         Page<ExpModel> page = expModelService.finExpAll(pageNum);
+        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Docker docker = dockerService.findDockerByStu_id(student.getId());
+        if(docker != null){
+            model.addAttribute("docker",docker);
+        }else {
+            model.addAttribute("docker",null);
+        }
         model.addAttribute("list",expModelService.finExpAll(pageNum));
         session.setAttribute("modulePageNum",pageNum);
         session.setAttribute("isAllModule",true);
         return "home_shiyan/all-test";
-//        return "";
     }
     //实验大厅考核模块
     @GetMapping("/kaoheModel")
     public String kaoModelById(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum,HttpSession session){
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Docker docker = dockerService.findDockerByStu_id(student.getId());
+        if(docker != null){
+            model.addAttribute("docker",docker);
+        }else {
+            model.addAttribute("docker",null);
+        }
         Page<KaoHeModelStuDTO> kaohe = kaoheModelService.findKaoheModelStuDto(student.getId(),pageNum);
         model.addAttribute("k",kaohe);
         session.setAttribute("modulePageNum",pageNum);

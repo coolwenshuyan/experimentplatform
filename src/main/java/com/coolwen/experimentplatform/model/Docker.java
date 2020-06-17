@@ -17,10 +17,10 @@ public class Docker {
     @Column(name = "dc_url",nullable = false)
     private String dc_url;
     //学生使用时间
-    @Column(name = "dc_start_datetime")
+    @Column(name = "dc_start_datetime",nullable = true)
     private Date dc_start_datetime;
     //学生使用结束时间
-    @Column(name = "dc_end_datetime")
+    @Column(name = "dc_end_datetime",nullable = true)
     private Date dc_end_datetime;
     //docker地址使用状态
     @Column(name = "dc_state",nullable = false,columnDefinition = "bit default 0")
