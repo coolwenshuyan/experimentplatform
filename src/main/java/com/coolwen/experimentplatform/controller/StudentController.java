@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *@Description 后台管理系统 学生管理页面
@@ -276,6 +274,15 @@ public class StudentController {
         nexDocker.setDc_end_datetime(endDate);
         dockerService.addDocker(nexDocker);
         return "redirect:/studentManage/list";
+    }
+
+    @GetMapping("/getDocker/{id}")
+    @ResponseBody
+    public String getDocker(@PathVariable("id") int id){
+        JSONObject jsonObject = new JSONObject();
+        Docker docker = dockerService.findByid(id);
+        jsonObject.put("docker",docker);
+        return String.valueOf(jsonObject);
     }
 
 
@@ -551,6 +558,42 @@ public class StudentController {
             return "student/class_view";
         }
         return "redirect:/studentManage/classManage";
+    }
+
+    @GetMapping("/dockerList")
+    public String dockerList(@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum,Model model){
+        model.addAttribute("dockerList",dockerService.findAll(pageNum));
+        return "student/docker_list";
+    }
+
+    @PostMapping("/addDocker")
+    public String addDocker(String dc_url){
+        Docker docker = dockerService.findDockerByDc_url(dc_url);
+        if(docker == null){
+            Docker d = new Docker();
+            d.setDc_url(dc_url);
+            dockerService.addDocker(d);
+        }
+        return "redirect:/studentManage/dockerList";
+    }
+
+    @PostMapping("/updateDocker/{id}")
+    public String updateDocker(@PathVariable("id")int id,String dc_url){
+        Docker docker = dockerService.findByid(id);
+        Docker docker1 = dockerService.findDockerByDc_url(dc_url);
+        if(docker1 == null){
+            if(!docker.getDc_url().equals(dc_url)){
+                docker.setDc_url(dc_url);
+                dockerService.addDocker(docker);
+            }
+        }
+        return "redirect:/studentManage/dockerList";
+    }
+
+    @PostMapping("/delDocker/{id}")
+    public String delDocker(@PathVariable("id")int id){
+        dockerService.delDocker(id);
+        return "redirect:/studentManage/dockerList";
     }
 
 
