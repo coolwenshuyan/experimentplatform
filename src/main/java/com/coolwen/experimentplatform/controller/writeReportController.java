@@ -94,7 +94,6 @@ public class writeReportController {
         Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         int stuId = student.getId();
 
-
         //计算当前模块学生是否答题，没有答题，则计算结果为0
         int reportAnswers = reportAnswerService.findByStuIdModelId(mid,stuId);
         //如果为空，则给表中添加空数据（添加学生id，题目id）
@@ -116,6 +115,7 @@ public class writeReportController {
         if (isNeedKaohe){
             KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
             model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+
         }
 
         return "home_shiyan/tian";
@@ -141,7 +141,7 @@ public class writeReportController {
 
         try {
             KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
-            if (kaoHeModelScore.ismReportstate()){
+            if (kaoHeModelScore.ismReportteacherstate()){
                 return "redirect:/WriteReport/"+mid+"/Timu";
             }
         }catch (Exception e){
@@ -197,12 +197,41 @@ public class writeReportController {
             }
         }
 
+        try {
+            KaoHeModelScore khs = kaoHeModelScoreService.findKaoheModelScoreByMid(mid ,stuId);
+            khs.setmReportstate(true);
+            kaoHeModelScoreService.update(khs);
+        }catch(Exception e){
+
+        }
+
+
         //获得学生的报告
 //        List<ReportAnswer> reportAnswers = reportAnswerService.findByStuId(stuId);
 //        model.addAttribute("DaAnList",reportAnswers);
 //
 //        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
 //        model.addAttribute("kaoHeModelScore",kaoHeModelScore);
-        return "redirect:/WriteReport/"+mid+"/Timu";
+
+
+        //获得所有报告（排序）
+        List<Report> reports1= reportService.findByMidpaixu(mid);
+        model.addAttribute("TiMuList",reports1);
+        //查出学生回答的答案
+        List<ReportAnswer> reportAnswers1 = reportAnswerService.findByStuId(stuId);
+        model.addAttribute("DaAnList",reportAnswers1);
+
+        //判断是否是考核模块，是考核模块则查询考核模块得分
+        Boolean isNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+        model.addAttribute("isNeedKaohe",isNeedKaohe);
+        if (isNeedKaohe){
+            KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+            model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+
+        }
+
+//        return "redirect:/WriteReport/"+mid+"/Timu";
+        model.addAttribute("msg","提交报告成功！！！");
+        return "home_shiyan/tian";
     }
 }

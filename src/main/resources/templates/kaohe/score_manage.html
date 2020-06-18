@@ -152,17 +152,20 @@
 				</thead>
 				<tbody class="results">
 <!--				th:each="one:${allInfo}"-->
-					<tr th:each="one:${allStu}">
-						<td ><p th:text="${one.getStuXuehao()}">12345678</p></td>
-						<td ><p th:text="${one.getStuName()}">12345678</p></td>
-						<td ><p th:text="${one.getClassId()}">12345678</p></td>
-						<div th:each="stuInfo,stat:${allInfo}" th:if="${stuInfo.getSid()} == ${one.getId()}">
-							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmName()}">12345678</p></td>
-							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmScore()}">12345678</p></td>
-							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.isDone()}?'完成':'未完成'">12345678</p></td>
+					<div th:each="class:${classList}">
+						<tr th:each="one:${allStu}" th:if="${one.getClassId()} == ${class.getClassId()}">
+							<td ><p th:text="${one.getStuXuehao()}" style="margin-left: -50%;">12345678</p></td>
+							<td ><p th:text="${one.getStuName()}">12345678</p></td>
+							<td ><p th:text="${one.getClassId()}">12345678</p></td>
+							<div th:each="stuInfo,stat:${allInfo}" th:if="${stuInfo.getSid()} == ${one.getId()}">
+								<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmName()}">12345678</p></td>
+								<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmScore()}">12345678</p></td>
+								<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.isDone()}?'完成':'未完成'">12345678</p></td>
 
-						</div>
-					</tr>
+							</div>
+						</tr>
+					</div>
+
 				</tbody>
 			</table>
 			</div>

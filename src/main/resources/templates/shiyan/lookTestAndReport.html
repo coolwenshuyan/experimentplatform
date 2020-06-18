@@ -15,6 +15,7 @@
         <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
         <!--<script type="text/javascript" src="./js/xadmin.js"></script>-->
         <script src="../../static/js/xadmin.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
 
     </head>
     <style>
@@ -93,7 +94,7 @@
                                     <td class="td-manage">
                                         <a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{|/shiyan/list/${list.getM_id()}|}">查看实验测试</a>
                                         <!--<i class="layui-icon">&#xe640;</i>-->
-                                        <a type="layui-btn" class="layui-btn layui-bg-green" th:href="@{|/shiyan/reportList/${list.getM_id()}|}">查看实验报告</a>
+                                        <a type="layui-btn" class="layui-btn layui-bg-green" onclick="del(this)" th:href="@{|/shiyan/reportList/${list.getM_id()}|}">查看实验报告</a>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -110,8 +111,19 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </body>
+    <script>
+        var msg = '[[${msg1}]]'
+        $(function () {
+            $(document).ready(function () {
+                if (msg != ''){
+                    alert(msg);
+                    return;
+                }
+            })
+        })
+    </script>
 <!--    <script>-->
 <!--      layui.use(['laydate','form'], function(){-->
 <!--        var laydate = layui.laydate;-->

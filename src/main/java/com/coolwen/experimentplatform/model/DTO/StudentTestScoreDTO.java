@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.model.DTO;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.google.inject.internal.cglib.core.$ProcessArrayCallback;
 
 /**
@@ -10,14 +11,19 @@ import com.google.inject.internal.cglib.core.$ProcessArrayCallback;
 
 public class StudentTestScoreDTO {
 //    学生id
+    @Excel(name = "学生id", orderNum = "0")
     private int sid;
 //    真实姓名
+    @Excel(name = "学生姓名", orderNum = "1")
     private String sName;
 //    班级号
+    @Excel(name = "班级号", orderNum = "2")
     private int sClass;
 //    实验名称
+    @Excel(name = "实验名称", orderNum = "3")
     private String mName;
 //    成绩
+    @Excel(name = "测试成绩", orderNum = "4")
     private float mScore;
 //   完成状态
     private boolean Done;

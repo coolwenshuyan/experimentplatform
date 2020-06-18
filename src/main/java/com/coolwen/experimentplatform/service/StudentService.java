@@ -44,7 +44,11 @@ public interface StudentService {
 
     Page<Student> pageStudentByClassId(int class_id,int classid);
 
-    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum);
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum,String select_orderId);
+
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOByClassId(int pageNum,String select_orderId,int classId);
+
+    Page<StuTotalScoreCurrentDTO> listStuTotalScorePassDTO(int pageNum);
 
     List<Student> findAll();
 
@@ -55,4 +59,20 @@ public interface StudentService {
     Page<StudentLastTestScoreDTO> listStudentLastTestAnswerDTO(int pageNum);
 
     Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOBYClassID(int pageNum,int classId);
+
+    Student findByStuMobile(String tel);
+
+    Student findByStuXuehao(String stu_xuehao);
+
+    List<Student> findStudentByNotClassId();
+
+    List<Student> findStudentIsCurrentkaoheByStuid(int stuId);
+
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPass(int pageNum, String select_orderId);
+
+
+    Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPassByClassId(int pageNum, String select_orderId, int classId);
+
+    List<StuTotalScoreCurrentDTO> listAllStuTotalScoreCurrentDTOOfPass();
+
 }

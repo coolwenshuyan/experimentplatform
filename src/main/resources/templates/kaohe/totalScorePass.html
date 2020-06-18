@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>模块测试成绩管理</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../static/css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../static/css/page.css"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/code.css"/>
+
+		<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css"/>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0
+			}
+			
+			.table-wrapper {
+				overflow-x: scroll;
+				overflow-y: visible;
+				/*width: 230px;*/
+				/*margin-left: 120px;*/
+				/*border: 1px solid #f00;*/
+				margin: 0 auto;
+				width: 930px;
+			}
+			
+		.table-wrapper td,
+			th {
+				/*padding: 5px 20px;*/
+				width: 100px;
+			}
+
+			.layui-form-label{
+				width: 100px;
+			}
+
+
+			.text-overflow {
+				display:block;/*内联对象需加*/
+				width:31em;/*指定宽度*/
+				word-break:keep-all;/* 不换行 */
+				white-space:nowrap;/* 强制在同一行内显示所有文本，直到文本结束或者遭遇 br 对象。不换行 */
+				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+				text-overflow:ellipsis;/* IE 专有属性，当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+			}
+
+			table{
+				width:30em;
+				table-layout:fixed;/* 只有定义了表格的布局算法为fixed，下面td的定义才能起作用。 */
+			}
+			td{
+				width:100%;
+				word-break:keep-all;/* 不换行 */
+				white-space:nowrap;/* 不换行 */
+				overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+				text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记() ；需与overflow:hidden;一起使用。*/
+			}
+			.ak{
+				margin-left: 0px;
+			}
+			.top2 th {
+				text-align: center;
+				font-weight: 900;
+			}
+			.top1 th {
+				text-align: center;
+				font-weight: 500;
+			}
+			.top1 .layui-form-label{
+				font-weight: 900;
+			}
+			.top1{
+				width: 90%;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>往期学生成绩管理</h2>
+		<div class="layui-container">
+<!--			<img src="../../static/images/LOGO2.png"> <br><br>-->
+<!--			<span class="layui-breadcrumb">-->
+<!--  			<a href="/">首页</a>-->
+<!--  			&lt;!&ndash;<a href="/demo/">轮播公告</a>&ndash;&gt;-->
+<!--  			<a><cite>模块测试成绩管理</cite></a>-->
+<!--			</span> <br><br><br>-->
+
+			<table class=" top1" lay-size="lg" style="    text-align: center; width: 90%;width: 90%;width: 90%;" >
+
+					<tr style="background-color: white;">
+						<th colspan="3" style="padding: 0">
+
+								<div class="layui-form-item">
+									<label class="layui-form-label" style="padding-top: 20px; ">班级筛选</label>
+									<div class="layui-input-block" style="width: 17%;">
+										<select name="interest" lay-filter="aihao" onchange="window.open(this.options[this.selectedIndex].value,target='_self')" style="margin-top: 15px;height: 30px;width: 100px;border-color: lightgray;">
+												<option>请选择</option>
+											<div th:each="clazz:${classList}" >
+												<option th:value="|/testScoreManage/${clazz.getClassId()}/list|"  th:text="${clazz.getClassName()}">18信管01</option>
+											</div>
+										</select>
+
+									</div>
+
+								</div>
+						</th>
+
+						<th colspan="3" style="padding: 0">
+							<form th:action="@{/testScoreManage/list}">
+							<li>
+								<div class="layui-input-block ak" style="float: left; position: relative;">
+									<label class="layui-form-label">学号搜索</label>
+									<input style="width: auto;" type="text"  th:value="${select_orderId}" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
+								</div>
+								<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
+
+							</li>
+
+							</form>
+<!--							<a th:action="@{/testScoreManage/exportExcel}">-->
+<!--								<button type="导出" class="layui-btn" lay-submit="" lay-filter="demo1">导出</button>-->
+<!--							</a>-->
+						</th>
+					</tr>
+
+			</table>
+			
+			<div class="table-wrapper">
+				<table id="consumption-data" class="layui-table data top2" lay-size="lg" style="    text-align: center;">
+				<colgroup>
+					<col>
+					<col>
+					<col>
+				</colgroup>
+				<thead class="header">
+					
+					<tr >
+						<th >学号</th>
+						<th>姓名</th>
+						<th>班级ID</th>
+						<div th:each="a:${numList}">
+							<th>测试成绩</th>
+							<th>测试占比/th>
+							<th>报告成绩</th>
+							<th>报告占比</th>
+							<th>总分权重</th>
+						</div>
+						<th>模块考核得分</th>
+						<th>理论测试得分</th>
+						<th>模块考核占比</th>
+						<th>理论测试占比</th>
+						<th>总成绩</th>
+						<th>成绩固化时间</th>
+
+
+
+
+					</tr>
+				</thead>
+				<tbody class="results">
+<!--				th:each="one:${allInfo}"-->
+					<tr th:each="one:${allStu}">
+						<td ><p th:text="${one.getStuXuehao()}">12345678</p></td>
+						<td ><p th:text="${one.getStuName()}">12345678</p></td>
+						<td ><p th:text="${one.getClassId()}">12345678</p></td>
+						<div th:each="stuInfo,stat:${allInfo}" th:if="${stuInfo.getSid()} == ${one.getId()}">
+							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmName()}">12345678</p></td>
+							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmScore()}">12345678</p></td>
+							<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.isDone()}?'完成':'未完成'">12345678</p></td>
+
+						</div>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+
+			<div class="modal-footer no-margin-top">
+				<ul class="pagination pull-right no-margin">
+
+					<!-- 首页 -->
+					<li>
+						<a th:href="'/testScoreManage/list?pageNum=0'">首页</a>
+					</li>
+
+					<!-- 上一页 -->
+					<li th:if="${allStu.hasPrevious()}">
+						<a th:href="'/testScoreManage/list?pageNum=' + ${allStu.previousPageable().getPageNumber()}" th:text="上一页"></a>
+					</li>
+
+					<!-- 中间页 -->
+					<li th:each="pageNum:${#numbers.sequence(0, allStu.getTotalPages() - 1)}">
+						<a th:href="'/testScoreManage/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne allStu.pageable.getPageNumber()}"></a>
+						<a th:href="'/testScoreManage/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq allStu.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+					</li>
+
+					<!-- 下一页 -->
+					<li th:if="${allStu.hasNext()}">
+						<a th:href="'/testScoreManage/list?pageNum=' + ${allStu.nextPageable().getPageNumber()}" th:text="下一页"></a>
+					</li>
+
+					<!-- 尾页 -->
+					<li>
+						<a th:href="'/testScoreManage/list?pageNum=' + ${allStu.getTotalPages() - 1}">尾页</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+		
+<!--		<div style="text-align: center; margin-top: 2%;">-->
+<!--			<div id="pager" class="pager clearfix">-->
+<!--			</div>-->
+<!--		</div>-->
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/vue.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script type="text/javascript" src="js/layui.all.js" ></script>-->
+		<script src="../../static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/jquery.z-pager.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#pager").zPager({
+				totalData: 50,
+				htmlBox: $('#wraper'),
+				btnShow: true,
+				ajaxSetData: false
+			});
+
+			function currentPage(currentPage) {
+				/*
+					触发页码数位置： Page/js/jquery.z-pager.js 64行
+				*/
+				console.log("当前页码数：" + currentPage);
+			}
+		</script>
+	</body>
+</html>

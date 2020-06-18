@@ -85,5 +85,15 @@ public class ReportAnswerServiceImpl implements ReportAnswerService {
         return reportAnswerRepository.findByStuIdModelId(mid,stuId);
     }
 
+    @Override
+    public void deleteReportAnswerByMid(int mid) {
+        reportAnswerRepository.deleteReportAnswerByMid(mid);
+    }
+
+    @Override
+    public void deleteByStuIdModelId(int m_id, int id) {
+        reportAnswerRepository.deleteByStuIdModelId(m_id,id);
+    }
+
 
 }

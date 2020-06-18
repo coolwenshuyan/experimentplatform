@@ -8,16 +8,9 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="../../static/css/font.css">
         <link rel="stylesheet" href="../../static/css/xadmin.css">
-        <script src="../../static/js/layui.js" charset="utf-8"></script>
-        <script type="text/javascript" src="../../static/js/xadmin.js"></script>
-        <script type="text/javascript" src="../../static/js/layui.all.js" ></script>
-        <script>
-        	layui.define(['laytp1','layer','element','util'],function(exports){
-        		exports('setter',{
-        			pageTabs:true
-        		})
-        	})
-        </script>
+        <link rel="stylesheet" href="../../static/css/layui.css">
+        <link rel="stylesheet" href="../../static/css/modules/layer/default/layer.css">
+        <link rel="stylesheet" href="../../static/css/modules/laydate/default/laydate.css">
 
         <style>
             .layui-table th {
@@ -51,7 +44,7 @@
                                     <input type="text" name="stu_xuehao"  placeholder="请输入学号" autocomplete="off" required="required" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block" style="float: right;margin-top: 1.7%;">
-                                    <input class="layui-btn" type="submit"  lay-submit="" lay-filter="sreach" value="搜索"/>
+                                    <input class="layui-btn" type="submit"value="搜索"/>
                                 </div>
                             </form>
                         <div class="layui-card-body layui-table-body layui-table-main">
@@ -72,14 +65,59 @@
                                     <td th:text="${student.isStuIsinschool()==true?'是':'否'}"></td>
                                     <td th:text="${student.stuMobile}"></td>
                                       <td class="td-manage">
-                                          <a href="class_alter.html">
-                                              <a class="layui-btn" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/passReviewd/${student.id}|}">通过</a>
-                                          </a>
-                                          <a class="layui-btn layui-bg-red" lay-submit lay-filter="formDemo" th:href="@{|/studentManage/deleteReviewd/${student.id}|}">删除</a>
+<!--                                          th:href="@{|/studentManage/passReviewd/${student.id}|}"-->
+                                          <button class="layui-btn" lay-submit    lay-filter="formDemo" th:name="${student.id}" id="pass" >通过</button>
+                                          <a class="layui-btn layui-bg-red"  th:href="@{|/studentManage/deleteReviewd/${student.id}|}">删除</a>
                                       </td>
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div style="display: none;padding-top: 15px; padding-left: 10%;padding-right: 10%" id="chooseDocker">
+                            <form class="layui-form" lay-filter="dataform" id="dataform">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">学号:</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="stuXuehao" id="stuXuehao" disabled autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">姓名:</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="stuName" id="stuName" disabled autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">Docker地址:</label>
+                                    <div class="layui-input-inline">
+                                        <select name="dc_url" id="url" autocomplete="off"></select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">使用开始时间:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="dc_start_datetime" id="beginTime"   class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" pane="">
+                                    <label class="layui-form-label">使用结束时间:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="dc_end_datetime" id="endTime"  class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item" pane="" style="margin-left: 10%">
+                                    <div class="layui-input-block">
+                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm " lay-filter="doSubmit" lay-submit="">通过</button>
+                                        <button type="button" class="layui-btn layui-btn-warm layui-btn-sm " lay-filter="noSubmit" lay-submit="">取消</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="layui-card-body ">
                             <div class="page">
@@ -92,88 +130,104 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
+        <script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+           <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="../../static/js/xadmin.js"></script>
+
+        <script>
+
+            layui.use(['laydate','form','layer','element','table','jquery'], function() {
+                var laydate = layui.laydate;
+                var form = layui.form;
+                var layer = layui.layer;
+                var $ = layui.jquery;
+                let index;
+                let s;
+
+
+
+
+                form.on('submit(formDemo)',function () {
+                    s = $("#pass").attr("name");
+                    studentPass(s)
+                    docker();
+
+                })
+                function studentPass(metal) {
+                    $.get("/studentManage/passReviewd/"+metal,function (data) {
+                        $.each(JSON.parse(data),function (k,v) {
+                            if(v.stuXuehao == ''){
+                                $("#stuXuehao").val("该生为校外学生");
+                            }else {
+                                $("#stuXuehao").val(v.stuXuehao);
+                            }
+                            $("#stuName").val(v.stuName)
+                        })
+                    });
+
+                }
+
+                function docker(){
+                    index = layer.open({
+                        type:1,
+                        skin:"layui-layer-molv",
+                        title:"Docker分配",
+                        shadeClose:false,
+                        area:['500px','450px'],
+                        shade:0,
+                        anim:2,
+                        content:$("#chooseDocker"),
+                        success:function () {
+                            $("#url")[0].options.length=0
+                            $.get("/studentManage/dockerUrl",function (data) {
+                                $.each(JSON.parse(data),function (k,v) {
+                                    $.each(v,function (i,t) {
+                                        var options = "<option value='" + t.dc_url + "'>" + t.dc_url + "</option>";
+                                        $("#url").append(options)
+                                        form.render('select');
+                                    })
+                                })
+                            })
+                        }
+                    })
+                }
+
+                form.on('submit(noSubmit)',function (obj) {
+                    layer.close(index);
+                    window.location.reload();
+                })
+
+                form.on('submit(doSubmit)',function (obj) {
+                    let parm = $("#dataform").serialize();
+                    $.post("/studentManage/giveDocker/"+s,parm,function (obj) {
+                        layer.close(index)
+                        window.location.reload();
+                    })
+                })
+
+                laydate.render({
+                    elem:"#beginTime",
+                    type: 'datetime',
+                    value:new Date()
+                })
+
+                laydate.render({
+                    elem:"#endTime",
+                    type: 'datetime',
+
+                })
+
+
+
+
+            })
+
+
+
+        </script>
+
     </body>
-<!--    <script>-->
-<!--      layui.use(['laydate','form'], function(){-->
-<!--        var laydate = layui.laydate;-->
-<!--        var  form = layui.form;-->
 
 
-<!--        // 监听全选-->
-<!--        form.on('checkbox(checkall)', function(data){-->
-
-<!--          if(data.elem.checked){-->
-<!--            $('tbody input').prop('checked',true);-->
-<!--          }else{-->
-<!--            $('tbody input').prop('checked',false);-->
-<!--          }-->
-<!--          form.render('checkbox');-->
-<!--        }); -->
-<!--        -->
-<!--        //执行一个laydate实例-->
-<!--        laydate.render({-->
-<!--          elem: '#start' //指定元素-->
-<!--        });-->
-
-<!--        //执行一个laydate实例-->
-<!--        laydate.render({-->
-<!--          elem: '#end' //指定元素-->
-<!--        });-->
-
-
-<!--      });-->
-
-<!--       /*用户-停用*/-->
-<!--//    function member_stop(obj,id){-->
-<!--//        layer.confirm('确认要停用吗？',function(index){-->
-<!--//-->
-<!--//            if($(obj).attr('title')=='启用'){-->
-<!--//-->
-<!--//              //发异步把用户状态进行更改-->
-<!--//              $(obj).attr('title','停用')-->
-<!--//              $(obj).find('i').html('&#xe62f;');-->
-<!--//-->
-<!--//              $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');-->
-<!--//              layer.msg('已停用!',{icon: 5,time:1000});-->
-<!--//-->
-<!--//            }else{-->
-<!--//              $(obj).attr('title','启用')-->
-<!--//              $(obj).find('i').html('&#xe601;');-->
-<!--//-->
-<!--//              $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');-->
-<!--//              layer.msg('已启用!',{icon: 5,time:1000});-->
-<!--//            }-->
-<!--//            -->
-<!--//        });-->
-<!--//    }-->
-
-<!--      /*用户-删除*/-->
-<!--      function member_del(obj,id){-->
-<!--          layer.confirm('确认要删除吗？',function(index){-->
-<!--              //发异步删除数据-->
-<!--              $(obj).parents("tr").remove();-->
-<!--              layer.msg('已删除!',{icon:1,time:1000});-->
-<!--          });-->
-<!--      }-->
-
-
-
-<!--      function delAll (argument) {-->
-<!--        var ids = [];-->
-
-<!--        // 获取选中的id -->
-<!--        $('tbody input').each(function(index, el) {-->
-<!--            if($(this).prop('checked')){-->
-<!--               ids.push($(this).val())-->
-<!--            }-->
-<!--        });-->
-<!--  -->
-<!--        layer.confirm('确认要删除吗？'+ids.toString(),function(index){-->
-<!--            //捉到所有被选中的，发异步进行删除-->
-<!--            layer.msg('删除成功', {icon: 1});-->
-<!--            $(".layui-form-checked").not('.header').parents('tr').remove();-->
-<!--        });-->
-<!--      }-->
-<!--    </script>-->
 </html>

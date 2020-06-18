@@ -42,6 +42,9 @@ public class KaoHeModelScore {
     @Column(nullable = false,columnDefinition = "float default 0")
     private float mScore;
 
+    @Column(nullable = false,columnDefinition="bit default 0")
+    private boolean mReportteacherstate;
+
     public KaoHeModelScore() {
     }
 
@@ -132,6 +135,14 @@ public class KaoHeModelScore {
 
     public void setmScore(float mScore) {
         this.mScore = mScore;
+    }
+
+    public boolean ismReportteacherstate() {
+        return mReportteacherstate;
+    }
+
+    public void setmReportteacherstate(boolean mReportteacherstate) {
+        this.mReportteacherstate = mReportteacherstate;
     }
 
     @Override

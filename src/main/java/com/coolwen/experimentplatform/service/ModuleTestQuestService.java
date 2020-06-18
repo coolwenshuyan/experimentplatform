@@ -1,6 +1,7 @@
 package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.model.DTO.QuestAnswerDto;
+import com.coolwen.experimentplatform.model.DTO.QuestListAnswerAndStuScoreDto;
 import com.coolwen.experimentplatform.model.DTO.QuestListAnswerDto;
 import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.ModuleTestQuest;
@@ -61,5 +62,7 @@ public interface ModuleTestQuestService {
 
 //    考核模块和模块测试题两张表，联合查询，通过mid分页
     Page<ModuleTestQuest> findByExpPage(int mId, Pageable pageable);
+
+    List<QuestListAnswerAndStuScoreDto> listQuestListAnswerAndStuScoreDto(String type, int mId, int stuId);
 
 }

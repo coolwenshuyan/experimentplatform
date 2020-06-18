@@ -1,5 +1,6 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.coolwen.experimentplatform.exception.UserException;
 import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.Admin;
 import com.coolwen.experimentplatform.model.Student;
@@ -121,16 +122,15 @@ public class LoginController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public ModelAndView login(@RequestParam("account") String username,
 //    public String login(@RequestParam("account") String username,
-                              @RequestParam("password") String password,
-                              @RequestParam("type") String loginType,
-                              @RequestParam("code") String loginCode,
-                              Model model1) {
+                        @RequestParam("password") String password,
+                        @RequestParam("type") String loginType,
+                        @RequestParam("code") String loginCode,
+                        Model model1) {
         //1:获取cookie里面的验证码信息
         ModelAndView model = new ModelAndView();
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
-        //转换成小写;
-        String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();
+        String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();//转换成小写;
         loginCode = loginCode.toLowerCase();
         System.out.println(code + " 》》》》》 " + loginCode);
         if (!loginCode.equals(code)) {
@@ -146,22 +146,25 @@ public class LoginController {
             subject.login(token);
             if (loginType.equals("student")) {
                 Student student = (Student) subject.getPrincipal();
-                session.setAttribute("username", student.getStuUname());
-                session.setAttribute("student", student);
-                session.setAttribute("loginType", loginType);
-                model.setViewName("redirect:/newsinfo/newslist");
-                //设置登陆成功之后默认跳转页面
+                if (!student.isStuCheckstate()){
+                    model.addObject("msg","此账号暂未通过审核!");
+                    model.setViewName("home_page/login");
+                }else {
+                    session.setAttribute("username", student.getStuUname());
+                    session.setAttribute("student", student);
+                    session.setAttribute("loginType", loginType);
+                    model.setViewName("redirect:/newsinfo/newslist");//设置登陆成功之后默认跳转页面
 //                return "redirect:/newsinfo/newslist";
+                }
             }
             if (loginType.equals("admin")) {
                 Admin admin = (Admin) subject.getPrincipal();
-                System.out.println("1");
                 session.setAttribute("admin", admin);
                 model.setViewName("redirect:/learning/kuangjia");
 //                return "redirect:/learning/kuangjia";
             }
         } catch (UnknownAccountException e) {
-            // message.put("emsg","用户名/密码错误");
+            //message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
             model.setViewName("home_page/login");
 //            model1.addAttribute("msg1","用户名/密码错误");
@@ -215,20 +218,19 @@ public class LoginController {
                 }
                 Pattern p = Pattern.compile("^[1](([3|5|8][\\d])|([4][4,5,6,7,8,9])|([6][2,5,6,7])|([7][^9])|([9][1,8,9]))[\\d]{8}$");
                 Matcher m = p.matcher(tel);
-//                Pattern p1 = Pattern.compile("/^0|[a-zA-Z0-9]{10}$/");
                 Pattern p1 = Pattern.compile("^$|^\\d{10}$");
                 Matcher m1 = p1.matcher(stu_xuehao);
-                if (m.matches() != true) {
+                if (m.matches() != true){
                     model.addObject("telmsg", "请输入11位数字");
                     model.setViewName("register");
                     return model;
                 }
-                if (m1.matches() != true) {
-                    System.out.println("gffj");
+                if (m1.matches() != true){
                     model.addObject("xuehaomsg", "请输入正确的学号");
                     model.setViewName("register");
                     return model;
-                } else {
+                }
+                else {
                     Student student = new Student();
                     student.setStuIsinschool(stu_isinschool);
 //                    if (class_id != "") {
@@ -236,11 +238,32 @@ public class LoginController {
 //                    }
                     student.setStuUname(username);
                     student.setStuPassword(ShiroKit.md5(password, username));
+                    if (stu_isinschool && stu_xuehao == ""){
+//                        throw new UserException("在校学生须填写学号!");
+                        model.addObject("xuehaomsg","在校学生须填写学号!");
+                        model.setViewName("register");
+                        return model;
+                    }
                     if (stu_xuehao != "") {
-                        System.out.println("wuhsuji");
+                        Student student2 = studentService.findByStuXuehao(stu_xuehao);
+                        if (student2 != null){
+//                            throw new UserException("学号已经被使用!");
+                            model.addObject("xuehaomsg","学号已经被使用!");
+                            model.setViewName("register");
+                            return model;
+                        }
                         student.setStuXuehao(stu_xuehao);
                     }
                     student.setStuName(name);
+                    Student stu = studentService.findByStuMobile(tel);
+                    if (stu != null){
+//                        throw new UserException("手机号已被使用!");
+//                        throw new Exception("发生错误");
+                        model.addObject("telmsg","手机号已被使用!");
+                        model.setViewName("register");
+                        return model;
+                    }
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+stu);
                     student.setStuMobile(tel);
                     studentService.addStudent(student);
                     System.out.println(student);
@@ -251,15 +274,15 @@ public class LoginController {
                 model.setViewName("register");
                 model.addObject("msg3", "两次输入密码不同");
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return model;
     }
 
     @GetMapping("/logout")
-    public String Logout() {
+    public String Logout(){
         SecurityUtils.getSubject().logout();
         System.out.println("fsdfasdasdgasdg");
         return "redirect:/login";

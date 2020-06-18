@@ -1,7 +1,9 @@
 package com.coolwen.experimentplatform.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.coolwen.experimentplatform.kit.ShiroKit;
 import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.DTO.StuDocker;
 import com.coolwen.experimentplatform.model.DTO.StudentListDTO;
 import com.coolwen.experimentplatform.service.*;
 import com.coolwen.experimentplatform.model.ClassModel;
@@ -16,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +51,10 @@ public class StudentController {
     TotalScorePassService totalScorePassService;
     @Autowired
     ExpModelService expModelService;
-
+    @Autowired
+    CollegeReportService collegeReportService;
+    @Autowired
+    DockerService dockerService;
     //查询学生列表
     @GetMapping("/list")
     public String studentList(Model model, @RequestParam(value = "pageNum",defaultValue = "0")int pageNum){
@@ -127,19 +134,47 @@ public class StudentController {
                               int classid,
                               Boolean stuIsinschool,
                               String stu_password
-                              )
+    )
     {
         Student student = studentservice.findStudentById(id);
-
         student.setStuUname(stu_uname);
         student.setStuName(stu_name);
-        student.setStuXuehao(stu_xuehao);
+        if(stuIsinschool == true){
+            student.setStuXuehao(stu_xuehao);
+        }else {
+            student.setStuXuehao("");
+        }
         student.setStuIsinschool(stuIsinschool);
         student.setStuPassword(ShiroKit.md5(stu_password,stu_uname));
         student.setClassId(classid);
         studentservice.saveStudent(student);
         return "redirect:/studentManage/list";
     }
+
+
+    @GetMapping("/studentCheck/{stuid}")
+    @ResponseBody
+    public String studentCheck(String stu_uname,String stu_xuehao,@PathVariable("stuid")int stuid){
+        Student now = studentservice.findStudentById(stuid);
+        if(stu_uname != null){
+            Student student = studentservice.findByUname(stu_uname);
+            if(student != null){
+                if(!student.getStuUname().equals(now.getStuUname())){
+                    return "该账号已被注册";
+                }
+            }
+        }else if(stu_xuehao != null) {
+            Student student = studentservice.findByStuXuehao(stu_xuehao);
+            if (stu_xuehao.length() != 10) {
+                return "请输入正确的学号";
+            } else if (student != null) {
+                if (!student.getStuXuehao().equals(now.getStuXuehao())) {
+                    return "该学号已被注册";
+                }
+            }
+        }
+        return "Metal";
+        }
 
     //返回待审核学生列表
     @GetMapping("/toBeReviewd")
@@ -150,12 +185,116 @@ public class StudentController {
 
     //通过审核操作
     @GetMapping("/passReviewd/{id}")
+    @ResponseBody
     public String passReview(@PathVariable("id") int id){
         Student student = studentservice.findStudentById(id);
         student.setStuCheckstate(true);
         studentservice.saveStudent(student);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",student);
+        return String.valueOf(jsonObject);
+    }
+
+    @GetMapping("/dockerUrl")
+    @ResponseBody
+    public String dockerUrl(){
+        List<Docker> list = dockerService.findDockersByTenData();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",list);
+        return String.valueOf(jsonObject);
+    }
+
+    @PostMapping("/giveDocker/{id}")
+    public String giveDocker(@PathVariable("id")int id, String dc_url,String dc_start_datetime,String dc_end_datetime){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date starsDate = null;
+        Date endDate = null;
+        try {
+            starsDate = simpleDateFormat.parse(dc_start_datetime);
+            endDate = simpleDateFormat.parse(dc_end_datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Docker docker = dockerService.findDockerByDc_url(dc_url);
+        docker.setStu_id(id);
+        docker.setDc_state(true);
+        docker.setDc_start_datetime(starsDate);
+        docker.setDc_end_datetime(endDate);
+        dockerService.addDocker(docker);
         return "redirect:/studentManage/toBeReviewd";
     }
+
+
+    @GetMapping("/updateStuDocker/{id}")
+    @ResponseBody
+    public String updateStuDocker(@PathVariable("id")int id){
+        Student student = studentservice.findStudentById(id);
+        Docker docker = dockerService.findDockerByStu_id(id);
+        JSONObject jsonObject = new JSONObject();
+        StuDocker stuDocker = new StuDocker();
+        stuDocker.setStuName(student.getStuName());
+        stuDocker.setStuXuehao(student.getStuXuehao());
+        if(docker != null){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            stuDocker.setDc_url(docker.getDc_url());
+            stuDocker.setDc_start_datetime(simpleDateFormat.format(docker.getDc_start_datetime()));
+            stuDocker.setDc_end_datetime(simpleDateFormat.format(docker.getDc_end_datetime()));
+        }
+        jsonObject.put("docker",stuDocker);
+        return String.valueOf(jsonObject);
+    }
+
+    @PostMapping("/updateStuDocker/{id}")
+    public String doUpdateStuDocker(@PathVariable("id")int id, String dc_url,String dc_start_datetime,String dc_end_datetime){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date starsDate = null;
+        Date endDate = null;
+        try {
+            starsDate = simpleDateFormat.parse(dc_start_datetime);
+            endDate = simpleDateFormat.parse(dc_end_datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Docker preDocker = dockerService.findDockerByStu_id(id);
+        Docker nexDocker = dockerService.findDockerByDc_url(dc_url);
+        if(preDocker == null){
+            nexDocker.setDc_state(true);
+            nexDocker.setStu_id(id);
+            nexDocker.setDc_start_datetime(starsDate);
+            nexDocker.setDc_end_datetime(endDate);
+            dockerService.addDocker(nexDocker);
+            return "redirect:/studentManage/list";
+        }
+        if(dc_url.equals("metal")){
+            preDocker.setDc_start_datetime(starsDate);
+            preDocker.setDc_end_datetime(endDate);
+            dockerService.addDocker(preDocker);
+            return "redirect:/studentManage/list";
+        }
+        preDocker.setDc_end_datetime(null);
+        preDocker.setDc_start_datetime(null);
+        preDocker.setStu_id(0);
+        preDocker.setDc_state(false);
+        dockerService.addDocker(preDocker);
+        nexDocker.setDc_state(true);
+        nexDocker.setStu_id(id);
+        nexDocker.setDc_start_datetime(starsDate);
+        nexDocker.setDc_end_datetime(endDate);
+        dockerService.addDocker(nexDocker);
+        return "redirect:/studentManage/list";
+    }
+
+    @GetMapping("/getDocker/{id}")
+    @ResponseBody
+    public String getDocker(@PathVariable("id") int id){
+        JSONObject jsonObject = new JSONObject();
+        Docker docker = dockerService.findByid(id);
+        jsonObject.put("docker",docker);
+        return String.valueOf(jsonObject);
+    }
+
+
+
     //驳回学生审核
     @GetMapping("/deleteReviewd/{id}")
     public String deleteReviewd(@PathVariable("id") int id){
@@ -180,7 +319,7 @@ public class StudentController {
     @GetMapping("/toEditClass/{id}")
     public String editClass(@PathVariable("id")int id,Model model){
         model.addAttribute("class",clazzService.findById(id));
-        return "/student/class_alter";
+        return "student/class_alter";
     }
     //进入班级添加
     @GetMapping("/toAddClass")
@@ -250,8 +389,21 @@ public class StudentController {
                 test_baifenbi = k.getTest_baifenbi();
                 kaohe_baifenbi = k.getKaohe_baifenbi();
             }
+
+            //拼接之后，如果有数据要去除最后一个分号，
+            if(kaoheModuleName.length() > 0)
+            {
+                kaoheModuleName = kaoheModuleName.substring(0,kaoheModuleName.length()-1);
+            }
             List<Student> studentList = studentservice.findStudentByClassId(id);
             for(Student s : studentList){
+                //拼接之前要初始化
+                kaohe_mtestscore = "";
+                kaohe_mreportscore = "";
+                kaohe_mtestscore_baifengbi = "";
+                kaohe_mreportscore_baifengbi = "";
+                kaohe_mscale = "";
+
                 for(KaoheModel k : kaoheModelList){
                     //获取该班级下学生每个考核模块信息
                     KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoHeModelScoreByStuIdAndId(s.getId(),k.getId());
@@ -262,11 +414,23 @@ public class StudentController {
                     kaohe_mreportscore_baifengbi += k.getM_report_baifenbi()+";";
                     kaohe_mscale += k.getM_scale()+";";
                 }
+
+                //拼接之后，如果有数据要去除最后一个分号
+                if(kaohe_mtestscore.length() > 0)
+                {
+                    kaohe_mtestscore = kaohe_mtestscore.substring(0,kaohe_mtestscore.length()-1);
+                    kaohe_mreportscore = kaohe_mreportscore.substring(0,kaohe_mreportscore.length()-1);
+                    kaohe_mtestscore_baifengbi = kaohe_mtestscore_baifengbi.substring(0,kaohe_mtestscore_baifengbi.length()-1);
+                    kaohe_mreportscore_baifengbi = kaohe_mreportscore_baifengbi.substring(0,kaohe_mreportscore_baifengbi.length()-1);
+                    kaohe_mscale = kaohe_mscale.substring(0,kaohe_mscale.length()-1);
+                }
+
                 TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(s.getId());
                 //进行成绩固化操作
                 totalScorePass = new TotalScorePass();
                 totalScorePass.setStuId(s.getId());
-                totalScorePass.setKaoheName(String.valueOf(kaoheModelList.size()));
+                //存入考核模块数目
+                totalScorePass.setKaoheNum(kaoheModelList.size());
                 totalScorePass.setKaoheName(kaoheModuleName);
                 totalScorePass.setKaoheMtestscore(kaohe_mtestscore);
                 totalScorePass.setKaoheMreportscore(kaohe_mreportscore);
@@ -291,6 +455,18 @@ public class StudentController {
         return "redirect:/studentManage/classManage";
     }
 
+    @GetMapping("/checkClassName/{classid}")
+    @ResponseBody
+    public String checkClassName(@PathVariable("classid") int classid,String className){
+        ClassModel now = clazzService.findById(classid);
+        if(clazzService.findClassModelByClassName(className) != null){
+            if(!className.equals(now.getClassName())){
+                return "该班级名已存在";
+            }
+        }
+        return "Metal";
+    }
+
 
     //删除班级操作
     @GetMapping("/deleteClass/{id}")
@@ -301,6 +477,8 @@ public class StudentController {
         if(classModel.getClassIscurrent() == false){
             for(Student student : studentList){
                 totalScoreCurrentService.deleteTotalScoreCurrentByStuId(student.getId());
+                //删除学生考核模块成绩记录
+                kaoHeModelScoreService.deleteKaoheModuleScoreByStuId(student.getId());
             }
         }else {
             for(Student student : studentList){
@@ -321,33 +499,49 @@ public class StudentController {
     public String toaddStudent(@PathVariable("id")int id,Model model){
         model.addAttribute("student",studentservice.findStudentByClassId(id));
         model.addAttribute("classId",id);
+        ClassModel classModel = clazzService.findById(id);
+        model.addAttribute("class",classModel);
         return "student/class_add_student";
     }
     //为班级进行添加学生操作
     @PostMapping("/viewAddStudent/{id}")
     public String addStudent(@RequestParam("stu_xuehao")String xuehao, @PathVariable("id") int id){
         Student student = studentservice.findclassStudentByStuXuehao(xuehao);//分班的学生必须是审核过了
+        if(student == null){
+            return "redirect:/studentManage/addStudent/"+id;
+        }
         student.setClassId(id);
         List<KaoheModel> kaoheModels = kaoheModelService.findAll();
         KaoHeModelScore kaoHeModelScore = null;
         //分班后进行学生考核成绩表生成操作
         if(!kaoheModels.isEmpty() && kaoheModels != null){
             for(KaoheModel km : kaoheModels){
-                kaoHeModelScore = new KaoHeModelScore();
-                kaoHeModelScore.settKaohemodleId(km.getId());
-                kaoHeModelScore.setStuId(student.getId());
-                kaoHeModelScore.setmOrder(km.getM_order());
-                kaoHeModelScore.setmScale(km.getM_scale());
-                kaoHeModelScoreService.add(kaoHeModelScore);
+                //学生添加进班级时，删除该学生考核模块相关测试答题记录
+                reportAnswerService.deleteByStuIdModelId(km.getM_id(),student.getId());
+                moduleTestAnswerStuService.deleteByStuIdModelId(km.getM_id(),student.getId());
+                collegeReportService.deleteByStuIdModelId(km.getM_id(),student.getId());
+                KaoHeModelScore pre = kaoHeModelScoreService.findKaoheModelScoreByMid(km.getM_id(),student.getId());
+                if(pre == null){
+                    kaoHeModelScore = new KaoHeModelScore();
+                    kaoHeModelScore.settKaohemodleId(km.getId());
+                    kaoHeModelScore.setStuId(student.getId());
+                    kaoHeModelScore.setmOrder(km.getM_order());
+                    kaoHeModelScore.setmScale(km.getM_scale());
+                    kaoHeModelScoreService.add(kaoHeModelScore);
+                }
             }
         }
         //生成当期总评成绩表
-        TotalScoreCurrent totalScoreCurrent = new TotalScoreCurrent();
-        totalScoreCurrent.setStuId(student.getId());
-        int kaoheNum = kaoheModelService.findKaoheNum();
-        totalScoreCurrent.setKaoheNum(kaoheNum);
-        totalScoreCurrentService.add(totalScoreCurrent);
+        TotalScoreCurrent t = totalScoreCurrentService.findTotalScoreCurrentByStuId(student.getId());
+        if(t == null){
+            TotalScoreCurrent totalScoreCurrent = new TotalScoreCurrent();
+            totalScoreCurrent.setStuId(student.getId());
+            int kaoheNum = kaoheModelService.findKaoheNum();
+            totalScoreCurrent.setKaoheNum(kaoheNum);
+            totalScoreCurrentService.add(totalScoreCurrent);
+        }
         studentservice.saveStudent(student);
+
         return "redirect:/studentManage/addStudent/"+id;
     }
     //班级学生移除操作
@@ -367,9 +561,51 @@ public class StudentController {
     @GetMapping("/viewClass")
     public String viewClass(@RequestParam("class_name") String class_name,Model model){
         ClassModel clazz = studentservice.findClazzByClassName(class_name);
-        model.addAttribute("class",clazz);
-        return "student/class_view";
+        if(clazz != null){
+            model.addAttribute("class",clazz);
+            return "student/class_view";
+        }
+        return "redirect:/studentManage/classManage";
     }
+
+    @GetMapping("/dockerList")
+    public String dockerList(@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum,Model model){
+        model.addAttribute("dockerList",dockerService.findAll(pageNum));
+        return "student/docker_list";
+    }
+
+    @PostMapping("/addDocker")
+    public String addDocker(String dc_url){
+        Docker docker = dockerService.findDockerByDc_url(dc_url);
+        if(docker == null){
+            Docker d = new Docker();
+            d.setDc_url(dc_url);
+            dockerService.addDocker(d);
+        }
+        return "redirect:/studentManage/dockerList";
+    }
+
+    @PostMapping("/updateDocker/{id}")
+    public String updateDocker(@PathVariable("id")int id,String dc_url){
+        Docker docker = dockerService.findByid(id);
+        Docker docker1 = dockerService.findDockerByDc_url(dc_url);
+        if(docker1 == null){
+            if(!docker.getDc_url().equals(dc_url)){
+                docker.setDc_url(dc_url);
+                dockerService.addDocker(docker);
+            }
+        }
+        return "redirect:/studentManage/dockerList";
+    }
+
+    @PostMapping("/delDocker/{id}")
+    public String delDocker(@PathVariable("id")int id){
+        dockerService.delDocker(id);
+        return "redirect:/studentManage/dockerList";
+    }
+
+
+
 
 
 

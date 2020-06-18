@@ -8,13 +8,14 @@
 		<title>修改---实验模块</title>
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
+		<link rel="stylesheet" href="../../static/css/font.css">
+		<link rel="stylesheet" href="../../static/css/xadmin.css">
 		
 	</head>
 		<style type="text/css">
-			#content{
-				padding: 2%;
-			}
-
+								  #content{
+									  padding: 2%;
+								  }
 			.layui-input-block{
 				margin-left: 150px;
 			}
@@ -39,10 +40,16 @@
 				position: absolute;
 			}
 			.layui-upload-list img{
+				with:100%;
+				max-height: 100%;
+			}
+			.layui-upload-list img{
 				width: 100%;
 				max-height: 100%;
 			}
-
+			.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select{
+				display: none;
+			}
 		</style>
 	<body>
 
@@ -93,13 +100,22 @@
 				    <div class="layui-input-block">
 				      <input type="text" name="m_inurl" lay-verify="title" autocomplete="off" placeholder="请输入实验平台链接" class="layui-input" th:value="${preExpModel.m_inurl}">
 				    </div>
+
 				</div>
-				 
-				<div class="layui-form-item">
+					<div class="layui-form-item">
+						<label class="layui-form-label">实验报告类型：</label>
+						<div class="layui-input-block">
+							<input type="radio" name="report_type" value="1" title="学院版" th:field="${preExpModel.report_type}">
+							<input type="radio" name="report_type" value="0" title="自定义版"  th:field="${preExpModel.report_type}">
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
 				    <div class="layui-input-block">
 				      <input class="layui-btn" lay-submit lay-filter="formDemo" value="修改" type="submit">
-				      <button type="reset" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">取消</button>
-				      	<a type="layui-btn" class="layui-btn layui-bg-green" href="" th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
+				      <a type="butten" class="layui-btn layui-btn-primary" th:href="@{/expmodel/list}">取消</a>
+				      	<a type="layui-btn" class="layui-btn layui-bg-green"  th:href="@{|/expmodel/updateExpTheory/${preExpModel.m_id}|}">修改理论学习</a>
 <!--				      	<a type="layui-btn" class="layui-btn layui-btn-primary" th:href="@{|/expmodel/deleteTheory/${preExpModel.m_id}|}">删除理论学习</a>-->
 				    </div>
 				</div>
@@ -107,8 +123,13 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript">
 
+
+	<script src="../../static/js/layui.all.js"></script>
+	<script type="text/javascript">
+		layui.use(['element','form'],function () {
+			var form = layui.form;
+		})
 		function xmTanUploadImg(obj) {
 			var file = obj.files[0];
 			var reader = new FileReader();

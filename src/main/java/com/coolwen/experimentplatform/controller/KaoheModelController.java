@@ -1,14 +1,10 @@
 package com.coolwen.experimentplatform.controller;
 
 
-import com.coolwen.experimentplatform.model.ExpModel;
-import com.coolwen.experimentplatform.model.KaoHeModelScore;
-import com.coolwen.experimentplatform.model.KaoheModel;
-import com.coolwen.experimentplatform.model.Student;
-import com.coolwen.experimentplatform.service.ExpModelService;
-import com.coolwen.experimentplatform.service.KaoHeModelScoreService;
-import com.coolwen.experimentplatform.service.KaoheModelService;
-import com.coolwen.experimentplatform.service.StudentService;
+import com.coolwen.experimentplatform.model.*;
+import com.coolwen.experimentplatform.model.DTO.KaoHeModelStuDTO;
+import com.coolwen.experimentplatform.model.DTO.KaoheModelAndExpInfoDTO;
+import com.coolwen.experimentplatform.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +13,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 2020/6/3
+ * 王雨来
+ * 新增总成绩考核中考试与模块总成绩权重初始化 /GreatestWeight
+ */
 
 /**
  * 对考核进行编辑管理
@@ -43,6 +40,14 @@ public class KaoheModelController {
     private StudentService studentService;
     @Autowired
     private KaoHeModelScoreService kaoHeModelScoreService;
+    @Autowired
+    private TotalScoreCurrentService totalScoreCurrentService; //处理表13中考核模块数量
+    @Autowired
+    private ScoreUpdateService scoreUpdateService;   //移除模块后，批量更新学生成绩
+    @Autowired
+    private CollegeReportService collegeReportService;  //学院报告服务
+    @Autowired
+    private ReportAnswerService reportAnswerService;   //自定义报告
 
 
     /**
@@ -89,7 +94,7 @@ public class KaoheModelController {
     }
 
     /**
-     * 所有考核模块 一下均为相同内容,不再赘述
+     * 列出所有考核模块 以下均为相同内容,不再赘述
      * @param model 传值
      * @param pageNum 分页
      * @return 页面
@@ -97,9 +102,11 @@ public class KaoheModelController {
      */
     @RequestMapping(value = "/checkModule", method = RequestMethod.GET)
     public String list(Model model, @RequestParam(defaultValue = "0", required = true, value = "pageNum") Integer pageNum) throws JsonProcessingException {
-        // 所以的考核模块
-        Pageable pageable = PageRequest.of(pageNum, 5);
-        Page<KaoheModel> page = kaoheModelService.findAll(pageable);
+        // 所有的考核模块
+//        Pageable pageable = PageRequest.of(pageNum, 5);
+//        Page<KaoheModel> page = kaoheModelService.findAll(pageable);
+        Page<KaoheModelAndExpInfoDTO> page = kaoheModelService.findAllKaoheModelAndExpInfoDTO(pageNum);
+
         model.addAttribute("kaoheModelPageInfo", page);
         System.out.println("page:" + page.getTotalElements());
 
@@ -120,6 +127,8 @@ public class KaoheModelController {
 
         model.addAttribute("moveIn", new KaoheModel());
         return "kaohe/moveIn";
+
+
     }
 
     /**
@@ -127,30 +136,51 @@ public class KaoheModelController {
      */
     @RequestMapping(value = {"/{mid}/moveIn"}, method = RequestMethod.POST)
     public String add(@PathVariable int mid, KaoheModel moveIn) {
+
         System.out.println(">>>>>>>>>>>>" + moveIn);
         KaoheModel u = new KaoheModel();
         ExpModel expModel = expModelService.findExpModelByID(mid);
         u.setM_id(expModel.getM_id());
-        u.setExperiment_name(expModel.getM_name());
-        u.setClass_hour(expModel.getClasshour());
+//        u.setExperiment_name(expModel.getM_name());
+//        u.setClass_hour(expModel.getClasshour());
+        System.out.println(">>>>>>>>>>>>>>>>>>>>"+moveIn.getM_order());
         u.setM_order(moveIn.getM_order());
         u.setM_scale(moveIn.getM_scale());
-        u.setShiyan_Purpose(expModel.getPurpose());
-        u.setShiyan_Types(expModel.getM_type());
+//        u.setShiyan_Purpose(expModel.getPurpose());
+//        u.setShiyan_Types(expModel.getM_type());
         u.setM_test_baifenbi(moveIn.getM_test_baifenbi());
         u.setM_report_baifenbi(moveIn.getM_report_baifenbi());
-        u.setKaohe_baifenbi(moveIn.getKaohe_baifenbi());
-        u.setTest_baifenbi(moveIn.getTest_baifenbi());
-        System.out.println(u);
+
+        //从考核模块中取出整体测试百分比
+        List<KaoheModel> kaoheModels = kaoheModelService.findAll();
+        if (kaoheModels.size()>0){
+            u.setKaohe_baifenbi(kaoheModels.get(0).getKaohe_baifenbi());
+            u.setTest_baifenbi(kaoheModels.get(0).getTest_baifenbi());
+        }else {
+            u.setKaohe_baifenbi(0);
+            u.setTest_baifenbi(0);
+        }
+//        System.out.println(u);
         kaoheModelService.add(u);
         expModel.setNeedKaohe(true);
-        for (Student i : studentService.findAll()) {
+        //学生考核模块成绩记录表，只处理当期有考核权限的学生
+        for (Student i : studentService.findStudentByNotClassId()){
+            System.out.println(i);
             kaoHeModelScoreService.add(new KaoHeModelScore(u.getId(), i.getId(), 0, 0, u.getM_order(), u.getM_scale()));
+            //更新表13中学生总表记录中考核模块数
+            TotalScoreCurrent totalScoreCurrent = totalScoreCurrentService.findTotalScoreCurrentByStuId(i.getId());
+            totalScoreCurrent.setKaoheNum(totalScoreCurrent.getKaoheNum()+1);
+            totalScoreCurrentService.add(totalScoreCurrent);
         }
         // 当期限定
         // 表13 考核项目数增加
+
         expModelService.save(expModel);
         System.out.println(">>>>>>>>>>>>add");
+        kaoheModelService.deleteMTestAnswerByMid(mid);
+
+        collegeReportService.deleteCollege(mid);
+        reportAnswerService.deleteReportAnswerByMid(mid);
         return "redirect:/kaohemodel/allModule";
     }
 
@@ -159,10 +189,11 @@ public class KaoheModelController {
      */
     @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
     public String update(@PathVariable int id, Model model) {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + id);
-        KaoheModel kaoheModel = kaoheModelService.findById(id);
-        System.out.println(kaoheModel.toString());
-        model.addAttribute("kaohemodel", kaoheModel);
+        System.out.println("id:>>>>>>>>>>>>>>>>>>>>>>>" + id);
+        KaoheModelAndExpInfoDTO kaoheModelAndExpInfoDTO = kaoheModelService.findKaoheModelAndExpInfoDTOByKaoheid(id);
+//        KaoheModel kaoheModel = kaoheModelService.findById(id);
+//        System.out.println(kaoheModel.toString());
+        model.addAttribute("kaohemodel", kaoheModelAndExpInfoDTO);
 
         return "/kaohe/kaoheupdate";
     }
@@ -172,11 +203,11 @@ public class KaoheModelController {
      */
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String update(@PathVariable int id, KaoheModel kaoheModel) {
-        KaoheModel u = new KaoheModel();
-        u = kaoheModelService.findById(id);
-        u.setClass_hour(kaoheModel.getClass_hour());
-        u.setM_id(kaoheModel.getM_id());
-        u.setExperiment_name(kaoheModel.getExperiment_name());
+        KaoheModel u = kaoheModelService.findById(id);
+//        u.setClass_hour(kaoheModel.getClass_hour());
+        //模块id，从查询记录中得到
+        u.setM_id(u.getM_id());
+//        u.setExperiment_name(kaoheModel.getExperiment_name());
         u.setM_order(kaoheModel.getM_order());
         u.setM_scale(kaoheModel.getM_scale());
         u.setM_test_baifenbi(kaoheModel.getM_test_baifenbi());
@@ -184,6 +215,8 @@ public class KaoheModelController {
         u.setKaohe_baifenbi(kaoheModel.getKaohe_baifenbi());
         u.setTest_baifenbi(kaoheModel.getTest_baifenbi());
         kaoheModelService.add(u);
+        //批量更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
         return "redirect:/kaohemodel/checkModule";
     }
 
@@ -202,13 +235,18 @@ public class KaoheModelController {
         // 将实验模块的考核状态设置为不考核
         expModel.setNeedKaohe(false);
         expModelService.save(expModel);
-        // 删除此考核模块
-        kaoheModelService.delete(id);
 
+        //删除所有学生此模块的成绩
+        kaoheModelService.deleteByMid(mid);
+        // 删除表11中该考核模块
+        kaoheModelService.delete(id);
+        //批量更新学生成绩
+        scoreUpdateService.allStudentScoreUpdate();
 //        kaoHeModelScoreService.deleteAllByKaohemId(id);
         System.out.println("移出成功");
         return "redirect:/kaohemodel/checkModule";
     }
+
 
 
 }

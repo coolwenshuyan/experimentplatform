@@ -33,4 +33,30 @@ public class ModuleTestAnswerStuServiceImpl implements ModuleTestAnswerStuServic
         List<ModuleTestAnswerStu> list = moduleTestAnswerStuRepository.findModuleTestAnswerStuByStu_id(id);
         moduleTestAnswerStuRepository.deleteAll(list);
     }
+
+    @Override
+    public ModuleTestAnswerStu findModuleTestAnswerStuByStu_idAndQuest_id(int stuid, int questid) {
+        return moduleTestAnswerStuRepository.findModuleTestAnswerStuByStu_idAndQuest_id(stuid,questid);
+    }
+
+    @Override
+    public void deleteByQuestId(int questid) {
+        List<ModuleTestAnswerStu> list = moduleTestAnswerStuRepository.findModuleTestAnswerStuByQuest_id(questid);
+        moduleTestAnswerStuRepository.deleteAll(list);
+    }
+
+    @Override
+    public List<ModuleTestAnswerStu> findStudentAnswbyStuidAndMid(int stuId, Integer mid) {
+        return moduleTestAnswerStuRepository.findStudentAnswbyStuidAndMid(stuId ,mid);
+    }
+
+    @Override
+    public List<ModuleTestAnswerStu> findByQuest_id(int questid) {
+        return moduleTestAnswerStuRepository.findByQuest_id(questid);
+    }
+
+    @Override
+    public void deleteByStuIdModelId(int m_id, int id) {
+        moduleTestAnswerStuRepository.deleteByStuIdModelId(m_id,id);
+    }
 }

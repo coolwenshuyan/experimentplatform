@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="../../static/css/font.css">
         <link rel="stylesheet" href="../../static/css/xadmin.css">
+        <link rel="stylesheet" href="../../static/css/layui.css">
         <script src="../../static/js/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="../../static/js/xadmin.js"></script>
 
@@ -31,7 +32,7 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <div class="layui-card-body ">
+                        <div class="layui-card-body " th:if="${class.classIscurrent} == false">
                             <form class="layui-form layui-col-space5" th:action="@{|/studentManage/viewAddStudent/${classId}|}" method="post">
                                 
                                 <div class="layui-inline layui-show-xs-block">

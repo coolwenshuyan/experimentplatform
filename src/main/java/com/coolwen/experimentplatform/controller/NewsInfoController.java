@@ -13,9 +13,12 @@ import com.coolwen.experimentplatform.dao.TeacherRepository;
 import com.coolwen.experimentplatform.model.ExpModel;
 import com.coolwen.experimentplatform.model.NewsInfo;
 import com.coolwen.experimentplatform.model.SetInfo;
+import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.NewsInfoService;
 import com.coolwen.experimentplatform.service.SetInfoService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.Date;
 
@@ -49,6 +53,9 @@ public class NewsInfoController {
     @Autowired
     TeacherRepository teacherRepository;
 
+    @Value("${web.count-path}")
+    private String count;
+
     /**
      * 进入前端首页的接口
      * @param model 存储需要展示在首页上的数据（虚拟仿真实验列表，推荐实验项目，虚拟实验平台公告，平台统计）
@@ -72,8 +79,15 @@ public class NewsInfoController {
         String[] sid =ids.split(",");
         for (int i = 0; i < sid.length ; i++) {
 //            String imgurl = setInfoService.findexpimg(Integer.parseInt(sid[i]));
-            String imgurl = expModelRepository.findexpimg(Integer.parseInt(sid[i]));
-            model.addAttribute("img"+String.valueOf(i),imgurl);
+//            String imgurl = expModelRepository.findexpimg(Integer.parseInt(sid[i]));
+            try {
+                ExpModel expModel = expModelRepository.findById(Integer.parseInt(sid[i])).get();
+                model.addAttribute("img"+String.valueOf(i),expModel.getImageurl());
+                model.addAttribute("mid"+String.valueOf(i),expModel.getM_id());
+            }catch (Exception e){
+
+            }
+
         }
         //平台统计
         //查询实验模块总数
@@ -95,7 +109,7 @@ public class NewsInfoController {
 
         //访问量
         // 获取访问量信息
-        String txtFilePath = "E://count.txt";
+        String txtFilePath = count;
         Long count = Get_Visit_Count(txtFilePath);
         model.addAttribute("count", count);
         return "home_page/index";
@@ -104,7 +118,15 @@ public class NewsInfoController {
 
     //前端实验大厅入口
     @GetMapping(value = "/shiyan")
-    public String model(){
+    public String model(Model model, HttpSession session){
+
+        Student student = (Student) session.getAttribute("student");
+        //暂时做了修改，如果没有登录，跳转到登录页
+        if(student == null){
+            return "home_page/login";
+        }
+
+        model.addAttribute("disMid",false);
         return "kuangjia/shiyan";
     }
 

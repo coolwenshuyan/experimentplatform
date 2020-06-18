@@ -42,5 +42,25 @@ public class ClazzServiceImpl implements ClazzService {
         return clazzRepository.findAll();
     }
 
+    @Override
+    public ClassModel findClassModelByStuId(int stuid) {
+        return clazzRepository.findClassModelByStuId(stuid);
+    }
+
+    @Override
+    public List<ClassModel> findCurrentClass() {
+        return clazzRepository.findCurrentClass();
+    }
+
+    @Override
+    public ClassModel findClassModelByClassName(String className) {
+        return clazzRepository.findClazzByClass_name(className);
+    }
+
+    @Override
+    public List<ClassModel> findPassClass() {
+        return clazzRepository.findPassClass();
+    }
+
 
 }

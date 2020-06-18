@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+</head>
+
+<style type="text/css">
+	.main_con{
+		margin-left: 4%;
+	}
+	.layui-col-md4 {
+		padding: 1% 0;
+	}
+	.content{
+		width: 88%;
+		box-shadow:2px 2px 10px #000;
+	}
+	.name{
+		background-color: #f8f8f8;
+		padding: 10px 0;
+		text-align: center;
+	}
+
+	.change .layui-nav{
+		background-color:   rgba(97,96,96,.2);
+		text-align: center;
+	}
+
+	.change .layui-nav .layui-nav-item a{
+		color: #61b577;
+		padding:0 5px ;
+		font-size: 14px;
+		font-weight: bold;
+
+	}
+	.img img{
+		height: 198px;
+	}
+	.page{
+		margin: 0 auto;
+		width: 73%;
+		margin-top: 30px;
+	}
+
+	.fir_h5{
+		display: inline;
+		text-align: left;
+		margin: 0 29px;
+	}
+	.layui-btn{
+		background-color: #174f37;
+	}
+	.layui-nav {
+		padding: 0 13px;
+	}
+</style>
+
+<body>
+
+
+<div class="main_con" style="float: none">
+	<div class="layui-row">
+		<div class="layui-col-xs4 " th:object="${k}">
+			<div class="content">
+				<div class="img" >
+					<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${k.m_imageurl}"/>
+				</div>
+				<div class="intro">
+					<div class="name" >
+						<h3 th:text="${k.m_name}"></h3>
+						<br>
+						<!--								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>-->
+						<!--								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>-->
+						<!--								<h3>得分:<span th:text="${model.m_score}"></span></h3>-->
+						<!--								<h3>权重：<span th:text="${model.m_scale}"></span></h3>-->
+
+						<h5 class="fir_h5" style="float: left;">模块测试:<span th:text="${k.m_teststate == false }?'未完成':'已完成'"></span></h5>
+						<h5 class="fir_h5">填写报告:<span th:text="${k.m_reportstate == false }?'未完成':'已完成'"></span></h5><br>
+						<h5 class="fir_h5" style="float: left;">得分:<span th:text="${k.m_score}"></span></h5>
+						<h5 class="fir_h5">权重:<span th:text="${k.m_scale}"></span></h5>
+
+					</div>
+					<div class="change" >
+						<ul class="layui-nav" lay-filter="" >
+							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${k.m_id}|}">理论学习</a></li>
+							<li class="layui-nav-item"><a th:href="@{|/kaoshi/${k.m_id}/toExamPageList|}">模块测试</a></li>
+							<li class="layui-nav-item"><a th:href="${k.inurl}">进入实验</a></li>
+							<li class="layui-nav-item">
+								<span th:if="${k.report_type == false}">
+									<a th:href="@{|/WriteReport/${k.m_id}/Timu|}">填写报告</a>
+								</span>
+								<span th:if="${k.report_type == true}">
+									<a th:href="@{|/collegereport/info/${k.m_id}|}">填写报告</a>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="layui-card-body ">
+	<div class="page">
+		<div>
+			<a class="layui-btn" th:href="@{|/expmodel/contiuneStudy/${k.m_id}|}">继续学习</a>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+
+</html>

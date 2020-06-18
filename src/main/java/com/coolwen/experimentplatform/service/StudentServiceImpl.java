@@ -2,6 +2,7 @@ package com.coolwen.experimentplatform.service;
 
 import com.coolwen.experimentplatform.dao.ClazzRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
+import com.coolwen.experimentplatform.exception.UserException;
 import com.coolwen.experimentplatform.model.ClassModel;
 import com.coolwen.experimentplatform.model.DTO.*;
 import com.coolwen.experimentplatform.model.Student;
@@ -47,6 +48,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
+//        Student stu = studentRepository.findByStuMobile(student.getStuMobile());
+//        if (stu != null){
+//            throw new UserException("手机号已被使用");
+//        }
         return studentRepository.save(student);
     }
 
@@ -140,9 +145,37 @@ public class StudentServiceImpl implements StudentService {
 //    }
 
     @Override
-    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum) {
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTO(int pageNum,String select_orderId) {
         Pageable pager = PageRequest.of(pageNum, size);
-        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage;
+        if (select_orderId == "" || select_orderId.equals("")){
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTO(pager);
+        }else {
+            select_orderId = "%"+select_orderId+"%";
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTO(select_orderId, pager);
+        }
+
+       return listStuTotalScoreCurrentDTOPage;
+    }
+
+
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOByClassId(int pageNum, String select_orderId, int classId) {
+        Pageable pager = PageRequest.of(pageNum, size);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage;
+        listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOByClassId(classId, pager);
+
+
+        return listStuTotalScoreCurrentDTOPage;
+    }
+
+    //往期成绩查询
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScorePassDTO(int pageNum) {
+
+        return null;
     }
 
     @Override
@@ -179,6 +212,62 @@ public class StudentServiceImpl implements StudentService {
     public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTOBYClassID(int pageNum, int classId) {
         Pageable pager = PageRequest.of(pageNum, size);
         return studentRepository.listStudentLastTestScoreDTOByClassID(classId,pager);
+    }
+
+    @Override
+    public Student findByStuMobile(String tel) {
+        return studentRepository.findByStuMobile(tel);
+    }
+
+    @Override
+    public Student findByStuXuehao(String stu_xuehao) {
+        return studentRepository.findByStuXuehao(stu_xuehao);
+    }
+
+    @Override
+    public List<Student> findStudentByNotClassId() {
+        return studentRepository.findStudentByNotClassId();
+    }
+
+    @Override
+    public List<Student> findStudentIsCurrentkaoheByStuid(int stuId) {
+
+        return studentRepository.findStudentIsCurrentkaoheByStuid(stuId);
+    }
+
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPass(int pageNum, String select_orderId) {
+        Pageable pager = PageRequest.of(pageNum, size);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage;
+        if (select_orderId == "" || select_orderId.equals("")){
+            System.out.println("不筛选");
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOOfPass(pager);
+        }else {
+            System.out.println("筛选");
+            select_orderId = "%"+select_orderId+"%";
+            listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOOfPassSelect(select_orderId, pager);
+        }
+
+        for(StuTotalScoreCurrentDTO i:listStuTotalScoreCurrentDTOPage){
+            System.out.println("listStuTotalScoreCurrentDTOPage!!!"+i);
+        }
+
+        return listStuTotalScoreCurrentDTOPage;
+    }
+
+    @Override
+    public Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPassByClassId(int pageNum, String select_orderId, int classId) {
+        Pageable pager = PageRequest.of(pageNum, size);
+//        return studentRepository.listStuTotalScoreCurrentDTO(pager);
+        Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOPage = studentRepository.listStuTotalScoreCurrentDTOOfPassByClassId(classId, pager);
+
+        return listStuTotalScoreCurrentDTOPage;
+    }
+
+    @Override
+    public List<StuTotalScoreCurrentDTO> listAllStuTotalScoreCurrentDTOOfPass() {
+        return studentRepository.listAllStuTotalScoreCurrentDTOOfPass();
     }
 
 

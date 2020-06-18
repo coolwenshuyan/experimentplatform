@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="stylesheet" href="../../static/css/font.css">
         <link rel="stylesheet" href="../../static/css/xadmin.css">
+        <link rel="stylesheet" href="../../static/css/layui.css">
         <script type="text/javascript" src="../../static/js/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="../../static/js/xadmin.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -39,10 +40,12 @@
                             <input type="text" id="L_pass" th:value="${class.classGrade}" name="class_grade" required="" lay-verify="pass" autocomplete="off" class="layui-input"></div>
                         </div>
                     <div class="layui-form-item">
-                        <label for="L_repass" class="layui-form-label">
+                        <label for="class_name" class="layui-form-label">
                             <span class="x-red">*</span>班级名</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_repass" th:value="${class.className}" name="class_name" required="" lay-verify="repass" autocomplete="off" class="layui-input"></div>
+                            <input type="text" id="class_name" th:value="${class.className}" name="class_name" required="" lay-verify="repass" autocomplete="off" class="layui-input" onblur="checkClassName()"/>
+                            <div id="msg" style="color: red;font-size:18px;width: 100%;height:5%;text-align: center"></div>
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_username" class="layui-form-label">
@@ -61,14 +64,17 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label for="L_repass" class="layui-form-label"></label>
-                        <input class="layui-btn" lay-filter="add" lay-submit="" type="submit"/>
+                        <input class="layui-btn" lay-filter="add" lay-submit="" type="submit" id="enter"/>
                     </div>
                 </form>
             </div>
         </div>
+        <script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-        <script>layui.use(['form', 'layer','jquery','form'],
+        <script>
+
+            var classid = [[${class.classId}]]
+            layui.use(['form', 'layer','jquery','form'],
             function() {
                 $ = layui.jquery;
                 var form = layui.form,
@@ -100,6 +106,26 @@
                 var s = document.getElementsByTagName("script")[0];
                 s.parentNode.insertBefore(hm, s);
             })();</script>
+
+        <script>
+            function checkClassName() {
+                var className = $("#class_name").val();
+                $.get("/studentManage/checkClassName/"+classid,{"className":className},function (data) {
+                    console.log(data+"----"+classid)
+                    if(data != "Metal"){
+                        $("#msg").attr("display","block");
+                        $("#msg").text("");
+                        $("#msg").append(data);
+                        $("#enter").attr("type","hidden")
+                    }else {
+                        $("#msg").text("");
+                        $("#msg").attr("display","none");
+                        $("#enter").attr("type","submit")
+                    }
+                })
+            }
+
+        </script>
     </body>
 
 </html>
