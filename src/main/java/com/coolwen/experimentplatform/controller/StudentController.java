@@ -256,13 +256,21 @@ public class StudentController {
             e.printStackTrace();
         }
         Docker preDocker = dockerService.findDockerByStu_id(id);
+        Docker nexDocker = dockerService.findDockerByDc_url(dc_url);
+        if(preDocker == null){
+            nexDocker.setDc_state(true);
+            nexDocker.setStu_id(id);
+            nexDocker.setDc_start_datetime(starsDate);
+            nexDocker.setDc_end_datetime(endDate);
+            dockerService.addDocker(nexDocker);
+            return "redirect:/studentManage/list";
+        }
         if(dc_url.equals("metal")){
             preDocker.setDc_start_datetime(starsDate);
             preDocker.setDc_end_datetime(endDate);
             dockerService.addDocker(preDocker);
             return "redirect:/studentManage/list";
         }
-        Docker nexDocker = dockerService.findDockerByDc_url(dc_url);
         preDocker.setDc_end_datetime(null);
         preDocker.setDc_start_datetime(null);
         preDocker.setStu_id(0);
