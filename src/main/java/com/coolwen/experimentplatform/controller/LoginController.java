@@ -5,6 +5,7 @@ import com.coolwen.experimentplatform.model.Admin;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.AdminService;
 import com.coolwen.experimentplatform.service.StudentService;
+import com.coolwen.experimentplatform.utils.CasUtils;
 import com.coolwen.experimentplatform.utils.LoginToken;
 import com.coolwen.experimentplatform.utils.Message;
 import com.coolwen.experimentplatform.utils.VerifyCode.IVerifyCodeGen;
@@ -29,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,19 +80,57 @@ public class LoginController {
         return "home_page/login";
     }
 
+    /**
+     * Cas登录成功后跳转的链接地址
+     * <P></P>
+     * 根据cas返回的信息
+     * <P></P>
+     * 判断当前用户身份类型
+     * <P></P>
+     * 根据当前用户类型指定跳转地址
+     *
+     * @return {@link  ModelAndView}
+     */
+    @GetMapping("/index")
+    public ModelAndView index(Model model) {
+        Session session = SecurityUtils.getSubject().getSession();
+
+        ModelAndView modelAndView = new ModelAndView();
+        Map<Object, Object> map = CasUtils.getUserInfo(SecurityUtils.getSubject().getSession());
+
+        String comsys_role = (String) map.get("comsys_role");
+        String number = (String) map.get("comsys_student_number");
+
+        if (comsys_role.contains("ROLE_STUDENT")) {
+//            身份类型是学生
+            Student student = studentService.findByUname(number);
+            session.setAttribute("username", student.getStuUname());
+            session.setAttribute("student", student);
+            session.setAttribute("loginType", "student");
+            modelAndView.setViewName("redirect:/newsinfo/newslist");
+        } else {
+            //            身份类型不是学生
+            Admin admin = adminService.findByUname(number);
+            session.setAttribute("admin", admin);
+            modelAndView.setViewName("redirect:/learning/kuangjia");
+        }
+
+        return modelAndView;
+    }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public ModelAndView login(@RequestParam("account") String username,
 //    public String login(@RequestParam("account") String username,
-                        @RequestParam("password") String password,
-                        @RequestParam("type") String loginType,
-                        @RequestParam("code") String loginCode,
-                        Model model1) {
+                              @RequestParam("password") String password,
+                              @RequestParam("type") String loginType,
+                              @RequestParam("code") String loginCode,
+                              Model model1) {
         //1:获取cookie里面的验证码信息
         ModelAndView model = new ModelAndView();
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
-        String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();//转换成小写;
+        //转换成小写;
+        String code = ((String) session.getAttribute("VerifyCode")).toLowerCase();
         loginCode = loginCode.toLowerCase();
         System.out.println(code + " 》》》》》 " + loginCode);
         if (!loginCode.equals(code)) {
@@ -108,7 +149,8 @@ public class LoginController {
                 session.setAttribute("username", student.getStuUname());
                 session.setAttribute("student", student);
                 session.setAttribute("loginType", loginType);
-                model.setViewName("redirect:/newsinfo/newslist");//设置登陆成功之后默认跳转页面
+                model.setViewName("redirect:/newsinfo/newslist");
+                //设置登陆成功之后默认跳转页面
 //                return "redirect:/newsinfo/newslist";
             }
             if (loginType.equals("admin")) {
@@ -119,7 +161,7 @@ public class LoginController {
 //                return "redirect:/learning/kuangjia";
             }
         } catch (UnknownAccountException e) {
-            //message.put("emsg","用户名/密码错误");
+            // message.put("emsg","用户名/密码错误");
             model.addObject("msg", "用户名/密码错误");
             model.setViewName("home_page/login");
 //            model1.addAttribute("msg1","用户名/密码错误");
@@ -176,18 +218,17 @@ public class LoginController {
 //                Pattern p1 = Pattern.compile("/^0|[a-zA-Z0-9]{10}$/");
                 Pattern p1 = Pattern.compile("^$|^\\d{10}$");
                 Matcher m1 = p1.matcher(stu_xuehao);
-                if (m.matches() != true){
+                if (m.matches() != true) {
                     model.addObject("telmsg", "请输入11位数字");
                     model.setViewName("register");
                     return model;
                 }
-                if (m1.matches() != true){
+                if (m1.matches() != true) {
                     System.out.println("gffj");
                     model.addObject("xuehaomsg", "请输入正确的学号");
                     model.setViewName("register");
                     return model;
-                }
-                else {
+                } else {
                     Student student = new Student();
                     student.setStuIsinschool(stu_isinschool);
 //                    if (class_id != "") {
@@ -218,7 +259,7 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String Logout(){
+    public String Logout() {
         SecurityUtils.getSubject().logout();
         System.out.println("fsdfasdasdgasdg");
         return "redirect:/login";

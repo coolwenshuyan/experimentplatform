@@ -1,0 +1,22 @@
+{
+    comsys_disciplinecode = Z120101,
+    comsys_cardid = 身份证号码,
+    comsys_gradecode = 120101 - 2017,
+    comsys_phone = 电话,
+    comsys_genders = 男,
+    comsys_classcode = B2017060101,
+    comsys_name = 姓名,
+    comsys_email = 邮箱,
+    comsys_gradename = 2017,
+    comsys_classname = 17信本01,
+    comsys_disciplinename = 信息管理与信息系统,
+
+    comsys_role = ROLECNNAME: 学生,ROLEIDENTIFY: ROLE_STUDENT,
+
+    comsys_faculetycode = 000405,
+    comsys_usertype = 1,
+    comsys_faculetyname = 信息与工程学院,
+
+    comsys_student_number = 学号
+    comsys_teaching_number = 教师工号
+}
