@@ -119,6 +119,7 @@
                     $("#msg").append(data);
                     $("#enter").attr("type","hidden")
                     uname = false
+                    window.location.reload()
                 }else {
                     $("#msg").text("");
                     $("#msg").attr("display","none");
@@ -126,6 +127,7 @@
                     if(uname == true && xuehao == true){
                         $("#enter").attr("type","submit")
                     }
+                    window.location.reload()
                 }
             })
         }
@@ -139,7 +141,7 @@
                     $("#msg1").append(data);
                     $("#enter").attr("type","hidden")
                     xuehao = false
-
+                    window.location.reload()
                 }else {
                     $("#msg1").text("");
                     $("#msg1").attr("display","none");
@@ -147,6 +149,7 @@
                     if(uname == true && xuehao == true){
                         $("#enter").attr("type","submit")
                     }
+                    window.location.reload()
                 }
 
             })

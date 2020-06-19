@@ -148,8 +148,8 @@
 
 
 
-                form.on('submit(formDemo)',function () {
-                    s = $("#pass").attr("name");
+                form.on('submit(formDemo)',function (obj) {
+                    s = obj.elem.name;
                     studentPass(s)
                     docker();
 

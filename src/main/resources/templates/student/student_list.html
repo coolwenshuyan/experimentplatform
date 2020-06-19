@@ -179,6 +179,7 @@
                         $("#url")[0].options.length=0
                         $.get("/studentManage/dockerUrl",function (data) {
                             $("#url").append( "<option value='metal' selected>不更改</option>")
+                            $("#url").append( "<option value='duck'>设置为空</option>")
                             $.each(JSON.parse(data),function (k,v) {
                                 $.each(v,function (i,t) {
                                     var options = "<option value='" + t.dc_url + "'>" + t.dc_url + "</option>";
