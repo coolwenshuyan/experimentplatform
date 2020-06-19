@@ -220,17 +220,16 @@ public class LoginController {
                 Matcher m = p.matcher(tel);
                 Pattern p1 = Pattern.compile("^$|^\\d{10}$");
                 Matcher m1 = p1.matcher(stu_xuehao);
-                if (m.matches() != true){
+                if (m.matches() != true) {
                     model.addObject("telmsg", "请输入11位数字");
                     model.setViewName("register");
                     return model;
                 }
-                if (m1.matches() != true){
+                if (m1.matches() != true) {
                     model.addObject("xuehaomsg", "请输入正确的学号");
                     model.setViewName("register");
                     return model;
-                }
-                else {
+                } else {
                     Student student = new Student();
                     student.setStuIsinschool(stu_isinschool);
 //                    if (class_id != "") {
@@ -238,17 +237,17 @@ public class LoginController {
 //                    }
                     student.setStuUname(username);
                     student.setStuPassword(ShiroKit.md5(password, username));
-                    if (stu_isinschool && stu_xuehao == ""){
+                    if (stu_isinschool && stu_xuehao == "") {
 //                        throw new UserException("在校学生须填写学号!");
-                        model.addObject("xuehaomsg","在校学生须填写学号!");
+                        model.addObject("xuehaomsg", "在校学生须填写学号!");
                         model.setViewName("register");
                         return model;
                     }
                     if (stu_xuehao != "") {
                         Student student2 = studentService.findByStuXuehao(stu_xuehao);
-                        if (student2 != null){
+                        if (student2 != null) {
 //                            throw new UserException("学号已经被使用!");
-                            model.addObject("xuehaomsg","学号已经被使用!");
+                            model.addObject("xuehaomsg", "学号已经被使用!");
                             model.setViewName("register");
                             return model;
                         }
@@ -256,14 +255,14 @@ public class LoginController {
                     }
                     student.setStuName(name);
                     Student stu = studentService.findByStuMobile(tel);
-                    if (stu != null){
+                    if (stu != null) {
 //                        throw new UserException("手机号已被使用!");
 //                        throw new Exception("发生错误");
-                        model.addObject("telmsg","手机号已被使用!");
+                        model.addObject("telmsg", "手机号已被使用!");
                         model.setViewName("register");
                         return model;
                     }
-                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+stu);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + stu);
                     student.setStuMobile(tel);
                     studentService.addStudent(student);
                     System.out.println(student);
@@ -278,8 +277,8 @@ public class LoginController {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        return model;
-    }
+            return model;
+        }
 
     @GetMapping("/logout")
     public String Logout(){

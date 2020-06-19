@@ -40,12 +40,17 @@ public class FIleServiceImpl implements FIleService {
 
         try {
             String filename = file.getOriginalFilename();
+            //浏览器不同，可能获得的filename值不一样，如果获得的是带路径的文件名则进行文件名截取
+            int temp1 = filename.lastIndexOf(92);
+            if(temp1>-1)
+            {
+                filename = filename.substring(temp1+1,filename.length());
+            }
 
             File fileServer = new File(dir.getAbsolutePath(), filename);
-
             file.transferTo(fileServer);
-
             filePath = format + fileServer.getName() ;
+
         } catch (IOException e) {
 
         }
