@@ -84,7 +84,7 @@
 			<div class="layui-row  sec_con">
 				<div class="layui-col-xs3 clearfix b" th:each="teacher:${teacherPageInfo.content}">
 					<div class="thumbnail">
-					     <div class="t_img"><img th:src="${teacher.image_url}" alt="..."></div>
+					     <div class="t_img"><img th:src="@{'/upload/'+${teacher.image_url}}" alt="..."></div>
 					    <div class="caption" align="center">
 					    	<h3><strong th:text="${teacher.person_name }">温佐承</strong></h3>
 					        <p class="p_last" th:text="${teacher.intro}">信息与工程学院老师，职称</p>
