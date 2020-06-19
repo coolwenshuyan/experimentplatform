@@ -92,7 +92,7 @@
                   <div class="layui-form-item">
                       <label class="layui-form-label">
                       </label>
-                      <input type="submit" class="layui-btn" lay-filter="add" lay-submit="" value="确认修改" id="enter"/>
+                      <input type="submit" class="layui-btn"  lay-filter="add" lay-submit="" value="确认修改" id="enter"/>
                   </div>
               </form>
             </div>
@@ -117,17 +117,15 @@
                     $("#msg").attr("display","block");
                     $("#msg").text("");
                     $("#msg").append(data);
-                    $("#enter").attr("type","hidden")
+                    $("#enter").attr("disabled",true)
                     uname = false
-                    window.location.reload()
                 }else {
                     $("#msg").text("");
                     $("#msg").attr("display","none");
                     uname = true;
                     if(uname == true && xuehao == true){
-                        $("#enter").attr("type","submit")
+                        $("#enter").attr("disabled",false)
                     }
-                    window.location.reload()
                 }
             })
         }
@@ -139,17 +137,15 @@
                     $("#msg1").attr("display","block");
                     $("#msg1").text("");
                     $("#msg1").append(data);
-                    $("#enter").attr("type","hidden")
+                    $("#enter").attr("disabled",true)
                     xuehao = false
-                    window.location.reload()
                 }else {
                     $("#msg1").text("");
                     $("#msg1").attr("display","none");
                     xuehao = true
                     if(uname == true && xuehao == true){
-                        $("#enter").attr("type","submit")
+                        $("#enter").attr("disabled",false)
                     }
-                    window.location.reload()
                 }
 
             })

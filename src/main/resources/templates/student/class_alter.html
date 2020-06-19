@@ -116,11 +116,11 @@
                         $("#msg").attr("display","block");
                         $("#msg").text("");
                         $("#msg").append(data);
-                        $("#enter").attr("type","hidden")
+                        $("#enter").attr("disabled",true)
                     }else {
                         $("#msg").text("");
                         $("#msg").attr("display","none");
-                        $("#enter").attr("type","submit")
+                        $("#enter").attr("disabled",false)
                     }
                 })
             }
