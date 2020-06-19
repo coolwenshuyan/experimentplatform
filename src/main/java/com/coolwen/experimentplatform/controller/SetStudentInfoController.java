@@ -32,7 +32,7 @@ public class SetStudentInfoController {
         String classname = setStudentInfoService.findByClassName(student.getClassId());
         model.addAttribute("student", student);
         model.addAttribute("classname", classname);
-        System.out.println(classname);
+        System.out.println(student);
         return "home_shiyan/change";
     }
 
@@ -55,7 +55,6 @@ public class SetStudentInfoController {
                 model.addAttribute("telmsg", "请输入11位数字");
                 return "home_shiyan/change";
             }
-            System.out.println("student:"+student);
             Student student2 = new Student();
             student2.setStuUname(student.getStuUname());
             student2.setStuName(student.getStuName());

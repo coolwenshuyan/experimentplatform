@@ -208,7 +208,7 @@ public class LoginController {
                                  @RequestParam("tel") String tel,
                                  @RequestParam("name") String name) {
         ModelAndView model = new ModelAndView();
-        try {
+//        try {
             if (pass.equals(password)) {
                 Student student1 = studentService.findByUname(username);
                 if (student1 != null) {
