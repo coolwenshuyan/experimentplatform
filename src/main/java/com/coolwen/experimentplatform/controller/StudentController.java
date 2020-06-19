@@ -95,6 +95,14 @@ public class StudentController {
                 totalScorePassService.delteTotalScorePassByStuId(id);
             }
         }
+        Docker docker = dockerService.findDockerByStu_id(id);
+        if(docker != null){
+            docker.setStu_id(0);
+            docker.setDc_start_datetime(null);
+            docker.setDc_end_datetime(null);
+            docker.setDc_state(false);
+            dockerService.addDocker(docker);
+        }
         studentservice.deleteStudentById(id);
         return "redirect:/studentManage/list";
     }

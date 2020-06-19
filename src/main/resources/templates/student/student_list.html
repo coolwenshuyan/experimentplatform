@@ -104,7 +104,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">学号:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="stuXuehao" id="stuXuehao" disabled autocomplete="off" class="layui-input">
+                            <input type="text" name="stuXuehao" id="stuXuehao" disabled autocomplete="off" value="该生为校外学生" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -159,6 +159,7 @@
             let index;
             let s;
             form.on('submit(change)',function (obj) {
+                $("#dataform")[0].reset();
                 s = obj.elem.name;
                 stuMessage(s);
                 docker()
@@ -179,7 +180,7 @@
                         $("#url")[0].options.length=0
                         $.get("/studentManage/dockerUrl",function (data) {
                             $("#url").append( "<option value='metal' selected>不更改</option>")
-                            $("#url").append( "<option value='duck'>设置为空</option>")
+                            $("#url").append( "<option value='duck'></option>")
                             $.each(JSON.parse(data),function (k,v) {
                                 $.each(v,function (i,t) {
                                     var options = "<option value='" + t.dc_url + "'>" + t.dc_url + "</option>";
