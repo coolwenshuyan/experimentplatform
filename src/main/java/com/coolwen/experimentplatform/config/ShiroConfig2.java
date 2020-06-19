@@ -32,11 +32,7 @@ import java.util.Map;
 public class ShiroConfig2 {
     private static final String casFilterUrlPattern = "/shiro-cas";
 
-    /**
-     * 这个照着写，我也不知道什么意思
-     *
-     * @return
-     */
+
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
