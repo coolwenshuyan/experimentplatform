@@ -246,12 +246,13 @@
     </div>
 </div>
 <!--endprint-->
-<div>
 
+
+<div>
+    <a type="button" href="/expmodel/alltestModel" class="layui-btn next">返回</a>
     <button type="button" class="layui-btn next" onClick="doPrint()">打印</button>
     <a type="button" th:if="${!collegeReport.getCrTcState()}" th:href="@{|/collegereport/info/${collegeReport.getMid()}|}" class="layui-btn next">修改</a>
 <!--    <button type="button" th:if="${collegeReport.getCrTcState()}" class="layui-btn next">导出实验报告</button>-->
-
 </div>
 
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>

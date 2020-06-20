@@ -174,12 +174,18 @@
 								<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.getmScore()}">12345678</p></td>
 								<td th:if="${stat.index >= 0}" ><p th:text="${stuInfo.isDone()}?'完成':'未完成'">12345678</p></td>
 								<td th:if="${stat.index >= 0}" >
-									<a th:href="|/TreportGrade/${one.getId()}/${stuInfo.getMid()}/giveMark|" th:if="not ${stuInfo.isReportType()}">
-										<button  class="layui-btn" lay-submit="" lay-filter="demo1">自定义版评分</button>
+									<a th:if="${stuInfo.isDone()}">
+										<a th:href="|/TreportGrade/${one.getId()}/${stuInfo.getMid()}/giveMark|" th:if="not ${stuInfo.isReportType()}">
+											<button  class="layui-btn" lay-submit="" lay-filter="demo1">自定义版评分</button>
+										</a>
+										<a th:href="|/collegereport/mark/${stuInfo.getMid()}/${one.getId()}|" th:if="${stuInfo.isReportType()}">
+											<button  class="layui-btn" lay-submit="" lay-filter="demo1">学院版评分</button>
+										</a>
 									</a>
-									<a th:href="|/collegereport/mark/${stuInfo.getMid()}/${one.getId()}|" th:if="${stuInfo.isReportType()}">
-										<button  class="layui-btn" lay-submit="" lay-filter="demo1">学院版评分</button>
+									<a th:if="not ${stuInfo.isDone()}">
+										<button  class="layui-btn" lay-submit="" lay-filter="demo1">学生未完成</button>
 									</a>
+
 								</td>
 
 							</div>

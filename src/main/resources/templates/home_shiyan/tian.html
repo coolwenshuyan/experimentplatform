@@ -40,6 +40,9 @@
 			<div th:if="${kaoHeModelScore?.ismReportteacherstate()} eq false">
 				<label th:text="${YiGeTi.getReportDescribe()}" class="layui-form-label">1.Java语言的主要特点有</label>
 			</div>
+			<div th:if="${kaoHeModelScore} == null">
+				<label th:text="${YiGeTi.getReportDescribe()}" class="layui-form-label">1.Java语言的主要特点有</label>
+			</div>
 			<!--					<script th:utext="${daAn.getStuReportAnswer()}" th:id="|editor${YiGeTiStat.index}|" th:each="daAn,daAnStat:${DaAnList}" th:if="${YiGeTiStat.index}==${daAnStat.index}" th:name = "|LZeDA${YiGeTiStat.index}|" type="text/plain">-->
 			<script th:utext="${daAn.getStuReportAnswer()}" th:id="|editor${YiGeTiStat.index}|" th:each="daAn,daAnStat:${DaAnList}" th:if="${YiGeTi.getReportId()}==${daAn.getReportId()}" th:name = "|LZeDA${YiGeTiStat.index}|" type="text/plain">
 
