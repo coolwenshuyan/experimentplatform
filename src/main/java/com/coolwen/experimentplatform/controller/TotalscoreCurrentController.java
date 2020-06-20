@@ -174,8 +174,8 @@ public class TotalscoreCurrentController {
                                @RequestParam(required = true, defaultValue = "")String select_orderId ,
                                @RequestParam(value = "pageNum",defaultValue = "0",required = true) int pageNum){
 
-        //获得所有往期班级
-        List<ClassModel> classList = clazzService.findAllClass();
+        //获得所有当期班级
+        List<ClassModel> classList = clazzService.findCurrentClass();
         for (ClassModel i : classList){
             int id=i.getClassId();
 
@@ -237,7 +237,7 @@ public class TotalscoreCurrentController {
                 //进行成绩固化操作
                 totalScorePass = new TotalScorePass();
                 totalScorePass.setStuId(s.getId());
-                totalScorePass.setKaoheName(String.valueOf(kaoheModelList.size()));
+                totalScorePass.setKaoheNum(kaoheModelList.size());
                 totalScorePass.setKaoheName(kaoheModuleName);
                 totalScorePass.setKaoheMtestscore(kaohe_mtestscore);
                 totalScorePass.setKaoheMreportscore(kaohe_mreportscore);
@@ -257,6 +257,9 @@ public class TotalscoreCurrentController {
                 kaoHeModelScoreService.deleteKaoheModuleScoreByStuId(s.getId());
                 totalScoreCurrentService.deleteTotalScoreCurrentByStuId(s.getId());
             }
+            //更新班级状态为往期
+            i.setClassIscurrent(true);
+            clazzService.saveClazz(i);
         }
 
 
