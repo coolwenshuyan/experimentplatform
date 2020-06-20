@@ -257,6 +257,7 @@ public class TotalscoreCurrentController {
                 kaoHeModelScoreService.deleteKaoheModuleScoreByStuId(s.getId());
                 totalScoreCurrentService.deleteTotalScoreCurrentByStuId(s.getId());
             }
+
             //更新班级状态为往期
             i.setClassIscurrent(true);
             clazzService.saveClazz(i);
