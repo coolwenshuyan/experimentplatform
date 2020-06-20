@@ -52,8 +52,9 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
             "left join ClassModel clas on clas.classId = st.classId where clas.classIscurrent = false ")
     public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTO(Pageable page);
 
+    //更改成课程整体测试成绩
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
-            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.testScore) " +
             "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
             "left join ClassModel clas on clas.classId = st.classId " +
             "where st.classId = ?1")
