@@ -212,8 +212,9 @@ public class KaoheModelController {
         u.setM_scale(kaoheModel.getM_scale());
         u.setM_test_baifenbi(kaoheModel.getM_test_baifenbi());
         u.setM_report_baifenbi(kaoheModel.getM_report_baifenbi());
-        u.setKaohe_baifenbi(kaoheModel.getKaohe_baifenbi());
-        u.setTest_baifenbi(kaoheModel.getTest_baifenbi());
+        //修改时整体测试占比，应该用查出的考核模块中的
+        u.setKaohe_baifenbi(u.getKaohe_baifenbi());
+        u.setTest_baifenbi(u.getTest_baifenbi());
         kaoheModelService.add(u);
         //批量更新学生成绩
         scoreUpdateService.allStudentScoreUpdate();
