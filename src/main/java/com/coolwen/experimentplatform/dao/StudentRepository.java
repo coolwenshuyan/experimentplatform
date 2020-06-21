@@ -45,9 +45,9 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
     public List<StudentReportScoreDTO> listStudentMReportDTO();
 
 
-    //只处理当期班级的学生成绩
+    //只处理当期班级的学生成绩，更改成课程整体测试成绩
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
-            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.testScore) " +
             "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
             "left join ClassModel clas on clas.classId = st.classId where clas.classIscurrent = false ")
     public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTO(Pageable page);
