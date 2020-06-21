@@ -4,6 +4,7 @@ import antlr.ASTNULLType;
 import com.coolwen.experimentplatform.dao.KaoheModelRepository;
 import com.coolwen.experimentplatform.dao.ModuleTestQuestRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
+import com.coolwen.experimentplatform.exception.UserException;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.PScoreDto;
 import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
@@ -121,6 +122,12 @@ public class TreportGradeController {
         for (PScoreDto pScoreDto1:score)
         {
             String value_t = request.getParameter(Integer.toString(pScoreDto1.getReportid()));
+
+            //判断教师对当前题目的评分是否超过本题总分
+            if (Integer.valueOf(value_t).intValue() > pScoreDto1.getReportscore()){
+                throw new UserException("输入的分数超过当前题目的总分!!!");
+            }
+
             ReportAnswer c = reportAnswerService.findByReportidAndStuID(pScoreDto1.getReportid(),stuId);
             Integer a = Integer.parseInt(value_t);
             c.setScore(a);

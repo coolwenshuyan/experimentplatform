@@ -127,6 +127,7 @@
                                 <div class="layui-input-block">
                                     <input th:value="${markm.getScore()}" type="number"
                                            th:name="|${markm.getReportid()}|" lay-verify="title" autocomplete="off"
+                                           th:oninput="'if(value<0)value=0;if(value>'+${markm.getReportscore()}+')value='+${markm.getReportscore()}"
                                            placeholder="请输入成绩" class="layui-input">
 
                                 </div>
