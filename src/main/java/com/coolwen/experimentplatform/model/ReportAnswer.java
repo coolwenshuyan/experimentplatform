@@ -21,7 +21,7 @@ public class ReportAnswer {
     @Column(name = "report_id")
     private int reportId;
 
-    @Column(name = "stu_report_answer")
+    @Column(name = "stu_report_answer",columnDefinition = "text")
     private String stuReportAnswer;
 
     @Column(name = "score",columnDefinition = "int default 0")

@@ -195,7 +195,7 @@ public class KaoheModelController {
 //        System.out.println(kaoheModel.toString());
         model.addAttribute("kaohemodel", kaoheModelAndExpInfoDTO);
 
-        return "/kaohe/kaoheupdate";
+        return "kaohe/kaoheupdate";
     }
 
     /**
