@@ -95,7 +95,7 @@
 
     <div class="mudi">四、实验心得和总结</div>
 
-    <form th:action="@{|/collegereport/summary/${collegeReport.getMid()}|}" method="post">
+    <form th:action="@{|/collegereport/summary/${collegeReport.getMid()}|}" method="post" id="form">
         <div>
             <!--		富文本编辑器的html代码开始-->
             <script id="editor1" name="crExpSummary" th:utext="${collegeReport.getCrExpSummary()}" type="text/plain">
@@ -106,13 +106,14 @@
         <div>
             <a type="button" href="">上一步</a>
             <button type="submit" class="layui-btn next">查看</button>
-            <a th:href="@{|/collegereport/content/${collegeReport.getMid()}|}" class="layui-btn layui-btn-primary next">上一步</a>
+            <a href="javascript:post()" class="layui-btn layui-btn-primary next">上一步</a>
         </div>
     </form>
 </div>
 
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
 <!--    <script th:src="@{/ueditor/ueditor.config.js}"></script>-->
 <!--    <script th:src="@{/ueditor/ueditor.all.min.js}"></script>-->
 <!--    <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>-->
@@ -123,6 +124,14 @@
         var editor1 = new UE.ui.Editor({ initialFrameWidth:"100%",initialFrameHeight:400 });   //设置富文本编辑器的高度
         editor1.render("editor1");
     </script>
+<script type="text/javascript">
+    var path = '/collegereport/summary/[[${collegeReport.getMid()}]]/return'
+    function post(){
+        $("#form").attr("action",path);
+        console.log($("#form").val())
+        $("#form").submit();
+    }
+</script>
 
 </body>
 </html>

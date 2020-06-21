@@ -99,7 +99,7 @@
         </table>
     </div>
 
-    <form th:action="@{|/collegereport/purpose/${collegeReport.getMid()}|}" method="post">
+    <form th:action="@{|/collegereport/purpose/${collegeReport.getMid()}|}" method="post" id="form">
         <div class="mudi">一、实验目的</div>
 
         <div>
@@ -111,13 +111,14 @@
 
         <div>
             <button type="submit" class="layui-btn next">下一步</button>
-            <a th:href="@{|/collegereport/info/${collegeReport.getMid()}|}" class="layui-btn layui-btn-primary next">上一步</a>
+            <a href="javascript:post()" class="layui-btn layui-btn-primary next">上一步</a>
         </div>
     </form>
 </div>
 
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
 <!--    <script th:src="@{/ueditor/ueditor.config.js}"></script>-->
 <!--    <script th:src="@{/ueditor/ueditor.all.min.js}"></script>-->
 <!--    <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>-->
@@ -128,6 +129,14 @@
         var editor1 = new UE.ui.Editor({ initialFrameWidth:"100%",initialFrameHeight:400 });   //设置富文本编辑器的高度
         editor1.render("editor1");
     </script>
+<script type="text/javascript">
+    var path = '/collegereport/purpose/[[${collegeReport.getMid()}]]/return'
+    function post(){
+        $("#form").attr("action",path);
+        console.log($("#form").val())
+        $("#form").submit();
+    }
+</script>
 
 </body>
 </html>
