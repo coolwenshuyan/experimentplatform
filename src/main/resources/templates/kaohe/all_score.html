@@ -95,7 +95,7 @@
 				</colgroup>-->
 
 					<tr >
-						<th  style="padding:10px 0">
+						<th  style="padding:10px 0;width: 20%;">
 							<form class="layui-form" action="">
 								<div class="layui-form-item">
 <!--									<label class="layui-form-label" >当期往期</label>-->
@@ -115,7 +115,7 @@
 								</div>
 							</form>
 						</th>
-						<th style="padding: 10px 0">
+						<th style="padding: 10px 0;width: 20%;">
 <!--							<form class="layui-form" action="">-->
 								<div class="layui-form-item">
 									<label class="layui-form-label">班级筛选</label>
@@ -134,29 +134,14 @@
 <!--							</form>-->
 						</th>
 
-						<th  style="padding:0 10px;width: 18%;">
+						<th  style="padding:0 10px;width: 60%;">
 
-							<li>
 								<form th:action="@{/totalscore/list}">
-							<li>
-								<div class="layui-input-block ak" style="float: left; position: relative;">
-									<label class="layui-form-label">学号搜索</label>
+									<label  class="layui-form-label">学号搜索</label>
 									<input style="width: auto;" type="text"  th:value="${select_orderId}" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
-								</div>
-								<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>
-
-							</li>
-
+									<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo">搜索</button>
 							</form>
-<!--								<div class="layui-input-block" style="float: left; position: relative;    margin-left: -30px;">-->
-<!--									<label class="layui-form-label" >学号搜索</label>-->
-<!--									<input style="width: auto;" type="text" id="select_orderId" name="select_orderId" lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">-->
-<!--								</div>-->
-<!--								<button class="layui-btn" lay-submit="" id="searchBtn" data-type="getInfo" style="float: left;">搜索</button>-->
-<!--								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<!--								<button type="导出" class="layui-btn" lay-submit="" lay-filter="demo1">导出</button>-->
-							</li>
+
 						</th>						
 					</tr>
 					<tr>
@@ -227,9 +212,52 @@
 				</tbody>
 			</table>
 			</div>
-			<a th:href="@{/totalscore/GuHuaAll}">
-				<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 72%;margin-top: 2%;">将当期成绩全部存入往期成绩</button>
-			</a>
+			<!--		分页-->
+			<div style="text-align: center;" th:if="${pageTotalScore}">
+				<!--			<div id="pager" class="pager clearfix">-->
+				<!--			</div>-->
+				<div class="modal-footer no-margin-top">
+					<div style="float: left">
+						<a th:href="@{/totalscore/GuHuaAll}">
+							<button type="updata" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-left: 72%;margin-top: 2%;">将当期成绩全部存入往期成绩</button>
+						</a>
+					</div>
+					<div style="float: right">
+					<ul class="pagination pull-right no-margin">
+
+						<!-- 首页 -->
+						<li>
+							<a th:href="'/totalscore/list?pageNum=0'">首页</a>
+						</li>
+
+						<!-- 上一页 -->
+						<li th:if="${pageTotalScore.hasPrevious()}">
+							<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.previousPageable().getPageNumber()}" th:text="上一页"></a>
+						</li>
+
+						<!-- 中间页 -->
+						<li th:each="pageNum:${#numbers.sequence(0, pageTotalScore.getTotalPages() - 1)}">
+							<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne pageTotalScore.pageable.getPageNumber()}"></a>
+							<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq pageTotalScore.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+						</li>
+
+						<!-- 下一页 -->
+						<li th:if="${pageTotalScore.hasNext()}">
+							<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.nextPageable().getPageNumber()}" th:text="下一页"></a>
+						</li>
+
+						<!-- 尾页 -->
+						<li>
+							<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.getTotalPages() - 1}">尾页</a>
+						</li>
+
+					</ul>
+					</div>
+
+				</div>
+
+			</div>
+
 			
 		</div>
 		
@@ -239,43 +267,7 @@
 <!--		</div>-->
 
 		
-<!--		分页-->
-		<div style="text-align: center;" th:if="${totalScore}">
-			<!--			<div id="pager" class="pager clearfix">-->
-			<!--			</div>-->
-			<div class="modal-footer no-margin-top">
-				<ul class="pagination pull-right no-margin">
 
-					<!-- 首页 -->
-					<li>
-						<a th:href="'/totalscore/list?pageNum=0'">首页</a>
-					</li>
-
-					<!-- 上一页 -->
-					<li th:if="${pageTotalScore.hasPrevious()}">
-						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.previousPageable().getPageNumber()}" th:text="上一页"></a>
-					</li>
-
-					<!-- 中间页 -->
-					<li th:each="pageNum:${#numbers.sequence(0, pageTotalScore.getTotalPages() - 1)}">
-						<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum ne pageTotalScore.pageable.getPageNumber()}"></a>
-						<a th:href="'/totalscore/list?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:if="${pageNum eq pageTotalScore.pageable.getPageNumber()}" th:style="'font-weight:bold;background: #6faed9;'"></a>
-					</li>
-
-					<!-- 下一页 -->
-					<li th:if="${pageTotalScore.hasNext()}">
-						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.nextPageable().getPageNumber()}" th:text="下一页"></a>
-					</li>
-
-					<!-- 尾页 -->
-					<li>
-						<a th:href="'/totalscore/list?pageNum=' + ${pageTotalScore.getTotalPages() - 1}">尾页</a>
-					</li>
-
-				</ul>
-			</div>
-
-		</div>
 		
 		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../../static/js/layui.all.js" ></script>
