@@ -99,6 +99,7 @@ public class ModuleController {
                 model.addAttribute("addAnswer", addAnswer);
                 model.addAttribute("quest", quest);
                 session.removeAttribute("errorInformation");
+                session.removeAttribute("badAnswer");
             }
 
             model.addAttribute("mId", mId);
@@ -147,6 +148,20 @@ public class ModuleController {
 //        在控制台打印得到的这个moduleTestQuest对象
         System.out.println(moduleTestQuest);
 
+//        多选题答案验证
+        String dana = moduleTestQuest.getQuestAnswer();
+        String[] daanList = dana.split(",");
+        for (String a : daanList) {
+            System.out.println(a);
+            try {
+                Integer.parseInt(a);
+
+            }catch (Exception e){
+                session.setAttribute("badAnswer","输入的答案包含非法字符");
+                return "redirect:/shiyan/addQuest";
+            }
+        }
+//        选择题目类型和答案对比
         String a = moduleTestQuest.getQuestType();
         String b = moduleTestQuest.getQuestAnswer();
         if (a.equals("单选")){
@@ -210,6 +225,7 @@ public class ModuleController {
         model.addAttribute("questOrder", questOrder);
 //        清除提示缓存
         session.removeAttribute("errorInformation");
+        session.removeAttribute("badAnswer");
 
 //        将分页信息存到model传给前端
         model.addAttribute("questsPage", pageList);
@@ -296,6 +312,22 @@ public class ModuleController {
         quest1.setQuestScore(quest.getQuestScore());
 //        先获取修改模块测试信息get方法中修改的内容，再将修改好的题目序号更新到ModuleTestQuest对象
         quest1.setQuestOrder(quest.getQuestOrder());
+
+
+//        多选题答案验证
+        String dana = quest1.getQuestAnswer();
+        String[] daanList = dana.split(",");
+        for (String a : daanList) {
+            System.out.println(a);
+            try {
+                Integer.parseInt(a);
+
+            }catch (Exception e){
+                session.setAttribute("badAnswer","输入的答案包含非法字符");
+                return "redirect:/shiyan/updateQuest/"+questId;
+            }
+        }
+//        选择题目类型和答案对比
 
         String a = quest1.getQuestType();
         String b = quest1.getQuestAnswer();

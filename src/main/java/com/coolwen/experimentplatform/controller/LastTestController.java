@@ -90,6 +90,7 @@ public class LastTestController {
                 model.addAttribute("Lastquest", quest);
 //                清除提示缓存
                 session.removeAttribute("errorInformation");
+                session.removeAttribute("badAnswer");
             }
             model.addAttribute("mId", mId);
 //            返回到静态资源下的shiyan/addTest.html
@@ -133,6 +134,20 @@ public class LastTestController {
 //        控制台打印ModuleTestQuest对象
         System.out.println(moduleTestQuest);
 
+//        多选题答案验证
+        String dana = moduleTestQuest.getQuestAnswer();
+        String[] daanList = dana.split(",");
+        for (String a : daanList) {
+            System.out.println(a);
+            try {
+                Integer.parseInt(a);
+
+            }catch (Exception e){
+                session.setAttribute("badAnswer","输入的答案包含非法字符");
+                return "redirect:/shiyan/addQuest";
+            }
+        }
+//        选择题目类型和答案对比
         String a = moduleTestQuest.getQuestType();
         String b = moduleTestQuest.getQuestAnswer();
         if (a.equals("单选")){
@@ -223,6 +238,9 @@ public class LastTestController {
         String questOrder = "";
         model.addAttribute("questOrder", questOrder);
 
+        session.removeAttribute("errorInformation");
+        session.removeAttribute("badAnswer");
+
 //        将分页信息传给前端
         model.addAttribute("termList", termList);
         return "shiyan/lookLastTest";
@@ -292,6 +310,22 @@ public class LastTestController {
         quest1.setQuestAnswer(quest.getQuestAnswer());
         quest1.setQuestType(quest.getQuestType());
         quest1.setQuestScore(quest.getQuestScore());
+
+
+//        多选题答案验证
+        String dana = quest1.getQuestAnswer();
+        String[] daanList = dana.split(",");
+        for (String a : daanList) {
+            System.out.println(a);
+            try {
+                Integer.parseInt(a);
+
+            }catch (Exception e){
+                session.setAttribute("badAnswer","输入的答案包含非法字符");
+                return "redirect:/shiyan/updateQuest/"+questId;
+            }
+        }
+//        选择题目类型和答案对比
 
         String a = quest1.getQuestType();
         String b = quest1.getQuestAnswer();
