@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version 2020-05-06 21:46
  */
 @Controller
-@RequestMapping("/admin")
+//@RequestMapping("/admin")
 public class HelloController {
-    @RequestMapping("/test")
+    @RequestMapping("/")
 //    @RequiresRoles("Admin")
     public String hello() {
-        return "editor";
+        return "redirect:/newsinfo/newslist";
     }
 }

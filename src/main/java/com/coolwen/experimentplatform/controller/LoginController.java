@@ -104,7 +104,7 @@ public class LoginController {
 
         if (comsys_role.contains("ROLE_STUDENT")) {
 //            身份类型是学生
-            Student student = studentService.findByUname(number);
+            Student student = studentService.findByStuXuehao(number);
             session.setAttribute("username", student.getStuUname());
             session.setAttribute("student", student);
             session.setAttribute("loginType", "student");
