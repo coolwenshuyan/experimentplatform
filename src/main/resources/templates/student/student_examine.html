@@ -155,7 +155,7 @@
 
                 })
                 function studentPass(metal) {
-                    $.get("/studentManage/passReviewd/"+metal,function (data) {
+                    $.get("/studentManage/passStuMessage/"+metal,function (data) {
                         $.each(JSON.parse(data),function (k,v) {
                             if(v.stuXuehao == ''){
                                 $("#stuXuehao").val("该生为校外学生");
@@ -179,6 +179,7 @@
                         content:$("#chooseDocker"),
                         success:function () {
                             $("#url")[0].options.length=0
+                            $("#url").append("<option value= 'noValue' selected>&nbsp;</option>")
                             $.get("/studentManage/dockerUrl",function (data) {
                                 $.each(JSON.parse(data),function (k,v) {
                                     $.each(v,function (i,t) {
@@ -199,10 +200,13 @@
 
                 form.on('submit(doSubmit)',function (obj) {
                     let parm = $("#dataform").serialize();
+                    $.get("/studentManage/passReviewd/"+s,function () {
+                        window.location.reload();
+                    });
                     $.post("/studentManage/giveDocker/"+s,parm,function (obj) {
                         layer.close(index)
-                        window.location.reload();
                     })
+
                 })
 
                 laydate.render({
