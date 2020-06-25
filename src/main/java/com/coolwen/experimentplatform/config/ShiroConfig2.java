@@ -89,6 +89,7 @@ public class ShiroConfig2 {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         filterChainDefinitionMap.put(casFilterUrlPattern, "casFilter");
+        //不拦截静态文件
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
@@ -96,7 +97,9 @@ public class ShiroConfig2 {
         filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/test/**", "anon");
+        //不拦截验证码
         filterChainDefinitionMap.put("/verifyCode", "anon");
+        //不拦截主页信息
         filterChainDefinitionMap.put("/newsinfo/**", "anon");
         filterChainDefinitionMap.put("/setinfo/**", "anon");
         filterChainDefinitionMap.put("/teachers/**", "anon");
