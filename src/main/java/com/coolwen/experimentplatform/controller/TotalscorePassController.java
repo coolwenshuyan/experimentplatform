@@ -1,10 +1,12 @@
 package com.coolwen.experimentplatform.controller;
 
 import com.coolwen.experimentplatform.dao.TotalScorePassRepository;
+import com.coolwen.experimentplatform.filter.FileExcelUtil;
 import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.model.DTO.OneModelScoreDTO;
 import com.coolwen.experimentplatform.model.DTO.PassTotalScoreDTO;
 import com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO;
+import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
 import com.coolwen.experimentplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -101,4 +104,22 @@ public class TotalscorePassController {
     }
 
 
+    @RequestMapping("/exportExcel")
+    public void exportExcel(HttpServletResponse response) {
+        List<StuTotalScoreCurrentDTO> totalScore= studentService.listAllStuTotalScoreCurrentDTOOfPass();
+
+//        List<Student> b = studentRepository.findAll();
+        // 设置响应输出的头类型(设置响应类型)
+        response.setHeader("content-Type", "application/vnd.ms-excel");
+        // 下载文件的默认名称(设置下载文件的默认名称)
+        response.setHeader("Content-Disposition", "attachment;filename=address.xls");
+        //导出操作
+//        try {
+//            Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("客户地址","1"),User.class,addresses);
+//            workbook.write(response.getOutputStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        FileExcelUtil.exportExcel(totalScore, "往期成绩汇总", "往期成绩", StuTotalScoreCurrentDTO.class, "往期成绩表.xls", response);
+    }
 }

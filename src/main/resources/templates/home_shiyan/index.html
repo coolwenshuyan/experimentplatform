@@ -60,6 +60,12 @@
 	.layui-nav {
 		padding: 0 13px;
 	}
+	.tit{
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 </style>
 
 <body>
@@ -67,14 +73,14 @@
 
 <div class="main_con" style="float: none">
 	<div class="layui-row">
-		<div class="layui-col-xs4 " th:each="model:${k}">
+		<div class="layui-col-xs4 clearfix" th:each="model:${k}">
 			<div class="content">
 				<div class="img" >
 					<img src="../../static/images/img_shiyan/5.jpg" width="100%" th:src="${model.m_imageurl}"/>
 				</div>
 				<div class="intro">
 					<div class="name" >
-						<h3 th:text="${model.m_name}"></h3>
+						<h3 class="tit" th:text="${model.m_name}"></h3>
 						<br>
 						<!--								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>-->
 						<!--								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>-->
@@ -91,8 +97,22 @@
 						<ul class="layui-nav" lay-filter="" >
 							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
 							<li class="layui-nav-item"><a th:href="@{|/kaoshi/${model.m_id}/toExamPageList|}">模块测试</a></li>
-							<li class="layui-nav-item"><a th:href="${model.inurl}">进入实验</a></li>
-							<li class="layui-nav-item"><a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a></li>
+							<li class="layui-nav-item">
+									  <span th:if="${docker}!= null">
+										  <a th:href="${docker.getDc_url()}">进入实验</a>
+									  </span>
+								<span th:if="${docker}== null">
+										  <a onclick="alter()" style="width: 100%;height: 100%">进入实验</a>
+									  </span>
+							</li>
+							<li class="layui-nav-item">
+								<span th:if="${model.report_type == false}">
+									<a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a>
+								</span>
+								<span th:if="${model.report_type == true}">
+									<a th:href="@{|/collegereport/info/${model.m_id}|}">填写报告</a>
+								</span>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -122,5 +142,11 @@
 <script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
 
 </body>
+<script>
+	function alter() {
+		window.alert("Docker地址异常，请联系管理员后重试")
+	}
+</script>
+
 
 </html>

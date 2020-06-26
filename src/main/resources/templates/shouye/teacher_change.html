@@ -58,7 +58,7 @@
 				<div class="layui-upload">
 <!--					<button type="button" class="layui-btn" id="test1">上传图片</button>-->
 					<div class="layui-upload-list">
-						<img class="layui-upload-img" id="demo1" th:src="${teacher.image_url}">
+						<img class="layui-upload-img" id="demo1" th:src="@{'/upload/'+${teacher.image_url}}">
 						<p id="demoText"></p>
 					</div>
 				</div>
@@ -147,15 +147,17 @@
 
 
 <script>
-	var app = new Vue({
-		el:"#app",
-
-		methods:{
-			isTrue:function(){
-				confirm("确认要删除吗？")
-			}
-		}
-	})
+	// var app = new Vue({
+	// 	el:"#app",
+	//
+	// 	methods:{
+	// 		isTrue:function(){
+	// 			if (!confirm("确定要删除吗?")) {
+	// 				return false;
+	// 			}
+	// 		}
+	// 	}
+	// })
 
 
 

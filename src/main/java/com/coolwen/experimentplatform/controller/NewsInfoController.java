@@ -18,6 +18,7 @@ import com.coolwen.experimentplatform.service.NewsInfoService;
 import com.coolwen.experimentplatform.service.SetInfoService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.Date;
 
@@ -50,6 +52,9 @@ public class NewsInfoController {
     StudentRepository studentRepository;
     @Autowired
     TeacherRepository teacherRepository;
+
+    @Value("${web.count-path}")
+    private String count;
 
     /**
      * 进入前端首页的接口
@@ -104,7 +109,7 @@ public class NewsInfoController {
 
         //访问量
         // 获取访问量信息
-        String txtFilePath = "E://count.txt";
+        String txtFilePath = count;
         Long count = Get_Visit_Count(txtFilePath);
         model.addAttribute("count", count);
         return "home_page/index";
@@ -113,9 +118,9 @@ public class NewsInfoController {
 
     //前端实验大厅入口
     @GetMapping(value = "/shiyan")
-    public String model(Model model){
+    public String model(Model model, HttpSession session){
 
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         //暂时做了修改，如果没有登录，跳转到登录页
         if(student == null){
             return "home_page/login";

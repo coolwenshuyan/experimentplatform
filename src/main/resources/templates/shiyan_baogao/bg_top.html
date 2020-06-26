@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
     <title>学生填写界面</title>
@@ -29,6 +29,12 @@
             font-size: 18px;
             font-family: "宋体";
             margin-top: 25px;
+        }
+        #baogao{
+            /*margin-top: -10%;*/
+            border: #fff 1px solid;
+            border-bottom: 1px #000 solid;
+
         }
         .t_table{
             margin-top: 15px;
@@ -68,53 +74,61 @@
         </div>
     </div>
 
-    <div class="tit">实验报告</div>
+    <div class="tit">[[${collegeReport.getCrClassName()}]]实验报告</div>
 
     <div class="layui-row ming">
         <div class="layui-col-xs4 layui-col-xs-offset1">实验序号：7</div>
-        <div class="layui-col-xs5 layui-col-xs-offset2">实验名称：长文档编辑</div>
+        <div class="layui-col-xs5 layui-col-xs-offset2" th:text="${collegeReport.getMname()}">实验名称：长文档编辑</div>
     </div>
 
-    <div>
-        <table class="t_table">
-            <tr>
-                <td class="tab_tit">学号</td>
-                <td >1806101040</td>
-                <td class="tab_tit">姓名</td>
-                <td>李娟</td>
-                <td class="tab_tit">班级</td>
-                <td>信管03</td>
-            </tr>
-            <tr>
-                <td class="tab_tit">地点</td>
-                <td>
-                    <div class="layui-input-block">
-                        <input type="text"   placeholder="请输入地点" class="layui-input">
-                    </div>
-                </td>
-                <td class="tab_tit">时间</td>
-                <td>
-                    <div class="layui-input-block">
-                        <input type="text"   placeholder="请输入时间" class="layui-input">
-                    </div>
-                </td>
-                <td class="tab_tit">教师</td>
-                <td>
-                    <div class="layui-input-block">
-                        <input type="text"   placeholder="请输入教师名字" class="layui-input">
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div>
-        <button type="button" class="layui-btn next">下一步</button>
-    </div>
+    <form th:action="@{|/collegereport/info/${collegeReport.getMid()}|}" method="post">
+        <div>
+            <table class="t_table">
+                <tr>
+                    <td class="tab_tit">学号</td>
+                    <td th:text="${collegeReport.getStuXuehao()}">1806101040</td>
+                    <td class="tab_tit" >姓名</td>
+                    <td th:text="${collegeReport.getStuName()}">李娟</td>
+                    <td class="tab_tit">班级</td>
+                    <td th:text="${collegeReport.getClassName()}">信管03</td>
+                </tr>
+                <tr>
+                    <td class="tab_tit" >地点</td>
+                    <td>
+                        <div class="layui-input-block">
+                            <input type="text" name="crDress" th:value="${collegeReport.getCrDress()}" placeholder="请输入地点" class="layui-input">
+                        </div>
+                    </td>
+                    <td class="tab_tit">时间</td>
+                    <td>
+                        <div class="layui-input-block">
+                            <input id="test1" type="text" required name="crDate" th:value="${#dates.format(collegeReport.getCrDate(),'yyyy/MM/dd')}" class="layui-input">
+<!--                            <input id="test1" type="text" name="crDate" th:value="${collegeReport.getCrDate()}" class="layui-input">-->
+                        </div>
+                    </td>
+                    <td class="tab_tit">教师</td>
+                    <td>
+                        <div class="layui-input-block">
+                            <input type="text" name="crTeacher" th:value="${collegeReport.getCrTeacher()}" placeholder="请输入教师名字" class="layui-input">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <button type="submit" class="layui-btn next">下一步</button>
+        </div>
+    </form>
 </div>
-
+    <script src="/static/js/laydate/laydate.js"></script>
     <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#test1' //指定元素
+        ,format: 'yyyy/MM/dd'
+    });
+</script>
 </body>
 </html>

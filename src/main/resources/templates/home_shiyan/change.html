@@ -133,6 +133,7 @@
                 <div class="layui-input-inline">
                     <input type="tel" name="stuUname" th:value="${student.stuUname}" lay-verify="required|id"
                            autocomplete="off" class="layui-input">
+                    <p th:text="${msg1}" style="color: red"></p>
                 </div>
             </div>
             <div class="layui-inline">
@@ -150,7 +151,8 @@
                 <div class="layui-input-inline">
 <!--                    <input type="text" name="stuXuehao" th:value="${student.stuXuehao}" lay-verify="required|xuehao"-->
 <!--                           autocomplete="off" class="layui-input">-->
-                    <a type="text" name="stuXuehao" th:text="${student.stuXuehao}"></a>
+                    <input type="text"  th:value="${student.stuXuehao}" autocomplete="off" class="layui-input layui-disabled" disabled>
+                    <p th:text="${xuehaomsg}" style="color: red"></p>
                 </div>
             </div>
             <div class="layui-inline">
@@ -158,22 +160,32 @@
                 <div class="layui-input-inline">
                     <input type="text" name="stuMobile" th:value="${student.stuMobile}" lay-verify="mobile"
                            autocomplete="off" class="layui-input">
+                    <p th:text="${telmsg}" style="color: red"></p>
                 </div>
             </div>
             <div class="layui-form-item" style="margin-top: 15px;">
                 <div class="layui-inline">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="stuPassword" lay-verify="required|password" placeholder="修改密码"
+                        <input type="text" name="pass" lay-verify="required|password" placeholder="请输入密码"
                                autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">所属班级:&nbsp<a type="text" name="classname" th:text="${classname}"></a></label>
-<!--                    <div class="layui-input-inline">-->
-<!--                        -->
-<!--                    </div>-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="stuPassword" required  lay-verify="required" placeholder="请输入密码"
+                               autocomplete="off"
+                               class="layui-input">
+                        <p th:text="${msg3}" style="color: red"></p>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属班级</label>
+                    <div class="layui-input-inline">
+                        <input type="text" th:value="${classname}" autocomplete="off" class="layui-input layui-disabled" disabled>
+                    </div>
                 </div>
             </div>
         </div>

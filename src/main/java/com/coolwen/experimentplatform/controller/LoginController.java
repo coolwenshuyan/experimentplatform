@@ -6,6 +6,7 @@ import com.coolwen.experimentplatform.model.Admin;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.AdminService;
 import com.coolwen.experimentplatform.service.StudentService;
+import com.coolwen.experimentplatform.utils.CasUtils;
 import com.coolwen.experimentplatform.utils.LoginToken;
 import com.coolwen.experimentplatform.utils.Message;
 import com.coolwen.experimentplatform.utils.VerifyCode.IVerifyCodeGen;
@@ -30,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,6 +81,43 @@ public class LoginController {
         return "home_page/login";
     }
 
+    /**
+     * Cas登录成功后跳转的链接地址
+     * <P></P>
+     * 根据cas返回的信息
+     * <P></P>
+     * 判断当前用户身份类型
+     * <P></P>
+     * 根据当前用户类型指定跳转地址
+     *
+     * @return {@link  ModelAndView}
+     */
+    @GetMapping("/index")
+    public ModelAndView index(Model model) {
+        Session session = SecurityUtils.getSubject().getSession();
+
+        ModelAndView modelAndView = new ModelAndView();
+        Map<Object, Object> map = CasUtils.getUserInfo(SecurityUtils.getSubject().getSession());
+
+        String comsys_role = (String) map.get("comsys_role");
+        String number = (String) map.get("comsys_student_number");
+
+        if (comsys_role.contains("ROLE_STUDENT")) {
+//            身份类型是学生
+            Student student = studentService.findByStuXuehao(number);
+            session.setAttribute("username", student.getStuUname());
+            session.setAttribute("student", student);
+            session.setAttribute("loginType", "student");
+            modelAndView.setViewName("redirect:/newsinfo/newslist");
+        } else {
+            //            身份类型不是学生
+            Admin admin = adminService.findByUname(number);
+            session.setAttribute("admin", admin);
+            modelAndView.setViewName("redirect:/learning/kuangjia");
+        }
+
+        return modelAndView;
+    }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public ModelAndView login(@RequestParam("account") String username,
@@ -180,17 +220,16 @@ public class LoginController {
                 Matcher m = p.matcher(tel);
                 Pattern p1 = Pattern.compile("^$|^\\d{10}$");
                 Matcher m1 = p1.matcher(stu_xuehao);
-                if (m.matches() != true){
+                if (m.matches() != true) {
                     model.addObject("telmsg", "请输入11位数字");
                     model.setViewName("register");
                     return model;
                 }
-                if (m1.matches() != true){
+                if (m1.matches() != true) {
                     model.addObject("xuehaomsg", "请输入正确的学号");
                     model.setViewName("register");
                     return model;
-                }
-                else {
+                } else {
                     Student student = new Student();
                     student.setStuIsinschool(stu_isinschool);
 //                    if (class_id != "") {
@@ -198,17 +237,17 @@ public class LoginController {
 //                    }
                     student.setStuUname(username);
                     student.setStuPassword(ShiroKit.md5(password, username));
-                    if (stu_isinschool && stu_xuehao == ""){
+                    if (stu_isinschool && stu_xuehao == "") {
 //                        throw new UserException("在校学生须填写学号!");
-                        model.addObject("xuehaomsg","在校学生须填写学号!");
+                        model.addObject("xuehaomsg", "在校学生须填写学号!");
                         model.setViewName("register");
                         return model;
                     }
                     if (stu_xuehao != "") {
                         Student student2 = studentService.findByStuXuehao(stu_xuehao);
-                        if (student2 != null){
+                        if (student2 != null) {
 //                            throw new UserException("学号已经被使用!");
-                            model.addObject("xuehaomsg","学号已经被使用!");
+                            model.addObject("xuehaomsg", "学号已经被使用!");
                             model.setViewName("register");
                             return model;
                         }
@@ -216,14 +255,14 @@ public class LoginController {
                     }
                     student.setStuName(name);
                     Student stu = studentService.findByStuMobile(tel);
-                    if (stu != null){
+                    if (stu != null) {
 //                        throw new UserException("手机号已被使用!");
 //                        throw new Exception("发生错误");
-                        model.addObject("telmsg","手机号已被使用!");
+                        model.addObject("telmsg", "手机号已被使用!");
                         model.setViewName("register");
                         return model;
                     }
-                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+stu);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + stu);
                     student.setStuMobile(tel);
                     studentService.addStudent(student);
                     System.out.println(student);
@@ -238,8 +277,8 @@ public class LoginController {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        return model;
-    }
+            return model;
+        }
 
     @GetMapping("/logout")
     public String Logout(){

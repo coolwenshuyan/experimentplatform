@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师填写界面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/layui.css" media="all">
+    <style>
+        .layui-container{
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid black;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .t_img div{
+            width: 100%;
+            text-align: center;
+        }
+        .tit{
+            text-align: center;
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .ming{
+            font-size: 18px;
+            font-family: "宋体";
+            margin-top: 25px;
+        }
+        .t_table{
+            margin-top: 15px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .t_table td{
+            border: 1px solid black;
+            padding: 7px;
+            letter-spacing: 2px;
+        }
+        .tab_tit{
+            width: 8%;
+            padding-left: 11px;
+        }
+
+        .box{
+            margin: 30px 20px;
+            /*margin-left: 23px;*/
+        }
+        .mudi{
+
+            font-size: 18px;
+
+        }
+        .content{
+            width:95%;
+            overflow:auto;
+           /*margin: auto;*/
+            margin: 30px auto;
+            height: auto;
+            min-height: 300px;
+            border: #ccc 1px solid;
+        }
+
+        .a input{
+            /*padding: 2% 0;*/
+            border: 1px #ccc solid;
+            border-radius:4px;
+            height: 35px;
+        }
+        .note{
+            margin: 2% auto;
+            width: 95%;
+
+        }
+        .next{
+            margin: 2% 0% 2% 88%;
+            /*float: right;*/
+            /*position: absolute;*/
+        }
+        #baogao{
+            /*margin-top: -10%;*/
+            border: #fff 1px solid;
+            border-bottom: 1px #000 solid;
+
+        }
+
+        .goal_{
+            border-bottom: 1px #000 solid;
+            height: 40px;
+            font-size: 18px;
+            margin-bottom:3%;
+            /*margin-left: 2%;*/
+        }
+        span{
+            font-size: 18px;
+            margin: 30px 0 0 20px;
+        }
+        .score_ input{
+            /*height: 50px;*/
+            margin-left: 1%;
+            border:1px #fff solid;
+            /*margin-top: -10px;*/
+        }
+        .layui-container{
+            width: 1136px;
+            padding: 0;
+
+        }
+        .a{
+            border-top: 1px #000 solid;
+        }
+        .layui-col-md9{
+
+            border-right: 1px #000 solid;
+        }
+        .mu{
+            margin: 2%;
+            font-size: 18px;
+        }
+        .layui-col-md3{
+            margin-top: 2%;
+
+        }
+
+
+    </style>
+</head>
+<body>
+<form th:action="@{|/collegereport/mark/${collegeReport.getMid()}/${stuid}|}" method="post">
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-xs12 t_img">
+            <div><img  src="../../static/images/LOGO2.png" alt=""></div>
+        </div>
+    </div>
+
+    <div class="tit">
+        <input type="text" id="baogao" name="crClassName" th:value="${collegeReport.getCrClassName()}" placeholder="请输入课程名称">
+        实验报告</div>
+
+    <div class="layui-row ming">
+        <div class="layui-col-xs4 layui-col-xs-offset1">实验序号：7</div>
+        <div class="layui-col-xs5 layui-col-xs-offset2" name="crClassName" th:text="${collegeReport.getClassName()}">实验名称：长文档编辑</div>
+    </div>
+
+    <div>
+        <table class="t_table">
+            <tr>
+                <td class="tab_tit">学号</td>
+                <td th:text="${collegeReport.getStuXuehao()}">1806101040</td>
+                <td class="tab_tit" >姓名</td>
+                <td th:text="${collegeReport.getStuName()}">李娟</td>
+                <td class="tab_tit">班级</td>
+                <td th:text="${collegeReport.getClassName()}">信管03</td>
+            </tr>
+            <tr>
+                <td class="tab_tit">地点</td>
+                <td th:text="${collegeReport.getCrDress()}"></td>
+                <td class="tab_tit">时间</td>
+                <td th:text="${#dates.format(collegeReport.getCrDate(),'yyyy/MM/dd')}"></td>
+<!--                <td th:text="${collegeReport.getCrDate()}"></td>-->
+                <td class="tab_tit">教师</td>
+                <td th:text="${collegeReport.getCrTeacher()}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box">
+        <div class="mudi">一、实验目的</div>
+
+        <div class="content" th:utext="${collegeReport.getCrExpPurpose()}">
+        </div>
+    </div>
+    <div class="box">
+        <div class="mudi">二、实验环境</div>
+
+        <div class="content" th:utext="${collegeReport.getCrExpEvr()}">
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="mudi">三、实验内容和步骤</div>
+
+        <div class="content" th:utext="${collegeReport.getCrExpContent()}">
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="mudi">四、实验心得和总结</div>
+
+        <div class="content" th:utext="${collegeReport.getCrExpSummary()}">
+
+        </div>
+    </div>
+
+
+    <!--<div class="layui-container">-->
+
+        <div class="layui-row a">
+            <div class="layui-col-md9 layui-col-xs9">
+                <div class="mu">五、教师评语</div>
+
+                <div class="note">
+                <!--		富文本编辑器的html代码开始-->
+                <script id="editor1" name="crTcComment" th:utext="${collegeReport.getCrTcComment()}" type="text/plain">
+                </script>
+                <!--		富文本编辑器的html代码结束-->
+                </div>
+            </div>
+            <div class="layui-col-md3 layui-col-xs3">
+                <div class="goal_">
+                <span>成绩</span>
+                </div>
+                <div class="score_">
+                <input  id="score" name="crScore" th:value="${collegeReport.getCrScore()}" type="number" placeholder="请输入0-100的成绩" oninput="value=value.replace(/[^\d]/g,'')">
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
+
+
+
+
+</div>
+<div  onclick="mycheck()">
+    <button type="submit" class="layui-btn next">完成</button>
+</div>
+</form>
+
+<script src="/static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/ueditor/ueditor.config.js"></script>
+<script src="/static/ueditor/ueditor.all.min.js"></script>
+<script src="/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    var editor1 = new UE.ui.Editor({ initialFrameWidth:"100%",initialFrameHeight:300 });   //设置富文本编辑器的高度
+    editor1.render("editor1");
+
+    function mycheck(){
+        var baogao = document.getElementById('baogao').value;
+        var score = document.getElementById('score').value;	//获取input框内的值
+        // alter(score);
+        if(baogao == null || baogao == ""){
+            alert("请填写实验报告课程名称");
+        }else{
+            if(score == null || score == ""){
+                alert("请填写得分");	//如果值为空，提示用户填写
+                return;
+            }else{
+                if(score<0 || score>100 ){
+                    alert("请输入0-100的分数");
+                    // $("#myfrom").submit();
+                    return false;
+                }else{
+                    //这可写信息都正确后  应该跳转的页面
+                    return false;
+                }
+
+            }
+        }
+
+
+    }
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

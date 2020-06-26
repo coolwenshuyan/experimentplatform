@@ -72,4 +72,7 @@ public interface StudentService {
 
 
     Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPassByClassId(int pageNum, String select_orderId, int classId);
+
+    List<StuTotalScoreCurrentDTO> listAllStuTotalScoreCurrentDTOOfPass();
+
 }

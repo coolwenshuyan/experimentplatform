@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>实验环境填写</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
+    <style>
+        .big{
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid black;
+            margin-top: 30px;
+        }
+        .t_img div{
+            width: 100%;
+            text-align: center;
+        }
+        .tit{
+            text-align: center;
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .ming{
+            font-size: 18px;
+            font-family: "宋体";
+            margin-top: 25px;
+        }
+        .t_table{
+            margin-top: 15px;
+            width: 100%;
+            font-size: 16px;
+        }
+        .t_table td{
+            border: 1px solid black;
+            padding: 10px 0px;
+            padding-left: 7px;
+            letter-spacing: 2px;
+        }
+        .tab_tit{
+            width: 8%;
+            padding-left: 11px;
+        }
+        .mudi{
+            margin: 30px 0px;
+            font-size: 18px;
+            margin-left: 23px;
+        }
+        .next{
+            margin: 23px 0px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div class="big">
+    <div class="layui-row">
+        <div class="layui-col-xs12 t_img">
+            <div><img  src="../../static/images/LOGO2.png" alt=""></div>
+        </div>
+    </div>
+
+    <div class="tit">[[${collegeReport.getCrClassName()}]]实验报告</div>
+
+    <div class="layui-row ming">
+        <div class="layui-col-xs4 layui-col-xs-offset1">实验序号：7</div>
+        <div class="layui-col-xs5 layui-col-xs-offset2"  th:text="${collegeReport.getMname()}">实验名称：长文档编辑</div>
+    </div>
+
+    <div>
+        <table class="t_table">
+            <tr>
+                <td class="tab_tit">学号</td>
+                <td th:text="${collegeReport.getStuXuehao()}">1806101040</td>
+                <td class="tab_tit" >姓名</td>
+                <td th:text="${collegeReport.getStuName()}">李娟</td>
+                <td class="tab_tit">班级</td>
+                <td th:text="${collegeReport.getClassName()}">信管03</td>
+            </tr>
+            <tr>
+                <td class="tab_tit">地点</td>
+                <td th:text="${collegeReport.getCrDress()}"></td>
+                <td class="tab_tit">时间</td>
+                <td th:text="${#dates.format(collegeReport.getCrDate(),'yyyy/MM/dd')}"></td>
+<!--                <td th:text="${collegeReport.getCrDate()}"></td>-->
+                <td class="tab_tit">教师</td>
+                <td th:text="${collegeReport.getCrTeacher()}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <form th:action="@{|/collegereport/env/${collegeReport.getMid()}|}" method="post" id="form">
+        <div class="mudi">二、实验环境</div>
+
+        <div>
+            <!--		富文本编辑器的html代码开始-->
+            <script id="editor1" name="crExpEvr" th:utext="${collegeReport.getCrExpEvr()}" type="text/plain">
+            </script>
+            <!--		富文本编辑器的html代码结束-->
+        </div>
+
+        <div>
+            <button type="submit" class="layui-btn next">下一步</button>
+            <a href="javascript:post()" class="layui-btn layui-btn-primary next">上一步</a>
+        </div>
+    </form>
+</div>
+
+    <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+<!--    <script th:src="@{/ueditor/ueditor.config.js}"></script>-->
+<!--    <script th:src="@{/ueditor/ueditor.all.min.js}"></script>-->
+<!--    <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>-->
+    <script src="../../static/ueditor/ueditor.config.js"></script>
+    <script src="../../static/ueditor/ueditor.all.min.js"></script>
+    <script src="../../static/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script>
+        var editor1 = new UE.ui.Editor({ initialFrameWidth:"100%",initialFrameHeight:400 });   //设置富文本编辑器的高度
+        editor1.render("editor1");
+    </script>
+
+    <script type="text/javascript">
+        var path = '/collegereport/env/[[${collegeReport.getMid()}]]/return'
+    function post(){
+        $("#form").attr("action",path);
+        console.log($("#form").val())
+        $("#form").submit();
+    }
+    </script>
+
+</body>
+</html>

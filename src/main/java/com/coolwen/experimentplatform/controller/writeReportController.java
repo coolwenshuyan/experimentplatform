@@ -212,6 +212,26 @@ public class writeReportController {
 //
 //        KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
 //        model.addAttribute("kaoHeModelScore",kaoHeModelScore);
-        return "redirect:/WriteReport/"+mid+"/Timu";
+
+
+        //获得所有报告（排序）
+        List<Report> reports1= reportService.findByMidpaixu(mid);
+        model.addAttribute("TiMuList",reports1);
+        //查出学生回答的答案
+        List<ReportAnswer> reportAnswers1 = reportAnswerService.findByStuId(stuId);
+        model.addAttribute("DaAnList",reportAnswers1);
+
+        //判断是否是考核模块，是考核模块则查询考核模块得分
+        Boolean isNeedKaohe = expModelService.findExpModelByID(mid).isNeedKaohe();
+        model.addAttribute("isNeedKaohe",isNeedKaohe);
+        if (isNeedKaohe){
+            KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(mid,stuId);
+            model.addAttribute("kaoHeModelScore",kaoHeModelScore);
+
+        }
+
+//        return "redirect:/WriteReport/"+mid+"/Timu";
+        model.addAttribute("msg","提交报告成功！！！");
+        return "home_shiyan/tian";
     }
 }

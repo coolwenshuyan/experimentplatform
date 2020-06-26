@@ -80,9 +80,21 @@
 				     			<ul class="layui-nav" lay-filter="" >
 								  <li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${exp.m_id}|}">理论学习</a></li>
 								  <li class="layui-nav-item "><a th:href="@{|/kaoshi/${exp.m_id}/toExamPageList|}">模块测试</a></li>
-								  <li class="layui-nav-item"><a th:href="${exp.getM_inurl()}">进入实验</a></li>
 								  <li class="layui-nav-item">
-								    <a th:href="@{|/WriteReport/${exp.m_id}/Timu|}">填写报告</a>
+									  <span th:if="${docker}!= null">
+										  <a th:href="${docker.getDc_url()}">进入实验</a>
+									  </span>
+									  <span th:if="${docker}== null">
+										  <a onclick="alter()"a style="width: 100%;height: 100%">进入实验</a>
+									  </span>
+								  </li>
+								  <li class="layui-nav-item">
+									  <span th:if="${exp.report_type == false}">
+										  <a th:href="@{|/WriteReport/${exp.m_id}/Timu|}">填写报告</a>
+									  </span>
+									  <span th:if="${exp.report_type == true}">
+										  <a th:href="@{|/collegereport/info/${exp.m_id}|}">填写报告</a>
+									  </span>
 								  </li>
 
 								</ul>
@@ -106,6 +118,11 @@
 		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			function alter() {
+				window.alert("Docker地址异常或Docker已过期，请联系管理员后重试")
+			}
+		</script>
 		
 	</body>
 

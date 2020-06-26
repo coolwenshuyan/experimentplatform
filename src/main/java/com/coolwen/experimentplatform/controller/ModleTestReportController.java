@@ -3,6 +3,7 @@ package com.coolwen.experimentplatform.controller;
 import com.coolwen.experimentplatform.dao.KaoheModelRepository;
 import com.coolwen.experimentplatform.dao.StudentRepository;
 import com.coolwen.experimentplatform.model.ClassModel;
+import com.coolwen.experimentplatform.model.DTO.StudentReportScoreDTO;
 import com.coolwen.experimentplatform.model.DTO.StudentTestScoreDTO;
 import com.coolwen.experimentplatform.model.Student;
 import com.coolwen.experimentplatform.service.ClazzService;
@@ -63,7 +64,8 @@ public class ModleTestReportController {
         model.addAttribute("classList",classList);
 
         //获得所有学生成绩DTO
-        List<StudentTestScoreDTO> a = studentRepository.listStudentMReportAnswerDTO();
+        List<StudentReportScoreDTO> a = studentRepository.listStudentMReportDTO();
+//        List<StudentTestScoreDTO> a = studentRepository.listStudentMReportAnswerDTO();
         System.out.println(a);
 
         //统计所以考核模块的个数,生成自增列表,以便thymeleaf生成表头
@@ -104,7 +106,8 @@ public class ModleTestReportController {
         List<ClassModel> classList = classService.findCurrentClass();
         model.addAttribute("classList",classList);
 
-        List<StudentTestScoreDTO> a = studentRepository.listStudentMReportAnswerDTO();
+        List<StudentReportScoreDTO> a = studentRepository.listStudentMReportDTO();
+//        List<StudentTestScoreDTO> a = studentRepository.listStudentMReportAnswerDTO();
 
         System.out.println(a);
         long modleNum = kaoheModelRepository.count();

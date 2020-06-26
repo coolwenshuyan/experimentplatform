@@ -27,6 +27,12 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
     @Autowired
     ClazzService clazzService;
 
+    @Autowired
+    ExpModelService expModelService; //模块服务
+
+    @Autowired
+    CollegeReportService collegeReportService; //学院报告服务
+
     @Override
     public void singleStudentScoreUpdate(int id) {
         //判断学生班级是否往期
@@ -47,6 +53,10 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
             //循环存储，减少数据库操作
             test_baifenbi = k.getTest_baifenbi();
             kaohe_baifenbi = k.getKaohe_baifenbi();
+
+            //循环前，每个模块测试成绩和报告成绩设置为0
+            mTestScore = 0;
+            mReportScore = 0;
 
             //找到该考生在该模块的考核模块成绩表
             KaoHeModelScore kaoHeModelScore = kaoHeModelScoreService.findKaoheModelScoreByMid(k.getM_id(),id);
@@ -79,8 +89,10 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
         //更新整体模块成绩
         totalScoreCurrent.setmTotalScore(mTotalScore);
 
+        //计算课程整体测试成绩
+        testScore = moduleTestScore(-1,id);
         //更新整体测试成绩
-        totalScoreCurrent.setTestScore(moduleTestScore(-1,id));
+        totalScoreCurrent.setTestScore(testScore);
         //更新总成绩
         totalScoreCurrent.setTotalScore(mTotalScore * kaohe_baifenbi + testScore * test_baifenbi);
         totalScoreCurrentService.add(totalScoreCurrent);
@@ -119,10 +131,19 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService {
     //模块报告分数获取
     public float moduleReportScore(int mid,int stuid){
         float mReportScore = 0;
-        List<Report> reportList = reportService.findReportByMId(mid);
-        for(Report r : reportList){
-            ReportAnswer reportAnswer = reportAnswerService.findByReportidAndStuID(r.getReportId(),stuid);
-            mReportScore += reportAnswer.getScore();
+        //根据模块的报告类型，如果是学院报告，就从学院报告表中查询，如果是自定义报告，就从自定义报告中查询
+        ExpModel model1 = expModelService.findExpModelByID(mid);
+//        System.out.println(model1.isReport_type());
+//        System.out.println("mid:"+mid);
+        if(model1.isReport_type()) {
+            CollegeReport collegeReport1 = collegeReportService.findStuidAndMid(stuid,mid);
+            mReportScore = collegeReport1.getCrScore();
+        } else {
+            List<Report> reportList = reportService.findReportByMId(mid);
+            for (Report r : reportList) {
+                ReportAnswer reportAnswer = reportAnswerService.findByReportidAndStuID(r.getReportId(), stuid);
+                mReportScore += reportAnswer.getScore();
+            }
         }
         return mReportScore;
     }

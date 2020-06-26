@@ -14,15 +14,17 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
     @Value("${web.ExpData-path}")
     private String expData ;
+
+    @Value("${web.upload-path}")
+    private String phonePath;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("ExperimentPlatform/ExpModelImage/**").addResourceLocations("file:///"+expModelImage);
         registry.addResourceHandler("ExperimentPlatform/ExpData/**").addResourceLocations("file:///"+expData);
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/uploadFile/**").addResourceLocations("file:"+System.getProperty("user.dir")+"\\src\\main\\resources\\static\\uploadFile\\");
-
+        registry.addResourceHandler("uploadFile/**").addResourceLocations("file:///"+phonePath);
+//        registry.addResourceHandler("/uploadFile/**").addResourceLocations("file:"+System.getProperty("user.dir")+"\\src\\main\\resources\\static\\uploadFile\\");
 //        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-
     }
 
     @Override

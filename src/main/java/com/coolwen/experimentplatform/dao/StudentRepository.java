@@ -37,15 +37,24 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
             "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
     public List<StudentTestScoreDTO> listStudentMReportAnswerDTO();
 
-    //只处理当期班级的学生成绩
+    // 得到所有的报告记录
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StudentReportScoreDTO " +
+            "(st.id, st.stuName, st.classId, expm.m_name, khms.mReportScore, khms.mReportstate,khm.m_id,expm.report_type) " +
+            "from Student st ,KaoHeModelScore khms ,ExpModel expm ,KaoheModel khm " +
+            "where st.id=khms.stuId and khms.tKaohemodleId=khm.id and khm.m_id = expm.m_id ")
+    public List<StudentReportScoreDTO> listStudentMReportDTO();
+
+
+    //只处理当期班级的学生成绩，更改成课程整体测试成绩
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
-            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.testScore) " +
             "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
             "left join ClassModel clas on clas.classId = st.classId where clas.classIscurrent = false ")
     public Page<StudentLastTestScoreDTO> listStudentLastTestScoreDTO(Pageable page);
 
+    //更改成课程整体测试成绩
     @Query("select new com.coolwen.experimentplatform.model.DTO.StudentLastTestScoreDTO " +
-            "(st.stuXuehao, st.stuName, clas.className,tsc.totalScore) " +
+            "(st.stuXuehao, st.stuName, clas.className,tsc.testScore) " +
             "from Student st left join TotalScoreCurrent tsc on st.id = tsc.stuId " +
             "left join ClassModel clas on clas.classId = st.classId " +
             "where st.classId = ?1")
@@ -138,6 +147,13 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
             "from TotalScorePass tsc left join Student st on st.id = tsc.stuId " +
             "left join ClassModel cla on st.classId=cla.classId where  st.classId=?1")
     Page<StuTotalScoreCurrentDTO> listStuTotalScoreCurrentDTOOfPassByClassId(int ClassId ,Pageable pager);
+
+
+    @Query("select new com.coolwen.experimentplatform.model.DTO.StuTotalScoreCurrentDTO " +
+            "(st.stuXuehao,st.stuName,cla.className,tsc.mTotalScore,tsc.testScore,tsc.totalScore) " +
+            "from TotalScorePass tsc left join Student st on st.id = tsc.stuId " +
+            "left join ClassModel cla on st.classId=cla.classId")
+    List<StuTotalScoreCurrentDTO> listAllStuTotalScoreCurrentDTOOfPass();
 
 
 }

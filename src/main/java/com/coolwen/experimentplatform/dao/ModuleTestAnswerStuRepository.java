@@ -35,4 +35,8 @@ public interface ModuleTestAnswerStuRepository extends BaseRepository<ModuleTest
     @Query("select m from ModuleTestAnswerStu m where m.quest_id = ?1")
     List<ModuleTestAnswerStu> findByQuest_id(int questid);
 
+    @Modifying
+    @Transactional
+    @Query(value="DELETE t_mtest_answer_stu FROM t_mtest_quest,t_mtest_answer_stu WHERE t_mtest_quest.quest_id=t_mtest_answer_stu.quest_id and t_mtest_quest.m_id = ? and t_mtest_answer_stu.stu_id=?",nativeQuery=true)
+    void deleteByStuIdModelId(int m_id, int id);
 }
