@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8"/>
     <title>权限错误</title>
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/xadmin.css">
 </head>
 
 <body>
-<div th:include="common :: common"></div>
+<!--<div th:include="common :: common"></div>-->
 <font color="blue">
-    Request method 'GET' not supported
-    <br/><br/>
-    The specified HTTP method is not allowed for the requested resource.
+<!--    Request method 'GET' not supported-->
+<!--    <br/><br/>-->
+<!--    The specified HTTP method is not allowed for the requested resource.-->
     <h1>对不起，您没有权限请求此连接！</h1>
-
+    <button type="button" onclick="Javascript:history.back(-1);" href="#" class="layui-btn layui-btn-primary">返回上一级</button>
 </font>
 </body>
 </html>

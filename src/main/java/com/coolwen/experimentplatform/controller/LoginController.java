@@ -112,8 +112,12 @@ public class LoginController {
         } else {
             //            身份类型不是学生
             Admin admin = adminService.findByUname(number);
-            session.setAttribute("admin", admin);
-            modelAndView.setViewName("redirect:/learning/kuangjia");
+            if (admin != null ){
+                session.setAttribute("admin", admin);
+                modelAndView.setViewName("redirect:/learning/kuangjia");
+            }else {
+                modelAndView.setViewName("redirect:/newsinfo/newslist");
+            }
         }
 
         return modelAndView;

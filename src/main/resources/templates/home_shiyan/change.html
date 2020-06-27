@@ -193,7 +193,8 @@
             <div class="layui-input-block">
                 <button type="submit" class="layui-btn a0" lay-submit="" lay-filter="demo1">保存</button>
 
-                <a class="layui-btn layui-btn-primary" th:href="@{/logout}">退出登录</a>
+<!--                <a class="layui-btn layui-btn-primary" onclick="tuichu()" th:href="@{/logout}">退出登录</a>-->
+                <a class="layui-btn layui-btn-primary" onclick="tuichu()">退出登录</a>
 
             </div>
         </div>
@@ -275,6 +276,13 @@
 
 <!--    });-->
 <!--</script>-->
+<script>
+    function tuichu() {
+        if (window != top) top.location.href = "/logout";
+    }
+
+</script>
+
 
 </body>
 
