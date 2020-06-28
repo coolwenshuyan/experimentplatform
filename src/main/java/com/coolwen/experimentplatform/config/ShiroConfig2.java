@@ -126,6 +126,8 @@ public class ShiroConfig2 {
         filterChainDefinitionMap.put("/newsinfo/noticeDetails/**", "anon");
         filterChainDefinitionMap.put("/teachers/frontList", "anon");
 
+        filterChainDefinitionMap.put("/index", "anon");
+
 
         filterChainDefinitionMap.put("/collegereport/mark/**", "authc,perms[admin]");
 

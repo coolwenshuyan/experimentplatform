@@ -94,17 +94,23 @@ public class LoginController {
      */
     @GetMapping("/index")
     public ModelAndView index(Model model) {
+        System.out.println("index______________");
         Session session = SecurityUtils.getSubject().getSession();
 
         ModelAndView modelAndView = new ModelAndView();
         Map<Object, Object> map = CasUtils.getUserInfo(SecurityUtils.getSubject().getSession());
+//        Subject subject = SecurityUtils.getSubject();
+//        subject.getPrincipal();
+//        ModelAndView model = new ModelAndView();
         Subject subject = SecurityUtils.getSubject();
-        subject.getPrincipal();
-
+//        Session session = subject.getSession();
         String comsys_role = (String) map.get("comsys_role");
         String number = (String) map.get("comsys_student_number");
 
         if (comsys_role.contains("ROLE_STUDENT")) {
+            LoginToken token = new LoginToken("zhuzhiwen", ShiroKit.md5("123", "zhuzhiwen"), "student");
+            subject.login(token);
+            Student student2 = (Student) subject.getPrincipal();
 //            身份类型是学生
             Student student = studentService.findByStuXuehao(number);
             session.setAttribute("username", student.getStuUname());
