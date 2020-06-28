@@ -120,10 +120,13 @@ public class NewsInfoController {
     @GetMapping(value = "/shiyan")
     public String model(Model model, HttpSession session){
 
+        System.out.println("shiyan");
+
         Student student = (Student) session.getAttribute("student");
         //暂时做了修改，如果没有登录，跳转到登录页
         if(student == null){
-            return "home_page/login";
+//            return "home_page/login";
+            return "redirect:/405";
         }
 
         model.addAttribute("disMid",false);

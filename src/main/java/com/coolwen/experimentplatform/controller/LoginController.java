@@ -94,29 +94,33 @@ public class LoginController {
      */
     @GetMapping("/index")
     public ModelAndView index(Model model) {
-        System.out.println("index______________");
+        System.out.println("index>>>>>>>>>>>>>>>..");
         Session session = SecurityUtils.getSubject().getSession();
 
         ModelAndView modelAndView = new ModelAndView();
         Map<Object, Object> map = CasUtils.getUserInfo(SecurityUtils.getSubject().getSession());
+
 //        Subject subject = SecurityUtils.getSubject();
-//        subject.getPrincipal();
-//        ModelAndView model = new ModelAndView();
-        Subject subject = SecurityUtils.getSubject();
-//        Session session = subject.getSession();
+//        LoginToken token = new LoginToken("zhuzhiwen", ShiroKit.md5("123", "zhuzhiwen"), "student");
+//        subject.login(token);
+//        Student student2 = (Student) subject.getPrincipal();
+
         String comsys_role = (String) map.get("comsys_role");
         String number = (String) map.get("comsys_student_number");
 
         if (comsys_role.contains("ROLE_STUDENT")) {
-            LoginToken token = new LoginToken("zhuzhiwen", ShiroKit.md5("123", "zhuzhiwen"), "student");
-            subject.login(token);
-            Student student2 = (Student) subject.getPrincipal();
 //            身份类型是学生
             Student student = studentService.findByStuXuehao(number);
-            session.setAttribute("username", student.getStuUname());
-            session.setAttribute("student", student);
-            session.setAttribute("loginType", "student");
-            modelAndView.setViewName("redirect:/newsinfo/newslist");
+            System.out.println("sstudnet>>>>>"+student);
+            if (student!=null){
+                session.setAttribute("username", student.getStuUname());
+                session.setAttribute("student", student);
+                session.setAttribute("loginType", "student");
+//                System.out.println("sstudnet>>>>>"+student);
+                modelAndView.setViewName("redirect:/newsinfo/newslist");
+            }else {
+                modelAndView.setViewName("redirect:/newsinfo/newslist");
+            }
         } else {
             //            身份类型不是学生
             Admin admin = adminService.findByUname(number);

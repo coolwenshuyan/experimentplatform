@@ -47,7 +47,8 @@ public class QuestionController {
     @PostMapping(value = "/add")
     public String add(Question question, Session session) {
 //        从seesion拿到student的内容
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
 
         //暂时做了修改
         if (student == null){

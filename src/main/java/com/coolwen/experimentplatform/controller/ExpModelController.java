@@ -330,7 +330,8 @@ public class ExpModelController {
         model.addAttribute("list",expModelService.finExpAll(pageNum));
         session.setAttribute("modulePageNum",pageNum);
         session.setAttribute("isAllModule",true);
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         Docker docker = dockerService.findDockerByStu_id(student.getId());
         long nowDate = new Date().getTime();
         String flag = "1314-06-21 00:00:00";
@@ -362,7 +363,8 @@ public class ExpModelController {
     @GetMapping("/kaoheModel")
     public String kaoModelById(Model model,@RequestParam(value = "pageNum",required = true,defaultValue = "0")int pageNum,HttpSession session) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         Page<KaoHeModelStuDTO> kaohe = kaoheModelService.findKaoheModelStuDto(student.getId(),pageNum);
         model.addAttribute("k",kaohe);
         session.setAttribute("modulePageNum",pageNum);
@@ -434,8 +436,9 @@ public class ExpModelController {
 
     //首页跳转过来的模块
     @GetMapping("/home_exp/{id}")
-    public String homeExp(@PathVariable("id") int id,Model model) throws ParseException {
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+    public String homeExp(@PathVariable("id") int id,HttpSession session,Model model) throws ParseException {
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Docker docker = dockerService.findDockerByStu_id(student.getId());
         long nowDate = new Date().getTime();
@@ -505,8 +508,9 @@ public class ExpModelController {
 
     //继续学习
     @GetMapping("/contiuneStudy/{id}")
-    public String contiunrStudy(@PathVariable("id")int id){
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+    public String contiunrStudy(@PathVariable("id")int id,HttpSession session){
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         if(student.getClassId() != 0) {
             ClassModel classModel = clazzService.findById(student.getClassId());
             if (classModel.getClassIscurrent() == false) {
@@ -525,7 +529,8 @@ public class ExpModelController {
         Student student = (Student) session.getAttribute("student");
         //暂时做了修改，如果没有登录，跳转到登录页
         if(student == null){
-            return "home_page/login";
+//            return "home_page/login";
+            return "redirect:/405";
         }
 
         model.addAttribute("disMid",id);

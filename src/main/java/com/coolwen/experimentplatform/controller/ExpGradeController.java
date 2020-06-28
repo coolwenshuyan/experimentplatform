@@ -19,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -46,9 +48,10 @@ public class ExpGradeController {
      * @return 跳转到实验大厅--》查看实验成绩 页面
      */
     @GetMapping(value = "/score")
-    public String totalscore(Model model){
+    public String totalscore(Model model, HttpSession session){
         //获取学生的登录信息
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         int stuId = student.getId();
 
         if(student.getClassId()>0) {
@@ -106,8 +109,9 @@ public class ExpGradeController {
      *@return 考核模块接口（ExpModelController.java 中 kaoModelById方法）
      */
     @GetMapping(value = "/kaohe")
-    public String kaohe(){
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+    public String kaohe(HttpSession session){
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         return "redirect:/expmodel/kaoheModel/"+student.getId();
     }
 }

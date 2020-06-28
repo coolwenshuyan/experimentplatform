@@ -71,7 +71,8 @@
 						<!-- <i class="fa fa-sign-out"></i><a style="color:#fff" href="/sso/login.php">教务门户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 						<i class="fa fa-sign-out"></i>
 						<a th:if="${session.username}==null">
-							<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
+<!--							<a style="color:#fff" href="/login">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>-->
+							<a style="color:#fff" href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">用户登录</a>&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-cog"></i>
 							<a style="color:#fff" href="/register">注册用户</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						</a>
 						<a th:if="${session.username}!=null">

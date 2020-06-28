@@ -15,6 +15,7 @@ public class HelloController {
     @RequestMapping("/")
 //    @RequiresRoles("Admin")
     public String hello() {
+        System.out.println("hello>>>>>>>>>>>>");
         return "redirect:/newsinfo/newslist";
     }
 

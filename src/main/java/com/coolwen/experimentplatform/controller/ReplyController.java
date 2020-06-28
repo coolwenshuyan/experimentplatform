@@ -70,7 +70,8 @@ public class ReplyController {
         System.out.println("插入的回复保存为：" + id);
 
 //        seesion获得学生信息
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
 
 //        插入回复
         reply.setReply_pname(student.getStuUname());//获得并存入回复名字

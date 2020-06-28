@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,8 +28,9 @@ public class SetStudentInfoController {
     StudentService studentService;
 
     @GetMapping(value = "/update")
-    public String update(Model model) {
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+    public String update(Model model, HttpSession session) {
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         String classname = setStudentInfoService.findByClassName(student.getClassId());
         model.addAttribute("student", student);
         model.addAttribute("classname", classname);
