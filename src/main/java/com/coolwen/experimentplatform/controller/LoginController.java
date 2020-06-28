@@ -98,6 +98,8 @@ public class LoginController {
 
         ModelAndView modelAndView = new ModelAndView();
         Map<Object, Object> map = CasUtils.getUserInfo(SecurityUtils.getSubject().getSession());
+        Subject subject = SecurityUtils.getSubject();
+        subject.getPrincipal();
 
         String comsys_role = (String) map.get("comsys_role");
         String number = (String) map.get("comsys_student_number");
