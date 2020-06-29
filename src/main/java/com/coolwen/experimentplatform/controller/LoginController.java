@@ -236,13 +236,19 @@ public class LoginController {
                 Matcher m = p.matcher(tel);
                 Pattern p1 = Pattern.compile("^$|^\\d{10}$");
                 Matcher m1 = p1.matcher(stu_xuehao);
+
+                //7位工号
+                Pattern p2 = Pattern.compile("^$|^\\d{7}$");
+                Matcher m2 = p2.matcher(stu_xuehao);
+
                 if (m.matches() != true) {
                     model.addObject("telmsg", "请输入11位数字");
                     model.setViewName("register");
                     return model;
                 }
-                if (m1.matches() != true) {
-                    model.addObject("xuehaomsg", "请输入正确的学号");
+
+                if ((m1.matches() != true)&&(m2.matches() != true)) {
+                    model.addObject("xuehaomsg", "请输入正确的学号或工号！");
                     model.setViewName("register");
                     return model;
                 } else {
@@ -263,7 +269,7 @@ public class LoginController {
                         Student student2 = studentService.findByStuXuehao(stu_xuehao);
                         if (student2 != null) {
 //                            throw new UserException("学号已经被使用!");
-                            model.addObject("xuehaomsg", "学号已经被使用!");
+                            model.addObject("xuehaomsg", "学号或工号已经被使用!");
                             model.setViewName("register");
                             return model;
                         }
@@ -289,6 +295,64 @@ public class LoginController {
                 model.setViewName("register");
                 model.addObject("msg3", "两次输入密码不同");
             }
+
+//        Pattern p = Pattern.compile("^[1](([3|5|8][\\d])|([4][4,5,6,7,8,9])|([6][2,5,6,7])|([7][^9])|([9][1,8,9]))[\\d]{8}$");
+//        Matcher m = p.matcher(tel);
+//        Pattern p1 = Pattern.compile("^$|^\\d{10}$");
+//        Matcher m1 = p1.matcher(stu_xuehao);
+//        if (m.matches() != true) {
+//            model.addObject("telmsg", "请输入11位数字");
+//            model.setViewName("register");
+//            return model;
+//        }
+//        if (m1.matches() != true) {
+//            model.addObject("xuehaomsg", "请输入正确的学号");
+//            model.setViewName("register");
+//            return model;
+//        } else {
+//            Student student = new Student();
+//            student.setStuIsinschool(stu_isinschool);
+////                    if (class_id != "") {
+////                        student.setClassId(Integer.valueOf(class_id));
+////                    }
+//            student.setStuUname(username);
+//            student.setStuPassword(ShiroKit.md5(password, username));
+//            if (stu_isinschool && stu_xuehao == "") {
+////                        throw new UserException("在校学生须填写学号!");
+//                model.addObject("xuehaomsg", "在校学生须填写学号!");
+//                model.setViewName("register");
+//                return model;
+//            }
+//            if (stu_xuehao != "") {
+//                Student student2 = studentService.findByStuXuehao(stu_xuehao);
+//                if (student2 != null) {
+////                            throw new UserException("学号已经被使用!");
+//                    model.addObject("xuehaomsg", "学号已经被使用!");
+//                    model.setViewName("register");
+//                    return model;
+//                }
+//                student.setStuXuehao(stu_xuehao);
+//            }
+//            student.setStuName(name);
+//            Student stu = studentService.findByStuMobile(tel);
+//            if (stu != null) {
+////                        throw new UserException("手机号已被使用!");
+////                        throw new Exception("发生错误");
+//                model.addObject("telmsg", "手机号已被使用!");
+//                model.setViewName("register");
+//                return model;
+//            }
+//            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + stu);
+//            student.setStuMobile(tel);
+//            studentService.addStudent(student);
+//            System.out.println(student);
+//            model.addObject("msg2", "注册成功！！！");
+//            model.setViewName("home_page/login");
+//        }
+//    } else {
+//        model.setViewName("register");
+//        model.addObject("msg3", "两次输入密码不同");
+//    }
 //
 //        } catch (Exception e) {
 //            e.printStackTrace();
