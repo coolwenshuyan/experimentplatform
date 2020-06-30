@@ -98,8 +98,14 @@ public class LoginController {
         Session session = SecurityUtils.getSubject().getSession();
 
         ModelAndView modelAndView = new ModelAndView();
-        Map<Object, Object> map = CasUtils.getUserInfo(SecurityUtils.getSubject().getSession());
-
+        Map<Object, Object> map = null;
+        try {
+            map = CasUtils.getUserInfo(session);
+        }catch (Exception e)
+        {
+            modelAndView.setViewName("redirect:http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas");
+            return modelAndView;
+        }
 //        Subject subject = SecurityUtils.getSubject();
 //        LoginToken token = new LoginToken("zhuzhiwen", ShiroKit.md5("123", "zhuzhiwen"), "student");
 //        subject.login(token);
@@ -107,8 +113,13 @@ public class LoginController {
 
         String comsys_role = (String) map.get("comsys_role");
         String number = (String) map.get("comsys_student_number");
+        if((number == null)||(number.length()==0))
+        {
+            number = (String) map.get("comsys_teaching_number");
+        }
+        System.out.println("+++++++"+number);
 
-        if (comsys_role.contains("ROLE_STUDENT")) {
+        if (true) {
 //            身份类型是学生
             Student student = studentService.findByStuXuehao(number);
             System.out.println("sstudnet>>>>>"+student);
@@ -131,6 +142,122 @@ public class LoginController {
                 modelAndView.setViewName("redirect:/newsinfo/newslist");
             }
         }
+
+//        if (comsys_role.contains("ROLE_STUDENT")) {
+////            身份类型是学生
+//            Student student = studentService.findByStuXuehao(number);
+//            System.out.println("sstudnet>>>>>"+student);
+//            if (student!=null){
+//                session.setAttribute("username", student.getStuUname());
+//                session.setAttribute("student", student);
+//                session.setAttribute("loginType", "student");
+////                System.out.println("sstudnet>>>>>"+student);
+//                modelAndView.setViewName("redirect:/newsinfo/newslist");
+//            }else {
+//                modelAndView.setViewName("redirect:/newsinfo/newslist");
+//            }
+//        } else {
+//            //            身份类型不是学生
+//            Admin admin = adminService.findByUname(number);
+//            if (admin != null ){
+//                session.setAttribute("admin", admin);
+//                modelAndView.setViewName("redirect:/learning/kuangjia");
+//            }else {
+//                modelAndView.setViewName("redirect:/newsinfo/newslist");
+//            }
+//        }
+
+        return modelAndView;
+    }
+
+    /**
+     * Cas登录成功后跳转的链接地址
+     * <P></P>
+     * 根据cas返回的信息
+     * <P></P>
+     * 判断当前用户身份类型
+     * <P></P>
+     * 根据当前用户类型指定跳转地址
+     *
+     * @return {@link  ModelAndView}
+     */
+    @GetMapping("/")
+    public ModelAndView index2(Model model) {
+        System.out.println("index>>>>>>>>>>>>>>>..");
+        Session session = SecurityUtils.getSubject().getSession();
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        Map<Object, Object> map = null;
+        try {
+            map = CasUtils.getUserInfo(session);
+        }catch (Exception e)
+        {
+            modelAndView.setViewName("redirect:http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas");
+            return modelAndView;
+        }
+//        Map<Object, Object> map = CasUtils.getUserInfo(SecurityUtils.getSubject().getSession());
+
+//        Subject subject = SecurityUtils.getSubject();
+//        LoginToken token = new LoginToken("zhuzhiwen", ShiroKit.md5("123", "zhuzhiwen"), "student");
+//        subject.login(token);
+//        Student student2 = (Student) subject.getPrincipal();
+
+        String comsys_role = (String) map.get("comsys_role");
+        String number = (String) map.get("comsys_student_number");
+        if((number == null)||(number.length()==0))
+        {
+            number = (String) map.get("comsys_teaching_number");
+        }
+        System.out.println("+++++++"+number);
+
+        if (true) {
+//            身份类型是学生
+            Student student = studentService.findByStuXuehao(number);
+            System.out.println("sstudnet>>>>>"+student);
+            if (student!=null){
+                session.setAttribute("username", student.getStuUname());
+                session.setAttribute("student", student);
+                session.setAttribute("loginType", "student");
+//                System.out.println("sstudnet>>>>>"+student);
+                modelAndView.setViewName("redirect:/newsinfo/newslist");
+            }else {
+                modelAndView.setViewName("redirect:/newsinfo/newslist");
+            }
+        } else {
+            //            身份类型不是学生
+            Admin admin = adminService.findByUname(number);
+            if (admin != null ){
+                session.setAttribute("admin", admin);
+                modelAndView.setViewName("redirect:/learning/kuangjia");
+            }else {
+                modelAndView.setViewName("redirect:/newsinfo/newslist");
+            }
+        }
+
+//        if (comsys_role.contains("ROLE_STUDENT")) {
+////            身份类型是学生
+//            Student student = studentService.findByStuXuehao(number);
+//            System.out.println("sstudnet>>>>>"+student);
+//            if (student!=null){
+//                session.setAttribute("username", student.getStuUname());
+//                session.setAttribute("student", student);
+//                session.setAttribute("loginType", "student");
+////                System.out.println("sstudnet>>>>>"+student);
+//                modelAndView.setViewName("redirect:/newsinfo/newslist");
+//            }else {
+//                modelAndView.setViewName("redirect:/newsinfo/newslist");
+//            }
+//        } else {
+//            //            身份类型不是学生
+//            Admin admin = adminService.findByUname(number);
+//            if (admin != null ){
+//                session.setAttribute("admin", admin);
+//                modelAndView.setViewName("redirect:/learning/kuangjia");
+//            }else {
+//                modelAndView.setViewName("redirect:/newsinfo/newslist");
+//            }
+//        }
 
         return modelAndView;
     }
