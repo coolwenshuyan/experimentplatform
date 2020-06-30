@@ -1,0 +1,146 @@
+.topbar {
+	width: 100%;
+	height: 40px;
+	background: #17452f;
+	color: #fff;
+	line-height: 40px;
+	font-size: 14px;
+}
+.topbar .main {
+	width: 1200px;
+	margin: 0 auto;
+}
+.welcome {
+	float: left;
+}
+.datestr {
+	float: right;
+}
+header {
+	width: 100%;
+}
+.main {
+	width: 1200px;
+	margin: 0 auto;
+	position: relative;
+}
+.header-logo {
+	width: 360px;
+	height: 75px;
+	display: block;
+	margin: 30px 0 20px 0;
+	float: left;
+}
+.header-title {
+	font-family: 'logofont';
+	height: 55px;
+	line-height: 55px;
+	padding: 0 0 0 18px;
+	margin: 40px 0 30px 20px;
+	border-left: 1px solid #215130;
+	color: #215130;
+	float: left;
+	font-size: 26px;
+}
+section {
+	width: 100%;
+	padding: 150px 0;
+	background: url(../images/banner_01.jpg) no-repeat;
+	background-size: 100% 100%;
+}
+.login-form-area {
+	display: block;
+	width: 360px;
+	padding: 30px;
+	background: rgb(255, 255, 255, 0.75);
+	box-sizing: border-box;
+	float: right;
+}
+.form-select,
+.form-input {
+	display: block;
+	width: 100%;
+	height: 40px;
+	border: 1px solid #666;
+	border-radius: 3px;
+	margin: 0 0 12px 0;
+	box-sizing: border-box;
+	line-height: 38px;
+	font-size: 14px;
+	padding: 0 15px;
+}
+.row-input {
+	display: block;
+	width: 120px;
+	height: 40px;
+	box-sizing: border-box;
+	line-height: 38px;
+	font-size: 14px;
+	padding: 0 15px;
+	border: 1px solid #666666;
+	border-radius: 3px;
+	float: left;
+	margin: 0 5px 5px 0;
+}
+.verify-img {
+	display: block;
+	width: 80px;
+	height: 28px;
+	margin: 6px 5px 0 0;
+	float: left;
+}
+.change-verify-btn {
+	display: block;
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 40px;
+	color: coral;
+	float: left;
+}
+.error-msg {
+	display: block;
+	text-align: center;
+	font-size: 14px;
+	line-height: 1;
+	color: red;
+	height: 14px;
+	margin: 0 0 5px 0;
+}
+.row-button {
+	display: block;
+}
+.login-button,
+.register-button {
+	display: block;
+	width: 140px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background: #215130;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	float: left;
+}
+.register-button {
+	float: right;
+}
+.form-button {
+	display: block;
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background: #ff9900;
+	color: #fff;
+	border-radius: 3px;
+	margin: 12px 0 0 0;
+}
+footer {
+	margin: 10px 0 0 0;
+}
+footer p {
+	font-size: 14px;
+	line-height: 2;
+	text-align: center;
+}

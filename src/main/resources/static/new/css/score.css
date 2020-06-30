@@ -1,0 +1,13 @@
+.score-page {
+	width: 1000px;
+	margin: 30px 0 0 50px;
+	border: 1px solid #cccccc;
+	box-sizing: border-box;
+	padding: 0 30px 30px;
+}
+.score-title {
+	font-size: 28px;
+	text-align: center;
+	line-height: 3;
+	border-bottom: 1px solid #ccc;
+}

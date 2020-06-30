@@ -1,0 +1,59 @@
+.el-header {
+	padding: 0;
+	background: #215130;
+}
+.logo {
+	float: left;
+	color: #fff;
+}
+.logo img {
+	display: block;
+	float: left;
+	height: 60px;
+	margin: 10px 10px 0 20px;
+}
+.logo p {
+	font-size: 32px;
+	float: left;
+	font-family: logofont;
+	margin: 0 10px 0 -232px;
+	background: #215130;
+	height: 80px;
+	line-height: 80px;
+}
+.logo span {
+	display: block;
+	float: left;
+	border-left: 1px solid #fff;
+	font-size: 24px;
+	padding: 0 0 0 10px;
+	height: 36px;
+	line-height: 36px;
+	margin: 22px 0;
+}
+.user-menu {
+	float: right;
+	margin: 30px 30px 0 0;
+}
+.user-menu .el-dropdown {
+	color: #fff;
+	cursor: pointer;
+}
+.main-container {
+	height: calc(100vh - 80px);
+}
+.el-aside {
+	background: #f7f7f7;
+}
+.e-menu {
+	border-right: 0;
+}
+.e-menu .el-menu-item a {
+	display: block;
+}
+.e-menu .el-menu-item.is-active {
+	background-color: #ccc !important;
+}
+.el-main {
+	padding: 0;
+}
