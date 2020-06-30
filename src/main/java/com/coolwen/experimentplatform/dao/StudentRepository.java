@@ -155,5 +155,6 @@ public interface StudentRepository extends BaseRepository<Student,Integer>,JpaSp
             "left join ClassModel cla on st.classId=cla.classId")
     List<StuTotalScoreCurrentDTO> listAllStuTotalScoreCurrentDTOOfPass();
 
-
+    @Query(value ="select count(*) from t_student s where s.stu_isinschool=false",nativeQuery=true)
+    int xiaowainum();
 }

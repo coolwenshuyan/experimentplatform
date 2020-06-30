@@ -11,34 +11,34 @@
 		<script>
 			var chartsInfo = {
 				1: {
-					title: '实验数量统计',
+					title: '实验数量统计 总数:'+'[[${modenum}]]',
 					data: [
-						{ value: 7, name: '信息管理与信息系统' },
-						{ value: 3, name: '数字媒体与技术' },
-						{ value: 2, name: '建筑电气与智能化' }
+						{ value: parseInt('[[${kaohenum}]]'), name: '考核模块' },
+						{ value: parseInt('[[${modenum}]]')-parseInt('[[${kaohenum}]]'), name: '实验模块' },
+						// { value: 2, name: '建筑电气与智能化' }
 					]
 				},
 				2: {
-					title: '平台用户统计',
+					title: '平台用户统计 总数:'+(parseInt('[[${usernum}]]')+parseInt('[[${xiaowainum}]]')),
 					data: [
-						{ value: 335, name: '校内人员' },
-						{ value: 210, name: '校外人员' },
-						{ value: 34, name: '其他人员' }
+						{ value: parseInt('[[${usernum}]]'), name: '校内人员' },
+						{ value: parseInt('[[${xiaowainum}]]'), name: '校外人员' },
+						// { value: 34, name: '其他人员' }
 					]
 				},
 				3: {
-					title: '考核人数统计',
+					title: '考核人数统计 总数:'+'[[${studentmodel}]]',
 					data: [
-						{ value: 400, name: '通过考核' },
-						{ value: 200, name: '未通过考核' }
+						{ value: parseInt('[[${passpeople}]]'), name: '通过考核' },
+						{ value: parseInt('[[${studentmodel}]]')-parseInt('[[${passpeople}]]') , name: '未通过考核' }
 					]
 				},
 				4: {
-					title: '实验成绩统计',
+					title: '实验成绩统计 总数:'+'[[${allpasspeople}]]',
 					data: [
-						{ value: 130, name: '高' },
-						{ value: 100, name: '中' },
-						{ value: 70, name: '低' }
+						{ value: parseInt('[[${excellentstu}]]'), name: '高' },
+						{ value: parseInt('[[${qualifiedstu}]]'), name: '中' },
+						{ value: parseInt('[[${unqualifiedstu}]]'), name: '低' }
 					]
 				}
 			}
