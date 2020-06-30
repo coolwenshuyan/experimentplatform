@@ -1,0 +1,167 @@
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+p,
+blockquote,
+pre,
+hr,
+figure,
+table,
+caption,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+menu {
+	margin: 0;
+	padding: 0;
+}
+header,
+footer,
+section,
+article,
+aside,
+nav,
+hgroup,
+address,
+figure,
+figcaption,
+menu,
+details {
+	display: block;
+}
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+	vertical-align: middle;
+}
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+caption,
+th {
+	font-weight: normal;
+	text-align: left;
+}
+html,
+body,
+fieldset,
+img,
+iframe,
+abbr {
+	border: 0;
+}
+i,
+cite,
+em,
+var,
+address,
+dfn {
+	font-style: normal;
+}
+li {
+	list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small {
+	font-size: 100%;
+}
+sup,
+sub {
+	font-size: 83%;
+}
+pre,
+code,
+kbd,
+samp {
+	font-family: inherit;
+}
+q:before,
+q:after {
+	content: none;
+}
+textarea {
+	overflow: auto;
+	resize: none;
+}
+label,
+summary {
+	cursor: default;
+}
+a,
+button {
+	cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,
+strong,
+b {
+	font-weight: bold;
+}
+del,
+ins,
+u,
+s,
+a,
+a:hover {
+	text-decoration: none;
+}
+body,
+textarea,
+input,
+button,
+select,
+keygen,
+legend {
+	font: 16px '-apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif';
+	color: #000;
+	outline: 0;
+}
+a {
+	color: inherit;
+}
+.cl:after {
+	display: block;
+	visibility: hidden;
+	clear: both;
+	overflow: hidden;
+	height: 0;
+	content: '.';
+}
+@font-face {
+	font-family: 'logofont';
+	src: url('../fonts/logofont.eot');
+	src: url('../fonts/logofont.eot?#iefix') format('embedded-opentype'), url('../fonts/logofont.woff') format('woff'), url('../fonts/logofont.ttf') format('truetype'), url('../fonts/logofont.svg#logofont') format('svg');
+	font-style: normal;
+	font-weight: normal;
+}

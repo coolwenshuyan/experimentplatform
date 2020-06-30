@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>成绩查询</title>
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css" />
+		<style>
+			.layui-tab-item {
+				line-height: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layui-tab" style="margin-left: 7%;">
+			<ul class="layui-tab-title">
+				<li class="layui-this">考核实验模块成绩</li>
+				<li>总评成绩</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<table border="1" width="900" bordercolor="#d8d8d8" bgcolor="#f4f4f4">
+						<tr align="center">
+							<td>序号</td>
+							<td>考核实验名称</td>
+							<td>实验模块测试成绩</td>
+							<td>实验模块测试占比</td>
+							<td>实验模块报告成绩</td>
+							<td>实验模块报告占比</td>
+							<td>实验模块总成绩</td>
+						</tr>
+						<tr align="center" th:each="moduleGrade:${ModuleGrades}">
+							<td th:text="${moduleGrade.m_id}">1</td>
+							<td th:text="${moduleGrade.m_name}">考核实验模块1</td>
+							<td th:text="${moduleGrade.m_test_score}">76</td>
+							<td th:text="${moduleGrade.m_test_baifenbi}">76</td>
+							<td th:text="${moduleGrade.m_report_score}">87</td>
+							<td th:text="${moduleGrade.m_report_baifenbi}">87</td>
+							<td th:text="${moduleGrade.m_score}">78</td>
+						</tr>
+					</table>
+					<p style="color: grey;">注：考核实验模块成绩：考核实验模块测试成绩*比例+考核实验模块报告成绩*比例=考核实验模块成绩。</p>
+				</div>
+				<div class="layui-tab-item">
+					<table border="1" width="900" bordercolor="#d8d8d8" bgcolor="#f4f4f4">
+						<tr align="center">
+							<td>序号</td>
+							<td>考核实验模块成绩</td>
+							<td>理论测试成绩</td>
+							<td>总评成绩</td>
+						</tr>
+						<tr align="center" th:each="totalScore:${totalScoreCurrents}">
+							<td th:text="${totalScore.id}">1</td>
+							<td th:text="${totalScore.mTotalScore}">76</td>
+							<td th:text="${totalScore.testScore}">87</td>
+							<td th:text="${totalScore.totalScore}">78</td>
+						</tr>
+					</table>
+					<p style="color: grey;">注：总评成绩：（<b>考核实验模块1成绩*权重+考核实验模块2成绩*权重…</b>）*比例+理论测试成绩*比例=总评成绩。</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

@@ -77,6 +77,11 @@
 					<div class="name" >
 						<h3 th:text="${k.m_name}"></h3>
 						<br>
+						<!--								<h3>模块测试:<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></h3>-->
+						<!--								<h3>填写报告:<span th:text="${model.m_reportstate == false }?'未完成':'已完成'"></span></h3>-->
+						<!--								<h3>得分:<span th:text="${model.m_score}"></span></h3>-->
+						<!--								<h3>权重：<span th:text="${model.m_scale}"></span></h3>-->
+
 						<h5 class="fir_h5" style="float: left;">模块测试:<span th:text="${k.m_teststate == false }?'未完成':'已完成'"></span></h5>
 						<h5 class="fir_h5">填写报告:<span th:text="${k.m_reportstate == false }?'未完成':'已完成'"></span></h5><br>
 						<h5 class="fir_h5" style="float: left;">得分:<span th:text="${k.m_score}"></span></h5>
@@ -87,14 +92,7 @@
 						<ul class="layui-nav" lay-filter="" >
 							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${k.m_id}|}">理论学习</a></li>
 							<li class="layui-nav-item"><a th:href="@{|/kaoshi/${k.m_id}/toExamPageList|}">模块测试</a></li>
-							<li class="layui-nav-item">
-								  <span th:if="${docker}!= null">
-										  <a th:href="${docker.getDc_url()}">进入实验</a>
-									  </span>
-								<span th:if="${docker}== null">
-										  <a onclick="alter()"a style="width: 100%;height: 100%">进入实验</a>
-									  </span>
-							</li>
+							<li class="layui-nav-item"><a th:href="${k.inurl}">进入实验</a></li>
 							<li class="layui-nav-item">
 								<span th:if="${k.report_type == false}">
 									<a th:href="@{|/WriteReport/${k.m_id}/Timu|}">填写报告</a>
@@ -129,11 +127,7 @@
 <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
-<script>
-	function alter() {
-		window.alert("Docker地址异常，请联系管理员后重试")
-	}
-</script>
+
 </body>
 
 </html>
