@@ -1,101 +1,101 @@
 .el-header {
-	padding: 0;
-	background: #215130;
+    padding: 0;
+    background: #215130;
 }
 .logo {
-	float: left;
-	color: #fff;
+    float: left;
+    color: #fff;
 }
 .logo img {
-	display: block;
-	float: left;
-	height: 60px;
-	margin: 10px 10px 0 20px;
+    display: block;
+    float: left;
+    height: 60px;
+    margin: 10px 10px 0 20px;
 }
 .logo p {
-	font-size: 32px;
-	float: left;
-	font-family: logofont;
-	margin: 0 10px 0 -232px;
-	background: #215130;
-	height: 80px;
-	line-height: 80px;
+    font-size: 32px;
+    float: left;
+    font-family: logofont;
+    margin: 0 10px 0 -232px;
+    background: #215130;
+    height: 80px;
+    line-height: 80px;
 }
 .logo span {
-	display: block;
-	float: left;
-	border-left: 1px solid #fff;
-	font-size: 24px;
-	padding: 0 0 0 10px;
-	height: 36px;
-	line-height: 36px;
-	margin: 22px 0;
+    display: block;
+    float: left;
+    border-left: 1px solid #fff;
+    font-size: 24px;
+    padding: 0 0 0 10px;
+    height: 36px;
+    line-height: 36px;
+    margin: 22px 0;
 }
 .user-menu {
-	float: right;
-	margin: 30px 30px 0 0;
+    float: right;
+    margin: 30px 30px 0 0;
 }
 .user-menu .el-dropdown {
-	color: #fff;
-	cursor: pointer;
+    color: #fff;
+    cursor: pointer;
 }
 .main-container {
-	height: calc(100vh - 80px);
+    height: calc(100vh - 80px);
 }
 .el-aside {
-	background: #333;
+    background: #333;
 }
 .e-menu {
-	border-right: 0;
-	background: transparent;
+    border-right: 0;
+    background: transparent;
 }
 .e-menu .el-submenu__title,
 .e-menu .el-menu-item {
-	position: relative;
-	color: #fff;
+    position: relative;
+    color: #fff;
 }
 .e-menu .el-submenu__title i,
 .e-menu .el-menu-item i {
-	color: #fff;
+    color: #fff;
 }
 .e-menu .el-menu-item a {
-	display: block;
+    display: block;
 }
 
 .e-menu .el-menu-item.is-active:after {
-	content: ' ';
-	display: block;
-	width: 0;
-	height: 0;
-	border: 8px solid #fff;
-	border-top-color: transparent;
-	border-bottom-color: transparent;
-	border-left-color: transparent;
-	position: absolute;
-	right: 0;
-	top: 50%;
-	transform: translateY(-50%);
+    content: ' ';
+    display: block;
+    width: 0;
+    height: 0;
+    border: 8px solid #fff;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .e-menu .el-submenu .el-menu {
-	background: transparent;
+    background: transparent;
 }
 .e-menu .el-submenu .el-menu-item {
-	padding-left: 52px !important;
+    padding-left: 52px !important;
 }
 .e-menu .el-menu-item:focus,
 .e-menu .el-menu-item:hover,
 .e-menu .el-submenu__title:hover,
 .e-menu .el-menu-item.is-active {
-	background: #5a5a5a;
+    background: #5a5a5a;
 }
 .el-main {
-	padding: 0;
-	position: relative;
+    padding: 0;
+    position: relative;
 }
 #monitor {
-	position: absolute;
-	left: 0;
-	top: 0;
-	visibility: hidden;
-	z-index: -10;
+    position: absolute;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+    z-index: -10;
 }

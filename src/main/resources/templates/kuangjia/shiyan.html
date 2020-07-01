@@ -1,127 +1,113 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
-		<meta name="renderer" content="webkit" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>实验中心 - 四川旅游学院虚拟仿真实验教学管理平台</title>
-		<link rel="stylesheet" href="../../static/new/css/reset.css" />
-		<link rel="stylesheet" href="//cdn.staticfile.org/element-ui/2.13.2/theme-chalk/index.css" />
-		<link rel="stylesheet" href="../../static/new/css/shiyan.css" />
-		<script>
-			var disMid = '[[${disMid}]]'
-		</script>
-	</head>
-	<body>
-		<div id="app">
-			<el-container>
-				<el-header height="80px">
-					<div class="logo">
-						<img src="../../static/new/images/sctu_w.png" />
-						<p>旅游大数据虚拟仿真实验教学平台</p>
-						<span>实验中心</span>
-					</div>
-					<div class="user-menu">
-						<el-dropdown trigger="click" placement="bottom" @command="userMenuHandle">
-							<span class="el-dropdown-link">
-								<span th:text="|欢迎你，${session.username}|"></span>
-								<i class="el-icon-arrow-down el-icon--right"></i>
-							</span>
-							<el-dropdown-menu slot="dropdown">
-								<el-dropdown-item command="resetPwd">修改密码</el-dropdown-item>
-								<el-dropdown-item command="logout">退出登陆</el-dropdown-item>
-							</el-dropdown-menu>
-						</el-dropdown>
-					</div>
-				</el-header>
-				<el-container class="main-container">
-					<el-aside width="240px">
-						<el-menu class="e-menu" default-active="/expmodel/alltestModel" unique-opened @select="handleSelect">
-							<el-menu-item index="0">
-								<a href="/newsinfo/newslist">
-									<i class="el-icon-s-home"></i>
-									<span slot="title">首页</span>
-								</a>
-							</el-menu-item>
-							<el-submenu index="1">
-								<template slot="title">
-									<i class="el-icon-menu"></i>
-									<span>实验大厅</span>
-								</template>
-								<el-menu-item index="/expmodel/kaoheModel">考核实验</el-menu-item>
-								<el-menu-item index="/expmodel/alltestModel">全部实验</el-menu-item>
-							</el-submenu>
-							<el-menu-item index="/kaoshi/-1/toExamPageList">
-								<i class="el-icon-document-checked"></i>
-								<span slot="title">理论测试</span>
-							</el-menu-item>
-							<el-menu-item index="/grade/score">
-								<i class="el-icon-trophy"></i>
-								<span slot="title">实验成绩</span>
-							</el-menu-item>
-							<el-menu-item index="monitor">
-								<i class="el-icon-stopwatch"></i>
-								<span slot="title">平台监控</span>
-							</el-menu-item>
-							<el-menu-item index="/setinfo/jiesao">
-								<i class="el-icon-info"></i>
-								<span slot="title">操作说明</span>
-							</el-menu-item>
-							<el-menu-item index="/setinfo/aboutus">
-								<i class="el-icon-document"></i>
-								<span slot="title">关于我们</span>
-							</el-menu-item>
-						</el-menu>
-					</el-aside>
-					<el-main>
-						<iframe src="about:blank" id="iframe" frameborder="0" width="100%" height="100%"></iframe>
-						<iframe src="//172.17.55.54:3000/d/9CWBz0bik/ji-qun-jian-kong?orgId=1&kiosk" id="monitor" frameborder="0" width="100%" height="100%"></iframe>
-					</el-main>
-				</el-container>
-			</el-container>
-		</div>
-		<script src="//cdn.staticfile.org/vue/2.6.11/vue.min.js"></script>
-		<script src="//cdn.staticfile.org/element-ui/2.13.2/index.js"></script>
-		<script>
-			var app = new Vue({
-				el: '#app',
-				data: {},
-				mounted() {
-					this.initPage()
-				},
-				methods: {
-					initPage() {
-						if (disMid != 'false') {
-							document.getElementById('iframe').src = '/expmodel/home_exp/' + disMid
-						} else {
-							document.getElementById('iframe').src = '/expmodel/alltestModel'
-						}
-					},
-					userMenuHandle(command) {
-						if (command == 'resetPwd') {
-							document.getElementById('iframe').src = '/setstudentinfo/update'
-						}
-						if (command == 'logout') {
-							window.location.href = '/logout'
-						}
-					},
-					handleSelect(key) {
-						if (key == 'monitor') {
-							document.getElementById('iframe').style.display = 'none'
-							document.getElementById('monitor').style.zIndex = 100
-							document.getElementById('monitor').style.visibility = 'visible'
-						} else if (key == 0) {
-							return false
-						} else {
-							document.getElementById('monitor').style.zIndex = -10
-							document.getElementById('monitor').style.visibility = 'hidden'
-							document.getElementById('iframe').style.display = 'block'
-							document.getElementById('iframe').src = key
-						}
-					}
-				}
-			})
-		</script>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+        <meta name="renderer" content="webkit" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>实验中心 - 旅游大数据虚拟仿真实验教学平台</title>
+        <link rel="stylesheet" href="../../static/new/css/reset.css" />
+        <link rel="stylesheet" href="//cdn.staticfile.org/element-ui/2.13.2/theme-chalk/index.css" />
+        <link rel="stylesheet" href="../../static/new/css/shiyan.css" />
+        <script>
+            var disMid = '[[${disMid}]]'
+        </script>
+    </head>
+    <body>
+        <div id="app">
+            <el-container>
+                <el-header height="80px">
+                    <div class="logo">
+                        <img src="../../static/new/images/sctu_w.png" />
+                        <p>旅游大数据虚拟仿真实验教学平台</p>
+                        <span>实验中心</span>
+                    </div>
+                    <div class="user-menu">
+                        <el-dropdown trigger="click" placement="bottom" @command="userMenuHandle">
+                            <span class="el-dropdown-link">
+                                <span th:text="|欢迎你，${session.username}|"></span>
+                                <i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="resetPwd">修改密码</el-dropdown-item>
+                                <el-dropdown-item command="logout">退出登陆</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </div>
+                </el-header>
+                <el-container class="main-container">
+                    <el-aside width="240px">
+                        <el-menu class="e-menu" default-active="/expmodel/alltestModel" unique-opened @select="handleSelect">
+                            <el-menu-item index="0">
+                                <a href="/newsinfo/newslist">
+                                    <i class="el-icon-s-home"></i>
+                                    <span slot="title">首页</span>
+                                </a>
+                            </el-menu-item>
+                            <el-submenu index="1">
+                                <template slot="title">
+                                    <i class="el-icon-menu"></i>
+                                    <span>实验大厅</span>
+                                </template>
+                                <el-menu-item index="/expmodel/kaoheModel">考核实验</el-menu-item>
+                                <el-menu-item index="/expmodel/alltestModel">全部实验</el-menu-item>
+                            </el-submenu>
+                            <el-menu-item index="/kaoshi/-1/toExamPageList">
+                                <i class="el-icon-document-checked"></i>
+                                <span slot="title">理论测试</span>
+                            </el-menu-item>
+                            <el-menu-item index="/grade/score">
+                                <i class="el-icon-trophy"></i>
+                                <span slot="title">实验成绩</span>
+                            </el-menu-item>
+                            <el-menu-item index="/setinfo/jiesao">
+                                <i class="el-icon-info"></i>
+                                <span slot="title">操作说明</span>
+                            </el-menu-item>
+                            <el-menu-item index="/setinfo/aboutus">
+                                <i class="el-icon-document"></i>
+                                <span slot="title">关于我们</span>
+                            </el-menu-item>
+                        </el-menu>
+                    </el-aside>
+                    <el-main>
+                        <iframe src="about:blank" id="iframe" frameborder="0" width="100%" height="100%"></iframe>
+                    </el-main>
+                </el-container>
+            </el-container>
+        </div>
+        <script src="//cdn.staticfile.org/vue/2.6.11/vue.min.js"></script>
+        <script src="//cdn.staticfile.org/element-ui/2.13.2/index.js"></script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {},
+                mounted() {
+                    this.initPage()
+                },
+                methods: {
+                    initPage() {
+                        if (disMid != 'false') {
+                            document.getElementById('iframe').src = '/expmodel/home_exp/' + disMid
+                        } else {
+                            document.getElementById('iframe').src = '/expmodel/alltestModel'
+                        }
+                    },
+                    userMenuHandle(command) {
+                        if (command == 'resetPwd') {
+                            document.getElementById('iframe').src = '/setstudentinfo/update'
+                        }
+                        if (command == 'logout') {
+                            window.location.href = '/logout'
+                        }
+                    },
+                    handleSelect(key) {
+                        if (key != 0) {
+                            document.getElementById('iframe').src = key
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
 </html>
