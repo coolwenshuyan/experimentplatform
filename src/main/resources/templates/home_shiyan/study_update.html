@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<div class="study-page">
-			<a th:href="@{/expmodel/moduleDispathcher}" class="back-btn">返回</a>
+			<h1>理论学习</h1>
 			<div class="study-list">
 				<div class="study-item">
 					<div class="study-item-header">实验介绍</div>
@@ -43,6 +43,7 @@
 					<div class="study-item-body study-step" th:utext="${exp.m_step}"></div>
 				</div>
 			</div>
+			<a th:href="@{/expmodel/moduleDispathcher}" class="back-btn">返回</a>
 		</div>
 	</body>
 </html>

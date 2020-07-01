@@ -1,0 +1,96 @@
+/* topbar */
+.topbar {
+	width: 100%;
+	height: 40px;
+	background: #215130;
+	color: #fff;
+	line-height: 40px;
+	font-size: 14px;
+}
+.main {
+	width: 1200px;
+	margin: 0 auto;
+}
+.topbar p {
+	float: left;
+}
+.user-info {
+	float: right;
+}
+.user-info a {
+	margin: 0 0 0 10px;
+}
+/* 导航栏 */
+.navs {
+	width: 1200px;
+	margin: 0 auto;
+	height: 120px;
+}
+.logo {
+	float: left;
+}
+.logo img {
+	height: 75px;
+	display: block;
+	float: left;
+	margin-top: 22px;
+}
+.logo p {
+	font-family: 'logofont';
+	height: 120px;
+	line-height: 120px;
+	padding: 0 0 0 18px;
+	color: #215130;
+	float: left;
+	font-size: 36px;
+	margin-left: -285px;
+	background: #fff;
+}
+.nav {
+	float: right;
+	/* height: 120px; */
+	padding: 45px 0;
+}
+.nav li {
+	float: left;
+	line-height: 30px;
+	height: 30px;
+	font-size: 18px;
+	margin: 0 10px;
+	position: relative;
+}
+.nav li:last-child {
+	margin-right: 0;
+}
+.nav li.active,
+.nav li:hover {
+	color: #215130;
+}
+.nav li:after {
+	content: ' ';
+	display: block;
+	width: 0;
+	height: 2px;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	background: #215130;
+	transition: all 0.3s;
+	transform: translateX(-50%);
+	opacity: 0;
+}
+.nav li.active:after,
+.nav li:hover:after {
+	width: 100%;
+	opacity: 1;
+}
+/* 底部 */
+footer {
+	background: #215130;
+	color: #fff;
+}
+footer p {
+	font-size: 14px;
+	line-height: 80px;
+	text-align: center;
+}

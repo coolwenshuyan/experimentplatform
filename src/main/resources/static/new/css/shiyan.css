@@ -90,4 +90,12 @@
 }
 .el-main {
 	padding: 0;
+	position: relative;
+}
+#monitor {
+	position: absolute;
+	left: 0;
+	top: 0;
+	visibility: hidden;
+	z-index: -10;
 }

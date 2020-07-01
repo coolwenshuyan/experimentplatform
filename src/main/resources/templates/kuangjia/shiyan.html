@@ -60,18 +60,23 @@
 								<i class="el-icon-trophy"></i>
 								<span slot="title">实验成绩</span>
 							</el-menu-item>
-							<el-submenu index="5">
-								<template slot="title">
-									<i class="el-icon-question"></i>
-									<span>帮助中心</span>
-								</template>
-								<el-menu-item index="/setinfo/jiesao">平台介绍</el-menu-item>
-								<el-menu-item index="/setinfo/aboutus">关于我们</el-menu-item>
-							</el-submenu>
+							<el-menu-item index="monitor">
+								<i class="el-icon-stopwatch"></i>
+								<span slot="title">平台监控</span>
+							</el-menu-item>
+							<el-menu-item index="/setinfo/jiesao">
+								<i class="el-icon-info"></i>
+								<span slot="title">操作说明</span>
+							</el-menu-item>
+							<el-menu-item index="/setinfo/aboutus">
+								<i class="el-icon-document"></i>
+								<span slot="title">关于我们</span>
+							</el-menu-item>
 						</el-menu>
 					</el-aside>
 					<el-main>
 						<iframe src="about:blank" id="iframe" frameborder="0" width="100%" height="100%"></iframe>
+						<iframe src="//172.17.55.54:3000/d/9CWBz0bik/ji-qun-jian-kong?orgId=1&kiosk" id="monitor" frameborder="0" width="100%" height="100%"></iframe>
 					</el-main>
 				</el-container>
 			</el-container>
@@ -102,7 +107,16 @@
 						}
 					},
 					handleSelect(key) {
-						if (key != 0) {
+						if (key == 'monitor') {
+							document.getElementById('iframe').style.display = 'none'
+							document.getElementById('monitor').style.zIndex = 100
+							document.getElementById('monitor').style.visibility = 'visible'
+						} else if (key == 0) {
+							return false
+						} else {
+							document.getElementById('monitor').style.zIndex = -10
+							document.getElementById('monitor').style.visibility = 'hidden'
+							document.getElementById('iframe').style.display = 'block'
 							document.getElementById('iframe').src = key
 						}
 					}

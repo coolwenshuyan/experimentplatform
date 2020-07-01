@@ -1,0 +1,176 @@
+.report-page {
+	width: 1200px;
+	margin: 20px auto;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	padding: 30px 50px;
+}
+.report-show-page {
+	width: 1000px;
+	margin: 20px auto;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	padding: 30px 50px;
+}
+.logo {
+	text-align: center;
+}
+.title {
+	line-height: 3;
+	font-size: 30px;
+	text-align: center;
+}
+.name {
+	line-height: 50px;
+}
+.basic {
+	width: 100%;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	border: 1px solid #666;
+	border-bottom: 0;
+	border-right: 0;
+}
+.basic-item {
+	width: 33.33%;
+	height: 60px;
+	line-height: 60px;
+	text-indent: 50px;
+	border-bottom: 1px solid #666;
+	border-right: 1px solid #666;
+	box-sizing: border-box;
+}
+.basic-item input {
+	outline: 0;
+	border: 0;
+	height: 40px;
+	width: 200px;
+	border-bottom: 1px solid #000;
+	text-align: center;
+}
+.step-name {
+	font-size: 20px;
+	line-height: 3;
+}
+.step-content {
+	padding: 30px;
+	border: 1px solid #999999;
+	min-height: 100px;
+}
+.score-area {
+	margin-top: 30px;
+	display: flex;
+	border: 1px solid #666;
+	justify-content: space-between;
+}
+.score-area .comment {
+	width: 70%;
+	position: relative;
+	padding-bottom: 80px;
+}
+.score-area .comment h3 {
+	text-indent: 30px;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 50px;
+}
+.score-area .score {
+	width: 30%;
+	border-left: 1px solid #666;
+}
+.score-area .score h3 {
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 50px;
+	border-bottom: 1px solid #666;
+	text-indent: 20px;
+}
+.score-text {
+	font-size: 16px;
+	box-sizing: border-box;
+	padding: 20px;
+	line-height: 2;
+}
+.comment-area {
+	width: calc(100% - 60px);
+	min-height: 300px;
+	border: 1px solid #ccc;
+	margin: 0 auto;
+}
+.teacher-sign {
+	position: absolute;
+	right: 120px;
+	font-size: 14px;
+	line-height: 40px;
+	bottom: 40px;
+}
+.sign-date {
+	position: absolute;
+	right: 120px;
+	bottom: 0;
+	font-size: 14px;
+	line-height: 40px;
+}
+.report-btns {
+	width: 1200px;
+	margin: 0 auto 30px;
+	text-align: center;
+}
+.report-show-page + .report-btns {
+	width: 1000px;
+}
+.prev-btn {
+	width: 100px;
+	height: 40px;
+	box-sizing: border-box;
+	line-height: 38px;
+	text-align: center;
+	border: 1px solid #215130;
+	color: #215130;
+	font-size: 14px;
+	float: left;
+	cursor: pointer;
+}
+.prev-btn:hover {
+	color: #fff;
+	background: #215130;
+	opacity: 0.8;
+}
+.print-btn {
+	display: inline-block;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	background: #409eff;
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+}
+.print-btn:hover {
+	opacity: 0.8;
+}
+.next-btn {
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background: #215130;
+	color: #fff;
+	font-size: 14px;
+	cursor: pointer;
+	float: right;
+}
+.next-btn:hover {
+	opacity: 0.8;
+}
+@media print {
+	.report-show-page {
+		width: 100%;
+		border: 0;
+	}
+	.report-btns {
+		display: none;
+	}
+}

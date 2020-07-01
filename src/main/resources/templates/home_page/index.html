@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>首页 - 旅游大数据虚拟仿真实验教学平台</title>
 		<link rel="stylesheet" href="../../static/new/css/reset.css" />
+		<link rel="stylesheet" href="../../static/new/css/common.css" />
 		<link rel="stylesheet" href="../../static/new/css/index.css" />
 		<script>
 			var chartsInfo = {
@@ -30,10 +31,10 @@
 				},
 				2: {
 					data: [
-						{ value: 536, name: '校内人员' },
-						{ value: 43, name: '校外人员' },
+						{ value: parseInt('[[${usernum}]]'), name: '校内人员' },
+						{ value: parseInt('[[${xiaowainum}]]'), name: '校外人员' },
 						{
-							name: '用户总数\n' + 579 + '个',
+							name: '用户总数\n' + (parseInt('[[${usernum}]]') + parseInt('[[${xiaowainum}]]')) + '个',
 							value: 0,
 							label: {
 								formatter: '{b}',
@@ -48,10 +49,10 @@
 				},
 				3: {
 					data: [
-						{ value: 571, name: '通过考核' },
-						{ value: 8, name: '未通过考核' },
+						{ value: parseInt('[[${passpeople}]]'), name: '通过考核' },
+						{ value: parseInt('[[${studentmodel}]]') - parseInt('[[${passpeople}]]'), name: '未通过考核' },
 						{
-							name: '考核总数\n579个',
+							name: '考核总数\n[[${studentmodel}]]个',
 							value: 0,
 							label: {
 								formatter: '{b}',
@@ -66,11 +67,11 @@
 				},
 				4: {
 					data: [
-						{ value: 174, name: '高' },
-						{ value: 280, name: '中' },
-						{ value: 125, name: '低' },
+						{ value: parseInt('[[${excellentstu}]]'), name: '高' },
+						{ value: parseInt('[[${qualifiedstu}]]'), name: '中' },
+						{ value: parseInt('[[${unqualifiedstu}]]'), name: '低' },
 						{
-							name: '成绩总数\n579份',
+							name: '成绩总数\n[[${allpasspeople}]]份',
 							value: 0,
 							label: {
 								formatter: '{b}',
@@ -85,92 +86,13 @@
 				}
 			}
 		</script>
-        <!--<script>-->
-            <!--var chartsInfo = {-->
-                <!--1: {-->
-                    <!--data: [-->
-                        <!--{ value: parseInt('[[${kaohenum}]]'), name: '考核模块' },-->
-                        <!--{ value: parseInt('[[${modenum}]]') - parseInt('[[${kaohenum}]]'), name: '实验模块' },-->
-                        <!--{-->
-                            <!--name: '实验总数\n[[${modenum}]]个',-->
-                            <!--value: 0,-->
-                            <!--label: {-->
-                                <!--formatter: '{b}',-->
-                                <!--position: 'center',-->
-                                <!--fontSize: 18,-->
-                                <!--fontWeight: 'bold',-->
-                                <!--align: 'center',-->
-                                <!--lineHeight: 28-->
-                            <!--}-->
-                        <!--}-->
-                    <!--]-->
-                <!--},-->
-                <!--2: {-->
-                    <!--data: [-->
-                        <!--{ value: parseInt('[[${usernum}]]'), name: '校内人员' },-->
-                        <!--{ value: parseInt('[[${xiaowainum}]]'), name: '校外人员' },-->
-                        <!--{-->
-                            <!--name: '用户总数\n' + (parseInt('[[${usernum}]]') + parseInt('[[${xiaowainum}]]')) + '个',-->
-                            <!--value: 0,-->
-                            <!--label: {-->
-                                <!--formatter: '{b}',-->
-                                <!--position: 'center',-->
-                                <!--fontSize: 18,-->
-                                <!--fontWeight: 'bold',-->
-                                <!--align: 'center',-->
-                                <!--lineHeight: 28-->
-                            <!--}-->
-                        <!--}-->
-                    <!--]-->
-                <!--},-->
-                <!--3: {-->
-                    <!--data: [-->
-                        <!--{ value: parseInt('[[${passpeople}]]'), name: '通过考核' },-->
-                        <!--{ value: parseInt('[[${studentmodel}]]') - parseInt('[[${passpeople}]]'), name: '未通过考核' },-->
-                        <!--{-->
-                            <!--name: '考核总数\n[[${studentmodel}]]个',-->
-                            <!--value: 0,-->
-                            <!--label: {-->
-                                <!--formatter: '{b}',-->
-                                <!--position: 'center',-->
-                                <!--fontSize: 18,-->
-                                <!--fontWeight: 'bold',-->
-                                <!--align: 'center',-->
-                                <!--lineHeight: 28-->
-                            <!--}-->
-                        <!--}-->
-                    <!--]-->
-                <!--},-->
-                <!--4: {-->
-                    <!--data: [-->
-                        <!--{ value: parseInt('[[${excellentstu}]]'), name: '高' },-->
-                        <!--{ value: parseInt('[[${qualifiedstu}]]'), name: '中' },-->
-                        <!--{ value: parseInt('[[${unqualifiedstu}]]'), name: '低' },-->
-                        <!--{-->
-                            <!--name: '成绩总数\n[[${allpasspeople}]]份',-->
-                            <!--value: 0,-->
-                            <!--label: {-->
-                                <!--formatter: '{b}',-->
-                                <!--position: 'center',-->
-                                <!--fontSize: 18,-->
-                                <!--fontWeight: 'bold',-->
-                                <!--align: 'center',-->
-                                <!--lineHeight: 28-->
-                            <!--}-->
-                        <!--}-->
-                    <!--]-->
-                <!--}-->
-            <!--}-->
-        <!--</script>-->
 	</head>
 	<body>
 		<div class="topbar">
 			<div class="main cl">
 				<p>旅游大数据虚拟仿真实验教学平台</p>
 				<div class="user-info" th:if="${session.username} == null">
-					<!--<a href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">登陆</a>-->
-					<a href="/login">登陆</a>
-
+					<a href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">登陆</a>
 					<a href="/register">注册</a>
 				</div>
 				<div class="user-info" th:if="${session.username} != null">
@@ -207,7 +129,7 @@
 			<div class="main cl">
 				<div class="news-area">
 					<div class="title-bar">
-						<div class="title">虚拟实验平台公告</div>
+						<div class="title">平台公告</div>
 						<a href="/newsinfo/more" class="more">more+</a>
 					</div>
 					<ul class="news-list">
@@ -256,14 +178,14 @@
 						<div class="list-id" th:text="${exp.m_id}"></div>
 						<div class="list-name" th:text="${exp.m_name}"></div>
 						<div class="list-incharge" th:text="${exp.m_manager}"></div>
-						<div class="list-desc" th:text="${exp.purpose}"></div>
+						<div class="list-desc" th:title="${exp.purpose}" th:text="${exp.purpose}"></div>
 						<div class="list-time" th:text="${exp.classhour}"></div>
 						<div class="list-opt">
 							<a th:href="@{|/expmodel/homeExpDispatcher/${exp.m_id}|}" class="list-btn">开始实验</a>
 						</div>
 					</div>
 				</div>
-                <div class="more-btn"><a href="/newsinfo/shiyan">进入实验大厅</a></div>
+				<div class="more-btn">进入实验大厅</div>
 			</div>
 		</div>
 		<div class="charts-section">

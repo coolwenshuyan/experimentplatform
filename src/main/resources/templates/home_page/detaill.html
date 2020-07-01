@@ -1,167 +1,88 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <title>答疑室详情</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="keywords" content="fly,layui,前端社区">
-    <meta name="description" content="四川旅游学院答疑室">
-    <link rel="stylesheet" href="../../static/css/layui.css">
-    <link rel="stylesheet" href="../../static/css/css_home/global.css">
-    <style>
-        .photos{
-            border:1px solid lightgrey;
-            padding: 1%;
-        }
-        .detail-about .detail-hits{
-            top:0px
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="fly-header layui-bg-black">
-    <div class="layui-container">
-        <p style="text-align: center;line-height: 62px;font-size: 16px;">虚拟仿真实验平台答疑室</p>
-
-
-        <ul class="layui-nav fly-nav-user">
-
-            <li class="layui-nav-item">
-                <a class="iconfont icon-touxiang layui-hide-xs" href="login.html"></a>
-            </li>
-            <li class="layui-nav-item" th:if="${session.username}==null">
-                <a href="/login">用户登录</a>
-            </li>
-            <li class="layui-nav-item" th:if="${session.username}==null">
-                <a href="/register">注册用户</a>
-            </li>
-            <li class="layui-nav-item" th:if="${session.username}!=null">
-                <a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
-<!--                <a style="color:#fff" th:href="@{/logout}">退出登录</a>-->
-            </li>
-
-            <!-- 未登入的状态 -->
-            <!--
-<li class="layui-nav-item">
-<a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
-</li>
-<li class="layui-nav-item">
-<a href="user/login.html">登入</a>
-</li>
-<li class="layui-nav-item">
-<a href="user/reg.html">注册</a>
-</li>
-<li class="layui-nav-item layui-hide-xs">
-<a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
-</li>
-<li class="layui-nav-item layui-hide-xs">
-<a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
-</li>
--->
-
-        </ul>
-    </div>
-</div>
-
-<div class="layui-hide-xs">
-    <div class="fly-panel fly-column">
-        <div class="layui-container">
-            <p><a href="/question/list1">返回上一级</a></p>
-
-            <div class="fly-column-right layui-hide-xs">
-                <span class="fly-search"><i class="layui-icon"></i></span>
-                <a href="#fabiao" class="layui-btn">发表新帖</a>
-            </div>
-            <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-                <a href=#fabiao class="layui-btn">发表新帖</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="layui-container">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-md12 content detail">
-            <div class="fly-panel detail-box">
-                <h1 th:utext="${question.content}">问题</h1>
-<!--                <div class="fly-detail-info">-->
-<!--							<span class="fly-list-nums">-->
-<!--            					<a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>-->
-<!--         				 	</span>-->
-<!--                </div>-->
-                <span>提问人：</span>
-                <span th:text="${studentName}">用户名</span>
-                <span>提问时间：</span>
-                <span th:text="${question.dic_datetime}">时间</span>
-
-                <div class="fly-panel detail-box" id="flyReply">
-                    <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
-                        <legend>回帖内容</legend>
-                    </fieldset>
-
-                    <ul class="jieda" id="jieda">
-                        <li data-id="111" class="jieda-daan" th:each="reply:${replies}">
-                            <div class="detail-about detail-about-reply">
-<!--                                图片-->
-<!--                                <a class="fly-avatar" href="">-->
-<!--                                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">-->
-<!--                                </a>-->
-                                <span style="float: left">回复人姓名：</span>
-                                <div class="fly-detail-user" style="float: left">
-                                    <a type="text" th:text="${reply.reply_pname}">test</a>
-                                </div>
-                                <span style="float: left;margin-left:2%">回复时间：</span>
-                                <div class="detail-hits">
-                                    <span th:text="${reply.dic_datetime}" style="float: left">时间</span>
-                                </div>
-                            </div>
-                            <div class="detail-body jieda-body photos">
-                                <span>回复内容：</span>
-                                <p th:utext="${reply.content}">回复内容</p>
-                            </div>
-                        </li>
-
-
-                    </ul>
-
-
-                    <hr>
-
-                    <div style="margin-top: 50px">
-                        <form th:action="'/reply/'  + 'add2/' + ${question.id}" method="post">
-                            进行新增回复:
-<!--                            富文本编辑器的HTML代码开始-->
-                            <script id="editors" name="content" type="text/plain">
-                            </script>
-<!--                            富文本编辑器的HTML代码结束-->
-                            <input type="submit" value="提交回复">
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<div class="fly-footer" style="background-color:#174f37;color: white;line-height: 5px;">
-    版权所有:四川旅游学院 旅游大数据虚拟仿真实验教学平台系统 V1.0
-
-</div>
-
-<script src="../../static/js/js_home/layui.js"></script>
-
-<!--富文本编辑器相关的js-->
-<script th:src="@{/ueditor/ueditor.config.js}"></script>
-<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
-<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
-<script th:inline="javascript">
-    UE.getEditor('editors');  //创建富文本编辑器
-</script>
-
-
-</body>
-
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>提问详情 - 旅游大数据虚拟仿真实验教学平台</title>
+		<link rel="stylesheet" href="../../static/new/css/reset.css" />
+		<link rel="stylesheet" href="../../static/new/css/common.css" />
+		<link rel="stylesheet" href="../../static/new/css/detail.css" />
+	</head>
+	<body>
+		<div class="topbar">
+			<div class="main cl">
+				<p>旅游大数据虚拟仿真实验教学平台</p>
+				<div class="user-info" th:if="${session.username} == null">
+					<a href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">登陆</a>
+					<a href="/register">注册</a>
+				</div>
+				<div class="user-info" th:if="${session.username} != null">
+					<span th:text="|欢迎你，${session.username} |"></span>
+					<!--<a th:href="@{/logout}">退出登录</a>-->
+				</div>
+			</div>
+		</div>
+		<div class="navs cl">
+			<div class="logo">
+				<img src="../../static/new/images/sctu.png" />
+				<p>旅游大数据虚拟仿真实验教学平台</p>
+			</div>
+			<ul class="nav">
+				<li><a href="/newsinfo/newslist">首页</a></li>
+				<li><a href="/newsinfo/shiyan">实验大厅</a></li>
+				<li><a href="/setinfo/situation">平台概况</a></li>
+				<li><a href="/teachers/frontList">师资队伍</a></li>
+				<li class="active"><a href="/question/list1">咨询答疑</a></li>
+				<li><a href="/learning/learningList">学习效果</a></li>
+			</ul>
+		</div>
+		<section class="main-area">
+			<div class="bar">
+				<a href="/question/list1" class="back-btn">返回列表</a>
+				<div class="crumb">当前位置：<a href="/newsinfo/newslist">首页</a> > <a href="/question/list1">咨询答疑</a> > 提问详情</div>
+			</div>
+			<div class="questions">
+				<div class="question">
+					<div class="que-info cl">
+						<i>?</i>
+						<h3 th:text="|提问者：${studentName}|"></h3>
+						<p th:text="${question.dic_datetime}"></p>
+					</div>
+					<div class="que-con" th:utext="${question.content}"></div>
+				</div>
+				<div class="replies">
+					<div class="reply" th:each="reply:${replies}">
+						<div class="reply-info">
+							<p th:text="|回复人：${reply.reply_pname}|"></p>
+							<p th:text="|回复于：${reply.dic_datetime}|"></p>
+						</div>
+						<div class="reply-content" th:utext="${reply.content}"></div>
+					</div>
+				</div>
+			</div>
+			<div class="add-one" th:if="${session.username} != null">
+				<h2>我要回答</h2>
+				<div class="forEditor" id="forEditor"></div>
+				<div class="submit-btn">回 复</div>
+			</div>
+			<div class="add-tip" th:if="${session.username} == null">登录后才可以回答问题哦，快去登录吧！</div>
+		</section>
+		<footer>
+			<p>copyright © 2020 旅游大数据虚拟仿真实验教学平台</p>
+		</footer>
+		<script src="//cdn.staticfile.org/jquery/1.8.0/jquery.min.js"></script>
+		<script src="//cdn.staticfile.org/wangEditor/3.1.1/wangEditor.min.js"></script>
+		<script src="//cdn.staticfile.org/layer/3.1.1/layer.min.js"></script>
+		<script src="../../static/new/js/editor.config.js"></script>
+		<script>
+			$('.submit-btn').click(function () {
+				var _data = editor.txt.html()
+				$.post('/reply/add2/[[${question.id}]]', { content: _data }, function (data, textStatus, jqXHR) {
+					window.location.reload()
+				})
+			})
+		</script>
+	</body>
 </html>

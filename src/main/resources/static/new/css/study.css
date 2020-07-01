@@ -1,16 +1,11 @@
 .study-page {
-	width: 1000px;
-	margin: 20px 0 0 50px;
+	width: 1200px;
+	margin: 0 auto;
 }
-.back-btn {
-	width: 80px;
-	display: block;
-	padding: 0 10px;
-	height: 40px;
-	line-height: 40px;
-	color: #fff;
-	background: #215130;
-	font-size: 14px;
+.study-page > h1 {
+	line-height: 3;
+	font-size: 28px;
+	font-weight: normal;
 	text-align: center;
 }
 .back-btn:hover {
@@ -27,16 +22,29 @@
 	line-height: 40px;
 	text-align: center;
 	font-size: 16px;
-	color: #fff;
-	background: #215130;
+	background: #ccc;
+	border: 1px solid #666;
+	border-bottom: 0;
 }
 .study-item-body {
 	padding: 12px;
 	line-height: 2;
-	border: 1px solid #215130;
+	border: 1px solid #666;
+	border-top: 0;
 	font-size: 14px;
 }
 .study-step {
 	max-height: 600px;
 	overflow: scroll;
+}
+.back-btn {
+	width: 100px;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	background: #215130;
+	font-size: 14px;
+	text-align: center;
+	margin: 0 auto 50px;
 }

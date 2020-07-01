@@ -1,6 +1,6 @@
 .grade-card {
-	margin: 20px 0 0 50px;
-	width: 1002px;
+	margin: 50px auto;
+	width: 1200px;
 }
 .card-tabs {
 	height: 40px;
@@ -12,10 +12,13 @@
 	text-align: center;
 	padding: 0 15px;
 	cursor: pointer;
-}
-.card-tab.active {
 	border: 1px solid #ccc;
 	border-bottom-color: #fff;
+}
+.card-tab.active {
+	border-color: #215130;
+	background: #215130;
+	color: #fff;
 }
 .card-content {
 	display: none;
@@ -28,61 +31,59 @@
 .tb_header {
 	text-align: center;
 	font-size: 14px;
-	background: #ccc;
+	background: #eee;
 }
 .tb_header > div {
 	float: left;
 	height: 50px;
 	line-height: 50px;
+	box-sizing: border-box;
+	border-right: 1px solid #ccc;
 }
-.table1 .tb_header > div:nth-child(1) {
-	width: 70px;
-}
-.table1 .tb_header > div:nth-child(2) {
-	width: 180px;
-}
-.table1 .tb_header > div:nth-child(3),
-.table1 .tb_header > div:nth-child(4),
-.table1 .tb_header > div:nth-child(5),
-.table1 .tb_header > div:nth-child(6) {
-	width: 150px;
-}
-.table1 .tb_header > div:nth-child(7) {
-	width: 150px;
-}
+
 .tb_row {
 	font-size: 14px;
 	text-align: center;
+	border-bottom: 1px solid #ccc;
 }
 .tb_row > div {
 	float: left;
 	height: 50px;
 	line-height: 50px;
-	border: 1px solid #ccc;
-	border-left: none;
+	border-right: 1px solid #ccc;
 	box-sizing: border-box;
-	border-top: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	padding: 0 5px;
 }
+.table1 .tb_header > div:nth-child(1),
 .table1 .tb_row > div:nth-child(1) {
 	width: 70px;
 }
-.table1 .tb_row > div:nth-child(2) {
-	width: 180px;
+.table1 .tb_header > div:nth-child(2) {
+	width: 378px;
 }
+.table1 .tb_row > div:nth-child(2) {
+	width: 378px;
+	text-align: left;
+}
+.table1 .tb_header > div:nth-child(3),
+.table1 .tb_header > div:nth-child(4),
+.table1 .tb_header > div:nth-child(5),
+.table1 .tb_header > div:nth-child(6),
 .table1 .tb_row > div:nth-child(3),
 .table1 .tb_row > div:nth-child(4),
 .table1 .tb_row > div:nth-child(5),
 .table1 .tb_row > div:nth-child(6) {
 	width: 150px;
 }
+.table1 .tb_header > div:nth-child(7),
 .table1 .tb_row > div:nth-child(7) {
 	width: 150px;
 	border-right: none;
 }
+
 .ps {
 	line-height: 3;
 	font-size: 14px;
@@ -93,11 +94,9 @@
 	border: 1px solid #ccc;
 	border-bottom: 0;
 }
-.table2 .tb_header > div {
-	width: 250px;
-}
+.table2 .tb_header > div,
 .table2 .tb_row > div {
-	width: 250px;
+	width: 25%;
 }
 .table2 .tb_row > div:nth-child(4) {
 	border-right: 0;

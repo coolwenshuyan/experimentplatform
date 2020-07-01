@@ -1,177 +1,90 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <title>虚拟仿真实验平台答疑室</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="keywords" content="fly,layui,前端社区">
-    <meta name="description" content="四川旅游学院答疑室">
-    <link rel="stylesheet" href="../../static/css/layui.css">
-    <link rel="stylesheet" href="../../static/css/css_home/global.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/css_home/aos.css" />
-</head>
-<body>
-
-<div class="fly-header layui-bg-black">
-    <div class="layui-container">
-        <!--标题-->
-        <p style="text-align: center;line-height: 62px;font-size: 16px;">旅游大数据虚拟仿真实验教学平台答疑室</p>
-        <ul class="layui-nav fly-nav-user">
-
-            <!-- 未登入的状态 -->
-            <li class="layui-nav-item">
-                <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
-            </li>
-            <li class="layui-nav-item" th:if="${session.username}==null">
-                <a href="/login">用户登录</a>
-            </li>
-            <li class="layui-nav-item" th:if="${session.username}==null">
-                <a href="/register">注册用户</a>
-            </li>
-            <li class="layui-nav-item" th:if="${session.username}!=null">
-                <a th:text="|Welcome to you, ${session.username}!|"></a>&nbsp;&nbsp;
-<!--                <a style="color:#fff" th:href="@{/logout}">退出登录</a>-->
-            </li>
-
-
-            <!-- 登入后的状态 -->
-            <!--
-            <li class="layui-nav-item">
-              <a class="fly-nav-avatar" href="javascript:;">
-                <cite class="layui-hide-xs">贤心</cite>
-                <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-                <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-                <hr style="margin: 5px 0;">
-                <dd><a href="" style="text-align: center;">退出</a></dd>
-              </dl>
-            </li>
-            -->
-        </ul>
-    </div>
-</div>
-
-
-<div class="fly-panel fly-column">
-    <div class="layui-container">
-        <p><a href="/newsinfo/newslist">返回上一级</a></p>
-
-        <div class="fly-column-right layui-hide-xs">
-            <span class="fly-search"><i class="layui-icon"></i></span>
-            <a href="#fabiao" class="layui-btn">发布问题</a>
-        </div>
-        <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-            <a href="#fabiao" class="layui-btn">发布问题</a>
-        </div>
-    </div>
-</div>
-
-<div class="layui-container">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-md12">
-            <div class="fly-panel" style="margin-bottom: 0;">
-
-                <div class="fly-panel-title fly-filter">
-                    <a href="" class="layui-this">综合排序</a>
-                    <span class="fly-mid"></span>
-
-                    <span class="fly-filter-right layui-hide-xs">
-            <a href="" class="layui-this">按最新</a>
-
-
-          </span>
-                </div>
-
-                <ul class="fly-list">
-                    <li th:each="question:${questionPageInfo.content}">
-                        <a href="#" class="fly-avatar">
-                            <img src="../../static/images/logo.png" alt="贤心">
-                        </a>
-                        <h2>
-                            <!--<a class="layui-badge">分享</a>-->
-                            <a href="detaill.html" th:utext="${question.content}" th:href="@{|${question.id}/detaill|}">问题</a>
-                        </h2>
-                        <div class="fly-list-info">
-                            <a href="#" link>
-                                <cite th:text="${question.stu_uname}">名字</cite>
-                                <!--
-                                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                                <i class="layui-badge fly-badge-vip">VIP3</i>
-                                -->
-                            </a>
-                            <span th:text="${question.dic_datetime}">时间</span>
-
-
-                            <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-                            <a class="fly-list-nums" th:href="@{|detaill/${question.id}|}">查看</a>
-                        </div>
-                        <div class="fly-list-badge">
-                            <!--<span class="layui-badge layui-bg-black">置顶</span>-->
-                            <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-                        </div>
-                    </li>
-                </ul>
-
-                <!-- <div class="fly-none">没有相关数据</div> -->
-
-                <div style="text-align: center">
-                    <p>当前 <span th:text="${questionPageInfo.number}+1"></span> 页,
-                        总 <span th:text="${questionPageInfo.totalPages}"></span> 页,
-                        共 <span th:text="${questionPageInfo.totalElements}"></span> 条记录</p>
-                    <a th:href="@{/question/list1}">首页</a>
-                    <a th:href="@{/question/list1(pageNum=${questionPageInfo.hasPrevious()}?${questionPageInfo.number}-1:0)}">上一页</a>
-                    <a th:href="@{/question/list1(pageNum=${questionPageInfo.hasNext()}?${questionPageInfo.number}+1:${questionPageInfo.number})}">下一页</a>
-                    <a th:href="@{/question/list1(pageNum=${questionPageInfo.totalPages}-1)}">尾页</a>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-    <!--发表帖子-->
-    <div style="margin-top: 50px" id="fabiao">
-        <form action="/question/add" method="post">
-            进行新增提问:
-<!--            富文本编辑器的代码开始-->
-            <script id="editors" name="content" type="text/plain">
-            </script>
-<!--            富文本编辑器的代码结束-->
-            <input type="submit" value="提交问题">
-        </form>
-    </div>
-</div>
-
-<ul class="layui-fixbar" >
-    <a href="#fabiao">
-        <li class="layui-icon" lay-type="bar1" style="background-color:#009688"></li>
-    </a>
-    <!--<li class="layui-icon layui-fixbar-top" lay-type="top" style="background-color: rgb(0, 150, 136); display: list-item;"></li>-->
-</ul>
-
-<div class="fly-footer" style="background-color:#174f37;color: white;line-height: 5px;">
-    版权所有:四川旅游学院 旅游大数据虚拟仿真实验教学平台系统 V1.0
-
-</div>
-
-<script src="../../static/js/js_home/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../static/js/js_home/layui.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../static/js/js_home/echart.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../static/js/js_home/jquery.taty.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../static/js/js_home/layui.all.js" type="text/javascript" charset="utf-8"></script>
-
-<!--富文本编辑器的js-->
-<script th:src="@{/ueditor/ueditor.config.js}"></script>
-<script th:src="@{/ueditor/ueditor.all.min.js}"></script>
-<script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
-<script th:inline="javascript">
-    UE.getEditor('editors');   //创建富文本编辑器
-</script>
-
-
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>咨询答疑 - 旅游大数据虚拟仿真实验教学平台</title>
+		<link rel="stylesheet" href="../../static/new/css/reset.css" />
+		<link rel="stylesheet" href="../../static/new/css/common.css" />
+		<link rel="stylesheet" href="../../static/new/css/question.css" />
+	</head>
+	<body>
+		<div class="topbar">
+			<div class="main cl">
+				<p>旅游大数据虚拟仿真实验教学平台</p>
+				<div class="user-info" th:if="${session.username} == null">
+					<a href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">登陆</a>
+					<a href="/register">注册</a>
+				</div>
+				<div class="user-info" th:if="${session.username} != null">
+					<span th:text="|欢迎你，${session.username} |"></span>
+					<!--<a th:href="@{/logout}">退出登录</a>-->
+				</div>
+			</div>
+		</div>
+		<div class="navs cl">
+			<div class="logo">
+				<img src="../../static/new/images/sctu.png" />
+				<p>旅游大数据虚拟仿真实验教学平台</p>
+			</div>
+			<ul class="nav">
+				<li><a href="/newsinfo/newslist">首页</a></li>
+				<li><a href="/newsinfo/shiyan">实验大厅</a></li>
+				<li><a href="/setinfo/situation">平台概况</a></li>
+				<li><a href="/teachers/frontList">师资队伍</a></li>
+				<li class="active"><a href="/question/list1">咨询答疑</a></li>
+				<li><a href="/learning/learningList">学习效果</a></li>
+			</ul>
+		</div>
+		<section class="main-area">
+			<div class="bar">
+				<div class="current">咨询答疑</div>
+				<div class="crumb">当前位置：<a href="/newsinfo/newslist">首页</a> > 咨询答疑</div>
+			</div>
+			<div class="questions">
+				<h2>提问列表</h2>
+				<div class="question" th:each="question:${questionPageInfo.content}">
+					<div class="que-info cl">
+						<i>?</i>
+						<h3 th:text="|提问者：${question.stu_uname}|">提问者：某某某</h3>
+						<p th:text="${question.dic_datetime}">2020-02-02 12:12</p>
+					</div>
+					<div class="que-con" th:utext="${question.content}"></div>
+					<a th:href="@{|detaill/${question.id}|}" class="to-detail">查看回答</a>
+				</div>
+				<div class="que-pager">
+					<p>第 <span th:text="${questionPageInfo.number}+1">1</span> 页, 共 <span th:text="${questionPageInfo.totalPages}">1</span> 页 <span th:text="${questionPageInfo.totalElements}">1</span> 条</p>
+					<div class="cl" th:if="${questionPageInfo.number gt 0}">
+						<a th:href="@{/question/list1}">首页</a>
+						<a th:href="@{/question/list1(pageNum=${questionPageInfo.hasPrevious()}?${questionPageInfo.number}-1:0)}">上一页</a>
+						<a th:href="@{/question/list1(pageNum=${questionPageInfo.hasNext()}?${questionPageInfo.number}+1:${questionPageInfo.number})}">下一页</a>
+						<a th:href="@{/question/list1(pageNum=${questionPageInfo.totalPages}-1)}">尾页</a>
+					</div>
+				</div>
+			</div>
+			<div class="add-one" th:if="${session.username} != null">
+				<h2>我要提问</h2>
+				<div class="forEditor" id="forEditor"></div>
+				<div class="submit-btn">提 问</div>
+			</div>
+			<div class="add-tip" th:if="${session.username} == null">登录后才可以提问，快去登录吧！</div>
+		</section>
+		<footer>
+			<p>copyright © 2020 旅游大数据虚拟仿真实验教学平台</p>
+		</footer>
+		<script src="//cdn.staticfile.org/jquery/1.8.0/jquery.min.js"></script>
+		<script src="//cdn.staticfile.org/wangEditor/3.1.1/wangEditor.min.js"></script>
+		<script src="//cdn.staticfile.org/layer/3.1.1/layer.min.js"></script>
+		<script src="../../static/new/js/editor.config.js"></script>
+		<script>
+			$('.submit-btn').click(function () {
+				var _data = editor.txt.html()
+				$.post('/question/add', { content: _data }, function (data, textStatus, jqXHR) {
+					window.location.reload()
+				})
+			})
+		</script>
+	</body>
 </html>

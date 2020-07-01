@@ -1,21 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>权限错误</title>
-    <link rel="stylesheet" href="/static/css/font.css">
-    <link rel="stylesheet" href="/static/css/xadmin.css">
-</head>
-
-<body>
-<!--<div th:include="common :: common"></div>-->
-<font color="blue">
-<!--    Request method 'GET' not supported-->
-<!--    <br/><br/>-->
-<!--    The specified HTTP method is not allowed for the requested resource.-->
-    <h1>对不起，您没有权限请求此连接！如果已经完成单点登录，请与管理员联系，开通相关权限</h1>
-    <h1>如果未完成单点登录，请点击以下链接  <a href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">登录</a></h1>
-<!--    <button type="button" onclick="Javascript:history.back(-1);" href="#" class="layui-btn layui-btn-primary">返回上一级</button>-->
-</font>
-</body>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>权限错误 - 旅游大数据虚拟仿真实验教学平台</title>
+		<link rel="stylesheet" href="../static/new/css/reset.css" />
+		<style>
+			body {
+				background: #eee;
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+			}
+			.msg {
+				width: 500px;
+				border: 1px dashed red;
+				background: #fff;
+				padding: 0 20px 20px 20px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -70%);
+			}
+			.msg h1 {
+				height: 40px;
+				line-height: 40px;
+				border-bottom: 1px dashed #999;
+				text-align: center;
+				font-weight: normal;
+				font-size: 16px;
+				margin-bottom: 20px;
+			}
+			.msg p {
+				font-size: 14px;
+				line-height: 2;
+				text-align: center;
+			}
+			.msg a {
+				display: inline-block;
+				width: 100px;
+				height: 40px;
+				line-height: 40px;
+				color: #fff;
+				background: #215130;
+			}
+			.msg a:hover {
+				opacity: 0.8;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="msg">
+			<h1>温馨提示</h1>
+			<p>对不起，您没有权限请求此连接！</p>
+			<p>如果已经完成单点登录，请与管理员联系，开通相关权限</p>
+			<p>如果未完成单点登录，请点击</p>
+			<p><a href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">取登录</a></p>
+		</div>
+	</body>
 </html>

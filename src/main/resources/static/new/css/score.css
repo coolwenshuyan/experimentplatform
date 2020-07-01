@@ -1,16 +1,18 @@
 .score-page {
 	width: 1000px;
-	margin: 30px 0 50px 50px;
+	margin: 50px auto;
 	border: 1px solid #cccccc;
 	box-sizing: border-box;
 	padding: 0 30px 30px;
 	position: relative;
+	background: #fcfcfc;
 }
 .score-title {
 	font-size: 28px;
 	text-align: center;
 	line-height: 3;
 	border-bottom: 1px solid #ccc;
+	font-weight: normal;
 }
 .back-btn {
 	display: block;
@@ -21,12 +23,12 @@
 	position: absolute;
 	left: 30px;
 	top: 26px;
-	border: 1px solid #ccc;
+	color: #fff;
+	background: #215130;
 	text-align: center;
 }
 .back-btn:hover {
-	border-color: #215130;
-	color: #215130;
+	opacity: 0.8;
 }
 .result {
 	font-size: 16px;
@@ -53,7 +55,7 @@
 	margin: 10px 0;
 }
 .score-que {
-	background: #f7f7f7;
+	background: #eee;
 	margin-bottom: 10px;
 	position: relative;
 	box-sizing: border-box;

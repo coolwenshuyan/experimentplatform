@@ -1,0 +1,146 @@
+.main-area {
+	width: 1200px;
+	margin: 0 auto 30px;
+	min-height: 600px;
+}
+.bar {
+	height: 56px;
+	line-height: 56px;
+	width: 100%;
+	box-sizing: border-box;
+	border-left: 5px solid #215130;
+	margin: 0 0 30px 0;
+	background: #efefef;
+	display: flex;
+	justify-content: space-between;
+}
+.current {
+	font-size: 20px;
+	text-indent: 20px;
+	font-weight: normal;
+}
+.crumb {
+	font-size: 14px;
+	margin-right: 20px;
+}
+.crumb a:hover {
+	color: #215130;
+	text-decoration: underline;
+}
+.questions {
+	margin-bottom: 50px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	padding-bottom: 10px;
+}
+.questions > h2 {
+	height: 45px;
+	line-height: 45px;
+	text-indent: 10px;
+	font-weight: normal;
+	font-size: 18px;
+	border-bottom: 1px solid #ccc;
+	background: #f7f7f7;
+}
+.question {
+	box-sizing: border-box;
+	margin: 20px auto;
+	padding: 0 20px;
+}
+.que-info {
+	background: #fefefe;
+}
+.que-info i {
+	background: #215130;
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-right: 10px;
+	text-align: center;
+	font-size: 40px;
+	color: #fff;
+}
+.que-info h3 {
+	height: 30px;
+	line-height: 30px;
+	font-weight: normal;
+	font-size: 18px;
+}
+.que-info p {
+	font-size: 14px;
+	height: 30px;
+	line-height: 30px;
+}
+.que-con {
+	padding: 10px;
+	font-size: 14px;
+	background: #efefef;
+	margin: 10px auto;
+}
+.to-detail {
+	display: block;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	background: #215130;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 14px;
+}
+.to-detail:hover {
+	opacity: 0.8;
+}
+.que-pager {
+	width: 96%;
+	margin: 0 auto;
+	border-top: 1px solid #ccc;
+	font-size: 14px;
+	text-align: center;
+}
+.que-pager p {
+	margin: 10px 0;
+	text-align: center;
+	line-height: 2;
+}
+.que-pager a {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	text-align: center;
+	background: #215130;
+	color: #fff;
+	margin: 0 5px;
+}
+.que-pager a:hover {
+	opacity: 0.8;
+}
+.add-one > h2 {
+	height: 45px;
+	line-height: 45px;
+	text-indent: 10px;
+	font-weight: normal;
+	font-size: 18px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+	background: #f7f7f7;
+}
+.submit-btn {
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	background: #215130;
+	font-size: 16px;
+	color: #fff;
+	margin: 20px 0 0 0;
+	text-align: center;
+	cursor: pointer;
+}
+.submit-btn:hover {
+	opacity: 0.8;
+}
+.add-tip {
+	font-size: 14px;
+	line-height: 36px;
+}

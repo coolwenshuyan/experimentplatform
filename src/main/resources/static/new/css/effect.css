@@ -1,0 +1,88 @@
+.main-area {
+	width: 1200px;
+	margin: 0 auto 30px;
+	min-height: 600px;
+}
+.bar {
+	height: 56px;
+	line-height: 56px;
+	width: 100%;
+	box-sizing: border-box;
+	border-left: 5px solid #215130;
+	margin: 0 0 30px 0;
+	background: #efefef;
+	display: flex;
+	justify-content: space-between;
+}
+.current {
+	font-size: 20px;
+	text-indent: 20px;
+	font-weight: normal;
+}
+.crumb {
+	font-size: 14px;
+	margin-right: 20px;
+}
+.crumb a:hover {
+	color: #215130;
+	text-decoration: underline;
+}
+.effect-show {
+	display: flex;
+	justify-content: space-between;
+}
+.effect-left {
+	width: 450px;
+}
+.effect-left h3 {
+	font-weight: normal;
+	font-size: 16px;
+	background: #f7f7f7;
+	text-indent: 20px;
+	height: 40px;
+	line-height: 40px;
+	border-left: 3px solid #215130;
+}
+.chart {
+	width: 450px;
+	height: 450px;
+	box-sizing: border-box;
+	border: 1px solid #eee;
+	border-top: 0;
+}
+.effect-right {
+	width: 730px;
+}
+.effect-right h3 {
+	font-weight: normal;
+	font-size: 16px;
+	background: #f7f7f7;
+	text-indent: 20px;
+	height: 40px;
+	border-left: 3px solid #215130;
+	line-height: 40px;
+}
+.reports {
+	border: 1px solid #eee;
+	border-top: 0;
+	display: flex;
+	flex-wrap: wrap;
+	padding-top: 20px;
+}
+.report {
+	width: 210px;
+	height: 297px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin: 10px 16px;
+}
+.report a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.report img {
+	width: 100%;
+	height: 100%;
+}
