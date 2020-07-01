@@ -17,7 +17,7 @@
 			</div>
 			<div class="card-content content1">
 				<div class="table1">
-					<div class="tb_header">
+					<div class="tb_header cl">
 						<div>序号</div>
 						<div>考核实验名称</div>
 						<div>实验模块测试成绩</div>
@@ -26,7 +26,7 @@
 						<div>实验模块报告占比</div>
 						<div>实验模块总成绩</div>
 					</div>
-					<div class="tb_row" th:each="moduleGrade:${ModuleGrades}">
+					<div class="tb_row cl" th:each="moduleGrade:${ModuleGrades}">
 						<div th:text="${moduleGrade.m_id}"></div>
 						<div th:text="${moduleGrade.m_name}"></div>
 						<div th:text="${moduleGrade.m_test_score}"></div>

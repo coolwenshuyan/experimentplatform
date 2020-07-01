@@ -1,5 +1,5 @@
 .grade-card {
-	margin: 50px 0 0 50px;
+	margin: 20px 0 0 50px;
 	width: 1002px;
 }
 .card-tabs {
@@ -16,6 +16,9 @@
 .card-tab.active {
 	border: 1px solid #ccc;
 	border-bottom-color: #fff;
+}
+.card-content {
+	display: none;
 }
 .table1 {
 	margin: 2px 0 0 0;

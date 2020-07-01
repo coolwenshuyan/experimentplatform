@@ -158,10 +158,11 @@ a {
 	height: 0;
 	content: '.';
 }
+
 @font-face {
 	font-family: 'logofont';
-	src: url('../fonts/logofont.eot');
-	src: url('../fonts/logofont.eot?#iefix') format('embedded-opentype'), url('../fonts/logofont.woff') format('woff'), url('../fonts/logofont.ttf') format('truetype'), url('../fonts/logofont.svg#logofont') format('svg');
+	src: url('../fonts/logofont.eot'); /* IE9 */
+	src: url('../fonts/logofont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/logofont.woff') format('woff'), /* chrome、firefox */ url('../fonts/logofont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */ url('../fonts/logofont.svg#logofont') format('svg'); /* iOS 4.1- */
 	font-style: normal;
 	font-weight: normal;
 }

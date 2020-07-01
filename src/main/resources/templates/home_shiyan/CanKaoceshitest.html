@@ -17,7 +17,10 @@
 				<a th:href="@{/expmodel/moduleDispathcher}" class="back-btn">返回</a>
 				<h3 class="test-part-title">一、单选题<span>（共六十分）</span></h3>
 				<div class="test-item" th:each="m,iterStat:${radioQuestionsList}">
-					<div class="test-que" th:text="${iterStat.index+1}+'. '+ ${m.questDescribe}+' ('+${m.questScore}+'分)'"></div>
+					<div class="test-que cl">
+						<span th:text="${iterStat.index+1}+'. '"></span>
+						<p th:text="${m.questDescribe}+' ('+${m.questScore}+'分)'"></p>
+					</div>
 					<div class="test-anws cl">
 						<label class="test-radio cl" th:each="n:${m.moduleTestAnswerList}">
 							<input type="radio" th:value="${n.answerId}" th:name="${m.questId}" />
@@ -28,7 +31,10 @@
 				</div>
 				<h3 class="test-part-title">二、多选题<span>（共四十分）</span></h3>
 				<div class="test-item" th:each="m1,iterStat:${checkboxQuestionsList}">
-					<div class="test-que" th:text="${iterStat.index+1}+'. '+ ${m1.questDescribe}+' ('+${m1.questScore}+'分)'"></div>
+					<div class="test-que cl">
+						<span th:text="${iterStat.index+1}+'. '"></span>
+						<p th:text="${m1.questDescribe}+' ('+${m1.questScore}+'分)'"></p>
+					</div>
 					<div class="test-anws cl">
 						<label class="test-checkbox cl" th:each="n1:${m1.moduleTestAnswerList}">
 							<input type="checkbox" th:name="${m1.questId}" th:value="${n1.answerId}" />

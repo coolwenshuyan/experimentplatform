@@ -23,42 +23,64 @@
 /* 导航栏 */
 .navs {
 	width: 1200px;
-	margin: 30px auto 0;
+	margin: 0 auto;
+	height: 120px;
 }
 .logo {
 	float: left;
 }
 .logo img {
-	height: 55px;
+	height: 75px;
 	display: block;
 	float: left;
+	margin-top: 22px;
 }
 .logo p {
 	font-family: 'logofont';
-	height: 40px;
-	line-height: 40px;
+	height: 120px;
+	line-height: 120px;
 	padding: 0 0 0 18px;
-	margin: 5px 0 30px 20px;
-	border-left: 1px solid #215130;
 	color: #215130;
 	float: left;
-	font-size: 24px;
+	font-size: 36px;
+	margin-left: -285px;
+	background: #fff;
 }
 .nav {
 	float: right;
+	/* height: 120px; */
+	padding: 45px 0;
 }
 .nav li {
 	float: left;
-	line-height: 50px;
-	height: 50px;
-	margin: 0 20px 0 0;
+	line-height: 30px;
+	height: 30px;
 	font-size: 18px;
+	margin: 0 10px;
+	position: relative;
 }
 .nav li:last-child {
 	margin: 0;
 }
-.nav li a:hover {
+.nav li:hover {
 	color: #215130;
+}
+.nav li:after {
+	content: ' ';
+	display: block;
+	width: 0;
+	height: 2px;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	background: #215130;
+	transition: all 0.3s;
+	transform: translateX(-50%);
+	opacity: 0;
+}
+.nav li:hover:after {
+	width: 100%;
+	opacity: 1;
 }
 /* 滚动公告 */
 .notice {
@@ -112,6 +134,26 @@
 	width: 100%;
 	border: 0;
 }
+.rslides_nav {
+	position: absolute;
+	top: 50%;
+	opacity: 0.6;
+	z-index: 3;
+	text-indent: -9999px;
+	overflow: hidden;
+	text-decoration: none;
+	height: 61px;
+	width: 38px;
+	background: transparent url(../images/arrows.gif) no-repeat left top;
+	transform: translateY(-50%);
+}
+.rslides_nav.prev {
+	left: 20px;
+}
+.rslides_nav.next {
+	right: 20px;
+	background-position: right top;
+}
 .rslides_tabs {
 	position: absolute;
 	width: 100%;
@@ -145,11 +187,10 @@
 }
 /* 新闻部分 */
 .news-section {
-	background: #f7f7f7;
-	padding: 50px 0;
+	padding: 30px 0 50px;
 }
 .news-area {
-	width: 500px;
+	width: 400px;
 	float: left;
 }
 .title-bar {
@@ -169,39 +210,49 @@
 	float: right;
 }
 .news-item {
-	font-size: 16px;
+	font-size: 14px;
 	line-height: 42px;
+	border-bottom: 1px dotted #dfdfdf;
 }
 .news-item a {
 	display: block;
 }
 .news-item p {
 	float: left;
-	width: 400px;
+	width: 320px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	position: relative;
+	box-sizing: border-box;
 }
 .news-item span {
 	display: block;
+	width: 70px;
 	float: right;
-	font-size: 14px;
+	font-size: 12px;
 }
 .news-item:hover p {
 	color: #215130;
+	text-decoration: underline;
+}
+.news-item:hover span {
+	color: #215130;
 }
 .recommend {
-	width: 600px;
+	width: 700px;
 	float: right;
 }
 .recommend-item {
-	width: 280px;
-	height: 220px;
+	width: 340px;
+	height: 250px;
 	border: 1px solid #ccc;
 	float: left;
-	margin: 0 10px;
 	box-sizing: border-box;
 	position: relative;
+}
+.recommend-item:first-child {
+	margin: 0 20px 0 0;
 }
 .recommend-item img {
 	width: 100%;
@@ -225,11 +276,16 @@
 	padding: 0 5px;
 	box-sizing: border-box;
 }
+.recommend-item:hover {
+	border-color: #215130;
+}
 .recommend-item:hover p {
+	text-decoration: underline;
 	color: #215130;
 }
 /* 列表部分 */
 .list-section {
+	background: #f7f7f7;
 	padding: 50px;
 }
 .section-title {
@@ -251,7 +307,6 @@
 	left: 50%;
 	transform: translateX(-50%);
 }
-
 .list-row {
 	text-align: center;
 	font-size: 14px;
@@ -268,8 +323,9 @@
 	box-sizing: border-box;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	height: 60px;
-	line-height: 59px;
+	height: 50px;
+	line-height: 49px;
+	cursor: default;
 }
 .list-row .list-id {
 	width: 100px;
@@ -298,7 +354,12 @@
 	color: #fff;
 	font-size: 16px;
 }
-
+.list-row:hover {
+	background: #dcdcdc;
+}
+.list-row.list-header-row:hover {
+	background: #215130;
+}
 .list-btn {
 	display: inline-block;
 	background: #17452f;
@@ -308,29 +369,33 @@
 	padding: 8px;
 }
 .list-btn:hover {
-	background: #215130;
+	opacity: 0.8;
 }
-
-.list-pager {
+.more-btn {
+	width: 120px;
+	height: 42px;
+	line-height: 42px;
 	text-align: center;
-	line-height: 2;
+	background: #215130;
+	color: #fff;
 	font-size: 14px;
-	margin: 10px 0 0 0;
+	margin: 20px auto 0;
+	cursor: pointer;
 }
-.list-pager a {
-	display: inline-block;
-	margin: 0 5px;
-}
-.list-pager a:hover {
-	color: #215130;
+.more-btn:hover {
+	opacity: 0.8;
 }
 /* 图标部分 */
 .charts-section {
-	background: #f7f7f7;
 	padding: 50px 0;
 }
+.charts {
+	width: 1200px;
+	margin: 0 auto;
+}
 .chart-item {
-	width: 300px;
+	width: 500px;
+	margin: 0 50px;
 	height: 300px;
 	float: left;
 }

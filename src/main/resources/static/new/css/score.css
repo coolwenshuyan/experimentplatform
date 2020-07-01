@@ -1,13 +1,199 @@
 .score-page {
 	width: 1000px;
-	margin: 30px 0 0 50px;
+	margin: 30px 0 50px 50px;
 	border: 1px solid #cccccc;
 	box-sizing: border-box;
 	padding: 0 30px 30px;
+	position: relative;
 }
 .score-title {
 	font-size: 28px;
 	text-align: center;
 	line-height: 3;
 	border-bottom: 1px solid #ccc;
+}
+.back-btn {
+	display: block;
+	width: 80px;
+	height: 36px;
+	line-height: 34px;
+	box-sizing: border-box;
+	position: absolute;
+	left: 30px;
+	top: 26px;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+.back-btn:hover {
+	border-color: #215130;
+	color: #215130;
+}
+.result {
+	font-size: 16px;
+	position: absolute;
+	right: 30px;
+	line-height: 1;
+	top: 36px;
+}
+.result span {
+	color: red;
+	font-size: 22px;
+	font-weight: bold;
+	margin: 0 0 0 10px;
+}
+.score-part-title {
+	font-size: 18px;
+	line-height: 3;
+}
+.score-part-title span {
+	font-weight: normal;
+	font-size: 16px;
+}
+.score-item {
+	margin: 10px 0;
+}
+.score-que {
+	background: #f7f7f7;
+	margin-bottom: 10px;
+	position: relative;
+	box-sizing: border-box;
+	padding: 5px 10px 0 40px;
+}
+.score-que span {
+	display: block;
+	width: 40px;
+	text-align: center;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 2px;
+	font-size: 18px;
+	line-height: 32px;
+}
+.score-que p {
+	display: block;
+	width: 100%;
+	line-height: 2;
+	font-size: 14px;
+}
+.score-anws {
+	width: 900px;
+	margin: 0 auto;
+}
+.score-radio {
+	height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	cursor: pointer;
+}
+.score-radio input {
+	visibility: hidden;
+	display: block;
+	height: 0;
+	width: 0;
+	float: left;
+}
+.score-radio em {
+	display: block;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+	float: left;
+	margin: 10px 8px 0 0;
+}
+.score-radio input[type='radio']:checked + em {
+	border-color: #215130;
+	background-color: #215130;
+	background-clip: content-box;
+	padding: 3px;
+}
+.score-radio span {
+	display: block;
+	float: left;
+}
+.score-radio input[type='radio']:checked ~ span {
+	color: #215130;
+}
+/* 123 */
+.score-checkbox {
+	height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	cursor: pointer;
+}
+.score-checkbox input {
+	visibility: hidden;
+	display: block;
+	height: 0;
+	width: 0;
+	float: left;
+}
+.score-checkbox em {
+	display: block;
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	box-sizing: border-box;
+	float: left;
+	margin: 8px 8px 0 0;
+	position: relative;
+}
+
+.score-checkbox em:before,
+.score-checkbox em:after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: #fff;
+}
+.score-checkbox em:before {
+	width: 6px;
+	height: 2px;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 10px;
+	left: 3px;
+}
+.score-checkbox em:after {
+	width: 10px;
+	height: 2px;
+	-webkit-transform: rotate(128deg);
+	transform: rotate(128deg);
+	top: 8px;
+	left: 6px;
+}
+.score-checkbox input[type='checkbox']:checked + em {
+	border-color: #215130;
+	background-color: #215130;
+}
+.score-checkbox span {
+	display: block;
+	float: left;
+}
+.score-checkbox input[type='checkbox']:checked ~ span {
+	color: #215130;
+}
+.score-result {
+	margin: 20px 0 0 0;
+	display: flex;
+	height: 40px;
+	line-height: 38px;
+	border: 1px solid #ccc;
+	border-right: 0;
+	box-sizing: border-box;
+}
+.result-item {
+	flex: 1;
+	border-right: 1px solid #ccc;
+	text-indent: 24px;
+	font-size: 14px;
+}
+.result-item span {
+	font-size: 16px;
+	color: red;
+	font-weight: bold;
 }
