@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 /**
@@ -45,7 +46,7 @@ public class QuestionController {
 
     //学生完成添加提交问题操作
     @PostMapping(value = "/add")
-    public String add(Question question, Session session) {
+    public String add(Question question, HttpSession session) {
 //        从seesion拿到student的内容
 //        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
         Student student = (Student) session.getAttribute("student");
