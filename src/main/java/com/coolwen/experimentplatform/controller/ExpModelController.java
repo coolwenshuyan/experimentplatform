@@ -423,8 +423,22 @@ public class ExpModelController {
     //精准返回进入模块测试或填写报告，或理论学习模块所在的页面
     @GetMapping("/moduleDispathcher")
     public String moduleDispathcher(HttpSession session, RedirectAttributes redirectAttributes){
-        int pageNum = (int) session.getAttribute("modulePageNum");
-        boolean flag = (boolean) session.getAttribute("isAllModule");
+
+        int pageNum = 0;
+        boolean flag = true;
+        try {
+            pageNum = (int) session.getAttribute("modulePageNum");
+        }catch (Exception e)
+        {
+            pageNum = 0;
+        }
+        try {
+            flag = (boolean) session.getAttribute("isAllModule");
+        }catch (Exception e)
+        {
+
+        }
+
         redirectAttributes.addAttribute("pageNum",pageNum);
         if(flag == true){
             return "redirect:/expmodel/alltestModel";
