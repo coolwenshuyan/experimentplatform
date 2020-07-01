@@ -8,6 +8,7 @@
 	<meta name="Description" content="四川旅游学院虚拟仿真实验教学管理平台</">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../static/css/layui.css"/>
 
 	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../../static/css/css_home/aos.css"/>
@@ -163,25 +164,14 @@
 
 			</div>
 
-			<h1 style="font-size: 22px; margin: 1%;"><b>优秀实验报告展示</b></h1>
-			<div >
-				<div style="float: left" th:each="effect:${learningPageInfo.content}" class="col-xs-6 col-md-3">
-					<a th:href="@{|effectDetails/${effect.id}|}" class="thumbnail">
-						<img th:src="@{'/upload/'+${effect.effect_imgurl}}" alt="">
+			<h1 style="font-size: 22px; margin: 1%;"><b>学习成果展示</b></h1>
+
+				<div class="layui-col-xs3 clearfix" style="margin-bottom: 30px" th:each="effect:${learningPageInfo.content}" >
+					<a th:href="@{|effectDetails/${effect.id}|}"  >
+						<img th:src="@{'/upload/'+${effect.effect_imgurl}}" alt="" style="width:90%;box-shadow: 2px 2px 2px 2px #000000;height: 271px;">
 					</a>
 				</div>
-				<!--  					<div class="col-xs-6 col-md-3">-->
-				<!--    					<a href="#" class="thumbnail">-->
-				<!--      						<img th:src="${effect.effect_imgurl}" alt="">-->
-				<!--    					</a>-->
-				<!--  					</div>-->
-				<!--  					<div class="col-xs-6 col-md-3">-->
-				<!--    					<a href="#" class="thumbnail">-->
-				<!--      						<img src="../../static/images/img_home/show.png" alt="">-->
-				<!--    					</a>-->
-				<!--  					</div>-->
 
-			</div>
 			<!-- <div class="tag">相关标签：标签1，标签2，标签3</div> -->
 			<!-- <div class="art">上一篇：<a href="news_article.html">夏令营中的较量：不是所有的海外游学都叫“游学”</a>下一篇：<span>没有了</span></div> -->
 			<!-- </div>  -->
