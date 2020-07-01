@@ -65,7 +65,7 @@ public class LearningeffectController {
     @GetMapping(value = "/learningList")
     public String learningList(Model model, @RequestParam(defaultValue = "0", required=true,value = "pageNum")  Integer pageNum){
         //查询全部优秀实验报告数据
-        Pageable pageable = PageRequest.of(pageNum,5);
+        Pageable pageable = PageRequest.of(pageNum,500);
         Page<Effect> page = effectRepository.findAll(pageable);
         model.addAttribute("learningPageInfo",page);
         //往期参与考核的全部学生
