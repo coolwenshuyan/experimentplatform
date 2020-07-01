@@ -86,11 +86,11 @@
 								formatter: '{b}:\n{c}个\n{d}%'
 							},
 							data: [
-								{ value: parseInt('[[${excellentstu}]]'), name: '高分' },
-								{ value: parseInt('[[${qualifiedstu}]]'), name: '中等' },
-								{ value: parseInt('[[${unqualifiedstu}]]'), name: '低分' },
+								{ value: 174, name: '高分' },
+								{ value: 280, name: '中等' },
+								{ value: 125, name: '低分' },
 								{
-									name: '成绩总数\n' + (parseInt('[[${excellentstu}]]') + parseInt('[[${qualifiedstu}]]') + parseInt('[[${unqualifiedstu}]]')) + '份',
+									name: '成绩总数\n' + 579+ '份',
 									value: 0,
 									label: {
 										formatter: '{b}',
@@ -102,6 +102,23 @@
 									}
 								}
 							]
+                            // data: [
+                            //     { value: parseInt('[[${excellentstu}]]'), name: '高分' },
+                            //     { value: parseInt('[[${qualifiedstu}]]'), name: '中等' },
+                            //     { value: parseInt('[[${unqualifiedstu}]]'), name: '低分' },
+                            //     {
+                            //         name: '成绩总数\n' + (parseInt('[[${excellentstu}]]') + parseInt('[[${qualifiedstu}]]') + parseInt('[[${unqualifiedstu}]]')) + '份',
+                            //         value: 0,
+                            //         label: {
+                            //             formatter: '{b}',
+                            //             position: 'center',
+                            //             fontSize: 18,
+                            //             fontWeight: 'bold',
+                            //             align: 'center',
+                            //             lineHeight: 28
+                            //         }
+                            //     }
+                            // ]
 						}
 					]
 				})
