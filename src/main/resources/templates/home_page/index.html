@@ -91,12 +91,12 @@
 			<div class="main cl">
 				<p>旅游大数据虚拟仿真实验教学平台</p>
 				<div class="user-info" th:if="${session.username} == null">
-					<a href="/login">登陆</a>
+					<a href="http://tysf.sctu.edu.cn:8071/sso//login?service=http://172.17.55.112:8889/shiro-cas">登陆</a>
 					<a href="/register">注册</a>
 				</div>
 				<div class="user-info" th:if="${session.username} != null">
 					<span th:text="|欢迎你，${session.username} |"></span>
-					<a th:href="@{/logout}">退出登录</a>
+					<!--<a th:href="@{/logout}">退出登录</a>-->
 				</div>
 			</div>
 		</div>
