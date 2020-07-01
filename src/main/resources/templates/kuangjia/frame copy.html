@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+		<!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+		<meta name="renderer" content="webkit" />
+		<!--国产浏览器高速模式-->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="穷在闹市" />
+		<!-- 作者 -->
+		<meta name="revised" content="穷在闹市.v3, 2019/05/01" />
+		<!-- 定义页面的最新版本 -->
+		<meta name="description" content="网站简介" />
+		<!-- 网站简介 -->
+		<meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+		<title>四川旅游学院出品</title>
+
+		<!-- 公共样式 开始 -->
+		<link rel="shortcut icon" href="../../static/images/logo.png" />
+		<link rel="bookmark" href="../../static/images/logo.png" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/iconfont.css" />
+		<script type="text/javascript" src="../../static/js/jquery10.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" />
+		<!--[if lt IE 9]>
+			<script src="../../static/js/html5shiv.min.js"></script>
+			<script src="../../static/js/respond.min.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="../../static/js/layui.js"></script>
+		<!-- 滚动条插件 -->
+		<link rel="stylesheet" type="text/css" href="../../static/css/jquery.mCustomScrollbar.css" />
+		<script src="../../static/js/jquery-ui-1.10.4.min.js"></script>
+		<script src="../../static/js/jquery.mousewheel.min.js"></script>
+		<script src="../../static/js/jquery.mCustomScrollbar.min.js"></script>
+		<script src="../../static/js/cframe.js"></script>
+		<!-- 仅供所有子页面使用 -->
+		<!-- 公共样式 结束 -->
+
+		<link rel="stylesheet" type="text/css" href="../../static/css/frameStyle.css" />
+		<script type="text/javascript" src="../../static/js/frame.js"></script>
+		<style>
+			.frameMenu {
+				width: 210px;
+				background-color: #1c1c1c;
+				float: left;
+				/*background: #174f37;*/
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- 左侧菜单 - 开始 -->
+		<div class="frameMenu">
+			<div class="logo">
+				<img src="../../static/images/logo.png" />
+				<div class="logoText">
+					<h1>仿真平台</h1>
+				</div>
+			</div>
+			<div class="menu">
+				<ul>
+					<!--<li>
+		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/qdAPI.html',this)"><i class="iconfont icon-zhishi left"></i>首页
+		                </a>
+
+
+		                <dl>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_add.html',this)">添加分管</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_list.html',this)">分管列表</a></dt>
+		                </dl>
+		            </li>-->
+					<!--<li>
+		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/iconfont.html',this)"><i class="iconfont icon-huojian left"></i>iconfont字体库</a>
+		           	</li>-->
+					<li>
+						<a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-liuliangyunpingtaitubiao03 left"></i>首页<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/addplat',this)">仿真平台概括</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../teachers/list',this)">师资队伍</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../learning/list',this)">学习效果</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/lunbo',this)">轮播导航</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../newsinfo/list',this)">平台公告</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../setinfo/addus',this)">关于我们</a></dt>
+						</dl>
+					</li>
+
+					<li>
+						<a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-yunying left"></i>实验模块设置<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/list',this)">实验模块管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/moduleList',this)">模块测试/报告管理</a></dt>
+							<!--							<dt><a href="javascript:void(0)" onclick="menuCAClick('../expmodel/addTheory',this)">理论学习添加</a></dt>-->
+							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/list',this)">实验模块报告管理</a></dt>-->
+						</dl>
+						<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/changeExpModel.html',this)">实验模块测试</a></dt>-->
+					</li>
+
+					<li>
+						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>考核设置<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../kaohemodel/checkModule',this)">考核模块设置</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../shiyan/lastTestList',this)">课程理论测试管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../testScoreManage/list ',this)">模块测试成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../reportScoreManage/list ',this)">模块报告成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../lastTestScoreManage/list',this)">课程理论测试成绩管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../totalscore/list',this)">学生总评成绩管理</a></dt>
+						</dl>
+						<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
+					</li>
+
+					<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('学生账号管理/X-admin/student_list.html',this)">学生账号管理</a></dt>-->
+					<li>
+						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>学生账号管理<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/toBeReviewd',this)">学生账号信息审核</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/list',this)">学生账号信息管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/classManage',this)">班级管理</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../studentManage/dockerList',this)">学生实验管理</a></dt>
+
+							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
+						</dl>
+					</li>
+
+					<li>
+						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)"><i class="iconfont icon-shangpin left"></i>教师账号管理<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../admin/list',this)">教师账号管理</a></dt>
+
+							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
+						</dl>
+					</li>
+
+					<li>
+						<a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>学生答疑管理<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('../question/list',this)">答疑提问管理</a></dt>
+						</dl>
+					</li>
+					<!--<li>
+		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-caiwu left"></i></a>
+		           	</li>-->
+					<!--		        	<li>-->
+					<!--		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>其他页面<i class="iconfont icon-dajiantouyou right"></i></a>-->
+					<!--		                <dl>-->
+					<!--		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../login/login.html',this)">登录页面</a></dt>-->
+					<!--		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../res/add.html',this)">注册页面</a></dt>-->
+					<!--		                </dl>-->
+					<!--		           	</li>-->
+				</ul>
+			</div>
+		</div>
+		<!-- 左侧菜单 - 结束 -->
+
+		<div class="main">
+			<!-- 头部栏 - 开始 -->
+			<div class="frameTop">
+				<img class="jt" src="../../static/images/top_jt.png" />
+				<div class="topMenu">
+					<ul>
+						<li>
+							<a th:if="${session.admin}!=null"><i class="iconfont icon-yonghu1"></i><span th:text="${session.admin.uname}"></span></a>
+							<a th:if="${session.admin}==null"><i class="iconfont icon-yonghu1"></i>管理员</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" onclick="menuCAClick('../admin/info',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a>
+						</li>
+						<li>
+							<a href="/logout"><i class="iconfont icon-084tuichu"></i>注销</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 头部栏 - 结束 -->
+
+			<!-- 核心区域 - 开始 -->
+			<div class="frameMain">
+				<div class="title" id="frameMainTitle">
+					<span><i class="iconfont icon-xianshiqi"></i>后台首页</span>
+				</div>
+				<div class="con">
+					<iframe id="mainIframe" src="../setinfo/addplat" scrolling=""></iframe>
+				</div>
+			</div>
+			<!-- 核心区域 - 结束 -->
+		</div>
+	</body>
+</html>

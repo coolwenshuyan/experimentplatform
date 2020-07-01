@@ -89,9 +89,85 @@ public class ShiroConfig2 {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
         filterChainDefinitionMap.put(casFilterUrlPattern, "casFilter");
-        filterChainDefinitionMap.put("/logout", "logout");
-        filterChainDefinitionMap.put("/test/**", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+        //第一版
+//        filterChainDefinitionMap.put("/imges/**","anon");
+//        filterChainDefinitionMap.put("/test/**", "anon");
+//        filterChainDefinitionMap.put("/css/**", "anon");//静态资源不要求权限 , 若有其他目录下文件(如js,img等)也依此设置
+//        filterChainDefinitionMap.put("/js/**", "anon");
+//        filterChainDefinitionMap.put("/js/*/*/*", "anon");
+//        filterChainDefinitionMap.put("/images/**", "anon");
+//        filterChainDefinitionMap.put("/","anon");
+//        filterChainDefinitionMap.put("/register","anon");
+//        filterChainDefinitionMap.put("/static/**","anon");
+//        filterChainDefinitionMap.put("/verifyCode","anon");
+//        filterChainDefinitionMap.put("/login", "anon");
+//        filterChainDefinitionMap.put("/405", "anon");
+//        filterChainDefinitionMap.put("/logout", "anon");
+//
+//
+//        filterChainDefinitionMap.put("/learning/learningList", "anon");
+//        filterChainDefinitionMap.put("/learning/effectDetails/**", "anon");
+//        filterChainDefinitionMap.put("/setinfo/situation", "anon");
+//        filterChainDefinitionMap.put("/setinfo/jiesao", "anon");
+//        filterChainDefinitionMap.put("/setinfo/aboutus", "anon");
+//        filterChainDefinitionMap.put("/newsinfo/newslist", "anon");
+//        filterChainDefinitionMap.put("/newsinfo/more", "anon");
+//        filterChainDefinitionMap.put("/newsinfo/noticeDetails/**", "anon");
+//        filterChainDefinitionMap.put("/teachers/frontList", "anon");
+//
+//        filterChainDefinitionMap.put("/index", "anon");
+//
+//
+//        filterChainDefinitionMap.put("/collegereport/mark/**", "authc,perms[admin]");
+//
+//
+//        filterChainDefinitionMap.put("/newsinfo/shiyan", "anon");
+//        filterChainDefinitionMap.put("/question/add", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/question/list1", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/question/detaill/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/reply/add2/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/expmodel/alltestModel", "anon");
+////        filterChainDefinitionMap.put("/expmodel/kaoheModel/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/expmodel/theoryStudy/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/expmodel/moduleDispathcher/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/expmodel/home_exp/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/expmodel/contiuneStudy/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/expmodel/homeExpDispatcher/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/kaoshi/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/WriteReport/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/collegereport/**", "authc,perms[student]");
+//        filterChainDefinitionMap.put("/setstudentinfo/**", "authc,perms[student]");
+//
+//
+////        filterChainDefinitionMap.put("/kaoshi/**", "authc,perms[inClass]");
+//        filterChainDefinitionMap.put("/grade/**", "authc,perms[inClass]");
+//
+//        filterChainDefinitionMap.put("/expmodel/kaoheModel","authc,perms[isCurrent]");
+//
+//
+//        filterChainDefinitionMap.put("/learning/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/setinfo/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/newsinfo/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/teachers/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/admin/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/question/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/reply/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/expmodel/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/kaohemodel/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/shiyan/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/testScoreManage/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/reportScoreManage/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/TreportGrade/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/lastTestScoreManage/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/totalscore/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/passTotalscore/**", "authc,perms[admin]");
+//        filterChainDefinitionMap.put("/studentManage/**", "authc,perms[admin]");
+
+//        filterChainDefinitionMap.put("/**", "authc");//需要登录访问的资源 , 一般将/**放在最下边
+
+        filterChainDefinitionMap.put("/**","anon");
+        //未授权页面
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/405");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
     }
 
@@ -132,12 +208,16 @@ public class ShiroConfig2 {
 //        设置登录成功地址
         shiroFilterFactoryBean.setSuccessUrl("/index");
         Map<String, Filter> filters = new HashMap<>();
+//        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+//        filterChainDefinitionMap.put("/newsinfo/newslist", "anon");
         filters.put("casFilter", casFilter);
         LogoutFilter logoutFilter = new LogoutFilter();
 //        设置登出
         logoutFilter.setRedirectUrl(casServerUrlPrefix + "/logout?service=" + shiroServerUrlPrefix);
 
         filters.put("logout", logoutFilter);
+
+//        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         shiroFilterFactoryBean.setFilters(filters);
 //        加载其他过滤配置

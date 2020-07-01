@@ -1,44 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 	<head>
-		<meta charset="utf-8" />
-		<title>仿真实验介绍</title>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
-		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+		<meta charset="UTF-8" />
+		<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>平台介绍 - 旅游大数据虚拟仿真实验教学平台</title>
+		<link rel="stylesheet" href="../../static/new/css/reset.css" />
+		<style>
+			.intro-page {
+				width: 1200px;
+				margin: 0 auto 50px;
+			}
+			.intro-title {
+				font-size: 28px;
+				text-align: center;
+				line-height: 3;
+				border-bottom: 1px solid #ccc;
+			}
+			.intro-con {
+				font-size: 16px;
+				line-height: 28px;
+				text-indent: 32px;
+			}
+		</style>
 	</head>
-    <style type="text/css">
-	    p{
-	     text-indent: 2em;
-	     font-size: 16px;
-	     line-height: 30px;
-	    }
-    </style>
-
 	<body>
-		
-		<div th:utext="${setInfo.set_platintro}" class="layui-container">
-			<h2><b>学校简介</b></h2><br>
-			<p>四川旅游学院是中国第一所独立设置的旅游类普通本科高等学校，2018年，被国务院侨办批准为“海外惠侨工程----
-			中餐繁荣计划”基地。作为四川省本科院校整体转型发展改革试点高校，学校坚持“地方性、应用型”办学定位，
-			不断深化教育改革，传承中国优秀烹饪旅游文化， 培养适应社会经济发展和烹饪旅游现代化发展的应用型人才。 </p>
-            <p>四川旅游学院是中国第一所独立设置的旅游类普通本科高等学校，2018年，被国务院侨办批准为“海外惠侨工程----
-                                 中餐繁荣计划”基地。作为四川省本科院校整体转型发展改革试点高校，学校坚持“地方性、应用型”办学定位，
-                                 不断深化教育改革，传承中国优秀烹饪旅游文化， 培养适应社会经济发展和烹饪旅游现代化发展的应用型人才。 </p>
-            <br>
-			<h2><b>功能介绍</b></h2><br>
-			<p>虚拟仿真实验教学管理平台主要功能有：查看师资力量，查看申报书，查看实验教学成果以见增加老师和学生之间的互动。</p>
-			<br>
-			<h2><b>目的</b></h2><br>
-			<p>虚拟仿真实验教学管理平台可以促进学生之间的相互交流，也可以通过相关平台来提高自己。</p>
-			<br>
+		<div class="intro-page">
+			<h1 class="intro-title">平台介绍</h1>
+			<div class="intro-con" th:utext="${setInfo.set_platstep}"></div>
 		</div>
-			
-		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
 	</body>
-
 </html>

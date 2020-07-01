@@ -1,259 +1,48 @@
-
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
-    <link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
-    <style type="text/css">
-        html {
-            font-size: 10px;
-
-        }
-        @media screen and (min-width: 1920px) {
-            html {
-                font-size: 16px;
-            }
-        }
-        @media screen and (min-width: 1366px) {
-            html {
-                font-size: 12px;
-            }
-        }
-
-        body{
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        .container{
-            position: relative;
-            top: 0rem;
-            left: 13%;
-            width: 90%;
-            margin: 0;
-            height: auto;
-
-        }
-        .step {
-            height: 50rem;
-            width: 83.1%;
-            border: 1px solid black;
-            position: relative;
-            top: 40rem;
-            left: 14.8%;
-            overflow: scroll;
-        }
-        #title{
-            height: 5rem;
-            background-color: #174f37;
-            /*width: 50%;*/
-        }
-        h2{
-            position: relative;
-            top: 1.2rem;
-            left: 0.3rem;
-            color: white;
-        }
-        .container{
-            margin-top: 1rem;
-            height: 20rem;
-            text-indent: 2em;
-            /*width: 50%;*/
-        }
-        .introduce p{
-            height: 4rem;
-        }
-        #contain1{
-            border: 1px solid black;
-            width: 45%;
-
-        }
-        .introduce img{
-            height: 45%;
-            width: 35%;
-            margin-bottom: 2%;
-            margin-left: 30%;
-        }
-        #contain2{
-            border: 1px solid black;
-            width:45%;
-            position: absolute;
-            top: 0rem;
-            left: 49%;
-            height: 53.9rem;
-        }
-        .step{
-            margin-left: -6%;
-        }
-        /*.step p{*/
-        /*    height: 7rem;*/
-        /*}*/
-        button{
-            position: relative;
-            top: 37rem;
-            left: 51.4%;
-
-
-        }
-        #return input{
-            /*position: absolute;*/
-            /*top: 1.65rem;*/
-            /*right: 15%;*/
-            /*font-size: 1.6rem;*/
-            margin-left: 83%;
-            background: #174f37;
-        }
-
-        .content p{
-            height: 5rem;
-        }
-        .content img{
-            height: 40%;
-            width: 40%;
-            margin-bottom: 2%;
-            margin-left: 25%;
-        }
-        /*.step img{*/
-        /*    margin-bottom: 1%;*/
-        /*    width: 70%;*/
-        /*    margin-left: 5rem;*/
-        /*    height: 70%;*/
-        /*}*/
-        .data a{
-            color: cornflowerblue;
-        }
-        .data a:hover{
-            color: gray;
-            cursor: pointer;
-        }
-        .tiao a{
-            background: white;
-            border: 1px solid #ebebeb;
-            color: #174f37;
-            margin-top: 15px;
-            font-weight: bold;
-            width: 80%;
-            text-align: left;
-        }
-        .layui-btn-container .layui-btn{
-            margin-left: 80%;
-            background-color:#174f37 ;
-        }
-        #into{
-            margin: 40% 0 5% 45%;
-        }
-    </style>
-</head>
-
-<body>
-<div id="return" class="layui-btn-container" style="margin-top: 10px;">
-    <a th:href="@{/expmodel/moduleDispathcher}" class="layui-btn" >返回上一级</a>
-    <!--					<button type="button" class="layui-btn">删除</button>-->
-</div>
-<div class="container" style="margin-left: -6%;">
-    <div id="contain1" th:object="${exp}">
-        <div class="introduce" >
-            <div id="title">
-                <h2 align="center">实验介绍</h2>
-            </div>
-            <div th:utext="${exp.introduce}">
-
-            </div>
-<!--            <p style="height: 6rem;">本项目将使用 Bootstrap 框架制作餐饮页面。主要实验内容是完成一个响应 式的餐饮类电商网站。 </p>-->
-<!--            <img src="../../static/images/img_shiyan/预览图.png" />-->
-        </div>
-        <div class="purpose" >
-            <div id="title">
-                <h2 align="center">实验目的</h2>
-            </div>
-            <div th:utext="${exp.purpose}">
-
-            </div>
-<!--            <p style="height: 13rem;">本次实验的目的是让大家熟悉前端框架 Bootstrap。使用 Bootstrap 框架制作 前端网页，主要内容包括 Bootstrap 栅格系统原理、 CSS 组件、JavaScript 插件等， 通过学习与实践掌握快速制作适合各种终端的精美网页。</p>-->
-
-        </div>
-    </div>
-    <div id="contain2">
-        <div class="theory">
-            <div id="title">
-                <h2 align="center">实验原理</h2>
-            </div>
-            <div  th:utext="${exp.principle}">
-
-            </div>
-<!--            <p style="height: 10rem;">Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。为开发人员创建接口提供了一个简洁统一的解决方案。包含了功能强大的内置组件，易于定制，还提供了基于 Web 的定制。并且它是是开源的。</p>-->
-        </div>
-
-
-        <div class="content" >
-            <div id="title">
-                <h2 align="center">实验内容</h2>
-            </div>
-            <div th:utext="${exp.m_content}">
-
-            </div>
-<!--            <p style="height: 5rem;">1. 实现响应式布局 2. 完成网页 header 部分 3. 完成网页搜索模块 4. 完成热卖商品模块 5. 完成特色推荐模块 6. 完成轮播广告模块 7. 完成 footer 部分 8. 整合所有模块 </p>-->
-<!--            <img src="../../static/images/img_shiyan/结构图.PNG" />-->
-        </div>
-        <div class="data">
-            <div id="title">
-                <h2 align="center">实验资料</h2>
-            </div>
-            <table class="layui-table">
-                <tr>
-                    <td>
-                        资料路径
-                    </td>
-                </tr>
-                <tr th:each="p:${path}">
-                    <td>
-                        <a th:href="${p}" th:text="${p}"></a>
-                    </td>
-                </tr>
-            </table>
-<!--            <div class="tiao">-->
-<!--                <a href="http://www.layui.com" class="layui-btn">http://www.layui.com</a>-->
-<!--            </div>-->
-<!--            <p style="height: 7rem;"><a href="">https://www.baidu.com/</a></p>-->
-
-        </div>
-    </div>
-</div>
-
-<div class="step"  >
-    <div id="title">
-        <h2 align="center">实验步骤</h2>
-    </div>
-    <div th:utext="${exp.m_step}">
-
-    </div>
-<!--    <p>1. 本任务要完成网页 header 部分的页面效果。 该导航页面主要由两部分构成，添加背景色的div标签（绿色横条）和nav 标签，为了更好的体现 HTML5 的语义化，整个 header 部分所有内容应该包含在 一个header标签中。-->
-<!--    </p>-->
-<!--    <img src="../../static/images/img_shiyan/header.PNG" />-->
-<!--    <p>2、完成网页搜索模块 </p>-->
-<!--    <img src="../../static/images/img_shiyan/step2.PNG" />-->
-<!--    <p>3、完成热卖商品模。</p>-->
-<!--    <img src="../../static/images/img_shiyan/step3.PNG" />-->
-<!--    <p>4、完成特色推荐模块 。</p>-->
-<!--    <img src="../../static/images/img_shiyan/step4.PNG" />-->
-<!--    <p>5、完成轮播广告模块。</p>-->
-<!--    <img src="../../static/images/img_shiyan/step5.PNG" />-->
-<!--    <p>6、完成footer，整合所有部分。</p>-->
-<!--    <img src="../../static/images/img_shiyan/step6.PNG" />-->
-</div>
-
-<!--<a class="layui-btn" id="into" style="background-color: #174f37;" th:href="${exp.m_inurl}">进入实验平台</a>-->
-
-<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-<!--<script>-->
-<!--    document.getElementById("step").className = "";-->
-<!--</script>-->
-</body>
-
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>学习 - 四川旅游学院虚拟仿真实验教学管理平台</title>
+		<link rel="stylesheet" href="../../static/new/css/reset.css" />
+		<link rel="stylesheet" href="../../static/new/css/study.css" />
+	</head>
+	<body>
+		<div class="study-page">
+			<a th:href="@{/expmodel/moduleDispathcher}" class="back-btn">返回</a>
+			<div class="study-list">
+				<div class="study-item">
+					<div class="study-item-header">实验介绍</div>
+					<div class="study-item-body" th:utext="${exp.introduce}"></div>
+				</div>
+				<div class="study-item">
+					<div class="study-item-header">实验目的</div>
+					<div class="study-item-body" th:utext="${exp.purpose}"></div>
+				</div>
+				<div class="study-item">
+					<div class="study-item-header">实验原理</div>
+					<div class="study-item-body" th:utext="${exp.principle}"></div>
+				</div>
+				<div class="study-item">
+					<div class="study-item-header">实验内容</div>
+					<div class="study-item-body" th:utext="${exp.m_content}"></div>
+				</div>
+				<div class="study-item">
+					<div class="study-item-header">实验资料</div>
+					<div class="study-item-body">
+						<p>资料路径：</p>
+						<div th:each="p:${path}">
+							<p><a th:href="${p}" th:text="${p}"></a></p>
+						</div>
+					</div>
+				</div>
+				<div class="study-item">
+					<div class="study-item-header">实验步骤</div>
+					<div class="study-item-body study-step" th:utext="${exp.m_step}"></div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

@@ -6,14 +6,8 @@
  */
 
 package com.coolwen.experimentplatform.controller;
-import com.coolwen.experimentplatform.dao.ExpModelRepository;
-import com.coolwen.experimentplatform.dao.NewsInfoRepository;
-import com.coolwen.experimentplatform.dao.StudentRepository;
-import com.coolwen.experimentplatform.dao.TeacherRepository;
-import com.coolwen.experimentplatform.model.ExpModel;
-import com.coolwen.experimentplatform.model.NewsInfo;
-import com.coolwen.experimentplatform.model.SetInfo;
-import com.coolwen.experimentplatform.model.Student;
+import com.coolwen.experimentplatform.dao.*;
+import com.coolwen.experimentplatform.model.*;
 import com.coolwen.experimentplatform.service.NewsInfoService;
 import com.coolwen.experimentplatform.service.SetInfoService;
 import org.apache.shiro.SecurityUtils;
@@ -44,6 +38,8 @@ public class NewsInfoController {
     NewsInfoRepository newsInfoRepository;
     @Autowired
     ExpModelRepository expModelRepository;
+    @Autowired
+    KaoheModelRepository kaoheModelRepository;
     @Autowired
     NewsInfoService newsInfoService;
     @Autowired
@@ -92,11 +88,17 @@ public class NewsInfoController {
         //平台统计
         //查询实验模块总数
         int modenum = (int) expModelRepository.count();
+        //查询考核模块数量
+        int kaohenum = (int) kaoheModelRepository.count();
         model.addAttribute("modenum",modenum);
+        model.addAttribute("kaohenum",kaohenum);
         System.out.println(modenum);
         //查询平台总用户数
         int studentnum = (int) studentRepository.count();
         int teachernum = (int) teacherRepository.count();
+        //校外人数
+        int xiaowainum = (int) studentRepository.xiaowainum();
+        model.addAttribute("xiaowainum",xiaowainum);
         model.addAttribute("usernum",studentnum+teachernum);
         //查询参与考核人数
         int studentmodel = newsInfoService.findAllmodelpeople();
@@ -106,6 +108,20 @@ public class NewsInfoController {
         int passpeople = newsInfoService.findAllPass();
         model.addAttribute("passpeople",passpeople);
         System.out.println(passpeople);
+
+        //实验成绩统计
+        //往期参与考核的全部学生
+        int allpasspeople = newsInfoService.findAllpasspeople();
+        //往期参与考核的优秀学生（85分以上）
+        int excellent = newsInfoService.findExcellentpeople();
+        //往期参与考核的中等学生（60分-85分）
+        int qualified = newsInfoService.findQualifiedpeople();
+        //往期参与考核的学生（60分以下）
+        int unqualified = newsInfoService.findUnqualifiedpeople();
+        model.addAttribute("allpasspeople",allpasspeople);
+        model.addAttribute("excellentstu",excellent);
+        model.addAttribute("qualifiedstu",qualified);
+        model.addAttribute("unqualifiedstu",unqualified);
 
         //访问量
         // 获取访问量信息
@@ -120,10 +136,13 @@ public class NewsInfoController {
     @GetMapping(value = "/shiyan")
     public String model(Model model, HttpSession session){
 
+        System.out.println("shiyan");
+
         Student student = (Student) session.getAttribute("student");
         //暂时做了修改，如果没有登录，跳转到登录页
         if(student == null){
-            return "home_page/login";
+//            return "home_page/login";
+            return "redirect:/405";
         }
 
         model.addAttribute("disMid",false);

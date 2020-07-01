@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 /**
  *
@@ -41,14 +42,25 @@ public class ReplyController {
 
     //老师完成添加回复操作
     @PostMapping(value = "/{id}/add1")
-    public String add(@PathVariable int id, Reply reply, String uploadfile, Session session) {
+    public String add(@PathVariable int id, Reply reply, String uploadfile, HttpSession session) {
 
 //        回复的问题地存为qid
         reply.setQid(id);
         System.out.println("插入的回复保存为：" + id);
 
 //        seesion获得老师信息
-        Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
+        Admin admin = null;
+        try {
+            admin = (Admin) SecurityUtils.getSubject().getPrincipal();
+        }catch (Exception e)
+        {
+
+        }
+        if(admin == null) {
+
+            admin = new Admin();
+            admin.setUname("管理教师");
+        }
 
 //        插入回复
         reply.setReply_pname(admin.getUname());//获得并存入回复名字
@@ -63,14 +75,15 @@ public class ReplyController {
 
     //学生回复并操作
     @PostMapping(value = "/add2/{id}")
-    public String add1(@PathVariable int id, Reply reply, Session session) {
+    public String add1(@PathVariable int id, Reply reply, HttpSession session) {
 
 //        回复的问题地存为qid
         reply.setQid(id);
         System.out.println("插入的回复保存为：" + id);
 
 //        seesion获得学生信息
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
 
 //        插入回复
         reply.setReply_pname(student.getStuUname());//获得并存入回复名字

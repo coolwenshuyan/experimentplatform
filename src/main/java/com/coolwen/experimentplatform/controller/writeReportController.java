@@ -84,14 +84,16 @@ public class writeReportController {
      */
     @GetMapping(value = "/{mid}/Timu" )
     public String GiveAmark(Model model,
-                            @PathVariable("mid")int mid){
+                            @PathVariable("mid")int mid,
+                            HttpSession session){
 
         //获得所有报告（排序）
         List<Report> reports= reportService.findByMidpaixu(mid);
         model.addAttribute("TiMuList",reports);
 
         //获取当前登录的学生id
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         int stuId = student.getId();
 
         //计算当前模块学生是否答题，没有答题，则计算结果为0
@@ -132,11 +134,12 @@ public class writeReportController {
      */
     @PostMapping(value = "/{mid}/Timu" )
     public String giveamark(Model model, HttpServletRequest request,
-                            HttpSession httpSession,
+                            HttpSession session,
 //                            @RequestParam(required = true, defaultValue = "1") int stuId,
                             @PathVariable("mid")int mid){
         //获取当前登录的学生id
-        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+//        Student student = (Student) SecurityUtils.getSubject().getPrincipal();
+        Student student = (Student) session.getAttribute("student");
         int stuId=student.getId();
 
         try {

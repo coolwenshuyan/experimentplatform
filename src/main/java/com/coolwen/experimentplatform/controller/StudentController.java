@@ -193,13 +193,19 @@ public class StudentController {
 
     //通过审核操作
     @GetMapping("/passReviewd/{id}")
-    @ResponseBody
     public String passReview(@PathVariable("id") int id){
         Student student = studentservice.findStudentById(id);
         student.setStuCheckstate(true);
         studentservice.saveStudent(student);
+        return "redirect:/studentManage/toBeReviewd";
+    }
+
+    @GetMapping("/passStuMessage/{id}")
+    @ResponseBody
+    public String passStuMessage(@PathVariable("id")int id){
+        Student student = studentservice.findStudentById(id);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",student);
+        jsonObject.put("stu",student);
         return String.valueOf(jsonObject);
     }
 
@@ -214,12 +220,23 @@ public class StudentController {
 
     @PostMapping("/giveDocker/{id}")
     public String giveDocker(@PathVariable("id")int id, String dc_url,String dc_start_datetime,String dc_end_datetime){
+        if(dc_url.equals("noValue")){
+            return "redirect:/studentManage/toBeReviewd";
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date starsDate = null;
         Date endDate = null;
         try {
-            starsDate = simpleDateFormat.parse(dc_start_datetime);
-            endDate = simpleDateFormat.parse(dc_end_datetime);
+            if(dc_start_datetime != ""){
+                starsDate = simpleDateFormat.parse(dc_start_datetime);
+            }else {
+                starsDate = simpleDateFormat.parse("1314-06-21 00:00:00");
+            }
+            if(dc_end_datetime != ""){
+                endDate = simpleDateFormat.parse(dc_end_datetime);
+            }else {
+                endDate = simpleDateFormat.parse("1314-06-21 00:00:00");
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -244,9 +261,23 @@ public class StudentController {
         stuDocker.setStuXuehao(student.getStuXuehao());
         if(docker != null){
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date flag = null;
+            try {
+                flag = simpleDateFormat.parse("1314-06-21 00:00:00");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             stuDocker.setDc_url(docker.getDc_url());
-            stuDocker.setDc_start_datetime(simpleDateFormat.format(docker.getDc_start_datetime()));
-            stuDocker.setDc_end_datetime(simpleDateFormat.format(docker.getDc_end_datetime()));
+            if(flag.equals(docker.getDc_start_datetime())){
+                stuDocker.setDc_start_datetime(null);
+            }else {
+                stuDocker.setDc_start_datetime(simpleDateFormat.format(docker.getDc_start_datetime()));
+            }
+            if(flag.equals(docker.getDc_end_datetime())){
+                stuDocker.setDc_end_datetime(null);
+            }else {
+                stuDocker.setDc_end_datetime(simpleDateFormat.format(docker.getDc_end_datetime()));
+            }
         }
         jsonObject.put("docker",stuDocker);
         return String.valueOf(jsonObject);
@@ -258,8 +289,16 @@ public class StudentController {
         Date starsDate = null;
         Date endDate = null;
         try {
-            starsDate = simpleDateFormat.parse(dc_start_datetime);
-            endDate = simpleDateFormat.parse(dc_end_datetime);
+            if(dc_start_datetime != ""){
+                starsDate = simpleDateFormat.parse(dc_start_datetime);
+            }else {
+                starsDate = simpleDateFormat.parse("1314-06-21 00:00:00");
+            }
+            if(dc_end_datetime != ""){
+                endDate = simpleDateFormat.parse(dc_end_datetime);
+            }else {
+                endDate = simpleDateFormat.parse("1314-06-21 00:00:00");
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }

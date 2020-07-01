@@ -1,68 +1,59 @@
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all">
-		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/laydate.css"/>
-		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/laydate.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css" />
 	</head>
 	<style type="text/css">
-		.main_con{
+		.main_con {
 			margin-left: 4%;
 		}
 		.layui-col-md4 {
 			padding: 1% 0;
 		}
-		.content{
+		.content {
 			width: 88%;
-			box-shadow:2px 2px 10px #000;
+			border: 1px solid #ccc;
 		}
-		.name{
+		.name {
 			background-color: #f8f8f8;
-			padding: 10px 0;
+			line-height: 36px;
 			text-align: center;
 		}
 
-		.change .layui-nav{
-			background-color:   rgba(97,96,96,.2);
+		.change .layui-nav {
+			background-color: rgba(97, 96, 96, 0.2);
 			text-align: center;
 		}
 
-		.change .layui-nav .layui-nav-item a{
+		.change .layui-nav .layui-nav-item a {
 			color: #61b577;
-			padding:0 5px ;
+			padding: 0 5px;
 			font-size: 14px;
 			font-weight: bold;
-
 		}
-		.img img{
+		.img img {
 			height: 198px;
 		}
-		.page{
-			margin: 0 auto;
-			width: 22%;
-		}
-
-		.fir_h5{
+		.fir_h5 {
 			display: inline;
 			text-align: left;
 			margin: 0 29px;
 		}
-		.layui-btn{
+		.layui-btn {
 			background-color: #174f37;
 		}
 		.layui-nav {
 			padding: 0 13px;
 		}
 		/*实验名称*/
-		.tit{
+		.tit {
 			width: 100%;
 			white-space: nowrap;
 			overflow: hidden;
@@ -72,66 +63,55 @@
 
 	<body>
 		<div class="main_con">
-		  <div class="layui-row">
-		     <div class="layui-col-md4 clearfix" th:each="model:${list}">
-		    		<div class="content">
-		    			 <div class="img" >
-		     				<img src="../../static/images/img_shiyan/5.jpg" th:src="${model.getImageurl()}" width="100%"/>
-				     	</div>
-				     	<div class="intro">
-				     		<div class="name" >
-				     			<h3 class="tit" th:text="${model.m_name}">JAVA实验二(已完成，90分)</h3><br>
-<!--				     			<h3>权重 10%</h3>-->
-				     		</div>
-				     		<div class="change" >
-				     			<ul class="layui-nav" lay-filter="" >
-								  <li class="layui-nav-item "><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
-								  <li class="layui-nav-item "><a th:href="@{|/kaoshi/${model.m_id}/toExamPageList|}">模块测试</a></li>
-								  <li class="layui-nav-item">
-									  <span th:if="${docker}!= null">
-										  <a th:href="${docker.getDc_url()}">进入实验</a>
-									  </span>
-									  <span th:if="${docker}== null">
-										  <a onclick="alter()" style="width: 100%;height: 100%">进入实验</a>
-									  </span>
-								  </li>
-								  <li class="layui-nav-item">
-									  <span th:if="${model.report_type == false}">
-										  <a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a>
-									  </span>
-									  <span th:if="${model.report_type == true}">
-										  <a th:href="@{|/collegereport/info/${model.m_id}|}">填写报告</a>
-									  </span>
-								  </li>
-								  
+			<div class="layui-row">
+				<div class="layui-col-md4 clearfix" th:each="model:${list}">
+					<div class="content">
+						<div class="img">
+							<img th:src="${model.getImageurl()}" width="100%" />
+						</div>
+						<div class="intro">
+							<div class="name">
+								<h3 class="tit" th:text="${model.m_name}"></h3>
+							</div>
+							<div class="change">
+								<ul class="layui-nav" lay-filter="">
+									<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${model.m_id}|}">理论学习</a></li>
+									<li class="layui-nav-item"><a th:href="@{|/kaoshi/${model.m_id}/toExamPageList|}">模块测试</a></li>
+									<li class="layui-nav-item">
+										<span th:if="${docker}!= null">
+											<a th:href="${docker.getDc_url()}">进入实验</a>
+										</span>
+										<span th:if="${docker}== null">
+											<a onclick="alter()" style="width: 100%; height: 100%;">进入实验</a>
+										</span>
+									</li>
+									<li class="layui-nav-item">
+										<span th:if="${model.report_type == false}">
+											<a th:href="@{|/WriteReport/${model.m_id}/Timu|}">填写报告</a>
+										</span>
+										<span th:if="${model.report_type == true}">
+											<a th:href="@{|/collegereport/info/${model.m_id}|}">填写报告</a>
+										</span>
+									</li>
 								</ul>
-				     		</div>
-				     	</div>
-		    		</div>
-		     </div>
-		  </div>
-			<div class="layui-card-body ">
-				<div class="page">
-					<div>
-						<a class="prev layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasPrevious()}?${list.number}-1:0)}">上一页</a>
-						<a class="next layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasNext()}?${list.number}+1:${list.number})}">下一页</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		
+		</div>
+		<div class="layui-card-body" style="text-align: center;">
+			<a class="prev layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasPrevious()}?${list.number}-1:0)}">上一页</a>
+			<a class="next layui-btn" th:href="@{/expmodel/alltestModel(pageNum=${list.hasNext()}?${list.number}+1:${list.number})}">下一页</a>
 		</div>
 
-		
-		
-		<script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../static/js/js_shiyan/laypage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/layui.all.js"></script>
+		<script src="../../static/js/layui.js"></script>
+		<script src="../../static/js/js_shiyan/laypage.js"></script>
 		<script>
 			function alter() {
-				window.alert("Docker地址异常，请联系管理员后重试")
+				window.alert('Docker地址异常，请联系管理员后重试')
 			}
 		</script>
-		
 	</body>
-
 </html>

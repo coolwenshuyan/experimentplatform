@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+		<!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+		<meta name="renderer" content="webkit">
+		<!--国产浏览器高速模式-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="穷在闹市" />
+		<!-- 作者 -->
+		<meta name="revised" content="穷在闹市.v3, 2019/05/01" />
+		<!-- 定义页面的最新版本 -->
+		<meta name="description" content="网站简介" />
+		<!-- 网站简介 -->
+		<meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+		<title>四川旅游学院出品</title>
+
+		<!-- 公共样式 开始 -->
+		<link rel="shortcut icon" href="../../static/images/logo.png"/>
+		<link rel="bookmark" href="../../static/images/logo.png"/>
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/iconfont.css">
+		<script type="text/javascript" src="../../static/js/jquery10.min.js" ></script>
+		<link rel="stylesheet" type="text/css" href="../../static/css/layui.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/css_shiyan/style.css"/>
+	    <!--[if lt IE 9]>
+	      	<script src="../../static/js/html5shiv.min.js"></script>
+	      	<script src="../../static/js/respond.min.js"></script>
+	    <![endif]-->
+		<script type="text/javascript" src="../../static/js/layui.js"></script>
+		<!-- 滚动条插件 -->
+		<link rel="stylesheet" type="text/css" href="../../static/css/jquery.mCustomScrollbar.css">
+		<script src="../../static/js/jquery-ui-1.10.4.min.js"></script>
+		<script src="../../static/js/jquery.mousewheel.min.js"></script>
+		<script src="../../static/js/jquery.mCustomScrollbar.min.js"></script>
+		<script src="../../static/js/cframe.js"></script><!-- 仅供所有子页面使用 -->
+		<!-- 公共样式 结束 -->
+		
+		<link rel="stylesheet" type="text/css" href="../../static/css/frameStyle.css">
+		<script type="text/javascript" src="../../static/js/frame.js" ></script>
+		<style>
+			.frameMenu{
+				width: 182px;
+				/* background-color: #1c1c1c; */
+				float: left;
+				background: #174f37;
+				font-size: 16px;
+			}
+			.frameTop{
+				width: 120%;
+				height: 60px;
+				background-color: #FFF;
+				position: relative;
+			}
+			.frameTop .topMenu ul li{
+				border: none;
+			}
+			.inf_img{
+				width: 11%;
+				margin-top: 3%;
+			}
+			.span1{
+				padding-left: 10px;
+				font-size: 18px;
+				color: black;
+			}
+			.frameTop .topMenu ul li a:hover i{
+				color: white;
+			}
+			.frameTop .topMenu ul li a i{
+				color: white;
+			}
+		</style>
+		<script>
+			//处理菜单样式变化
+			$(_this).css("cssText", "background-color:#009688 !important;").css("color","#FFF");
+			$(_this).parent().siblings().find("a").css("cssText", "background-color:#transparent").css("color","#c2c2c2");
+			$(_this).parent().parent().parent().siblings().find("dl dt a").css("cssText", "background-color:#transparent").css("color","#c2c2c2")
+
+		</script>
+	</head>
+
+	<body>
+
+		<!-- 左侧菜单 - 开始 -->
+
+		<div class="frameMenu">
+		    <div class="logo">
+		        <img src="../../static/images/logo.png"/>
+		        <div class="logoText">
+		            <h1>实验大厅</h1>
+		        </div>
+		    </div>
+		    <div class="menu">
+		        <ul>
+		        	<!--<li>
+		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/qdAPI.html',this)"><i class="iconfont icon-zhishi left"></i>首页
+		                </a>
+		                
+		                
+		                <dl>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_add.html',this)">添加分管</a></dt>
+		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/agent/agent_list.html',this)">分管列表</a></dt>
+		                </dl>
+		            </li>-->
+		        	<!--<li>
+		                <a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('tgls/iconfont.html',this)"><i class="iconfont icon-huojian left"></i>iconfont字体库</a>
+		           	</li>-->
+		        	<li>
+		                <a class="menuFA" href="/newsinfo/newslist">首页</a>
+		            </li>
+
+					<li>
+						<a class="menuFA" href="javascript:void(0)">实验大厅<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<shiro:hasRole name="isCurrent">
+								<dt><a href="javascript:void(0)" onclick="menuCAClick('/expmodel/kaoheModel',this)">考核实验</a></dt>
+							</shiro:hasRole>
+<!--							<dt><a href="javascript:void(0)" onclick="menuCAClick('/expmodel/addTheory',this)">理论学习添加</a></dt>-->
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('/expmodel/alltestModel',this)">全部实验</a></dt>
+
+
+						</dl>
+							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/changeExpModel.html',this)">实验模块测试</a></dt>-->
+					</li>
+
+					<shiro:hasRole name="inClass">
+						<li>
+							<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">理论测试<i class="iconfont icon-dajiantouyou right"></i></a>
+							<dl>
+								<dt><a href="javascript:void(0)" onclick="menuCAClick('/kaoshi/-1/toExamPageList',this)">理论测试</a></dt>
+							</dl>
+							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('tgls/goodsManage/goodsType_list.html',this)">考核模块设置</a></dt>-->
+						</li>
+					</shiro:hasRole>
+
+
+
+					<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('学生账号管理/X-admin/student_list.html',this)">学生账号管理</a></dt>-->
+					<shiro:hasRole name="inClass">
+						<li>
+							<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">查看实验成绩<i class="iconfont icon-dajiantouyou right"></i></a>
+							<dl>
+								<dt><a href="javascript:void(0)" onclick="menuCAClick('/grade/score',this)">实验成绩汇总</a></dt>
+
+								<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
+							</dl>
+						</li>
+					</shiro:hasRole>
+
+
+
+					<li>
+						<a class="menuFA" href="javascript:void(0)" onclick="menuCAClick('',this)">帮助中心<i class="iconfont icon-dajiantouyou right"></i></a>
+						<dl>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('/setinfo/jiesao',this)">仿真平台介绍</a></dt>
+							<dt><a href="javascript:void(0)" onclick="menuCAClick('/setinfo/aboutus',this)">关于我们</a></dt>
+
+							<!--<dt><a href="javascript:void(0)" onclick="menuCAClick('实验模块测试/实验模块/Test/reportManagement.html',this)">填写报告管理</a></dt>-->
+						</dl>
+					</li>
+
+		        	<!--<li>
+		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-caiwu left"></i></a>
+		           	</li>-->
+<!--		        	<li>-->
+<!--		                <a class="menuFA" href="javascript:void(0)"><i class="iconfont icon-icon left"></i>其他页面<i class="iconfont icon-dajiantouyou right"></i></a>-->
+<!--		                <dl>-->
+<!--		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../login/login.html',this)">登录页面</a></dt>-->
+<!--		                	<dt><a href="javascript:void(0)" onclick="menuCAClick('../res/add.html',this)">注册页面</a></dt>-->
+<!--		                </dl>-->
+<!--		           	</li>-->
+		        </ul>
+		    </div>
+		</div>
+		<!-- 左侧菜单 - 结束 -->
+
+		
+		<div class="main">
+			<!-- 头部栏 - 开始 -->
+			<div class="frameTop">
+				<img class="jt" src="../../static/images/top_jt.png"/>
+				<div class="topMenu">
+					<ul>
+<!--						<li><a href="javascript:void(0)" onclick="menuCAClick('../home_shiyan/change.html',this)"><img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img"><i class="iconfont icon-yonghu1"></i>管理员</a></li>-->
+<!--						<li><a href="javascript:void(0)" onclick="menuCAClick('tgls/modify_password.html',this)"><i class="iconfont icon-xiugaimima"></i>修改密码</a></li>-->
+						<li><a href="javascript:void(0)" onclick="menuCAClick('/setstudentinfo/update',this)"><img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img"><i class="iconfont icon-yonghu1"></i><span class="span1">test</span></a></li>
+					</ul>
+				</div>
+<!--				<span class="information layui-col-xs2 layui-col-xs-offset7 topMenu">-->
+<!--				<p class="layui-col-xs7">test</p>-->
+<!--				<a href="change.html">-->
+<!--					<img src="../../static/images/img_shiyan/logo1.png" class="layui-col-xs5 inf_img">-->
+<!--				</a>-->
+<!--			</span>-->
+			</div>
+
+			<!-- 头部栏 - 结束 -->
+			
+			<!-- 核心区域 - 开始 -->
+			<div class="frameMain">
+<!--				<div class="title" id="frameMainTitle">-->
+<!--					<span><i class="iconfont icon-xianshiqi"></i>后台首页</span>-->
+<!--				</div>-->
+				<hr>
+				<div class="con">
+					<iframe id="mainIframe" src="/expmodel/alltestModel" scrolling=""></iframe>
+				</div>
+			</div>
+			<!-- 核心区域 - 结束 -->
+		</div>
+<!--		<script src="../../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<script th:inline="javascript">
+			(function (arg) {
+				var disMid = [[${disMid}]]
+				console.log(disMid)
+				if(disMid == false){
+					$("#mainIframe").attr("src","/expmodel/alltestModel");
+				}else {
+					$("#mainIframe").attr("src","/expmodel/home_exp/"+disMid);
+				}
+			})(jQuery);
+
+		</script>
+	</body>
+
+</html>
