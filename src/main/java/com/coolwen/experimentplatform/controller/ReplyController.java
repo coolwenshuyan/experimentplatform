@@ -54,11 +54,13 @@ public class ReplyController {
             admin = (Admin) SecurityUtils.getSubject().getPrincipal();
         }catch (Exception e)
         {
+
+        }
+        if(admin == null) {
+
             admin = new Admin();
             admin.setUname("管理教师");
         }
-
-
 
 //        插入回复
         reply.setReply_pname(admin.getUname());//获得并存入回复名字
