@@ -13,7 +13,7 @@
         <div class="experiment-page">
             <div class="experiments">
                 <div class="experiment" th:each="model:${k}">
-                    <div class="exp-cover"><img src="${model.m_imageurl}" /></div>
+                    <div class="exp-cover"><img th:src="${model.m_imageurl}" /></div>
                     <div class="exp-title" th:text="${model.m_name}"></div>
                     <div class="exp-infos">
                         <div class="exp-info">测试：<span th:text="${model.m_teststate == false }?'未完成':'已完成'"></span></div>

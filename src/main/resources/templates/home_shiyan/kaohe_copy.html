@@ -92,7 +92,7 @@
 						<ul class="layui-nav" lay-filter="" >
 							<li class="layui-nav-item"><a th:href="@{|/expmodel/theoryStudy/${k.m_id}|}">理论学习</a></li>
 							<li class="layui-nav-item"><a th:href="@{|/kaoshi/${k.m_id}/toExamPageList|}">模块测试</a></li>
-							<li class="layui-nav-item"><a th:href="${k.inurl}">进入实验</a></li>
+							<li class="layui-nav-item"><a th:href="${docker.getDc_url()}">进入实验</a></li>
 							<li class="layui-nav-item">
 								<span th:if="${k.report_type == false}">
 									<a th:href="@{|/WriteReport/${k.m_id}/Timu|}">填写报告</a>
