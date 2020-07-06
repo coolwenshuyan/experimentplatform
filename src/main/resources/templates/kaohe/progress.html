@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../static/css/code.css"/>
+    <title>考核模块进度查询</title>
+    <style>
+        select{
+            width: 115px;
+            height: 30px;
+            /*color: green;*/
+        }
+        .layui-input-block{
+            line-height: 40px;
+        }
+        .layui-card-body img{
+            height: 170px;
+            width: 100%;
+            text-align: center;
+        }
+        .layui-card-body p{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs4">
+                <div class="layui-form-item ">
+                    <label class="layui-form-label">课程选择</label>
+                    <div class="layui-input-block">
+                        <select name="interest" lay-filter="aihao">
+                            <option value=""></option>
+                            <option value="0">写作</option>
+                            <option value="1" selected="">阅读</option>
+                            <option value="2">游戏</option>
+                            <option value="3">音乐</option>
+                            <option value="4">旅行</option>
+                        </select>
+                        </div>
+                </div>
+            </div>
+            <div class="layui-col-xs4">
+                <div class="layui-form-item ">
+                    <label class="layui-form-label">班级选择</label>
+                    <div class="layui-input-block">
+                        <select name="interest" lay-filter="aihao">
+                            <option value=""></option>
+                            <option value="0">18信管01</option>
+                            <option value="1" selected="">18信管06</option>
+                            <option value="2">18信管05</option>
+                            <option value="3">18信管02</option>
+                            <option value="4">18信管03</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs4">
+                <button type="button" class="layui-btn">查询</button>
+            </div>
+        </div>
+
+        <div style="padding: 20px;">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md4">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <img src="../../static/images/img_shiyan/java.jpg">
+                            <div style="text-align: center">
+                                <span style="margin-right: 10px">模块测试</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>  <br>
+                                <span style="margin-right: 10px">模块报告</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>
+                            </div>
+                            <div style="text-align: center">
+                                <button type="button" class="layui-btn layui-btn-primary" style="height: 32px;line-height:32px;">查看详情</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <img src="../../static/images/img_shiyan/java.jpg">
+                            <div style="text-align: center">
+                                <span style="margin-right: 10px">模块测试</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>  <br>
+                                <span style="margin-right: 10px">模块报告</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>
+                            </div>
+                            <div style="text-align: center">
+                                <button type="button" class="layui-btn layui-btn-primary" style="height: 32px;line-height:32px;">查看详情</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <img src="../../static/images/img_shiyan/java.jpg">
+                            <div style="text-align: center">
+                                <span style="margin-right: 10px">模块测试</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>  <br>
+                                <span style="margin-right: 10px">模块报告</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>
+                            </div>
+                            <div style="text-align: center">
+                                <button type="button" class="layui-btn layui-btn-primary" style="height: 32px;line-height:32px;">查看详情</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md4">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <img src="../../static/images/img_shiyan/java.jpg">
+                            <div style="text-align: center">
+                                <span style="margin-right: 10px">模块测试</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>  <br>
+                                <span style="margin-right: 10px">模块报告</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>
+                            </div>
+                            <div style="text-align: center">
+                                <button type="button" class="layui-btn layui-btn-primary" style="height: 32px;line-height:32px;">查看详情</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <img src="../../static/images/img_shiyan/java.jpg">
+                            <div style="text-align: center">
+                                <span style="margin-right: 10px">模块测试</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>  <br>
+                                <span style="margin-right: 10px">模块报告</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>
+                            </div>
+                            <div style="text-align: center">
+                                <button type="button" class="layui-btn layui-btn-primary" style="height: 32px;line-height:32px;">查看详情</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <img src="../../static/images/img_shiyan/java.jpg">
+                            <div style="text-align: center">
+                                <span style="margin-right: 10px">模块测试</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>  <br>
+                                <span style="margin-right: 10px">模块报告</span>
+                                <span style="margin-right: 10px">已提交：12人</span>
+                                <span>未提交：30人</span>
+                            </div>
+                            <div style="text-align: center">
+                                <button type="button" class="layui-btn layui-btn-primary" style="height: 32px;line-height:32px;">查看详情</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <script src="../../static/js/layui.all.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../static/js/layui.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
